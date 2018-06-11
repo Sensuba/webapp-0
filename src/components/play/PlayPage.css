@@ -1,0 +1,18 @@
+.sensuba-card-container {
+
+	display: flex;
+	justify-content: center;
+}
+
+.sensuba-card {
+
+	width: 18%;
+    min-width: 10em;
+    padding: 10px;
+}
+
+.sensuba-card-img {
+
+	object-fit: scale-down;
+	width: 100%;
+}

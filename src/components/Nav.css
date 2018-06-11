@@ -1,0 +1,50 @@
+.navbar {
+
+	background: linear-gradient(to bottom, #26272b, black);
+	color: white;
+}
+
+.navbar-brand {
+
+	font-family: Constantia, "Palatino Linotype", Palatino, Georgia, serif;
+}
+
+.navbar-brand h2 { margin: 0; }
+
+.breadcrumb {
+
+	background: transparent !important;
+	background-color: transparent !important;
+	margin: 0 !important;
+}
+
+.navbar .enabled-nav-item:hover {
+
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.connection-lightbox .lightbox {
+
+	padding: 2em !important;
+	min-width: 50%;
+}
+
+.connection-lightbox label {
+
+	display: block !important;
+}
+
+.connection-lightbox .lightbox .form-control {
+
+	margin: 1em 0;
+}
+
+.more-detail {
+
+	float: right;
+	color: #299CF5 !important;
+	cursor: pointer;
+}
+
+.more-detail:hover { text-decoration: underline !important; }
