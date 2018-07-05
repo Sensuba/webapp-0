@@ -2,15 +2,24 @@ import React, { Component } from 'react';
 import './PlayPage.css';
 import { Button } from 'reactstrap'
 import Nav from '../Nav';
+import openSocket from 'socket.io-client';
 
-export default class CardsPage extends Component {
+export default class PlayPage extends Component {
 
 	constructor (props) {
 
 		super(props);
 
-    this.props.api.getCards(cards => this.setState({cards: cards}));
+    const socket = openSocket('http://localhost:8080');
+    socket.on('okay', function () {
+      console.log("YEAH")
+    });
 	}
+
+  handleData (data) {
+
+  }
+
   render() {
     return (
       <div>

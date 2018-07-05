@@ -15,6 +15,7 @@ export default class CardsPage extends Component {
 
     this.props.api.getCards(cards => this.setState({cards: cards}));
 	}
+  
   render() {
     return (
       <div>

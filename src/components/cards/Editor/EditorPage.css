@@ -1,0 +1,97 @@
+.half-section {
+
+  display: inline-block;
+  width: 50%;
+  vertical-align: top;
+}
+
+.third-section, .two-thirds-section {
+
+  display: inline-block;
+  vertical-align: top;
+  padding-right: 10%;
+}
+
+.third-section {
+
+  width: 33%;
+}
+
+.two-thirds-section {
+
+  width: 66%;
+}
+
+.editor-box {
+
+  border: 1px solid black;
+  text-align: left;
+  padding: 1em 1.5em;
+  border-radius: 0.5em;
+}
+
+.editor-box form label {
+
+  margin-left: 0.9em;
+}
+
+.editor-box .colors-group input {
+
+  display: none;
+}
+
+.editor-box .colors-group label {
+
+  height: 1.4em;
+  width: 1.4em;
+  margin-left: 0.3em;
+  border: 1px solid;
+  border-radius: 0.3em;
+  cursor: pointer;
+}
+
+.editor-box .colors-group #neutral-mana + label { border-color: rgb(133, 167, 193) }
+.editor-box .colors-group #white-mana + label { border-color: rgb(232, 209, 97) }
+.editor-box .colors-group #red-mana + label { border-color: rgb(247, 69, 69) }
+.editor-box .colors-group #blue-mana + label { border-color: rgb(17, 150, 216) }
+.editor-box .colors-group #green-mana + label { border-color: rgb(142, 197, 102) }
+.editor-box .colors-group #black-mana + label { border-color: rgb(80, 26, 53) }
+
+.editor-box .colors-group #neutral-mana:checked + label { background-color: rgb(133, 167, 193) }
+.editor-box .colors-group #white-mana:checked + label { background-color: rgb(232, 209, 97) }
+.editor-box .colors-group #red-mana:checked + label { background-color: rgb(247, 69, 69) }
+.editor-box .colors-group #blue-mana:checked + label { background-color: rgb(17, 150, 216) }
+.editor-box .colors-group #green-mana:checked + label { background-color: rgb(142, 197, 102) }
+.editor-box .colors-group #black-mana:checked + label { background-color: rgb(80, 26, 53) }
+
+.editor-box .types-group input {
+
+  display: none;
+}
+
+.editor-box .types-group label {
+
+  margin-left: 0.3em;
+  border: 1px solid rgb(66, 133, 244);
+  border-radius: 0.3em;
+  padding: 0.4em 0.8em;
+  color: rgb(66, 133, 244);
+  cursor: pointer;
+}
+
+.editor-box .types-group input:checked + label {
+
+  color: white;
+  background-color: rgb(66, 133, 244);
+}
+
+.editor-card-visual {
+
+  padding-top: 3em;
+}
+
+.editor-card-visual .sensuba-card {
+
+  margin: auto;
+  font-size: 1.2em;
+}

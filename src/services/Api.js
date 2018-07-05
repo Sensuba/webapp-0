@@ -24,6 +24,7 @@ export default class Api {
   	this.client.post("/auth", {username, password})
   	.then(response => {
   		console.log("logged in !");
+      console.log(response.data);
   		User.connect(username, response.data.token);
   		callback(response.data);
   	})

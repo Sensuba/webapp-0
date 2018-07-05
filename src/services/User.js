@@ -1,30 +1,25 @@
 var User = (() => {
 
-	var connect = (name, t) => {
+	var connect = (save) => {
 
-		sessionStorage.setItem(User.username, name);
-		sessionStorage.setItem(User.token, t);
+		sessionStorage.setItem(User.shadow, save);
 	}
 
 	var disconnect = () => {
 
-		sessionStorage.removeItem(User.username);
-		sessionStorage.removeItem(User.token);
+		sessionStorage.removeItem(User.shadow);
 	}
 
 	var getData = () => {
 
-		return {
-			username: sessionStorage.getItem(User.username),
-			token: sessionStorage.getItem(User.token)
-		}
+		return sessionStorage.getItem(User.shadow);
 	}
 
 	return {
 		connect: connect,
 		disconnect: disconnect,
 		getData: getData,
-		isConnected: () => sessionStorage.getItem(User.token) !== null
+		isConnected: () => sessionStorage.getItem(User.shadow) !== null
 	}
 })();
 
