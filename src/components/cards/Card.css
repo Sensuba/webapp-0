@@ -21,7 +21,9 @@
 .sensuba-card {
 
 	width: 15em;
+    min-width: 15em;
     height: 20em;
+    min-height: 20em;
     overflow: hidden;
     position: relative;
     border-radius: 0.5em;
