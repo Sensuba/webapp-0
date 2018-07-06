@@ -63,55 +63,77 @@
     padding-left: 0.29em;
     overflow: hidden;
     line-height: 1.333em;
-    background-color: rgb(133, 167, 193);
+    background: rgb(133, 167, 193);
     border: solid white 0.0833em;
     box-shadow: 0 -0.0417em 0.25em 0 rgba(0, 0, 0, 0.5) inset;
     font-size: 1.2em;
 }
 
-.sensuba-card.white-mana .sensuba-card-mana { background-color: rgb(232, 209, 97) }
-.sensuba-card.red-mana .sensuba-card-mana { background-color: rgb(247, 69, 69) }
-.sensuba-card.blue-mana .sensuba-card-mana { background-color: rgb(17, 150, 216) }
-.sensuba-card.green-mana .sensuba-card-mana { background-color: rgb(142, 197, 102) }
-.sensuba-card.black-mana .sensuba-card-mana { background-color: rgb(80, 26, 53) }
+.sensuba-card.white-mana .sensuba-card-mana { background: rgb(232, 209, 97) }
+.sensuba-card.red-mana .sensuba-card-mana { background: rgb(247, 69, 69) }
+.sensuba-card.blue-mana .sensuba-card-mana { background: rgb(17, 150, 216) }
+.sensuba-card.green-mana .sensuba-card-mana { background: rgb(142, 197, 102) }
+.sensuba-card.black-mana .sensuba-card-mana { background: rgb(80, 26, 53) }
 
 .sensuba-card .sensuba-card-title {
 
 	position: absolute;
     top: 0.45em;
-    left: 10%;
+    left: 7%;
 	height: 1.1em;
-    width: 87%;
+    width: 90%;
     line-height: 1em;
     font-size: 0.9em;
     border: solid white 0.056em;
-	background-color: rgba(133, 167, 193, 0.8);
+	background: rgba(133, 167, 193, 0.8);
     border-radius: 0.22em;
     box-shadow: 0px -0.056px 0.33px 0px rgba(0, 0, 0, 0.5) inset;
     font-family: "Imprint MT Shadow";
 }
 
-.sensuba-card.white-mana .sensuba-card-title { background-color: rgba(232, 209, 97, 0.8) }
-.sensuba-card.red-mana .sensuba-card-title { background-color: rgba(247, 69, 69, 0.8) }
-.sensuba-card.blue-mana .sensuba-card-title { background-color: rgba(17, 150, 216, 0.8) }
-.sensuba-card.green-mana .sensuba-card-title { background-color: rgba(142, 197, 102, 0.8) }
-.sensuba-card.black-mana .sensuba-card-title { background-color: rgba(80, 26, 53, 0.8) }
+.sensuba-card.white-mana .sensuba-card-title { background: rgba(232, 209, 97, 0.8) }
+.sensuba-card.red-mana .sensuba-card-title { background: rgba(247, 69, 69, 0.8) }
+.sensuba-card.blue-mana .sensuba-card-title { background: rgba(17, 150, 216, 0.8) }
+.sensuba-card.green-mana .sensuba-card-title { background: rgba(142, 197, 102, 0.8) }
+.sensuba-card.black-mana .sensuba-card-title { background: rgba(80, 26, 53, 0.8) }
+
+.sensuba-card.sensuba-hero.neutral-mana.white-mana .sensuba-card-title { background: linear-gradient(to right, rgba(133, 167, 193, 0.8), rgba(232, 209, 97, 0.8)) }
+.sensuba-card.sensuba-hero.neutral-mana.red-mana .sensuba-card-title { background: linear-gradient(to right, rgba(133, 167, 193, 0.8), rgba(247, 69, 69, 0.8)) }
+.sensuba-card.sensuba-hero.neutral-mana.blue-mana .sensuba-card-title { background: linear-gradient(to right, rgba(133, 167, 193, 0.8), rgba(17, 150, 216, 0.8)) }
+.sensuba-card.sensuba-hero.neutral-mana.green-mana .sensuba-card-title { background: linear-gradient(to right, rgba(133, 167, 193, 0.8), rgba(142, 197, 102, 0.8)) }
+.sensuba-card.sensuba-hero.neutral-mana.black-mana .sensuba-card-title { background: linear-gradient(to right, rgba(133, 167, 193, 0.8), rgba(80, 26, 53, 0.8)) }
+.sensuba-card.sensuba-hero.white-mana.red-mana .sensuba-card-title { background: linear-gradient(to right, rgba(232, 209, 97, 0.8), rgba(247, 69, 69, 0.8)) }
+.sensuba-card.sensuba-hero.white-mana.blue-mana .sensuba-card-title { background: linear-gradient(to right, rgba(232, 209, 97, 0.8), rgba(17, 150, 216, 0.8)) }
+.sensuba-card.sensuba-hero.white-mana.green-mana .sensuba-card-title { background: linear-gradient(to right, rgba(232, 209, 97, 0.8), rgba(142, 197, 102, 0.8)) }
+.sensuba-card.sensuba-hero.white-mana.black-mana .sensuba-card-title { background: linear-gradient(to right, rgba(232, 209, 97, 0.8), rgba(80, 26, 53, 0.8)) }
+.sensuba-card.sensuba-hero.red-mana.blue-mana .sensuba-card-title { background: linear-gradient(to right, rgba(247, 69, 69, 0.8), rgba(17, 150, 216, 0.8)) }
+.sensuba-card.sensuba-hero.red-mana.green-mana .sensuba-card-title { background: linear-gradient(to right, rgba(247, 69, 69, 0.8), rgba(142, 197, 102, 0.8)) }
+.sensuba-card.sensuba-hero.red-mana.black-mana .sensuba-card-title { background: linear-gradient(to right, rgba(247, 69, 69, 0.8), rgba(80, 26, 53, 0.8)) }
+.sensuba-card.sensuba-hero.blue-mana.green-mana .sensuba-card-title { background: linear-gradient(to right, rgba(17, 150, 216, 0.8), rgba(142, 197, 102, 0.8)) }
+.sensuba-card.sensuba-hero.blue-mana.black-mana .sensuba-card-title { background: linear-gradient(to right, rgba(17, 150, 216, 0.8), rgba(80, 26, 53, 0.8)) }
+.sensuba-card.sensuba-hero.green-mana.black-mana .sensuba-card-title { background: linear-gradient(to right, rgba(142, 197, 102, 0.8), rgba(80, 26, 53, 0.8)) }
 
 .sensuba-card .sensuba-card-body {
 
 	position: absolute;
     height: 4.5em;
-    top: 12.5em;
 	width: 94%;
     left: 3%;
+    top: 12.5em;
     background-color: rgba(255, 255, 255, 0.7);
     border-radius: 0.15em;
     overflow: hidden;
 }
 
+.sensuba-spell .sensuba-card-body {
+
+    top: 14em;
+    height: 5.5em;
+}
+
 .sensuba-card .sensuba-card-body .sensuba-card-body-header {
 
-	background-color: rgba(133, 167, 193, 0.8);
+	background: rgba(133, 167, 193, 0.8);
     width: 100%;
     height: 1.667em;
     font-family: "Lucida Bright";
@@ -120,11 +142,27 @@
     line-height: 1.6em;
 }
 
-.sensuba-card.white-mana .sensuba-card-body .sensuba-card-body-header { background-color: rgba(232, 209, 97, 0.8) }
-.sensuba-card.red-mana .sensuba-card-body .sensuba-card-body-header { background-color: rgba(247, 69, 69, 0.8) }
-.sensuba-card.blue-mana .sensuba-card-body .sensuba-card-body-header { background-color: rgba(17, 150, 216, 0.8) }
-.sensuba-card.green-mana .sensuba-card-body .sensuba-card-body-header { background-color: rgba(142, 197, 102, 0.8) }
-.sensuba-card.black-mana .sensuba-card-body .sensuba-card-body-header { background-color: rgba(80, 26, 53, 0.8) }
+.sensuba-card.white-mana .sensuba-card-body .sensuba-card-body-header { background: rgba(232, 209, 97, 0.8) }
+.sensuba-card.red-mana .sensuba-card-body .sensuba-card-body-header { background: rgba(247, 69, 69, 0.8) }
+.sensuba-card.blue-mana .sensuba-card-body .sensuba-card-body-header { background: rgba(17, 150, 216, 0.8) }
+.sensuba-card.green-mana .sensuba-card-body .sensuba-card-body-header { background: rgba(142, 197, 102, 0.8) }
+.sensuba-card.black-mana .sensuba-card-body .sensuba-card-body-header { background: rgba(80, 26, 53, 0.8) }
+
+.sensuba-card.sensuba-hero.neutral-mana.white-mana .sensuba-card-body .sensuba-card-body-header { background: linear-gradient(to right, rgba(133, 167, 193, 0.8), rgba(232, 209, 97, 0.8)) }
+.sensuba-card.sensuba-hero.neutral-mana.red-mana .sensuba-card-body .sensuba-card-body-header { background: linear-gradient(to right, rgba(133, 167, 193, 0.8), rgba(247, 69, 69, 0.8)) }
+.sensuba-card.sensuba-hero.neutral-mana.blue-mana .sensuba-card-body .sensuba-card-body-header { background: linear-gradient(to right, rgba(133, 167, 193, 0.8), rgba(17, 150, 216, 0.8)) }
+.sensuba-card.sensuba-hero.neutral-mana.green-mana .sensuba-card-body .sensuba-card-body-header { background: linear-gradient(to right, rgba(133, 167, 193, 0.8), rgba(142, 197, 102, 0.8)) }
+.sensuba-card.sensuba-hero.neutral-mana.black-mana .sensuba-card-body .sensuba-card-body-header { background: linear-gradient(to right, rgba(133, 167, 193, 0.8), rgba(80, 26, 53, 0.8)) }
+.sensuba-card.sensuba-hero.white-mana.red-mana .sensuba-card-body .sensuba-card-body-header { background: linear-gradient(to right, rgba(232, 209, 97, 0.8), rgba(247, 69, 69, 0.8)) }
+.sensuba-card.sensuba-hero.white-mana.blue-mana .sensuba-card-body .sensuba-card-body-header { background: linear-gradient(to right, rgba(232, 209, 97, 0.8), rgba(17, 150, 216, 0.8)) }
+.sensuba-card.sensuba-hero.white-mana.green-mana .sensuba-card-body .sensuba-card-body-header { background: linear-gradient(to right, rgba(232, 209, 97, 0.8), rgba(142, 197, 102, 0.8)) }
+.sensuba-card.sensuba-hero.white-mana.black-mana .sensuba-card-body .sensuba-card-body-header { background: linear-gradient(to right, rgba(232, 209, 97, 0.8), rgba(80, 26, 53, 0.8)) }
+.sensuba-card.sensuba-hero.red-mana.blue-mana .sensuba-card-body .sensuba-card-body-header { background: linear-gradient(to right, rgba(247, 69, 69, 0.8), rgba(17, 150, 216, 0.8)) }
+.sensuba-card.sensuba-hero.red-mana.green-mana .sensuba-card-body .sensuba-card-body-header { background: linear-gradient(to right, rgba(247, 69, 69, 0.8), rgba(142, 197, 102, 0.8)) }
+.sensuba-card.sensuba-hero.red-mana.black-mana .sensuba-card-body .sensuba-card-body-header { background: linear-gradient(to right, rgba(247, 69, 69, 0.8), rgba(80, 26, 53, 0.8)) }
+.sensuba-card.sensuba-hero.blue-mana.green-mana .sensuba-card-body .sensuba-card-body-header { background: linear-gradient(to right, rgba(17, 150, 216, 0.8), rgba(142, 197, 102, 0.8)) }
+.sensuba-card.sensuba-hero.blue-mana.black-mana .sensuba-card-body .sensuba-card-body-header { background: linear-gradient(to right, rgba(17, 150, 216, 0.8), rgba(80, 26, 53, 0.8)) }
+.sensuba-card.sensuba-hero.green-mana.black-mana .sensuba-card-body .sensuba-card-body-header { background: linear-gradient(to right, rgba(142, 197, 102, 0.8), rgba(80, 26, 53, 0.8)) }
 
 .sensuba-card .sensuba-card-type {
 
@@ -151,7 +189,7 @@
     font-family: Ebrima;
 	position: absolute;
     left: 0;
-    top: 0.1em;
+    top: 0.2em;
     width: 100%;
     line-height: 1.3em;
     padding: 0 0.8em;
@@ -171,10 +209,15 @@
     margin: 0 10%;
 }
 
+.sensuba-spell .sensuba-card-flavour {
+
+    bottom: -10.7em;
+}
+
 .sensuba-card .sensuba-card-footer {
 
 	font-family: "Lucida Bright";
-	background-color: rgba(133, 167, 193, 0.8);
+	background: rgba(133, 167, 193, 0.8);
     font-size: 0.4em;
     line-height: 1.5em;
     position: absolute;
@@ -188,11 +231,11 @@
     color: white;
 }
 
-.sensuba-card.white-mana .sensuba-card-footer { background-color: rgba(232, 209, 97, 0.8) }
-.sensuba-card.red-mana .sensuba-card-footer { background-color: rgba(247, 69, 69, 0.8) }
-.sensuba-card.blue-mana .sensuba-card-footer { background-color: rgba(17, 150, 216, 0.8) }
-.sensuba-card.green-mana .sensuba-card-footer { background-color: rgba(142, 197, 102, 0.8) }
-.sensuba-card.black-mana .sensuba-card-footer { background-color: rgba(80, 26, 53, 0.8) }
+.sensuba-card.white-mana .sensuba-card-footer { background: rgba(232, 209, 97, 0.8) }
+.sensuba-card.red-mana .sensuba-card-footer { background: rgba(247, 69, 69, 0.8) }
+.sensuba-card.blue-mana .sensuba-card-footer { background: rgba(17, 150, 216, 0.8) }
+.sensuba-card.green-mana .sensuba-card-footer { background: rgba(142, 197, 102, 0.8) }
+.sensuba-card.black-mana .sensuba-card-footer { background: rgba(80, 26, 53, 0.8) }
 
 .sensuba-card .sensuba-card-param {
 
@@ -200,8 +243,19 @@
     top: 1.5em;
 }
 
+.sensuba-card.sensuba-hero .sensuba-card-param {
+
+    font-size: 0.4em;
+    color: white;
+    text-shadow: 0px 0px 6px rgba(0, 0, 0, 1);
+    font-family: "Lucida Bright";
+}
+
 .sensuba-card .sensuba-card-param-atk { left: 2.5em }
 .sensuba-card .sensuba-card-param-hp { left: 17.5em }
+
+.sensuba-card.sensuba-hero .sensuba-card-param-atk { left: 12.5em; top: 45em; }
+.sensuba-card.sensuba-hero .sensuba-card-param-hp { left: 23em; top: 6em; font-weight: bold; }
 
 .sensuba-card .sensuba-card-param-name {
 
@@ -220,6 +274,8 @@
     right: -3.462em;
     font-size: 3.25em;
 }
+
+.sensuba-card.sensuba-hero .sensuba-card-param-value { top: -0.231em; }
 
 .sensuba-card .sensuba-card-param-separator {
 
@@ -257,6 +313,11 @@
     transform: skew(0deg, -30deg);
     box-shadow: 0.1em -0.05em 0.15em 0px rgba(0, 0, 0, 0.5) inset;
 }
+.sensuba-hero .sensuba-card-range-arrow:before {
+
+    box-shadow: 0.1em -0.15em 0.15em 0px rgba(0, 0, 0, 0.5) inset, 0.2em 0.1em 0.2em 0px rgba(150, 150, 150, 0.5) inset;
+}
+
 .sensuba-card-range-arrow:after {
 	content: '';
     position: absolute;
@@ -268,6 +329,21 @@
     transform: skew(0deg, 30deg);
     box-shadow: -0.1em -0.05em 0.15em 0px rgba(0, 0, 0, 0.5) inset;
 }
+.sensuba-hero .sensuba-card-range-arrow:after {
+
+    box-shadow: -0.1em -0.15em 0.15em 0px rgba(0, 0, 0, 0.5) inset, -0.2em 0.1em 0.2em 0px rgba(150, 150, 150, 0.5) inset;
+}
 
 .sensuba-card-range-arrow-2 { top: -1.95em }
 .sensuba-card-range-arrow-3 { top: -3.9em }
+
+.sensuba-card-hero-icon {
+
+    position: absolute;
+    background-image: url("hero.png");
+    height: 2em;
+    width: 2em;
+    background-size: 2em;
+    background-repeat: no-repeat; 
+    filter: drop-shadow(1px 2px 1px #222A);
+}

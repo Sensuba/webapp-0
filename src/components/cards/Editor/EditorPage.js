@@ -35,7 +35,11 @@ export default class EditorPage extends Component {
       this.setState({card: Object.assign(this.state.card, plus)})
     });
 
+    var changeType = newType => () => this.setState({card: Object.assign(this.state.card, {cardType: newType})});
+
     var changeColor = idColor => () => this.setState({card: Object.assign(this.state.card, {idColor: idColor})});
+
+    var changeColor2 = idColor => () => this.setState({card: Object.assign(this.state.card, {idColor2: idColor})});
 
     return (
       <div>
@@ -46,12 +50,12 @@ export default class EditorPage extends Component {
               <Form>
                 <FormGroup>
                   <div className="types-group">
-                    <Input id="hero-card" type="radio" name="sensuba-type" onChange={()=>{}}/>
-                    <Label for="hero-card">Héros</Label>
-                    <Input id="figure-card" type="radio" name="sensuba-type" onChange={()=>{}} defaultChecked/>
+                    <Input id="hero-card" type="radio" name="sensuba-type" onChange={changeType("hero")}/>
+                    <Label for="hero-card">Hero</Label>
+                    <Input id="figure-card" type="radio" name="sensuba-type" onChange={changeType("figure")} defaultChecked/>
                     <Label for="figure-card">Figure</Label>
-                    <Input id="spell-card" type="radio" name="sensuba-type" onChange={()=>{}}/>
-                    <Label for="spell-card">Sort</Label>
+                    <Input id="spell-card" type="radio" name="sensuba-type" onChange={changeType("spell")}/>
+                    <Label for="spell-card">Spell</Label>
                   </div>
                 </FormGroup>
                 <FormGroup>
@@ -80,25 +84,49 @@ export default class EditorPage extends Component {
                       <Label for="black-mana"/>
                     </div>
                   </div>
-                  <div className="half-section">
-                    <Label for="form-card-mana">Mana</Label>
-                    <Input id="form-card-mana" type="number" min="0" max="9" defaultValue={this.state.card.mana} onChange={editAttribute("mana").bind(this)}/>
-                  </div>
+                  {
+                    this.state.card.cardType !== "hero" ?
+                      <div className="half-section">
+                        <Label for="form-card-mana">Mana</Label>
+                        <Input id="form-card-mana" type="number" min="0" max="9" defaultValue={this.state.card.mana} onChange={editAttribute("mana").bind(this)}/>
+                      </div>
+                      :
+                      <div className="half-section">
+                        <Label>Color 2</Label>
+                        <div className="colors-group">
+                          <Input id="neutral-mana-2" type="radio" name="sensuba-color-2" onChange={changeColor2(0)} defaultChecked/>
+                          <Label for="neutral-mana-2"/>
+                          <Input id="white-mana-2" type="radio" name="sensuba-color-2" onChange={changeColor2(1)}/>
+                          <Label for="white-mana-2"/>
+                          <Input id="red-mana-2" type="radio" name="sensuba-color-2" onChange={changeColor2(2)}/>
+                          <Label for="red-mana-2"/>
+                          <Input id="blue-mana-2" type="radio" name="sensuba-color-2" onChange={changeColor2(3)}/>
+                          <Label for="blue-mana-2"/>
+                          <Input id="green-mana-2" type="radio" name="sensuba-color-2" onChange={changeColor2(4)}/>
+                          <Label for="green-mana-2"/>
+                          <Input id="black-mana-2" type="radio" name="sensuba-color-2" onChange={changeColor2(5)}/>
+                          <Label for="black-mana-2"/>
+                        </div>
+                      </div>
+                  }
                 </FormGroup>
-                <FormGroup>
-                  <div className="third-section">
-                    <Label for="form-card-atk">ATK</Label>
-                    <Input id="form-card-atk" type="number" min="0" max="9999" step="100" defaultValue={this.state.card.atk} onChange={editAttribute("atk").bind(this)}/>
-                  </div>
-                  <div className="third-section">
-                    <Label for="form-card-hp">HP</Label>
-                    <Input id="form-card-hp" type="number" min="0" max="9999" step="100" defaultValue={this.state.card.hp} onChange={editAttribute("hp").bind(this)}/>
-                  </div>
-                  <div className="third-section">
-                    <Label for="form-card-range">Range</Label>
-                    <Input id="form-card-range" type="number" min="1" max="3" defaultValue={this.state.card.range} onChange={editAttribute("range").bind(this)}/>
-                  </div>
-                </FormGroup>
+                {
+                  this.state.card.cardType !== "spell" ?
+                  <FormGroup>
+                    <div className="third-section">
+                      <Label for="form-card-atk">ATK</Label>
+                      <Input id="form-card-atk" type="number" min="0" max="9999" step="100" defaultValue={this.state.card.atk} onChange={editAttribute("atk").bind(this)}/>
+                    </div>
+                    <div className="third-section">
+                      <Label for="form-card-hp">HP</Label>
+                      <Input id="form-card-hp" type="number" min="0" max="9999" step="100" defaultValue={this.state.card.hp} onChange={editAttribute("hp").bind(this)}/>
+                    </div>
+                    <div className="third-section">
+                      <Label for="form-card-range">Range</Label>
+                      <Input id="form-card-range" type="number" min="1" max="3" defaultValue={this.state.card.range} onChange={editAttribute("range").bind(this)}/>
+                    </div>
+                  </FormGroup> : <span/>
+                }
                 <FormGroup>
                   <Label for="form-card-description">Description</Label>
                   <Input id="form-card-description" type="textarea" defaultValue={this.state.card.description} onChange={editAttribute("description").bind(this)}/>

@@ -7,11 +7,11 @@ export default class Figure extends Component {
   	var capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
   	
     return (
-      <div className={"sensuba-card sensuba-figure " + this.props.classColor}>
+      <div className={"sensuba-card sensuba-hero " + this.props.classColor.color1 + " " + this.props.classColor.color2}>
 		<img className="sensuba-card-bg" src={this.props.src.imgLink} alt={this.props.src.nameCard}/>
 	    <div className="sensuba-card-header">
-	    	<div className="sensuba-card-mana">{this.props.src.mana}</div>
 	        <div className="sensuba-card-title">{this.props.src.nameCard}</div>
+	    	<div className="sensuba-card-hero-icon"/>
 	    </div>
 	    <div className="sensuba-card-body">
 	    	<div className="sensuba-card-body-header">
@@ -23,16 +23,13 @@ export default class Figure extends Component {
 	        	<div className="sensuba-card-flavour">{this.props.src.flavourText}</div>
 	        </div>
 	    </div>
-		<div className="sensuba-card-footer">
-		  <div className="sensuba-card-param sensuba-card-param-atk">
-		  	<div className="sensuba-card-param-name">ATK</div>
+		<div className="sensuba-card-param sensuba-card-param-atk">
+			<div className="sensuba-card-param-name">ATK</div>
 		   	<div className="sensuba-card-param-value">{this.props.src.atk}</div>
-		  </div>
-		  <span className="sensuba-card-param-separator">/</span>
-		  <div className="sensuba-card-param sensuba-card-param-hp">
+		</div>
+		<div className="sensuba-card-param sensuba-card-param-hp">
 		    <div className="sensuba-card-param-name">HP</div>
 	   	    <div className="sensuba-card-param-value">{this.props.src.hp}</div>
-		  </div>
 		</div>
 		<div className="sensuba-card-range">
 		  <div className="sensuba-card-range-arrow"/>
