@@ -17,6 +17,7 @@ export default class EditorPage extends Component {
         imgLink: "https://image.ibb.co/jbcTNJ/penguin.png",
         idColor: 0,
         cardType: "figure",
+        archetypes: [],
         mana: 0,
         description: "",
         flavourText: "",
@@ -44,6 +45,15 @@ export default class EditorPage extends Component {
       plus[attr] = e.target.value;
       this.setState({card: Object.assign(this.state.card, plus)});
     });
+
+    var changeArchetypes = (ar1, ar2) => {
+      var ars = [];
+      if (ar1 && ar1 !== "")
+        ars.push(ar1);
+      if (ar2 && ar2 !== "")
+        ars.push(ar2);
+      this.setState({card: Object.assign(this.state.card, {archetypes: ars})});
+    };
 
     var changeType = newType => () => this.setState({card: Object.assign(this.state.card, {cardType: newType})});
 
@@ -122,6 +132,19 @@ export default class EditorPage extends Component {
                       </div>
                   }
                 </FormGroup>
+                {
+                  this.state.card.cardType === "figure" ?
+                  <FormGroup>
+                    <div className="half-section">
+                      <Label for="form-card-archetype1">Archetype 1</Label>
+                      <Input id="form-card-archetype1" type="text" value={this.state.card.archetypes.length > 0 ? this.state.card.archetypes[0] : ""} onChange={e => changeArchetypes(e.target.value, document.getElementById("form-card-archetype2").value)}/>
+                    </div>
+                    <div className="half-section">
+                      <Label for="form-card-archetype2">Archetype 2</Label>
+                      <Input id="form-card-archetype2" type="text" value={this.state.card.archetypes.length > 1 ? this.state.card.archetypes[1] : ""} onChange={e => changeArchetypes(e.target.value, document.getElementById("form-card-archetype1").value)}/>
+                    </div>
+                  </FormGroup> : <span/>
+                }
                 {
                   this.state.card.cardType !== "spell" ?
                   <FormGroup>

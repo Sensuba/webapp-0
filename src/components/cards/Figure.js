@@ -5,6 +5,13 @@ export default class Figure extends Component {
   render() {
 
   	var capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
+
+  	var ct = capitalize(this.props.src.cardType);
+  	if (this.props.src.archetypes.length > 0) {
+  		ct += ": " + capitalize(this.props.src.archetypes[0]);
+  		if (this.props.src.archetypes.length > 1)
+  			ct += ", " + capitalize(this.props.src.archetypes[1])
+  	}
   	
     return (
       <div className={"sensuba-card sensuba-figure " + this.props.classColor}>
@@ -15,7 +22,7 @@ export default class Figure extends Component {
 	    </div>
 	    <div className="sensuba-card-body">
 	    	<div className="sensuba-card-body-header">
-	        	<span className="sensuba-card-type">{capitalize(this.props.src.cardType)}</span>
+	        	<span className="sensuba-card-type">{ct}</span>
 	        	<span className="sensuba-card-anime">{this.props.src.anime}</span>
 	        </div>
 	        <div className="sensuba-card-body-main">
