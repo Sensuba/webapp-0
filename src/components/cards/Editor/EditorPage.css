@@ -64,34 +64,23 @@
 .editor-box .colors-group #green-mana:checked + label, .editor-box .colors-group #green-mana-2:checked + label { background-color: rgb(142, 197, 102) }
 .editor-box .colors-group #black-mana:checked + label, .editor-box .colors-group #black-mana-2:checked + label { background-color: rgb(80, 26, 53) }
 
-.editor-box .types-group input {
-
-  display: none;
-}
-
-.editor-box .types-group label {
-
-  margin-left: 0.3em;
-  border: 1px solid rgb(66, 133, 244);
-  border-radius: 0.3em;
-  padding: 0.4em 0.8em;
-  color: rgb(66, 133, 244);
-  cursor: pointer;
-}
-
-.editor-box .types-group input:checked + label {
-
-  color: white;
-  background-color: rgb(66, 133, 244);
-}
-
 .editor-card-visual {
 
-  padding-top: 3em;
+  padding-top: 1em;
 }
 
 .editor-card-visual .sensuba-card {
 
   margin: auto;
   font-size: 1.2em;
+}
+
+.editor-card-visual .sensuba-card {
+
+  margin-bottom: 1em;
+}
+
+.editor-card-visual .editor-box {
+
+  margin: 1em 20px 0 20px;
 }

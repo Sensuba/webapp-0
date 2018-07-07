@@ -10,9 +10,14 @@ export default class PlayPage extends Component {
 
 		super(props);
 
-    const socket = openSocket('http://localhost:8080');
-    socket.on('okay', function () {
-      console.log("YEAH")
+    const socket = openSocket(this.props.server);
+
+    this.state = {
+      socket: socket
+    };
+
+    socket.on('connected', function () {
+      //console.log("YEAH")
     });
 	}
 
@@ -26,7 +31,7 @@ export default class PlayPage extends Component {
         <Nav api={this.props.api} history={this.props.history}/>
       	<main>
           <div className="main-section">
-            <Button>Créer une partie</Button>
+            <Button onClick={() => this.props.history.push(`/play/room1`)}>Créer une partie</Button>
           </div>
           <div className="main-section">
             <h2>Parties en cours</h2>

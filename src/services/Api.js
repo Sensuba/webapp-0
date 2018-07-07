@@ -19,13 +19,29 @@ export default class Api {
   	.catch(this.error(error));
   }
 
+  saveCustomCards (supercode, callback, error) {
+
+    this.addAuthorizationHeader();
+    this.client.post("/user/cardmodels", {supercode})
+    .then(response => callback())
+    .catch(this.error(error));
+  }
+
+  getCustomCards (callback, error) {
+
+    this.addAuthorizationHeader();
+    this.client.get("/user/cardmodels")
+    .then(response => callback(response.data))
+    .catch(this.error(error));
+  }
+
   login (username, password, callback, error) {
 
   	this.client.post("/auth", {username, password})
   	.then(response => {
   		console.log("logged in !");
-      console.log(response.data);
   		User.connect(username, response.data.token);
+      this.saveToken(response.data.token);
   		callback(response.data);
   	})
   	.catch(this.error(error));
@@ -43,6 +59,7 @@ export default class Api {
   		}
   		console.log("Signed up !");
   		User.connect(username, response.data.token);
+      this.saveToken(response.data.token);
   		callback(response.data);
   	})
   	.catch(this.error(error));
@@ -166,8 +183,8 @@ export default class Api {
     });
   }*/
 
-  saveToken() {
-    localStorage.setItem(Api.AUTH_TOKEN, this.token);
+  saveToken(token) {
+    localStorage.setItem(Api.AUTH_TOKEN, token);
   }
 
   getApiUser() {
@@ -176,6 +193,7 @@ export default class Api {
   }
 
   addAuthorizationHeader() {
-    this.client.defaults.headers.common['Authorization'] = this.token;
+
+    this.client.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem(Api.AUTH_TOKEN);
   }
 }

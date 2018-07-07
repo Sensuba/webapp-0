@@ -8,3 +8,24 @@ main {
 
 	display: none;
 }
+
+.modern-radio input {
+
+  display: none;
+}
+
+.modern-radio label {
+
+  margin-left: 0.3em;
+  border: 1px solid rgb(66, 133, 244);
+  border-radius: 0.3em;
+  padding: 0.4em 0.8em;
+  color: rgb(66, 133, 244);
+  cursor: pointer;
+}
+
+.modern-radio input:checked + label {
+
+  color: white;
+  background-color: rgb(66, 133, 244);
+}
