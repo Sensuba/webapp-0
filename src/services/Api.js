@@ -9,7 +9,6 @@ export default class Api {
     	baseURL: this.url,
       	headers: { 'X-Requested-With': 'XMLHttpRequest' }
     });
-    //this.token = localStorage.getItem(Api.AUTH_TOKEN);
   }
 
   getCards (callback, error) {
@@ -23,7 +22,7 @@ export default class Api {
 
     this.addAuthorizationHeader();
     this.client.post("/user/cardmodels", {supercode})
-    .then(response => callback(response.data))
+    .then(response => callback())
     .catch(this.error(error));
   }
 
@@ -40,7 +39,8 @@ export default class Api {
   	this.client.post("/auth", {username, password})
   	.then(response => {
   		console.log("logged in !");
-  		User.connect(username, response.data.token);
+      var token = response.data.token;
+      User.connect({ username, token });
   		callback(response.data);
   	})
   	.catch(this.error(error));
@@ -57,7 +57,8 @@ export default class Api {
   			return;
   		}
   		console.log("Signed up !");
-  		User.connect(username, response.data.token);
+      var token = response.data.token;
+  		User.connect({ username, token });
   		callback(response.data);
   	})
   	.catch(this.error(error));
