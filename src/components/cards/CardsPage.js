@@ -39,7 +39,7 @@ export default class CardsPage extends Component {
     });
   }
   
-  render() {
+  render() {console.log(this.customCards);
     return (
       <div>
         <Nav api={this.props.api} history={this.props.history}/>

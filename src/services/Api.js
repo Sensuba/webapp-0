@@ -23,7 +23,7 @@ export default class Api {
 
     this.addAuthorizationHeader();
     this.client.post("/user/cardmodels", {supercode})
-    .then(response => callback())
+    .then(response => callback(response.data))
     .catch(this.error(error));
   }
 
