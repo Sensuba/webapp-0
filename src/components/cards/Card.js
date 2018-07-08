@@ -46,7 +46,7 @@ export default class Card extends Component {
 
   	var result = <div/>;
 
-    var src = Object.assign(this.props.src, {description: descHTML(this.props.src.description)});
+    var src = Object.assign(this.props.src, {htmlDescription: descHTML(this.props.src.description)});
 
   	switch (this.props.src.cardType) {
     case "hero": result = <Hero src={src} classColor={{color1: colorIdToClassName(this.props.src.idColor), color2: colorIdToClassName(this.props.src.idColor2)}}/>; break;

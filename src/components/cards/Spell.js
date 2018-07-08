@@ -19,7 +19,7 @@ export default class Spell extends Component {
 	        	<span className="sensuba-card-anime">{this.props.src.anime}</span>
 	        </div>
 	        <div className="sensuba-card-body-main">
-	        	<div className="sensuba-card-effect" dangerouslySetInnerHTML={{__html: this.props.src.description}}/>
+	        	<div className="sensuba-card-effect" dangerouslySetInnerHTML={{__html: this.props.src.htmlDescription}}/>
 	        	<div className="sensuba-card-flavour">{this.props.src.flavourText}</div>
 	        </div>
 	    </div>
