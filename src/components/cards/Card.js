@@ -8,6 +8,29 @@ export default class Card extends Component {
 
   render() {
 
+    var escapeHtml = text => {
+      var map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+      };
+
+      return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+    }
+
+    var descHTML = desc => {
+
+      desc = escapeHtml(desc);
+
+      desc = desc.replace(/\n/g, "<br/>");
+
+      desc = desc.replace(/initiative|fury|rush|exaltation|lethal|frenzy:?|last will:?|shield|flying|freeze|frozen/gi, x => `<b>${x}</b>`);
+
+      return desc;
+    }
+
   	var colorIdToClassName = colorId => {
 
   		switch (colorId) {
@@ -21,12 +44,14 @@ export default class Card extends Component {
   		}
   	}
 
-  	var result = <div/>
+  	var result = <div/>;
+
+    var src = Object.assign(this.props.src, {description: descHTML(this.props.src.description)});
 
   	switch (this.props.src.cardType) {
-    case "hero": result = <Hero src={this.props.src} classColor={{color1: colorIdToClassName(this.props.src.idColor), color2: colorIdToClassName(this.props.src.idColor2)}}/>; break;
-  	case "figure": result = <Figure src={this.props.src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
-    case "spell": result = <Spell src={this.props.src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
+    case "hero": result = <Hero src={src} classColor={{color1: colorIdToClassName(this.props.src.idColor), color2: colorIdToClassName(this.props.src.idColor2)}}/>; break;
+  	case "figure": result = <Figure src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
+    case "spell": result = <Spell src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
     default: break;
   	}
 

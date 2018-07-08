@@ -10,8 +10,9 @@ export default class EditorPage extends Component {
 
 		super(props);
 
-    this.state = {
-      card: {
+    var card = this.props.card !== undefined ?
+      JSON.parse(window.atob(this.props.card.supercode))
+      : {
         nameCard: "Penguin",
         anime: "Anime",
         imgLink: "https://image.ibb.co/jbcTNJ/penguin.png",
@@ -24,8 +25,9 @@ export default class EditorPage extends Component {
         atk: 200,
         hp: 200,
         range: 1
-      }
-    };
+      };
+
+    this.state = { card };
 	}
 
   saveCard() {
@@ -36,6 +38,10 @@ export default class EditorPage extends Component {
 
       this.props.history.push('/cards');
     })
+  }
+
+  deleteCard() {
+
   }
   
   render() {
@@ -181,6 +187,7 @@ export default class EditorPage extends Component {
             <div className="editor-card-visual">
               <Card src={this.state.card}/>
               <Button onClick={this.saveCard.bind(this)}>Save</Button>
+              { this.props.card !== undefined ? <Button color="danger" onClick={this.deleteCard.bind(this)}>Delete</Button> : <span/> }
               <div className="editor-box">
                 <Label for="form-card-supercode">Supercode</Label>
                 <Input id="form-card-supercode" type="textarea" rows="8" value={superCode} onChange={ e => {
