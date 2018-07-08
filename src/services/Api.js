@@ -41,7 +41,6 @@ export default class Api {
   	.then(response => {
   		console.log("logged in !");
   		User.connect(username, response.data.token);
-      this.saveToken(response.data.token);
   		callback(response.data);
   	})
   	.catch(this.error(error));
@@ -59,7 +58,6 @@ export default class Api {
   		}
   		console.log("Signed up !");
   		User.connect(username, response.data.token);
-      this.saveToken(response.data.token);
   		callback(response.data);
   	})
   	.catch(this.error(error));
@@ -183,10 +181,6 @@ export default class Api {
     });
   }*/
 
-  saveToken(token) {
-    localStorage.setItem(Api.AUTH_TOKEN, token);
-  }
-
   getApiUser() {
 
   	return localStorage.getItem(Api.AUTH_USER);
@@ -194,6 +188,6 @@ export default class Api {
 
   addAuthorizationHeader() {
 
-    this.client.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem(Api.AUTH_TOKEN);
+    this.client.defaults.headers.common['Authorization'] = 'Bearer ' + User.getData().token;
   }
 }
