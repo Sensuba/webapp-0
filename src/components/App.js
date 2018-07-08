@@ -8,7 +8,7 @@ import Play from './play/PlayPage';
 import Room from './play/room/RoomPage';
 import Profile from './profile/ProfilePage';
 
-const serverURL = 'http://localhost:8080';
+const serverURL = process.env.SERVER_URL | 'http://localhost:8080';
 
 export default class App extends Component {
   render() {
