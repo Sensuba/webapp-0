@@ -13,12 +13,12 @@ export default class CardsPage extends Component {
 
     var cardlist = [];
 
-    if (sessionStorage.getItem(Card.list) !== null)
-      cardlist = JSON.parse(sessionStorage.getItem(Card.list));
+    if (localStorage.getItem("cardlist") !== null)
+      cardlist = JSON.parse(localStorage.getItem("cardlist"));
     else
       this.props.api.getCards(cards => {
         var c = cards.map(card => this.readCard(card));
-        sessionStorage.setItem(Card.list, JSON.stringify(c));
+        localStorage.setItem("cardlist", JSON.stringify(c));
         this.setState({officialCards: c})
       });
 

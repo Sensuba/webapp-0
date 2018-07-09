@@ -2,7 +2,7 @@ var User = (() => {
 
 	var connect = (save) => {
 
-		sessionStorage.setItem(User.shadow, JSON.stringify(save));
+		sessionStorage.setItem("user.shadow", JSON.stringify(save));
 	}
 
 	var disconnect = () => {
@@ -12,14 +12,14 @@ var User = (() => {
 
 	var getData = () => {
 
-		return JSON.parse(sessionStorage.getItem(User.shadow));
+		return JSON.parse(sessionStorage.getItem("user.shadow"));
 	}
 
 	return {
 		connect: connect,
 		disconnect: disconnect,
 		getData: getData,
-		isConnected: () => sessionStorage.getItem(User.shadow) !== null
+		isConnected: () => sessionStorage.getItem("user.shadow") !== null
 	}
 })();
 
