@@ -9,7 +9,7 @@ import Room from './play/room/RoomPage';
 import Profile from './profile/ProfilePage';
 import User from '../services/User';
 
-const serverURL = process.env.SERVER_URL || 'http://localhost:8080';
+const serverURL = process.env.SERVER_URL || 'https://sensuba-server.herokuapp.com/';
 
 export default class App extends Component {
   render() {

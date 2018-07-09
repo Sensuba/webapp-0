@@ -8,7 +8,10 @@ export default class PlayPage extends Component {
 
 	constructor (props) {
 
-		super(props);console.log(this.props)
+		super(props);
+
+    console.log(this.props);
+    console.log(process.env)
 
     const socket = openSocket(this.props.server);
 
