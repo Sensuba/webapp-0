@@ -56,9 +56,9 @@ export default class EditorPage extends Component {
     var changeArchetypes = (ar1, ar2) => {
       var ars = [];
       if (ar1 && ar1 !== "")
-        ars.push(ar1);
+        ars.push(ar1.toLowerCase());
       if (ar2 && ar2 !== "")
-        ars.push(ar2);
+        ars.push(ar2.toLowerCase());
       this.setState({card: Object.assign(this.state.card, {archetypes: ars})});
     };
 
@@ -148,7 +148,7 @@ export default class EditorPage extends Component {
                     </div>
                     <div className="half-section">
                       <Label for="form-card-archetype2">Archetype 2</Label>
-                      <Input id="form-card-archetype2" type="text" value={this.state.card.archetypes.length > 1 ? this.state.card.archetypes[1] : ""} onChange={e => changeArchetypes(e.target.value, document.getElementById("form-card-archetype1").value)}/>
+                      <Input id="form-card-archetype2" type="text" value={this.state.card.archetypes.length > 1 ? this.state.card.archetypes[1] : ""} onChange={e => changeArchetypes(document.getElementById("form-card-archetype1").value, e.target.value)}/>
                     </div>
                   </FormGroup> : <span/>
                 }
