@@ -9,9 +9,10 @@ export default class EditorPage extends Component {
 	constructor (props) {
 
 		super(props);
-
-    var card = this.props.card !== undefined ?
-      JSON.parse(window.atob(this.props.card.supercode))
+      
+    var card =
+      this.props.card !== undefined
+      ? card = JSON.parse(window.atob(JSON.parse(localStorage.getItem("customcardlist")).find(el => el.idCardmodel === parseInt(this.props.card, 10)).supercode))
       : {
         nameCard: "Penguin",
         anime: "Anime",
@@ -32,10 +33,16 @@ export default class EditorPage extends Component {
 
   saveCard() {
 
-    var superCode = window.btoa(JSON.stringify(this.state.card));
+    var supercode = window.btoa(JSON.stringify(this.state.card));
 
-    this.props.api.saveCustomCards(superCode, () => {
+    var params = { supercode };
 
+    if (this.props.card !== undefined)
+      params.id = this.props.card;
+
+    this.props.api.saveCustomCards(params, () => {
+
+      localStorage.removeItem("customcardlist");
       this.props.history.push('/cards');
     })
 
@@ -43,6 +50,11 @@ export default class EditorPage extends Component {
 
   deleteCard() {
 
+    this.props.api.deleteCustomCards(this.props.card, () => {
+
+      localStorage.removeItem("customcardlist");
+      this.props.history.push('/cards');
+    })
   }
   
   render() {
@@ -187,7 +199,7 @@ export default class EditorPage extends Component {
           <div className="half-section">
             <div className="editor-card-visual">
               <Card id="card-preview" src={this.state.card}/>
-              <Button onClick={this.saveCard.bind(this)}>Save</Button>
+              <Button onClick={this.saveCard.bind(this)}>{ this.props.card !== undefined ? "Edit" : "Save" }</Button>
               { this.props.card !== undefined ? <Button color="danger" onClick={this.deleteCard.bind(this)}>Delete</Button> : <span/> }
               <div className="editor-box">
                 <Label for="form-card-supercode">Supercode</Label>

@@ -11,7 +11,7 @@ export default class CardsPage extends Component {
 
 		super(props);
 
-    var cardlist = [];
+    var cardlist = [], ccardlist = [];
 
     if (localStorage.getItem("cardlist") !== null)
       cardlist = JSON.parse(localStorage.getItem("cardlist"));
@@ -22,9 +22,18 @@ export default class CardsPage extends Component {
         this.setState({officialCards: c})
       });
 
+    if (localStorage.getItem("customcardlist") !== null)
+      ccardlist = JSON.parse(localStorage.getItem("customcardlist"));
+    else
+      this.props.api.getCustomCards(cards => {
+        var c = cards.map(card => this.readCard(card));
+        localStorage.setItem("customcardlist", JSON.stringify(c));
+        this.setState({customCards: c})
+      });
+
     this.state = {
       officialCards: cardlist,
-      customCards: [],
+      customCards: ccardlist,
       customs: false,
       loadedCustoms: false
     };
@@ -68,7 +77,12 @@ export default class CardsPage extends Component {
             : <span/>
           }
           <div className="sensuba-card-container">
-      		  { (this.state.customs ? this.state.customCards : this.state.officialCards).map(card => <Card key={card.idCardmodel} src={card}/>) }
+      		  {
+              this.state.customs ?
+                this.state.customCards.map(card => <a className="sensuba-card-link" onClick={() => this.props.history.push(`/cards/editor/${card.idCardmodel}`)} key={card.idCardmodel}><Card key={card.idCardmodel} src={card}/></a>)
+                :
+                this.state.officialCards.map(card => <Card key={card.idCardmodel} src={card}/>)
+            }
           </div>
           {
             this.state.customs ?

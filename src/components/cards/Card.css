@@ -343,3 +343,8 @@
     background-repeat: no-repeat; 
     filter: drop-shadow(1px 2px 1px #222A);
 }
+
+.sensuba-card-link {
+
+    cursor: pointer;
+}

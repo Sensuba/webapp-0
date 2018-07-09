@@ -29,3 +29,8 @@ main {
   color: white;
   background-color: rgb(66, 133, 244);
 }
+
+.btn {
+
+  margin: 0 0.5em;
+}

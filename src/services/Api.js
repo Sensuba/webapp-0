@@ -18,10 +18,18 @@ export default class Api {
   	.catch(this.error(error));
   }
 
-  saveCustomCards (supercode, callback, error) {
+  saveCustomCards (params, callback, error) {
 
     this.addAuthorizationHeader();
-    this.client.post("/user/cardmodels", {supercode})
+    this.client.post("/user/cardmodels", params)
+    .then(response => callback())
+    .catch(this.error(error));
+  }
+
+  deleteCustomCards (id, callback, error) {
+
+    this.addAuthorizationHeader();
+    this.client.delete("/user/cardmodels?id=" + id)
     .then(response => callback())
     .catch(this.error(error));
   }
