@@ -28,6 +28,18 @@ export default class Card extends Component {
 
       desc = desc.replace(/initiative|fury|rush|exaltation|lethal|frenzy:?|last will:?|shield|flying|freeze|frozen/gi, x => `<b>${x}</b>`);
 
+      desc = desc.replace(/(\d+|!) ?:/g, x => {
+        var emph = "";
+        if (x.charAt(0) === '!')
+          emph = "!";
+        else {
+          var i = 0;
+          for (; !isNaN(parseInt(x.charAt(i), 10)); i++)
+            emph += x.charAt(i);
+        }
+        return `<span class="sensuba-card-effect-emphasis">${emph}</span>:`
+      });
+
       return desc;
     }
 

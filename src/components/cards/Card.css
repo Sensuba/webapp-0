@@ -201,6 +201,35 @@
     font-size: 0.65em;
 }
 
+.sensuba-card .sensuba-card-effect .sensuba-card-effect-emphasis {
+
+    position: relative;
+    z-index: 1;
+    min-width: 1em;
+    text-align: center;
+    display: inline-block;
+    color: white;
+    margin-right: 0.9em;
+    font-family: "Lucida Bright";
+    font-style: italic;
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, 1);
+}
+
+.sensuba-card .sensuba-card-effect .sensuba-card-effect-emphasis:before {
+
+    content: "";
+    z-index: -1;
+    width: 0.8em;
+    height: 0.8em;
+    display: block;
+    position: absolute;
+    top: 0.3em;
+    margin-left: -0.3em;
+    left: 50%;
+    background: #8888;
+    transform: rotate(45deg);
+}
+
 .sensuba-card .sensuba-card-flavour {
 
 	font-family: Constantia;
