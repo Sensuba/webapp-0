@@ -1,21 +1,25 @@
 @font-face {
     font-family: "Lucida Bright";
-    src: url("./Fonts/LBRITE.TTF");
+    src: local("Lucida Bright"),
+        url("./Fonts/LBRITE.TTF");
 }
 
 @font-face {
     font-family: Constantia;
-    src: url("./Fonts/constan.ttf");
+    src: local("Constantia"),
+        url("./Fonts/constan.ttf");
 }
 
 @font-face {
     font-family: Ebrima;
-    src: url("./Fonts/ebrima.ttf");
+    src: local("Ebrima"),
+        url("./Fonts/ebrima.ttf");
 }
 
 @font-face {
     font-family: "Imprint MT Shadow";
-    src: url("./Fonts/IMPRISHA.TTF");
+    src: local("Imprint MT Shadow"),
+        url("./Fonts/IMPRISHA.TTF");
 }
 
 .sensuba-card {
