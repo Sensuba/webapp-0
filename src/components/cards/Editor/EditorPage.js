@@ -10,10 +10,7 @@ export default class EditorPage extends Component {
 
 		super(props);
       
-    var card =
-      this.props.card !== undefined
-      ? card = JSON.parse(window.atob(JSON.parse(localStorage.getItem("customcardlist")).find(el => el.idCardmodel === parseInt(this.props.card, 10)).supercode))
-      : {
+    var card = {
         nameCard: "Penguin",
         anime: "Anime",
         imgLink: "https://image.ibb.co/jbcTNJ/penguin.png",
@@ -26,7 +23,15 @@ export default class EditorPage extends Component {
         atk: 200,
         hp: 200,
         range: 1
-      };
+    };
+    
+    if (this.props.card !== undefined) {
+      var ccl = localStorage.getItem("customcardlist");
+      if (ccl === null) this.props.history.push("/cards");
+      var found = JSON.parse(localStorage.getItem("customcardlist")).find(el => el.idCardmodel === parseInt(this.props.card, 10));
+      if (found === undefined || found === null) this.props.history.push("/cards");
+      card = JSON.parse(window.atob(found.supercode));
+    }
 
     this.state = { card };
 	}
