@@ -28,10 +28,12 @@ export default class Card extends Component {
 
       desc = desc.replace(/initiative|fury|rush|exaltation|lethal|frenzy:?|last will:?|shield|flying|freeze|frozen/gi, x => `<b>${x}</b>`);
 
-      desc = desc.replace(/(\d+|!) ?:/g, x => {
+      desc = desc.replace(/(\d+|!|\*) ?:/g, x => {
         var emph = "";
         if (x.charAt(0) === '!')
           emph = "!";
+        else if (x === "0:" || x === "0 :" || x === "*:" || x === "* :")
+          emph = " ";
         else {
           var i = 0;
           for (; !isNaN(parseInt(x.charAt(i), 10)); i++)
