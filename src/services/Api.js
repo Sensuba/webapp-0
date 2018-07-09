@@ -20,6 +20,8 @@ export default class Api {
 
   saveCustomCards (params, callback, error) {
 
+    if (!User.isConnected())
+      return;
     this.addAuthorizationHeader();
     this.client.post("/user/cardmodels", params)
     .then(response => callback())
@@ -28,6 +30,8 @@ export default class Api {
 
   deleteCustomCards (id, callback, error) {
 
+    if (!User.isConnected())
+      return;
     this.addAuthorizationHeader();
     this.client.delete("/user/cardmodels?id=" + id)
     .then(response => callback())
@@ -36,6 +40,8 @@ export default class Api {
 
   getCustomCards (callback, error) {
 
+    if (!User.isConnected())
+      return;
     this.addAuthorizationHeader();
     this.client.get("/user/cardmodels")
     .then(response => callback(response.data))
