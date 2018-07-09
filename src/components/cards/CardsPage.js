@@ -11,14 +11,25 @@ export default class CardsPage extends Component {
 
 		super(props);
 
+    var cardlist = [];
+
+    if (localStorage.getItem(Card.list) !== null)
+      cardlist = JSON.parse(localStorage.getItem(Card.list));
+    else
+      this.props.api.getCards(cards => {
+        var c = cards.map(card => this.readCard(card));
+        localStorage.setItem(Card.list, JSON.stringify(c));
+        this.setState({officialCards: c})
+      });
+
     this.state = {
-      officialCards: [],
+      officialCards: cardlist,
       customCards: [],
       customs: false,
       loadedCustoms: false
     };
 
-    this.props.api.getCards(cards => this.setState({officialCards: cards.map(card => this.readCard(card))}));
+    
 	}
 
   readCard (card) {

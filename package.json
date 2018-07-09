@@ -7,6 +7,7 @@
     "babylonjs": "^3.2.0",
     "bootstrap": "^4.1.1",
     "express": "^4.16.3",
+    "html2canvas": "^1.0.0-alpha.12",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-redux": "^5.0.7",

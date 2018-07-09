@@ -7,7 +7,7 @@ var User = (() => {
 
 	var disconnect = () => {
 
-		sessionStorage.removeItem(User.shadow);
+		sessionStorage.clear();
 	}
 
 	var getData = () => {

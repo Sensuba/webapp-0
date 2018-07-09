@@ -7,8 +7,8 @@ export default class Figure extends Component {
   	var capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
   	
     return (
-      <div className={"sensuba-card sensuba-hero " + this.props.classColor.color1 + " " + this.props.classColor.color2}>
-		<img className="sensuba-card-bg" src={this.props.src.imgLink} alt={this.props.src.nameCard}/>
+      <div id={this.props.id} className={"sensuba-card sensuba-hero " + this.props.classColor.color1 + " " + this.props.classColor.color2}>
+		<img crossOrigin="Anonymous" className="sensuba-card-bg" src={this.props.src.imgLink} alt={this.props.src.nameCard}/>
 	    <div className="sensuba-card-header">
 	        <div className="sensuba-card-title">{this.props.src.nameCard}</div>
 	    	<div className="sensuba-card-hero-icon"/>

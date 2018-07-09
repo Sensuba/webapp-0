@@ -311,10 +311,6 @@
 	width: 0.7em;
 	background: white;
     transform: skew(0deg, -30deg);
-    box-shadow: 0.1em -0.05em 0.15em 0px rgba(0, 0, 0, 0.5) inset;
-}
-.sensuba-hero .sensuba-card-range-arrow:before {
-
     box-shadow: 0.1em -0.15em 0.15em 0px rgba(0, 0, 0, 0.5) inset, 0.2em 0.1em 0.2em 0px rgba(150, 150, 150, 0.5) inset;
 }
 
@@ -322,15 +318,11 @@
 	content: '';
     position: absolute;
     top: 0;
-    right: -0.2em;
+    right: -0.19em;
     height: 0.4em;
     width: 0.7em;
     background: white;
     transform: skew(0deg, 30deg);
-    box-shadow: -0.1em -0.05em 0.15em 0px rgba(0, 0, 0, 0.5) inset;
-}
-.sensuba-hero .sensuba-card-range-arrow:after {
-
     box-shadow: -0.1em -0.15em 0.15em 0px rgba(0, 0, 0, 0.5) inset, -0.2em 0.1em 0.2em 0px rgba(150, 150, 150, 0.5) inset;
 }
 

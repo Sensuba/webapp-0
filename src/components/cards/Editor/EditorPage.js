@@ -3,6 +3,8 @@ import Card from '../Card';
 import Nav from '../../Nav';
 import { Form, Input, FormGroup, Label, Button } from 'reactstrap';
 import './EditorPage.css';
+import html2canvas from 'html2canvas';
+import Lightbox from './../../utility/Lightbox';
 
 export default class EditorPage extends Component {
 
@@ -27,7 +29,7 @@ export default class EditorPage extends Component {
         range: 1
       };
 
-    this.state = { card };
+    this.state = { card, lightbox: false };
 	}
 
   saveCard() {
@@ -38,6 +40,18 @@ export default class EditorPage extends Component {
 
       this.props.history.push('/cards');
     })
+
+  }
+
+  previewCard() {
+
+    //console.log(document.getElementById("card-preview"))
+
+    html2canvas(document.getElementById("card-preview"), {useCORS: true}).then(canvas => {
+
+        document.getElementById("img-preview").setAttribute("src", canvas.toDataURL());
+        this.setState({lightbox: true});
+    });
   }
 
   deleteCard() {
@@ -185,8 +199,9 @@ export default class EditorPage extends Component {
           </div>
           <div className="half-section">
             <div className="editor-card-visual">
-              <Card src={this.state.card}/>
+              <Card id="card-preview" src={this.state.card}/>
               <Button onClick={this.saveCard.bind(this)}>Save</Button>
+              <Button onClick={this.previewCard.bind(this)}>Preview</Button>
               { this.props.card !== undefined ? <Button color="danger" onClick={this.deleteCard.bind(this)}>Delete</Button> : <span/> }
               <div className="editor-box">
                 <Label for="form-card-supercode">Supercode</Label>
@@ -199,6 +214,9 @@ export default class EditorPage extends Component {
               </div>
             </div>
           </div>
+          <Lightbox open={this.state.lightbox} onClose={() => this.setState({lightbox: false})}>
+            <img id="img-preview" src="" alt="card preview"/>
+          </Lightbox>
       	</main>
       </div>
     );
