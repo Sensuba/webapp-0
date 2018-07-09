@@ -15,10 +15,12 @@ export default class EditorPage extends Component {
         anime: "Anime",
         imgLink: "https://image.ibb.co/jbcTNJ/penguin.png",
         idColor: 0,
+        idColor2: 0,
         cardType: "figure",
         archetypes: [],
         mana: 0,
         description: "",
+        fontSize: 1.3,
         flavourText: "",
         atk: 200,
         hp: 200,
@@ -187,8 +189,14 @@ export default class EditorPage extends Component {
                   </FormGroup> : <span/>
                 }
                 <FormGroup>
-                  <Label for="form-card-description">Description</Label>
-                  <Input id="form-card-description" type="textarea" value={this.state.card.description} onChange={editAttribute("description").bind(this)}/>
+                  <div className="two-thirds-section">
+                    <Label for="form-card-description">Description</Label>
+                    <Input id="form-card-description" type="textarea" value={this.state.card.description} onChange={editAttribute("description").bind(this)}/>
+                  </div>
+                  <div className="third-section">
+                    <Label for="form-card-font-size">Font size</Label>
+                    <Input id="form-card-font-size" type="number" min="1" max="1.3" step="0.1" value={this.state.card.fontSize} onChange={editAttribute("fontSize").bind(this)}/>
+                  </div>
                 </FormGroup>
                 <FormGroup>
                   <Label for="form-card-flavour">Flavour text</Label>

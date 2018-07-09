@@ -26,7 +26,7 @@ export default class Figure extends Component {
 	        	<span className="sensuba-card-anime">{this.props.src.anime}</span>
 	        </div>
 	        <div className="sensuba-card-body-main">
-	        	<div className="sensuba-card-effect" dangerouslySetInnerHTML={{__html: this.props.src.htmlDescription}}/>
+	        	<div className="sensuba-card-effect" style={{'font-size': (this.props.src.fontSize || 1.3)/2 + 'em'}} dangerouslySetInnerHTML={{__html: this.props.src.htmlDescription}}/>
 	        	<div className="sensuba-card-flavour">{this.props.src.flavourText}</div>
 	        </div>
 	    </div>
