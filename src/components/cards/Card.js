@@ -3,7 +3,6 @@ import Hero from './Hero';
 import Figure from './Figure';
 import Spell from './Spell';
 import './Card.css';
-import '../utility/VectorIcon';
 
 export default class Card extends Component {
 
