@@ -201,6 +201,22 @@
     font-size: 0.65em;
 }
 
+.sensuba-card .sensuba-card-effect .sensuba-card-summon-effect-icon {
+
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    margin-right: 0.6em;
+    position: relative;
+}
+
+.sensuba-card .sensuba-card-effect .sensuba-card-summon-effect-icon svg {
+
+    position: absolute;
+    top: 0.2em;
+    left: 0;
+}
+
 .sensuba-card .sensuba-card-effect .sensuba-card-effect-emphasis {
 
     position: relative;
