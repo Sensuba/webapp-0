@@ -89,3 +89,9 @@
 
   width: 90%;
 }
+
+.editor-box .vintage-radio label {
+
+  margin: 0 !important;
+  font-size: 1em;
+}

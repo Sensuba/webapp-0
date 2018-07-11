@@ -15,7 +15,55 @@
 	margin-bottom: 1em;
 }
 
-.custom-cards-editor-link {
+.editor-button {
 
-	margin-top: 1em;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid black;
+  position: relative;
+  cursor: pointer;
+  width: 100%;
+  overflow: hidden;
+  height: 20em;
+}
+
+.editor-button-img {
+
+	width: 60%;
+	margin: 0 auto -30% auto;
+	opacity: 0.4;
+	transition: opacity 0.5s ease-in-out, margin-bottom 0.5s ease-in-out;
+}
+
+.editor-button:hover .editor-button-img {
+
+	opacity: 1;
+	margin-bottom: -10%;
+}
+
+.editor-button-text {
+
+  font-size: 1.2em;
+  font-variant: small-caps;
+  color: white;
+  text-shadow: 0 0 5px #000C;
+  font-family: Constantia, "Palatino Linotype", Palatino, Georgia, serif;
+  padding: 0.5em;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transition: text-shadow 0.5s ease-in-out, font-size 0.5s ease-in-out, padding 0.5s ease-in-out;
+}
+
+.editor-button:hover .editor-button-text {
+
+	text-shadow: 0 0 8px black;
+	font-size: 1.5em;
+	padding: 0.4em;
+}
+
+.card-collection-choicer .vintage-radio label {
+
+  font-size: 1.2em;
 }

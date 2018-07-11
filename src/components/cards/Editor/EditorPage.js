@@ -97,7 +97,7 @@ export default class EditorPage extends Component {
             <div className="editor-box">
               <Form>
                 <FormGroup>
-                  <div className="types-group modern-radio">
+                  <div className="types-group vintage-radio">
                     <Input id="hero-card" type="radio" name="sensuba-type" onChange={changeType("hero")} checked={this.state.card.cardType === "hero"}/>
                     <Label for="hero-card">Hero</Label>
                     <Input id="figure-card" type="radio" name="sensuba-type" onChange={changeType("figure")} checked={this.state.card.cardType === "figure"}/>
@@ -212,8 +212,8 @@ export default class EditorPage extends Component {
           <div className="half-section">
             <div className="editor-card-visual">
               <Card id="card-preview" src={this.state.card}/>
-              <Button onClick={this.saveCard.bind(this)}>{ this.props.card !== undefined ? "Edit" : "Save" }</Button>
-              { this.props.card !== undefined ? <Button color="danger" onClick={this.deleteCard.bind(this)}>Delete</Button> : <span/> }
+              <button className="menu-button" onClick={this.saveCard.bind(this)}>{ this.props.card !== undefined ? "Edit" : "Save" }</button>
+              { this.props.card !== undefined ? <button color="danger" onClick={this.deleteCard.bind(this)}>Delete</button> : <span/> }
               <div className="editor-box">
                 <Label for="form-card-supercode">Supercode</Label>
                 <Input id="form-card-supercode" type="textarea" rows="8" value={superCode} onChange={ e => {

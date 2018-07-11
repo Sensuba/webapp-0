@@ -7,6 +7,7 @@ import Editor from './cards/Editor/EditorPage';
 import Play from './play/PlayPage';
 import Room from './play/room/RoomPage';
 import Profile from './profile/ProfilePage';
+import Home from './home/HomePage';
 import User from '../services/User';
 
 const serverURL = process.env.SERVER_URL || 'https://sensuba-server.herokuapp.com/';
@@ -16,8 +17,8 @@ export default class App extends Component {
     return (
       <BrowserRouter>
           <Switch>
-            <Route exact path="/" component={({ match, history }) => (<Cards history={history} api={this.props.options.api}/>)}/>
-            <Route exact path="/home" component={({ match, history }) => (<Redirect to="/"/>)}/>
+            <Route exact path="/" component={({ match, history }) => (<Redirect to="/home"/>)}/>
+            <Route exact path="/home" component={({ match, history }) => (<Home history={history} api={this.props.options.api}/>)}/>
             <Route exact path="/cards" component={({ match, history }) => (<Cards history={history} api={this.props.options.api}/>)}/>
             <Route exact path="/cards/editor" component={({ match, history }) => (User.isConnected() ? <Editor history={history} api={this.props.options.api}/> : <Redirect to="/cards"/>)}/>
             <Route path="/cards/editor/:card" component={({ match, history }) => (User.isConnected() ? <Editor card={match.params.card} history={history} api={this.props.options.api}/> : <Redirect to="/cards"/>)}/>

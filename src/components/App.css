@@ -7,30 +7,73 @@ main {
 .invisible {
 
 	display: none;
-}
+} 
 
-.modern-radio input {
+.vintage-radio input {
 
   display: none;
 }
 
-.modern-radio label {
+.vintage-radio label {
 
+  font-family: Constantia;
   margin-left: 0.3em;
-  border: 1px solid rgb(66, 133, 244);
-  border-radius: 0.3em;
-  padding: 0.4em 0.8em;
-  color: rgb(66, 133, 244);
+  padding: 0.4em 4em;
+  cursor: pointer;
+  margin: 0;
+  color: white;
+  text-shadow: 0 0 8px #382e22;
+}
+
+.vintage-radio input:checked + label {
+
+  color: white;
+  background: radial-gradient(#382e22, transparent, transparent);
+}
+
+button {
+
+  outline: 0 !important;
+}
+
+.menu-button {
+
+  background: linear-gradient(to bottom, #26272b, black);
+  color: white;
+  border-radius: 0 !important;
+  font-size: 1.2em;
+  padding: 0.5em 1em;
+  font-family: Constantia, "Palatino Linotype", Palatino, Georgia, serif;
+  transition: background 0.2s;
+  font-variant: small-caps;
+}
+
+.menu-button:hover {
+
+  background: linear-gradient(to bottom, #6f6f70, #39393a);
   cursor: pointer;
 }
 
-.modern-radio input:checked + label {
+.long-button {
 
-  color: white;
-  background-color: rgb(66, 133, 244);
+  width: 100%;
+  max-width: 40em;
+  margin: auto;
 }
 
-.btn {
+.long-button:hover {
 
-  margin: 0 0.5em;
+  animation: menu-button-shadow 1s infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+}
+
+.long-button + .long-button {
+
+  margin-top: 3em;
+}
+
+@keyframes menu-button-shadow {
+    from {box-shadow: 0px 0px 0px 0px #ede176C0;}
+    to {box-shadow: 0px 0px 35px 8px #ede176C0;}
 }

@@ -67,7 +67,7 @@ export default class CardsPage extends Component {
           {
             User.isConnected() ?
             <div className="card-collection-choicer">
-              <div className="modern-radio">
+              <div className="vintage-radio">
                 <Input id="official-card-collection" type="radio" name="card-collection" onChange={() => this.displayCustoms(false)} defaultChecked/>
                 <Label for="official-card-collection">Official</Label>
                 <Input id="custom-card-collection" type="radio" name="card-collection" onChange={() => this.displayCustoms(true)}/>
@@ -86,9 +86,10 @@ export default class CardsPage extends Component {
           </div>
           {
             this.state.customs ?
-            <div className="custom-cards-editor-link">
-              <Button onClick={() => this.props.history.push('/cards/editor')}>Open the editor</Button>
-            </div>
+            <button className="editor-button" onClick={() => this.props.history.push('/cards/editor')}>
+              <img className="editor-button-img" src="/editor.png"/>
+              <div className="editor-button-text">Open the editor</div>
+            </button>
             : <span/>
           }
       	</main>
