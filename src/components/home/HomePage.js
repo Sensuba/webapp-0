@@ -25,7 +25,7 @@ export default class HomePage extends Component {
               <div className="home-panel-text">
                 <h3>How to play ?</h3>
                 <p>Come here to get all the knowledge you need to play Sensuba with your friends and kick asses online.</p>
-                <button className="select-button">Learn the game</button>
+                <button className="select-button">Learn the basics</button>
               </div>
             </div>
             <div className="home-panel panel-left">
