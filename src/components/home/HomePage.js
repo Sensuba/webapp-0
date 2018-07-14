@@ -29,7 +29,7 @@ export default class HomePage extends Component {
               </div>
             </div>
             <div className="home-panel panel-left">
-              <img className="home-panel-background" src="/img3.png" alt="bg"/>
+              <img className="home-panel-background" src="/img3.jpg" alt="bg"/>
               <div className="home-panel-filter"/>
               <div className="home-panel-text">
                 <h3>A full set of cards</h3>
