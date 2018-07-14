@@ -6,11 +6,12 @@ import Cards from './cards/CardsPage';
 import Editor from './cards/Editor/EditorPage';
 import Play from './play/PlayPage';
 import Room from './play/room/RoomPage';
+import Rules from './rules/RulesPage';
 import Profile from './profile/ProfilePage';
 import Home from './home/HomePage';
 import User from '../services/User';
 
-const serverURL = process.env.SERVER_URL || 'https://sensuba-server.herokuapp.com/';
+const serverURL = process.env.SERVER_URL || 'http://localhost:8080' || 'https://sensuba-server.herokuapp.com/';
 
 export default class App extends Component {
   render() {
@@ -25,6 +26,7 @@ export default class App extends Component {
             <Route exact path="/play" component={({ match, history }) => (<Play server={serverURL} history={history} api={this.props.options.api}/>)}/>
             <Route path="/play/:room" component={({ match, history }) => (<Room server={serverURL} room={match.params.room} history={history} api={this.props.options.api}/>)}/>
             <Route exact path="/profile" component={({ match, history }) => (<Profile history={history} api={this.props.options.api}/>)}/>
+            <Route exact path="/rules" component={({ match, history }) => (<Rules history={history} api={this.props.options.api}/>)}/>
           </Switch>
       </BrowserRouter>
     );

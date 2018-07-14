@@ -1,0 +1,53 @@
+.rule-part {
+
+	text-align: center;
+    text-transform: uppercase;
+    padding: 10px;
+    font-size: 1.4em;
+    color: #555;
+    background: linear-gradient(to right, rgba(150, 150, 150, 0.25), rgba(150, 150, 150, 0.15), rgba(150, 150, 150, 0.25));
+    opacity: 0.5;
+    margin: 2em 0;
+}
+
+.rule-extender {
+
+	text-align: left;
+}
+
+.rule-extender .rule-title {
+    font-family: Constantia, "Palatino Linotype", Palatino, Georgia, serif;
+    height: 1.5em;
+    line-height: 1.5em;
+    font-variant: small-caps;
+    color: white;
+    background: linear-gradient(to right, #111, #555);
+    margin-bottom: 0.5em;
+    padding-left: 0.8em;
+    font-size: 1.4em;
+    border: solid 1px #444;
+}
+
+.rule-extender .explanation {
+    box-sizing: border-box;
+    display: inline-block;
+    color: #333;
+    line-height: 1.5em;
+    padding: 1em 2em;
+    width: 60%;
+    vertical-align: top;
+}
+
+.rule-extender .explanation p {
+    margin-bottom: 1em;
+}
+
+.img-exp {
+    display: inline-block;
+    max-width: 30%;
+    max-height: 20em;
+    height: auto;
+    width: auto;
+    margin: 0 5% 1em 5%;
+    vertical-align: top;
+}

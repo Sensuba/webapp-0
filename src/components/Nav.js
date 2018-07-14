@@ -10,7 +10,7 @@ export default class Nav extends Component {
 		{ name: "Home", path: "/home" },
 		{ name: "Cards", path: "/cards" },
 		{ name: "Play", path: "/play" },
-		{ name: "Stats", path: "/stats" },
+		{ name: "Rules", path: "/rules" },
 		{ name: "Login", action: () => this.setState({ lightbox: true, signup: false }) },
 	];
 
@@ -18,7 +18,7 @@ export default class Nav extends Component {
 		{ name: "Home", path: "/home" },
 		{ name: "Cards", path: "/cards" },
 		{ name: "Play", path: "/play" },
-		{ name: "Stats", path: "/stats" },
+		{ name: "Rules", path: "/rules" },
 		{ name: "Collection", path: "/collection" },
 		{ name: "Profile", path: "/profile" },
 		{ name: "Logout", action: () => this.logout() },
@@ -69,10 +69,10 @@ export default class Nav extends Component {
 				{
 					(User.isConnected() ? this.member_links : this.guest_links).map(link =>
 						<BreadcrumbItem
-							className={"nav-item" + (this.props.history.location.pathname.startsWith(link.path) ? "" : " enabled-nav-item")}
+							className={"nav-item" + (this.props.history.location.pathname === link.path ? "" : " enabled-nav-item")}
 							key={link.name}
 							onClick={ link.path ? () => this.props.history.push(link.path) : link.action }
-							active={this.props.history.location.pathname.startsWith(link.path)}>
+							active={this.props.history.location.pathname === link.path}>
 								{ link.name }
 						</BreadcrumbItem>
 					)

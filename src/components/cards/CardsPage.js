@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Card from './Card';
 import './CardsPage.css';
-import { Input, Label, Button } from 'reactstrap';
+import { Input, Label } from 'reactstrap';
 import Nav from '../Nav';
 import User from '../../services/User';
 
@@ -87,7 +87,7 @@ export default class CardsPage extends Component {
           {
             this.state.customs ?
             <button className="editor-button" onClick={() => this.props.history.push('/cards/editor')}>
-              <img className="editor-button-img" src="/editor.png"/>
+              <img className="editor-button-img" src="/editor.png" alt="editor-chan"/>
               <div className="editor-button-text">Open the editor</div>
             </button>
             : <span/>

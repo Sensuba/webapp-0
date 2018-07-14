@@ -11,7 +11,7 @@ export default class HomePage extends Component {
       	<main>
           <div className="home-choicer">
             <div className="home-panel panel-left">
-              <img className="home-panel-background" src="/img1.jpg"/>
+              <img className="home-panel-background" src="/img1.jpg" alt="bg"/>
               <div className="home-panel-filter"/>
               <div className="home-panel-text">
                 <h3>Get into the game</h3>
@@ -20,16 +20,16 @@ export default class HomePage extends Component {
               </div>
             </div>
             <div className="home-panel panel-right">
-              <img className="home-panel-background" src="/img2.jpg"/>
+              <img className="home-panel-background" src="/img2.jpg" alt="bg"/>
               <div className="home-panel-filter"/>
               <div className="home-panel-text">
                 <h3>How to play ?</h3>
                 <p>Come here to get all the knowledge you need to play Sensuba with your friends and kick asses online.</p>
-                <button className="select-button">Learn the basics</button>
+                <button className="select-button" onClick={() => this.props.history.push("/rules")}>Learn the basics</button>
               </div>
             </div>
             <div className="home-panel panel-left">
-              <img className="home-panel-background" src="/img3.png"/>
+              <img className="home-panel-background" src="/img3.png" alt="bg"/>
               <div className="home-panel-filter"/>
               <div className="home-panel-text">
                 <h3>A full set of cards</h3>

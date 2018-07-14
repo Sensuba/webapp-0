@@ -28,7 +28,7 @@ export default class Card extends Component {
 
       desc = desc.replace(/initiative|fury|rush|exaltation|lethal|frenzy:?|last will:?|shield|flying|freeze|frozen/gi, x => `<b>${x}</b>`);
 
-      desc = desc.replace(/-&gt;/g, x =>
+      desc = desc.replace(/-&gt; ?/g, x =>
         `<div class="sensuba-card-summon-effect-icon">
           <svg viewBox="0 0 52.495 52.495">
             <g>

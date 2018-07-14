@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Card from '../Card';
 import Nav from '../../Nav';
-import { Form, Input, FormGroup, Label, Button } from 'reactstrap';
+import { Form, Input, FormGroup, Label } from 'reactstrap';
 import './EditorPage.css';
 
 export default class EditorPage extends Component {
