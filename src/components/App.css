@@ -64,7 +64,7 @@ button {
   background: linear-gradient(to bottom, #900e1b, #3e1919)
 }
 
-.menu-button:hover {
+.red.menu-button:hover {
 
   background: linear-gradient(to bottom, #a75e66, #5e4141);
 }
