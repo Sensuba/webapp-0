@@ -201,6 +201,11 @@
     font-size: 0.65em;
 }
 
+.sensuba-card .sensuba-card-effect .sensuba-card-effect-p + .sensuba-card-effect-p {
+
+    margin-top: 0.25em;
+}
+
 .sensuba-card .sensuba-card-effect .sensuba-card-summon-effect-icon {
 
     width: 1em;

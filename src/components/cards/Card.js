@@ -24,7 +24,8 @@ export default class Card extends Component {
 
       desc = escapeHtml(desc);
 
-      desc = desc.replace(/\n/g, "<br/>");
+      desc = `<div class="sensuba-card-effect-p">${desc}</div>`;
+      desc = desc.replace(/\n/g, '</div><div class="sensuba-card-effect-p">');
 
       desc = desc.replace(/initiative|fury|rush|exaltation|lethal|frenzy:?|last will:?|silence|shield|flying|freeze|frozen/gi, x => `<b>${x}</b>`);
 
@@ -55,7 +56,7 @@ export default class Card extends Component {
             emph += x.charAt(i);
         }
         return `<span class="sensuba-card-effect-emphasis">${emph}</span>:`
-      });
+      });console.log(desc);
 
       return desc;
     }
