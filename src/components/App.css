@@ -46,12 +46,27 @@ button {
   font-family: Constantia, "Palatino Linotype", Palatino, Georgia, serif;
   transition: background 0.2s;
   font-variant: small-caps;
+  cursor: pointer;
 }
 
 .menu-button:hover {
 
   background: linear-gradient(to bottom, #6f6f70, #39393a);
-  cursor: pointer;
+}
+
+.menu-button + .menu-button {
+
+  margin-left: 20px;
+}
+
+.red.menu-button {
+
+  background: linear-gradient(to bottom, #900e1b, #3e1919)
+}
+
+.menu-button:hover {
+
+  background: linear-gradient(to bottom, #a75e66, #5e4141);
 }
 
 .long-button {

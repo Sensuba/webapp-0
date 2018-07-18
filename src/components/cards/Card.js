@@ -26,7 +26,7 @@ export default class Card extends Component {
 
       desc = desc.replace(/\n/g, "<br/>");
 
-      desc = desc.replace(/initiative|fury|rush|exaltation|lethal|frenzy:?|last will:?|shield|flying|freeze|frozen/gi, x => `<b>${x}</b>`);
+      desc = desc.replace(/initiative|fury|rush|exaltation|lethal|frenzy:?|last will:?|silence|shield|flying|freeze|frozen/gi, x => `<b>${x}</b>`);
 
       desc = desc.replace(/-&gt; ?/g, x =>
         `<div class="sensuba-card-summon-effect-icon">

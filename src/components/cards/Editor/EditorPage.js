@@ -28,10 +28,13 @@ export default class EditorPage extends Component {
     };
     
     if (this.props.card !== undefined) {
-      var ccl = localStorage.getItem("customcardlist");
+      var ccl = sessionStorage.getItem("customcardlist");
       if (ccl === null) this.props.history.push("/cards");
       var found = JSON.parse(sessionStorage.getItem("customcardlist")).find(el => el.idCardmodel === parseInt(this.props.card, 10));
-      if (found === undefined || found === null) this.props.history.push("/cards");
+      if (found === undefined || found === null) {
+        this.props.history.push("/cards");
+        return;
+      }
       card = JSON.parse(window.atob(found.supercode));
     }
 
@@ -49,7 +52,7 @@ export default class EditorPage extends Component {
 
     this.props.api.saveCustomCards(params, () => {
 
-      localStorage.removeItem("customcardlist");
+      sessionStorage.removeItem("customcardlist");
       this.props.history.push('/cards');
     })
 
@@ -59,7 +62,7 @@ export default class EditorPage extends Component {
 
     this.props.api.deleteCustomCards(this.props.card, () => {
 
-      localStorage.removeItem("customcardlist");
+      sessionStorage.removeItem("customcardlist");
       this.props.history.push('/cards');
     })
   }
@@ -213,7 +216,7 @@ export default class EditorPage extends Component {
             <div className="editor-card-visual">
               <Card id="card-preview" src={this.state.card}/>
               <button className="menu-button" onClick={this.saveCard.bind(this)}>{ this.props.card !== undefined ? "Edit" : "Save" }</button>
-              { this.props.card !== undefined ? <button color="danger" onClick={this.deleteCard.bind(this)}>Delete</button> : <span/> }
+              { this.props.card !== undefined ? <button className="red menu-button" color="danger" onClick={this.deleteCard.bind(this)}>Delete</button> : <span/> }
               <div className="editor-box">
                 <Label for="form-card-supercode">Supercode</Label>
                 <Input id="form-card-supercode" type="textarea" rows="8" value={superCode} onChange={ e => {
