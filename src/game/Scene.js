@@ -76,6 +76,9 @@ export default class Scene extends Component<SceneProps & React.HTMLAttributes<H
 
     return (
       <canvas
+        id="sensuba-scene"
+        width="1920"
+        height="1000"
         {...opts}
         ref={this.onCanvasLoaded}
       />

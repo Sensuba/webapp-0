@@ -5,7 +5,7 @@ export default class RulesFR extends Component {
   render() {
     return (
       <div>
-        <div className="rule-part">Apercu du jeu</div>
+        <div className="rule-part">Aperçu du jeu</div>
         <div className="rule-extender">
           <div className="rule-title">Vaincre son adversaire</div>
           <div className="explanation">

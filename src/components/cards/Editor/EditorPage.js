@@ -30,7 +30,7 @@ export default class EditorPage extends Component {
     if (this.props.card !== undefined) {
       var ccl = localStorage.getItem("customcardlist");
       if (ccl === null) this.props.history.push("/cards");
-      var found = JSON.parse(localStorage.getItem("customcardlist")).find(el => el.idCardmodel === parseInt(this.props.card, 10));
+      var found = JSON.parse(sessionStorage.getItem("customcardlist")).find(el => el.idCardmodel === parseInt(this.props.card, 10));
       if (found === undefined || found === null) this.props.history.push("/cards");
       card = JSON.parse(window.atob(found.supercode));
     }

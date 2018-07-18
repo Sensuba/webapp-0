@@ -43,9 +43,9 @@ export default class RoomPage extends Component {
     return (
       <div>
         <Nav api={this.props.api} history={this.props.history}/>
-      	<main>
+        <main id="room-page">
           <Game/>
-      	</main>
+        </main>
       </div>
     );
   }
