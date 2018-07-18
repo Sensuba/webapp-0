@@ -50,7 +50,7 @@ export default class Nav extends Component {
 
 	signup () {
 
-		if (document.getElementById("username-signup").value.length < 5 ||
+		if (document.getElementById("username-signup").value.length < 4 ||
 			document.getElementById("password-signup").value.length < 8 ||
 			document.getElementById("password-signup").value !== document.getElementById("confirm-password-signup").value)
 			return;
