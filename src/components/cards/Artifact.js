@@ -23,9 +23,11 @@ export default class Artifact extends Component {
 	        	<div className="sensuba-card-flavour">{this.props.src.flavourText}</div>
 	        </div>
 	    </div>
-		<div className="sensuba-card-param sensuba-card-param-hp">
-	      <div className="sensuba-card-param-name">DUR</div>
-	   	  <div className="sensuba-card-param-value">{this.props.src.hp}</div>
+		<div className="sensuba-card-footer">
+		  <div className="sensuba-card-param sensuba-card-param-hp">
+		    <div className="sensuba-card-param-name">DUR</div>
+	   	    <div className="sensuba-card-param-value">{this.props.src.hp}</div>
+		  </div>
 		</div>
 	  </div>
     );
