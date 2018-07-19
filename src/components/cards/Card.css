@@ -315,11 +315,11 @@
     transform: skew(0deg, -30deg) rotate(30deg);
 }
 
-.sensuba-card.white-mana .sensuba-card-footer, .sensuba-card.sensuba-artifact .sensuba-card-footer::before { background: rgba(232, 209, 97, 0.8) }
-.sensuba-card.red-mana .sensuba-card-footer, .sensuba-card.sensuba-artifact .sensuba-card-footer::before { background: rgba(247, 69, 69, 0.8) }
-.sensuba-card.blue-mana .sensuba-card-footer, .sensuba-card.sensuba-artifact .sensuba-card-footer::before { background: rgba(17, 150, 216, 0.8) }
-.sensuba-card.green-mana .sensuba-card-footer, .sensuba-card.sensuba-artifact .sensuba-card-footer::before { background: rgba(142, 197, 102, 0.8) }
-.sensuba-card.black-mana .sensuba-card-footer, .sensuba-card.sensuba-artifact .sensuba-card-footer::before { background: rgba(80, 26, 53, 0.8) }
+.sensuba-card.white-mana .sensuba-card-footer, .sensuba-card.white-mana.sensuba-artifact .sensuba-card-footer::before { background: rgba(232, 209, 97, 0.8) }
+.sensuba-card.red-mana .sensuba-card-footer, .sensuba-card.red-mana.sensuba-artifact .sensuba-card-footer::before { background: rgba(247, 69, 69, 0.8) }
+.sensuba-card.blue-mana .sensuba-card-footer, .sensuba-card.blue-mana.sensuba-artifact .sensuba-card-footer::before { background: rgba(17, 150, 216, 0.8) }
+.sensuba-card.green-mana .sensuba-card-footer, .sensuba-card.green-mana.sensuba-artifact .sensuba-card-footer::before { background: rgba(142, 197, 102, 0.8) }
+.sensuba-card.black-mana .sensuba-card-footer, .sensuba-card.black-mana.sensuba-artifact .sensuba-card-footer::before { background: rgba(80, 26, 53, 0.8) }
 
 .sensuba-card .sensuba-card-param {
 
