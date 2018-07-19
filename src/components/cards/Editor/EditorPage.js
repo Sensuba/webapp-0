@@ -43,6 +43,9 @@ export default class EditorPage extends Component {
 
   saveCard() {
 
+    var shadow = this.state.card;
+    shadow.htmlDescription = undefined;
+
     var supercode = window.btoa(JSON.stringify(this.state.card));
 
     var params = { supercode };
