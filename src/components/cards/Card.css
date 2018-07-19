@@ -288,21 +288,39 @@
 
 .sensuba-card.sensuba-artifact .sensuba-card-footer {
 
-    top: 27.5em;
+    top: 28.6em;
     left: 18em;
     width: 20em;
-    height: 7.5em;
     margin: 0 7%;
+    background: none;
+    border: none;
     border-radius: 0em;
-    box-shadow: 0px 0.25em 2em 0px rgba(0, 0, 0, 0.5) inset;
+    box-shadow: none;
+    /*transform: skew(0deg, -30deg);*/
 }
+.sensuba-card.sensuba-artifact .sensuba-card-footer::before {
 
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: rgba(133, 167, 193, 0.8);
+    border-radius: 0em;
+    border: solid white 0.125em;
+    box-shadow: 0px 0.25em 2em 0px rgba(0, 0, 0, 0.5) inset;
+    color: white;
+    width: 21em;
+    height: 6em;
+    box-shadow: 0px 0.25em 2em 0px rgba(0, 0, 0, 0.5) inset;
+    transform: skew(0deg, -30deg) rotate(30deg);}
+
+/*
 .sensuba-card.sensuba-artifact .sensuba-card-footer:after {
 
     content: "▰";
     font-size: 7.5em;
     color: rgba(133, 167, 193, 0.8);
-}
+}*/
 
 .sensuba-card.white-mana .sensuba-card-footer { background: rgba(232, 209, 97, 0.8) }
 .sensuba-card.red-mana .sensuba-card-footer { background: rgba(247, 69, 69, 0.8) }
@@ -330,7 +348,7 @@
 .sensuba-card.sensuba-hero .sensuba-card-param-atk { left: 12.5em; top: 45em; }
 .sensuba-card.sensuba-hero .sensuba-card-param-hp { left: 23em; top: 6em; font-weight: bold; }
 
-.sensuba-card.sensuba-artifact .sensuba-card-param-hp { left: 2.5em }
+.sensuba-card.sensuba-artifact .sensuba-card-param-hp { left: 3.5em }
 
 .sensuba-card .sensuba-card-param-name {
 
