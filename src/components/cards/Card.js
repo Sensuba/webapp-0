@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Hero from './Hero';
 import Figure from './Figure';
 import Spell from './Spell';
+import Artifact from './Artifact';
 import './Card.css';
 
 export default class Card extends Component {
@@ -56,7 +57,7 @@ export default class Card extends Component {
             emph += x.charAt(i);
         }
         return `<span class="sensuba-card-effect-emphasis">${emph}</span>:`
-      });console.log(desc);
+      });
 
       return desc;
     }
@@ -82,6 +83,7 @@ export default class Card extends Component {
     case "hero": result = <Hero id={this.props.id} src={src} classColor={{color1: colorIdToClassName(this.props.src.idColor), color2: colorIdToClassName(this.props.src.idColor2)}}/>; break;
   	case "figure": result = <Figure id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
     case "spell": result = <Spell id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
+    case "artifact": result = <Artifact id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
     default: break;
   	}
 

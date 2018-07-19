@@ -107,6 +107,8 @@ export default class EditorPage extends Component {
                     <Label for="figure-card">Figure</Label>
                     <Input id="spell-card" type="radio" name="sensuba-type" onChange={changeType("spell")} checked={this.state.card.cardType === "spell"}/>
                     <Label for="spell-card">Spell</Label>
+                    <Input id="artifact-card" type="radio" name="sensuba-type" onChange={changeType("artifact")} checked={this.state.card.cardType === "artifact"}/>
+                    <Label for="artifact-card">Artifact</Label>
                   </div>
                 </FormGroup>
                 <FormGroup>
@@ -175,7 +177,7 @@ export default class EditorPage extends Component {
                   </FormGroup> : <span/>
                 }
                 {
-                  this.state.card.cardType !== "spell" ?
+                  this.state.card.cardType === "figure" || this.state.card.cardType === "hero" ?
                   <FormGroup>
                     <div className="third-section">
                       <Label for="form-card-atk">ATK</Label>
@@ -183,12 +185,19 @@ export default class EditorPage extends Component {
                     </div>
                     <div className="third-section">
                       <Label for="form-card-hp">HP</Label>
-                      <Input id="form-card-hp" type="number" min="0" max="9999" step="100" value={this.state.card.hp} onChange={editAttribute("hp").bind(this)}/>
+                      <Input id="form-card-hp" type="number" min="100" max="9999" step="100" value={this.state.card.hp} onChange={editAttribute("hp").bind(this)}/>
                     </div>
                     <div className="third-section">
                       <Label for="form-card-range">Range</Label>
                       <Input id="form-card-range" type="number" min="1" max="3" value={this.state.card.range} onChange={editAttribute("range").bind(this)}/>
                     </div>
+                  </FormGroup> : <span/>
+                }
+                {
+                  this.state.card.cardType === "artifact" ?
+                  <FormGroup>
+                      <Label for="form-card-hp">Durability</Label>
+                      <Input id="form-card-hp" type="number" min="100" max="9999" step="100" value={this.state.card.hp} onChange={editAttribute("hp").bind(this)}/>
                   </FormGroup> : <span/>
                 }
                 <FormGroup>

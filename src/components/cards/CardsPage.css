@@ -67,3 +67,10 @@
 
   font-size: 1.2em;
 }
+
+.sensuba-card-search {
+
+  background: linear-gradient(to bottom, #26272b, black);
+  height: 5em;
+  margin-bottom: 1em;
+}

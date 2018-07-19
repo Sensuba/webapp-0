@@ -4,6 +4,7 @@ import './CardsPage.css';
 import { Input, Label } from 'reactstrap';
 import Nav from '../Nav';
 import User from '../../services/User';
+import sorter from '../../utility/CollectionSorter';
 
 export default class CardsPage extends Component {
 
@@ -58,8 +59,19 @@ export default class CardsPage extends Component {
       loadedCustoms: this.state.loadedCustoms || customs
     });
   }
+
+  filterCards (cards) {
+
+    sorter.sort(cards, "type");
+
+    return cards;
+  }
   
   render() {
+
+    var cards = this.state.customs ? this.state.customCards : this.state.officialCards;
+    cards = this.filterCards(cards);
+
     return (
       <div>
         <Nav api={this.props.api} history={this.props.history}/>
@@ -79,9 +91,9 @@ export default class CardsPage extends Component {
           <div className="sensuba-card-container">
       		  {
               this.state.customs ?
-                this.state.customCards.map(card => <a className="sensuba-card-link" onClick={() => this.props.history.push(`/cards/editor/${card.idCardmodel}`)} key={card.idCardmodel}><Card key={card.idCardmodel} src={card}/></a>)
+                cards.map(card => <a className="sensuba-card-link" onClick={() => this.props.history.push(`/cards/editor/${card.idCardmodel}`)} key={card.idCardmodel}><Card key={card.idCardmodel} src={card}/></a>)
                 :
-                this.state.officialCards.map(card => <Card key={card.idCardmodel} src={card}/>)
+                cards.map(card => <Card key={card.idCardmodel} src={card}/>)
             }
           </div>
           {

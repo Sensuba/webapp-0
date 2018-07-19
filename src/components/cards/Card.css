@@ -129,7 +129,7 @@
     overflow: hidden;
 }
 
-.sensuba-spell .sensuba-card-body {
+.sensuba-spell .sensuba-card-body, .sensuba-artifact .sensuba-card-body {
 
     top: 14em;
     height: 5.5em;
@@ -298,7 +298,7 @@
     top: 1.5em;
 }
 
-.sensuba-card.sensuba-hero .sensuba-card-param {
+.sensuba-card.sensuba-hero .sensuba-card-param, .sensuba-card.sensuba-artifact .sensuba-card-param {
 
     font-size: 0.4em;
     color: white;
@@ -311,6 +311,7 @@
 
 .sensuba-card.sensuba-hero .sensuba-card-param-atk { left: 12.5em; top: 45em; }
 .sensuba-card.sensuba-hero .sensuba-card-param-hp { left: 23em; top: 6em; font-weight: bold; }
+.sensuba-card.sensuba-artifact .sensuba-card-param-hp { left: 23em; top: 28.5em; }
 
 .sensuba-card .sensuba-card-param-name {
 
