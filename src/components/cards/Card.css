@@ -292,7 +292,7 @@
     left: 18em;
     width: 20em;
     margin: 0 7%;
-    background: none;
+    background: none !important;
     border: none;
     border-radius: 0em;
     box-shadow: none;
@@ -312,21 +312,14 @@
     width: 21em;
     height: 6em;
     box-shadow: 0px 0.25em 2em 0px rgba(0, 0, 0, 0.5) inset;
-    transform: skew(0deg, -30deg) rotate(30deg);}
+    transform: skew(0deg, -30deg) rotate(30deg);
+}
 
-/*
-.sensuba-card.sensuba-artifact .sensuba-card-footer:after {
-
-    content: "▰";
-    font-size: 7.5em;
-    color: rgba(133, 167, 193, 0.8);
-}*/
-
-.sensuba-card.white-mana .sensuba-card-footer { background: rgba(232, 209, 97, 0.8) }
-.sensuba-card.red-mana .sensuba-card-footer { background: rgba(247, 69, 69, 0.8) }
-.sensuba-card.blue-mana .sensuba-card-footer { background: rgba(17, 150, 216, 0.8) }
-.sensuba-card.green-mana .sensuba-card-footer { background: rgba(142, 197, 102, 0.8) }
-.sensuba-card.black-mana .sensuba-card-footer { background: rgba(80, 26, 53, 0.8) }
+.sensuba-card.white-mana .sensuba-card-footer, .sensuba-card.sensuba-artifact .sensuba-card-footer::before { background: rgba(232, 209, 97, 0.8) }
+.sensuba-card.red-mana .sensuba-card-footer, .sensuba-card.sensuba-artifact .sensuba-card-footer::before { background: rgba(247, 69, 69, 0.8) }
+.sensuba-card.blue-mana .sensuba-card-footer, .sensuba-card.sensuba-artifact .sensuba-card-footer::before { background: rgba(17, 150, 216, 0.8) }
+.sensuba-card.green-mana .sensuba-card-footer, .sensuba-card.sensuba-artifact .sensuba-card-footer::before { background: rgba(142, 197, 102, 0.8) }
+.sensuba-card.black-mana .sensuba-card-footer, .sensuba-card.sensuba-artifact .sensuba-card-footer::before { background: rgba(80, 26, 53, 0.8) }
 
 .sensuba-card .sensuba-card-param {
 
