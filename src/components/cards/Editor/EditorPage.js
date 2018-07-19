@@ -46,7 +46,7 @@ export default class EditorPage extends Component {
     var shadow = this.state.card;
     shadow.htmlDescription = undefined;
 
-    var supercode = window.btoa(JSON.stringify(this.state.card));
+    var supercode = window.btoa(JSON.stringify(shadow));
 
     var params = { supercode };
 
@@ -93,7 +93,10 @@ export default class EditorPage extends Component {
 
     var changeColor2 = idColor => () => this.setState({card: Object.assign(this.state.card, {idColor2: idColor})});
 
-    var superCode = window.btoa(JSON.stringify(this.state.card));
+    var shadow = this.state.card;
+    shadow.htmlDescription = undefined;
+
+    var superCode = window.btoa(JSON.stringify(shadow));
 
     return (
       <div>
