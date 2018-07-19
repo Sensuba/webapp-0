@@ -45,7 +45,7 @@ export default class Card extends Component {
           </svg>
         </div>`);
 
-      desc = desc.replace(/(\d+|!|\*) ?:/g, x => {
+      desc = desc.replace(/(\+|\-)?(\d+|!|\*) ?:/g, x => {
         var emph = "";
         if (x.charAt(0) === '!')
           emph = "!";
@@ -53,7 +53,7 @@ export default class Card extends Component {
           emph = " ";
         else {
           var i = 0;
-          for (; !isNaN(parseInt(x.charAt(i), 10)); i++)
+          for (; x.charAt(i) !== ":"; i++)
             emph += x.charAt(i);
         }
         return `<span class="sensuba-card-effect-emphasis">${emph}</span>:`
