@@ -15,7 +15,6 @@ export default class EditorPage extends Component {
         anime: "Anime",
         imgLink: "https://image.ibb.co/jbcTNJ/penguin.png",
         idColor: 0,
-        idColor2: 0,
         cardType: "figure",
         archetypes: [],
         mana: 0,
