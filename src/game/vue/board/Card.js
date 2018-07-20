@@ -1,4 +1,5 @@
 import * as BABYLON from 'babylonjs';
+import node from '../Node';
 
 export default class Card {
 
@@ -11,18 +12,33 @@ export default class Card {
         this.obj.rotation = rotation;
 	}
 
+    changeParent (parent) {
+
+        var p = this.obj.getAbsolutePosition();
+        this.obj.rotation.addInPlace(this.parent.obj.rotation);
+        this.parent = parent;
+        this.obj.parent = parent.obj;
+        this.obj.setAbsolutePosition(p);
+        this.obj.rotation.subtractInPlace(this.parent.obj.rotation);
+    }
+
 	mount () {
+
+        this.obj = node.create("card", this.parent.obj);
 
 	    var shape = [new BABYLON.Vector3(-1.5, 0, -2),
             new BABYLON.Vector3(-1.5, 0, 2),
             new BABYLON.Vector3(1.5, 0, 2),
             new BABYLON.Vector3(1.5, 0, -2)];
-        var obj = BABYLON.Mesh.CreatePolygon("card", shape, this.scene);
-        this.obj = obj;
+        this.recto = BABYLON.Mesh.CreatePolygon("recto", shape, this.scene);
         var mat = new BABYLON.StandardMaterial ("mat", this.scene);
         mat.diffuseTexture = new BABYLON.Texture("/game/back.png", this.scene);
-        obj.material = mat;
-        obj.parent = this.parent.obj;
+        this.recto.material = mat;
+        this.recto.parent = this.obj;
+        this.verso = BABYLON.Mesh.CreatePolygon("verso", shape, this.scene);
+        this.verso.rotation = new BABYLON.Vector3(0, 0, Math.PI);
+        this.verso.material = mat;
+        this.verso.parent = this.obj;
 	}
 
     move (position, rotation, duration = 20) {

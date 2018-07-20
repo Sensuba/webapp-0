@@ -1,12 +1,15 @@
 import * as BABYLON from 'babylonjs';
 import Card from './Card';
+import node from '../Node';
 
 export default class Hand {
 
-	constructor (parent, position, rotation) {
+	constructor (parent, noId, position, rotation) {
 
-		this.parent = parent;
+		this.area = parent;
 		this.scene = parent.scene;
+		this.id = { type: "hand", no: noId };
+		this.scene.manager.addItem(this);
 		this.mount();
 		this.obj.position = position;
 		this.obj.rotation = rotation;
@@ -14,12 +17,7 @@ export default class Hand {
 
 	mount () {
 
-      var obj = BABYLON.Mesh.CreateGround("hand", 0, 0, 0, this.scene);
-      this.obj = obj;
-      this.obj.isVisible = false;
-      this.obj.parent = this.parent.obj;
-
-      //new Card(this.scene, new BABYLON.Vector3(0, 1, 0), new BABYLON.Vector3(0, 0, 0)).move(new BABYLON.Vector3(0, 5, 0), new BABYLON.Vector3(-1, 0, 0));
+      this.obj = node.create("hand", this.area.obj);
 
       new Card(this, new BABYLON.Vector3(-5, 0, 0), new BABYLON.Vector3(0, 0, 0));
       new Card(this, new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 0));
