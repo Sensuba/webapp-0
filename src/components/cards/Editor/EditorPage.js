@@ -69,6 +69,23 @@ export default class EditorPage extends Component {
       this.props.history.push('/cards');
     })
   }
+
+  changeType(newType) {
+
+    var filter = [];
+    switch (newType) {
+    case "figure": filter = ["idColor2"]; break;
+    case "hero": filter = ["archetypes", "mana"]; break;
+    case "spell": filter = ["idColor2", "archetypes", "atk", "hp", "range"]; break;
+    case "artifact": filter = ["idColor2", "archetypes", "atk", "range"]; break;
+    default: break;
+    }
+
+    var n = Object.assign(this.state.card, {cardType: newType});
+    filter.forEach(f => n[f] = undefined);
+
+    this.setState({card: n});
+  }
   
   render() {
 
@@ -86,8 +103,6 @@ export default class EditorPage extends Component {
         ars.push(ar2.toLowerCase());
       this.setState({card: Object.assign(this.state.card, {archetypes: ars})});
     };
-
-    var changeType = newType => () => this.setState({card: Object.assign(this.state.card, {cardType: newType})});
 
     var changeColor = idColor => () => this.setState({card: Object.assign(this.state.card, {idColor: idColor})});
 
@@ -107,13 +122,13 @@ export default class EditorPage extends Component {
               <Form>
                 <FormGroup>
                   <div className="types-group vintage-radio">
-                    <Input id="hero-card" type="radio" name="sensuba-type" onChange={changeType("hero")} checked={this.state.card.cardType === "hero"}/>
+                    <Input id="hero-card" type="radio" name="sensuba-type" onChange={this.changeType("hero")} checked={this.state.card.cardType === "hero"}/>
                     <Label for="hero-card">Hero</Label>
-                    <Input id="figure-card" type="radio" name="sensuba-type" onChange={changeType("figure")} checked={this.state.card.cardType === "figure"}/>
+                    <Input id="figure-card" type="radio" name="sensuba-type" onChange={this.changeType("figure")} checked={this.state.card.cardType === "figure"}/>
                     <Label for="figure-card">Figure</Label>
-                    <Input id="spell-card" type="radio" name="sensuba-type" onChange={changeType("spell")} checked={this.state.card.cardType === "spell"}/>
+                    <Input id="spell-card" type="radio" name="sensuba-type" onChange={this.changeType("spell")} checked={this.state.card.cardType === "spell"}/>
                     <Label for="spell-card">Spell</Label>
-                    <Input id="artifact-card" type="radio" name="sensuba-type" onChange={changeType("artifact")} checked={this.state.card.cardType === "artifact"}/>
+                    <Input id="artifact-card" type="radio" name="sensuba-type" onChange={this.changeType("artifact")} checked={this.state.card.cardType === "artifact"}/>
                     <Label for="artifact-card">Artifact</Label>
                   </div>
                 </FormGroup>
