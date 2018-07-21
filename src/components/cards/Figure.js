@@ -7,9 +7,9 @@ export default class Figure extends Component {
   	var capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
 
   	var ct = capitalize(this.props.src.cardType);
-  	if (this.props.src.archetypes.length > 0) {
+  	if (this.props.src.archetypes && this.props.src.archetypes.length > 0) {
   		ct += ": " + capitalize(this.props.src.archetypes[0]);
-  		if (this.props.src.archetypes.length > 1)
+  		if (this.props.src.archetypes && this.props.src.archetypes.length > 1)
   			ct += ", " + capitalize(this.props.src.archetypes[1])
   	}
   	
@@ -18,7 +18,7 @@ export default class Figure extends Component {
 		<img crossOrigin="Anonymous" className="sensuba-card-bg" src={this.props.src.imgLink} alt={this.props.src.nameCard}/>
 	    <div className="sensuba-card-header">
 	    	<div className="sensuba-card-mana">{this.props.src.mana}</div>
-	        <div className="sensuba-card-title">{this.props.src.nameCard}</div>
+	        <div className={"sensuba-card-title" + (this.props.src.nameCard.length >= 25 ? " sensuba-card-long-title" : "")}>{this.props.src.nameCard}</div>
 	    </div>
 	    <div className="sensuba-card-body">
 	    	<div className="sensuba-card-body-header">

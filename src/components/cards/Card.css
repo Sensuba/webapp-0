@@ -95,6 +95,16 @@
     font-family: "Imprint MT Shadow";
 }
 
+.sensuba-card .sensuba-card-title.sensuba-card-long-title {
+
+    top: 0.50625em;
+    height: 1.2375em;
+    line-height: 1.125em;
+    font-size: 0.8em;
+    border: solid white 0.063em;
+    border-radius: 0.2475em;
+}
+
 .sensuba-card.white-mana .sensuba-card-title { background: rgba(232, 209, 97, 0.8) }
 .sensuba-card.red-mana .sensuba-card-title { background: rgba(247, 69, 69, 0.8) }
 .sensuba-card.blue-mana .sensuba-card-title { background: rgba(17, 150, 216, 0.8) }
