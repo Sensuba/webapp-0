@@ -190,11 +190,11 @@ export default class EditorPage extends Component {
                   <FormGroup>
                     <div className="half-section">
                       <Label for="form-card-archetype1">Archetype 1</Label>
-                      <Input id="form-card-archetype1" type="text" value={this.state.card.archetypes.length > 0 ? this.state.card.archetypes[0] : ""} onChange={e => changeArchetypes(e.target.value, document.getElementById("form-card-archetype2").value)}/>
+                      <Input id="form-card-archetype1" type="text" value={(this.state.card.archetypes && this.state.card.archetypes.length > 0) ? this.state.card.archetypes[0] : ""} onChange={e => changeArchetypes(e.target.value, document.getElementById("form-card-archetype2").value)}/>
                     </div>
                     <div className="half-section">
                       <Label for="form-card-archetype2">Archetype 2</Label>
-                      <Input id="form-card-archetype2" type="text" value={this.state.card.archetypes.length > 1 ? this.state.card.archetypes[1] : ""} onChange={e => changeArchetypes(document.getElementById("form-card-archetype1").value, e.target.value)}/>
+                      <Input id="form-card-archetype2" type="text" value={(this.state.card.archetypes && this.state.card.archetypes.length > 1) ? this.state.card.archetypes[1] : ""} onChange={e => changeArchetypes(document.getElementById("form-card-archetype1").value, e.target.value)}/>
                     </div>
                   </FormGroup> : <span/>
                 }
