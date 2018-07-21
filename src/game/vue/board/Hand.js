@@ -19,8 +19,8 @@ export default class Hand {
 
       this.obj = node.create("hand", this.area.obj);
 
-      new Card(this, new BABYLON.Vector3(-5, 0, 0), new BABYLON.Vector3(0, 0, 0));
+      /*new Card(this, new BABYLON.Vector3(-5, 0, 0), new BABYLON.Vector3(0, 0, 0));
       new Card(this, new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 0));
-      new Card(this, new BABYLON.Vector3(5, 0, 0), new BABYLON.Vector3(0, 0, 0));
+      new Card(this, new BABYLON.Vector3(5, 0, 0), new BABYLON.Vector3(0, 0, 0));*/
 	}
 }

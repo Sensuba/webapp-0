@@ -82,7 +82,7 @@ export default class EditorPage extends Component {
 
     var n = Object.assign(this.state.card, {cardType: newType});
     filter.forEach(f => n[f] = undefined);
-
+    
     this.setState({card: n});
   }
   
@@ -121,13 +121,13 @@ export default class EditorPage extends Component {
               <Form>
                 <FormGroup>
                   <div className="types-group vintage-radio">
-                    <Input id="hero-card" type="radio" name="sensuba-type" onChange={this.changeType("hero")} checked={this.state.card.cardType === "hero"}/>
+                    <Input id="hero-card" type="radio" name="sensuba-type" onChange={() => this.changeType("hero")} checked={this.state.card.cardType === "hero"}/>
                     <Label for="hero-card">Hero</Label>
-                    <Input id="figure-card" type="radio" name="sensuba-type" onChange={this.changeType("figure")} checked={this.state.card.cardType === "figure"}/>
+                    <Input id="figure-card" type="radio" name="sensuba-type" onChange={() => this.changeType("figure")} checked={this.state.card.cardType === "figure"}/>
                     <Label for="figure-card">Figure</Label>
-                    <Input id="spell-card" type="radio" name="sensuba-type" onChange={this.changeType("spell")} checked={this.state.card.cardType === "spell"}/>
+                    <Input id="spell-card" type="radio" name="sensuba-type" onChange={() => this.changeType("spell")} checked={this.state.card.cardType === "spell"}/>
                     <Label for="spell-card">Spell</Label>
-                    <Input id="artifact-card" type="radio" name="sensuba-type" onChange={this.changeType("artifact")} checked={this.state.card.cardType === "artifact"}/>
+                    <Input id="artifact-card" type="radio" name="sensuba-type" onChange={() => this.changeType("artifact")} checked={this.state.card.cardType === "artifact"}/>
                     <Label for="artifact-card">Artifact</Label>
                   </div>
                 </FormGroup>

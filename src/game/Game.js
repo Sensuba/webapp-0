@@ -6,6 +6,7 @@ import Model from './model/board/GameBoard';
 import Vue from './vue/board/GameBoard';
 import User from '../services/User';
 import openSocket from 'socket.io-client';
+import Card from './vue/board/Card'
 
 export default class Game extends Component {
 
@@ -28,7 +29,6 @@ export default class Game extends Component {
 
     socket.on('joined', role => {
       if (role.as === 'player') {
-        console.log(role.no);
         socket.emit('prepare', User.isConnected() ? User.getData().token : "Anonymous", {
           hero: 1,
           body: [
@@ -42,14 +42,24 @@ export default class Game extends Component {
         });
       }
 
-      socket.on('notification',  this.analyse);
+      socket.on('notification',  this.analyse.bind(this));
     })
   }
 
   analyse (n) {
 
     switch(n.type) {
-
+    case "newcard":
+      new Card(this.manager.find(n.data[0]), n.src.no, new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 0));
+      break;
+    case "identify":
+      this.manager.find(n.data[0].id).identify(n.data[0]);
+      break;
+    case "draw":
+      this.manager.find(n.data[0]).changeParent(this.manager.find(n.src).hand);
+      this.manager.find(n.data[0]).move(new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 0));
+      break;
+    default: break;
     }
   }
 
@@ -65,7 +75,7 @@ export default class Game extends Component {
 
       var light = new BABYLON.HemisphericLight("mainlight", new BABYLON.Vector3(0, 1, 0), scene);
 
-      new Vue(scene);
+      this.vue = new Vue(scene);
 
       scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
 

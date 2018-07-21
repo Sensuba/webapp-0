@@ -3,10 +3,12 @@ import node from '../Node';
 
 export default class Card {
 
-	constructor (parent, position, rotation) {
+	constructor (parent, noId, position, rotation) {
 
         this.parent = parent;
         this.scene = parent.scene;
+        this.id = { type: "card", no: noId };
+        this.scene.manager.addItem(this);
 		this.mount();
         this.obj.position = position;
         this.obj.rotation = rotation;
@@ -63,5 +65,12 @@ export default class Card {
         this.obj.animations.push(animR);
 
         this.scene.beginAnimation(this.obj, 0, duration, true);
+    }
+
+    identify (data) {
+
+        var mat = new BABYLON.StandardMaterial ("mat", this.scene);
+        mat.diffuseTexture = new BABYLON.Texture(data.imgLink, this.scene);
+        this.recto.material = mat;
     }
 }
