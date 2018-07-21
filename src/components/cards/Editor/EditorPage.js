@@ -73,6 +73,13 @@ export default class EditorPage extends Component {
   changeType(newType) {
 
     var filter = [];
+    var basis = {
+        archetypes: [],
+        mana: 0,
+        atk: 200,
+        hp: 200,
+        range: 1
+    };
     switch (newType) {
     case "figure": filter = ["idColor2"]; break;
     case "hero": filter = ["archetypes", "mana"]; break;
@@ -81,7 +88,7 @@ export default class EditorPage extends Component {
     default: break;
     }
 
-    var n = Object.assign(this.state.card, {cardType: newType});
+    var n = Object.assign(basis, this.state.card, {cardType: newType});
     filter.forEach(f => n[f] = undefined);
     
     this.setState({card: n});

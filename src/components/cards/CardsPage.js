@@ -109,6 +109,7 @@ export default class CardsPage extends Component {
               <Input id="sensuba-search-text" type="text" placeholder="Search" onChange={editFilter("search").bind(this)}/>
             </div>
             <div className="third-section">
+              <Input id="sensuba-search-archetype" type="text" placeholder="Archetype" onChange={editFilter("archetype").bind(this)}/>
               <Label for="sensuba-search-type" className="sensuba-search-select-label">Type</Label>
               <select id="sensuba-search-type" onChange={editFilter("type").bind(this)}>
                 <option value="">---</option>
@@ -117,7 +118,6 @@ export default class CardsPage extends Component {
                 <option value="spell">Spell</option>
                 <option value="artifact">Artifact</option>
               </select>
-              <Input id="sensuba-search-archetype" type="text" placeholder="Archetype" onChange={editFilter("archetype").bind(this)}/>
             </div>
             <div className="third-section">
               <div className="colors-group">
