@@ -21,6 +21,7 @@ export default class EditorPage extends Component {
         description: "",
         fontSize: 1.3,
         flavourText: "",
+        illustrator: "",
         atk: 200,
         hp: 200,
         range: 1
@@ -238,6 +239,10 @@ export default class EditorPage extends Component {
                 <FormGroup>
                   <Label for="form-card-img">Image link</Label>
                   <Input id="form-card-img" type="url" value={this.state.card.imgLink} onChange={editAttribute("imgLink").bind(this)}/>
+                </FormGroup>
+                <FormGroup>
+                  <Label for="form-card-illustrator">Illustrator</Label>
+                  <Input id="form-card-illustrator" type="text" value={this.state.card.illustrator} onChange={editAttribute("illustrator").bind(this)}/>
                 </FormGroup>
               </Form>
             </div>
