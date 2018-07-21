@@ -23,4 +23,9 @@ export default class Hand {
       new Card(this, new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 0));
       new Card(this, new BABYLON.Vector3(5, 0, 0), new BABYLON.Vector3(0, 0, 0));*/
 	}
+
+	addCard (card) {
+
+		
+	}
 }

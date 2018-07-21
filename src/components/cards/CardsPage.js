@@ -36,7 +36,8 @@ export default class CardsPage extends Component {
       officialCards: cardlist,
       customCards: ccardlist,
       customs: false,
-      loadedCustoms: false
+      loadedCustoms: false,
+      filter: {orderBy: "type"}
     };
 
     
@@ -62,7 +63,7 @@ export default class CardsPage extends Component {
 
   filterCards (cards) {
 
-    sorter.sort(cards, "type");
+    cards = sorter.filter(cards, this.state.filter);
 
     return cards;
   }
@@ -71,6 +72,12 @@ export default class CardsPage extends Component {
 
     var cards = this.state.customs ? this.state.customCards : this.state.officialCards;
     cards = this.filterCards(cards);
+
+    var editFilter = attr => (e => {
+      var plus = {};
+      plus[attr] = e.target.value;
+      this.setState({filter: Object.assign(this.state.filter, plus)});
+    });
 
     return (
       <div>
@@ -88,6 +95,23 @@ export default class CardsPage extends Component {
             </div>
             : <span/>
           }
+          <div className="sensuba-card-search">
+            <div className="third-section">
+              <Input id="sensuba-search-text" type="text" placeholder="Search" onChange={editFilter("search").bind(this)}/>
+            </div>
+            <div className="third-section">
+              <Input id="sensuba-search-archetype" type="text" placeholder="Archetype" onChange={editFilter("archetype").bind(this)}/>
+            </div>
+            <div className="third-section">
+              <select id="sensuba-search-orderby" onChange={editFilter("orderBy").bind(this)}>
+                <option value="type">Type</option>
+                <option value="mana">Mana</option>
+                <option value="atk">ATK</option>
+                <option value="hp">HP</option>
+                <option value="range">Range</option>
+              </select>
+            </div>
+          </div>
           <div className="sensuba-card-container">
       		  {
               this.state.customs ?

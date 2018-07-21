@@ -71,6 +71,49 @@
 .sensuba-card-search {
 
   background: linear-gradient(to bottom, #26272b, black);
-  height: 5em;
   margin-bottom: 1em;
+  padding-bottom: 10px;
 }
+
+.sensuba-card-search input, .sensuba-card-search select {
+
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid white;
+  color: white;
+  border-radius: 5px;
+  width: 100%;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.sensuba-card-search option {
+
+  background-color: black;
+  color: white;
+}
+
+.sensuba-card-search input:focus, .sensuba-card-search select:focus {
+
+  background-color: transparent;
+  outline: 0;
+  box-shadow: none;
+  color: white;
+  border-color: white;
+}
+
+.sensuba-card-search .third-section {
+
+  padding: 0 5%;
+}
+
+.half-section, .third-section, .two-thirds-section {
+
+  display: inline-block;
+  vertical-align: top;
+}
+
+.half-section { width: 50% }
+.third-section { width: 33% }
+.two-thirds-section { width: 66% }

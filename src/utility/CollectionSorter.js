@@ -19,6 +19,8 @@ export default (() => {
 
 	var hpSort = valueSort("hp");
 
+	var rangeSort = valueSort("range");
+
 	var typeSort = (a, b) => {
 
 		var typeToPrio = type => {
@@ -43,6 +45,7 @@ export default (() => {
 		case "mana": func = manaSort; break;
 		case "atk": func = atkSort; break;
 		case "hp": func = hpSort; break;
+		case "range": func = rangeSort; break;
 		default: break;
 		}
 
@@ -53,9 +56,21 @@ export default (() => {
 		})
 	}
 
+	var filter = (cards, f) => {
+
+		if (f.search && f.search !== "")
+			cards = cards.filter(card => card.nameCard.toLowerCase().includes(f.search.toLowerCase()) || card.anime.toLowerCase().includes(f.search.toLowerCase()) || card.description.toLowerCase().includes(f.search.toLowerCase()));
+		if (f.archetype && f.archetype !== "")
+			cards = cards.filter(card => card.archetypes && card.archetypes.filter(arc => arc.toLowerCase().includes(f.archetype.toLowerCase())).length > 0);
+		if (f.orderBy)
+			sort(cards, f.orderBy);
+		return cards;
+	}
+
 	return {
 
-		sort
+		sort,
+		filter
 	};
 
 })();

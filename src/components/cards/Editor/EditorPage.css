@@ -1,25 +1,6 @@
-.half-section {
+.editor-box .third-section, .editor-box .two-thirds-section {
 
-  display: inline-block;
-  width: 50%;
-  vertical-align: top;
-}
-
-.third-section, .two-thirds-section {
-
-  display: inline-block;
-  vertical-align: top;
   padding-right: 10%;
-}
-
-.third-section {
-
-  width: 33%;
-}
-
-.two-thirds-section {
-
-  width: 66%;
 }
 
 .editor-box {
