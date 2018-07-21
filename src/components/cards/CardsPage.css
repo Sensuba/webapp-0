@@ -88,7 +88,7 @@
 }
 
 .sensuba-card-search .colors-group {
-  
+
   margin-bottom: 10px;
 }
 
@@ -141,7 +141,7 @@
 .third-section { width: 33% }
 .two-thirds-section { width: 66% }
 
-.colors-group {
+.sensuba-card-search .colors-group {
 
   display: flex;
   justify-content: space-around;

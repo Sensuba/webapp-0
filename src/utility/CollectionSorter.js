@@ -68,6 +68,7 @@ export default (() => {
 			cards = cards.filter(card => card.archetypes && card.archetypes.filter(arc => arc.toLowerCase().includes(f.archetype.toLowerCase())).length > 0);
 		if (f.orderBy)
 			sort(cards, f.orderBy);
+		console.log(cards);
 		return cards;
 	}
 
