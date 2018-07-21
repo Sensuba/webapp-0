@@ -91,6 +91,7 @@ export default class EditorPage extends Component {
     var editAttribute = attr => (e => {
       var plus = {};
       plus[attr] = e.target.value;
+      if (typeof plus[attr] === 'string') plus[attr].replace(/[\u0250-\ue007]/g, '');
       this.setState({card: Object.assign(this.state.card, plus)});
     });
 
