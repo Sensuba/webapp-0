@@ -60,6 +60,10 @@ export default (() => {
 
 		if (f.search && f.search !== "")
 			cards = cards.filter(card => card.nameCard.toLowerCase().includes(f.search.toLowerCase()) || card.anime.toLowerCase().includes(f.search.toLowerCase()) || card.description.toLowerCase().includes(f.search.toLowerCase()));
+		if (f.type && f.type !== "")
+			cards = cards.filter(card => card.cardType === f.type);
+		if (f.colors && f.colors.length > 0)
+			cards = cards.filter(card => f.colors.includes(card.idColor) && (!card.idColor2 || f.colors.includes(card.idColor2)));
 		if (f.archetype && f.archetype !== "")
 			cards = cards.filter(card => card.archetypes && card.archetypes.filter(arc => arc.toLowerCase().includes(f.archetype.toLowerCase())).length > 0);
 		if (f.orderBy)

@@ -72,7 +72,6 @@
 
   /*background: linear-gradient(to bottom, #26272b, black);*/
   margin-bottom: 1em;
-  padding-bottom: 10px;
 }
 
 .sensuba-card-search input, .sensuba-card-search select {
@@ -82,10 +81,34 @@
   border-bottom: 1px solid black;
   color: black;
   border-radius: 5px;
-  width: 100%;
   padding: .375rem .75rem;
   font-size: 1rem;
   line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.sensuba-card-search .colors-group {
+  
+  margin-bottom: 10px;
+}
+
+.sensuba-card-search select {
+
+  width: 60%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.sensuba-search-select-label {
+
+  width: 40%;
+  overflow: hidden;
+  margin: 0;
+  display: inline-block;
+  font-size: 1rem;
+  line-height: 2;
+  height: 2em;
+  vertical-align: top;
 }
 
 .sensuba-card-search option {
@@ -117,3 +140,44 @@
 .half-section { width: 50% }
 .third-section { width: 33% }
 .two-thirds-section { width: 66% }
+
+.colors-group {
+
+  display: flex;
+  justify-content: space-around;
+}
+
+.colors-group input {
+
+  display: none;
+}
+
+.colors-group label {
+
+  height: 1.4em;
+  width: 1.4em;
+  margin-left: 0.3em;
+  border: 1px solid;
+  border-radius: 0.3em;
+  cursor: pointer;
+}
+
+.sensuba-card-search .colors-group label {
+
+  height: 2em;
+  width: 2em;
+}
+
+.colors-group #neutral-mana + label, .colors-group #neutral-mana-2 + label { border-color: rgb(133, 167, 193) }
+.colors-group #white-mana + label, .colors-group #white-mana-2 + label { border-color: rgb(232, 209, 97) }
+.colors-group #red-mana + label, .colors-group #red-mana-2 + label { border-color: rgb(247, 69, 69) }
+.colors-group #blue-mana + label, .colors-group #blue-mana-2 + label { border-color: rgb(17, 150, 216) }
+.colors-group #green-mana + label, .colors-group #green-mana-2 + label { border-color: rgb(142, 197, 102) }
+.colors-group #black-mana + label, .colors-group #black-mana-2 + label { border-color: rgb(80, 26, 53) }
+
+.colors-group #neutral-mana:checked + label, .colors-group #neutral-mana-2:checked + label { background-color: rgb(133, 167, 193) }
+.colors-group #white-mana:checked + label, .colors-group #white-mana-2:checked + label { background-color: rgb(232, 209, 97) }
+.colors-group #red-mana:checked + label, .colors-group #red-mana-2:checked + label { background-color: rgb(247, 69, 69) }
+.colors-group #blue-mana:checked + label, .colors-group #blue-mana-2:checked + label { background-color: rgb(17, 150, 216) }
+.colors-group #green-mana:checked + label, .colors-group #green-mana-2:checked + label { background-color: rgb(142, 197, 102) }
+.colors-group #black-mana:checked + label, .colors-group #black-mana-2:checked + label { background-color: rgb(80, 26, 53) }

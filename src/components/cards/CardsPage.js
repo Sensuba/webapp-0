@@ -37,7 +37,7 @@ export default class CardsPage extends Component {
       customCards: ccardlist,
       customs: false,
       loadedCustoms: false,
-      filter: {orderBy: "type"}
+      filter: {orderBy: "type", colors: []}
     };
 
     
@@ -79,6 +79,15 @@ export default class CardsPage extends Component {
       this.setState({filter: Object.assign(this.state.filter, plus)});
     });
 
+    var colorFilter = color => (e => {
+      var colors = this.state.filter.colors;
+      if (e.target.checked)
+        colors.push(color);
+      else
+        colors = colors.filter(c => c !== color);
+      this.setState({filter: Object.assign(this.state.filter, {colors: colors})});
+    });
+
     return (
       <div>
         <Nav api={this.props.api} history={this.props.history}/>
@@ -100,9 +109,32 @@ export default class CardsPage extends Component {
               <Input id="sensuba-search-text" type="text" placeholder="Search" onChange={editFilter("search").bind(this)}/>
             </div>
             <div className="third-section">
+              <Label for="sensuba-search-type" className="sensuba-search-select-label">Type</Label>
+              <select id="sensuba-search-type" onChange={editFilter("type").bind(this)}>
+                <option value="">---</option>
+                <option value="hero">Hero</option>
+                <option value="figure">Figure</option>
+                <option value="spell">Spell</option>
+                <option value="artifact">Artifact</option>
+              </select>
               <Input id="sensuba-search-archetype" type="text" placeholder="Archetype" onChange={editFilter("archetype").bind(this)}/>
             </div>
             <div className="third-section">
+              <div className="colors-group">
+                <Input id="neutral-mana" type="checkbox" name="sensuba-color" onChange={colorFilter(0)}/>
+                <Label for="neutral-mana"/>
+                <Input id="white-mana" type="checkbox" name="sensuba-color" onChange={colorFilter(1)}/>
+                <Label for="white-mana"/>
+                <Input id="red-mana" type="checkbox" name="sensuba-color" onChange={colorFilter(2)}/>
+                <Label for="red-mana"/>
+                <Input id="blue-mana" type="checkbox" name="sensuba-color" onChange={colorFilter(3)}/>
+                <Label for="blue-mana"/>
+                <Input id="green-mana" type="checkbox" name="sensuba-color" onChange={colorFilter(4)}/>
+                <Label for="green-mana"/>
+                <Input id="black-mana" type="checkbox" name="sensuba-color" onChange={colorFilter(5)}/>
+                <Label for="black-mana"/>
+              </div>
+              <Label for="sensuba-search-orderby" className="sensuba-search-select-label">Order by</Label>
               <select id="sensuba-search-orderby" onChange={editFilter("orderBy").bind(this)}>
                 <option value="type">Type</option>
                 <option value="mana">Mana</option>
