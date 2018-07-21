@@ -70,7 +70,7 @@
 
 .sensuba-card-search {
 
-  background: linear-gradient(to bottom, #26272b, black);
+  /*background: linear-gradient(to bottom, #26272b, black);*/
   margin-bottom: 1em;
   padding-bottom: 10px;
 }
@@ -79,8 +79,8 @@
 
   background-color: transparent;
   border: none;
-  border-bottom: 1px solid white;
-  color: white;
+  border-bottom: 1px solid black;
+  color: black;
   border-radius: 5px;
   width: 100%;
   padding: .375rem .75rem;
@@ -90,8 +90,8 @@
 
 .sensuba-card-search option {
 
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: black;
 }
 
 .sensuba-card-search input:focus, .sensuba-card-search select:focus {
@@ -99,8 +99,8 @@
   background-color: transparent;
   outline: 0;
   box-shadow: none;
-  color: white;
-  border-color: white;
+  color: black;
+  border-color: black;
 }
 
 .sensuba-card-search .third-section {
