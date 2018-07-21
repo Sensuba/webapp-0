@@ -59,6 +59,14 @@ export default class Card extends Component {
         return `<span class="sensuba-card-effect-emphasis">${emph}</span>:`
       });
 
+      desc = desc.replace(/\*(\+|\-)?(\d+|!)\*/g, x => {
+        var emph = "";
+        var i = 1;
+        for (; x.charAt(i) !== "*"; i++)
+          emph += x.charAt(i);
+        return `<span class="sensuba-card-effect-show">${emph}</span>`
+      });
+
       return desc;
     }
 
