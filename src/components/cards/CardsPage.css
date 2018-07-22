@@ -181,3 +181,21 @@
 .colors-group #blue-mana:checked + label, .colors-group #blue-mana-2:checked + label { background-color: rgb(17, 150, 216) }
 .colors-group #green-mana:checked + label, .colors-group #green-mana-2:checked + label { background-color: rgb(142, 197, 102) }
 .colors-group #black-mana:checked + label, .colors-group #black-mana-2:checked + label { background-color: rgb(80, 26, 53) }
+
+.sensuba-focus-box .lightbox {
+
+  max-height: 95vh !important;
+  max-width: 95vw !important; 
+  overflow: auto !important;
+}
+
+.sensuba-card-focus {
+
+  display: flex;
+  justify-content: wrap;
+}
+
+.sensuba-card-focus .sensuba-card {
+
+  font-size: 4vh;
+}

@@ -5,6 +5,7 @@ import { Input, Label } from 'reactstrap';
 import Nav from '../Nav';
 import User from '../../services/User';
 import sorter from '../../utility/CollectionSorter';
+import Lightbox from '../utility/Lightbox';
 
 export default class CardsPage extends Component {
 
@@ -20,7 +21,7 @@ export default class CardsPage extends Component {
       this.props.api.getCards(cards => {
         var c = cards.map(card => this.readCard(card));
         sessionStorage.setItem("cardlist", JSON.stringify(c));
-        this.setState({officialCards: c})
+        this.setState({officialCards: c});
       });
 
     if (sessionStorage.getItem("customcardlist") !== null)
@@ -37,7 +38,8 @@ export default class CardsPage extends Component {
       customCards: ccardlist,
       customs: false,
       loadedCustoms: false,
-      filter: {orderBy: "type", colors: []}
+      filter: {orderBy: "type", colors: []},
+      focus: null
     };
 
     
@@ -90,6 +92,20 @@ export default class CardsPage extends Component {
 
     return (
       <div>
+        <Lightbox className="sensuba-focus-box" open={this.state.focus !== null} onClose={() => this.setState({focus: null})}>
+          {
+            (() => {
+
+              if (this.state.focus === null) return <span/>;
+
+              var cf = [cards[this.state.focus]];
+              if (cf[0].tokens)
+                cf = cf.concat(cf[0].tokens);
+
+              return <div className="sensuba-card-focus">{ cf.map((card, i) => <Card key={i} src={card}/>) }</div>;
+            })()
+          }
+        </Lightbox>
         <Nav api={this.props.api} history={this.props.history}/>
       	<main>
           {
@@ -152,7 +168,7 @@ export default class CardsPage extends Component {
               this.state.customs ?
                 cards.map(card => <a className="sensuba-card-link" onClick={() => this.props.history.push(`/cards/editor/${card.idCardmodel}`)} key={card.idCardmodel}><Card key={card.idCardmodel} src={card}/></a>)
                 :
-                cards.map(card => <Card key={card.idCardmodel} src={card}/>)
+                cards.map((card, i) => <a className="sensuba-card-link" key={card.idCardmodel} onClick={() => this.setState({focus: i})}><Card src={card}/></a>)
             }
           </div>
           {
