@@ -107,6 +107,9 @@ export default class CardsPage extends Component {
           <div className="sensuba-card-search">
             <div className="third-section">
               <Input id="sensuba-search-text" type="text" placeholder="Search" onChange={editFilter("search").bind(this)}/>
+              <div>
+                { (cards.length > 0 ? <b>{ cards.length }</b> : "No")}{ " card" + (cards.length > 1 ? "s" : "") + " found" }
+              </div>
             </div>
             <div className="third-section">
               <Input id="sensuba-search-archetype" type="text" placeholder="Archetype" onChange={editFilter("archetype").bind(this)}/>
