@@ -101,8 +101,8 @@ export default class EditorPage extends Component {
 
       var t = this.state.token[this.state.token.length-1];
       this.setState({token: this.state.token.slice(0,-1)}, () => {
-        var cc = this.currentCard;
-        cc.tokens = cc.tokens.splice(t, 1);
+        var cc = Object.assign({}, this.currentCard);
+        cc.tokens = this.currentCard.tokens.filter((el, i) => i !== t);
         this.currentCard = cc;
       });
     } else {
