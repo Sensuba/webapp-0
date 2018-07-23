@@ -99,8 +99,14 @@ export default class CardsPage extends Component {
               if (this.state.focus === null) return <span/>;
 
               var cf = [cards[this.state.focus]];
-              if (cf[0].tokens)
-                cf = cf.concat(cf[0].tokens);
+
+              var addTokens = parent => {
+                if (parent.tokens) {
+                  cf = cf.concat(parent.tokens);
+                  parent.tokens.forEach(addTokens);
+                }
+              }
+              addTokens(cf[0]);
 
               return <div className="sensuba-card-focus">{ cf.map((card, i) => <Card key={i} src={card}/>) }</div>;
             })()

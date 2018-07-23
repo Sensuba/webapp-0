@@ -34,7 +34,7 @@
 
 .editor-card-visual .editor-box {
 
-  margin: 1em 20px 0 20px;
+  margin: 1em 20px;
 }
 
 .half-section > input {
@@ -46,4 +46,17 @@
 
   margin: 0 !important;
   font-size: 1em;
+}
+
+.token-menu {
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.token-menu .menu-button {
+
+  text-overflow: ellipsis;
+  max-width: 20em;
 }
