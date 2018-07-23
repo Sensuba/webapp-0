@@ -6,6 +6,13 @@ import User from '../services/User'
 
 export default class Nav extends Component {
 
+	constructor (props) {
+
+		super(props);
+
+		this.waiting = false;
+	}
+
 	guest_links = [
 		{ name: "Home", path: "/home" },
 		{ name: "Cards", path: "/cards" },
@@ -36,10 +43,14 @@ export default class Nav extends Component {
 
 	login () {
 
+		if (this.waiting)
+			return;
+		this.waiting = true;
 		this.props.api.login(
 			document.getElementById("username-login").value,
 			this.sha1(document.getElementById("password-login").value),
-			() => window.location.reload());
+			() => window.location.reload(),
+			() => this.waiting = false);
 	}
 
 	logout () {
@@ -50,6 +61,9 @@ export default class Nav extends Component {
 
 	signup () {
 
+		if (this.waiting)
+			return;
+		this.waiting = true;
 		if (document.getElementById("username-signup").value.length < 4 ||
 			document.getElementById("password-signup").value.length < 8 ||
 			document.getElementById("password-signup").value !== document.getElementById("confirm-password-signup").value)
@@ -58,7 +72,8 @@ export default class Nav extends Component {
 		this.props.api.signup(
 			document.getElementById("username-signup").value,
 			this.sha1(document.getElementById("password-signup").value),
-			() => window.location.reload());
+			() => window.location.reload(),
+			() => this.waiting = false);
 	}
 
   render() {
