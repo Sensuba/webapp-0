@@ -59,4 +59,5 @@
 
   text-overflow: ellipsis;
   max-width: 20em;
+  margin-bottom: 1em;
 }
