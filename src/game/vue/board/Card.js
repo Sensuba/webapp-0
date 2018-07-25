@@ -1,5 +1,6 @@
 import * as BABYLON from 'babylonjs';
 import node from '../Node';
+import Sequence from '../sequence/Sequence';
 
 export default class Card {
 
@@ -43,34 +44,57 @@ export default class Card {
         this.verso.parent = this.obj;
 	}
 
-    move (position, rotation, duration = 20) {
+    identify (data) {
+
+        var mat = new BABYLON.StandardMaterial ("mat", this.scene);
+        mat.diffuseTexture = new BABYLON.Texture(data.imgLink, this.scene);
+        this.recto.material = mat;
+    }
+
+    move (async, position, rotation, duration = 680) {
+
+        return new MoveCardSequence(async, this, position, rotation, duration);
+    }
+
+
+}
+
+class MoveCardSequence extends Sequence {
+
+    constructor(async, card, position, rotation, duration) {
+
+        super(async);
+        this.card = card;
+        this.position = position;
+        this.rotation = rotation;
+        this.duration = duration;
+    }
+
+    start () {
+
+        var frameDuration = (this.duration * 30) / 1000;
 
         var ease = new BABYLON.CircleEase();
         ease.setEasingMode(BABYLON.EasingFunction.EASINGMODE_EASEINOUT);
 
         var animP = new BABYLON.Animation("cardmovepos", "position", 30, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
         var keysP = [];
-        keysP.push({ frame: 0, value: this.obj.position });
-        keysP.push({ frame: duration, value: position});
+        keysP.push({ frame: 0, value: this.card.obj.position });
+        keysP.push({ frame: frameDuration, value: this.position});
         animP.setKeys(keysP);
         animP.setEasingFunction(ease);
-        this.obj.animations.push(animP);
+        this.card.obj.animations.push(animP);
 
         var animR = new BABYLON.Animation("cardmoverot", "rotation", 30, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
         var keysR = [];
-        keysR.push({ frame: 0, value: this.obj.rotation });
-        keysR.push({ frame: duration, value: rotation});
+        keysR.push({ frame: 0, value: this.card.obj.rotation });
+        keysR.push({ frame: frameDuration, value: this.rotation});
         animR.setKeys(keysR);
         animR.setEasingFunction(ease);
-        this.obj.animations.push(animR);
+        this.card.obj.animations.push(animR);
 
-        this.scene.beginAnimation(this.obj, 0, duration, true);
-    }
+        this.card.scene.beginAnimation(this.card.obj, 0, frameDuration, true);
 
-    identify (data) {
-
-        var mat = new BABYLON.StandardMaterial ("mat", this.scene);
-        mat.diffuseTexture = new BABYLON.Texture(data.imgLink, this.scene);
-        this.recto.material = mat;
+        setTimeout(this.callback, this.duration);
     }
 }

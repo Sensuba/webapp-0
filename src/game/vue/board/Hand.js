@@ -1,6 +1,7 @@
 import * as BABYLON from 'babylonjs';
 import Card from './Card';
 import node from '../Node';
+import Pause from '../sequence/Pause';
 
 export default class Hand {
 
@@ -9,6 +10,7 @@ export default class Hand {
 		this.area = parent;
 		this.scene = parent.scene;
 		this.id = { type: "hand", no: noId };
+		this.cards = [];
 		this.scene.manager.addItem(this);
 		this.mount();
 		this.obj.position = position;
@@ -26,6 +28,15 @@ export default class Hand {
 
 	addCard (card) {
 
-		
+		this.cards.push(card);
+		card.changeParent(this);
+		this.replaceCards();
+		this.scene.manager.addSequence(new Pause(700));
+	}
+
+	replaceCards () {
+
+		var mid = (this.cards.length-1)/2;
+		this.cards.forEach((c, i) => this.scene.manager.addSequence(c.move(true, new BABYLON.Vector3((i-mid)*4, 0, 0), new BABYLON.Vector3(0, 0, 0))));
 	}
 }

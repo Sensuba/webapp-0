@@ -56,8 +56,7 @@ export default class Game extends Component {
       this.manager.find(n.data[0].id).identify(n.data[0]);
       break;
     case "draw":
-      this.manager.find(n.data[0]).changeParent(this.manager.find(n.src).hand);
-      this.manager.find(n.data[0]).move(new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 0));
+      this.manager.find(n.src).hand.addCard(this.manager.find(n.data[0]));
       break;
     default: break;
     }
