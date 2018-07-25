@@ -1,3 +1,31 @@
+#editor-page {
+
+  background: linear-gradient(169deg, #000000, #000000, #391f1f, #36391f, #1f391f, #1f3539, #291f39, #391f2e, #000000, #000000);
+  background-size: 2000% 2000%;
+
+  -webkit-animation: EditorPageBackgroundGradient 200s ease infinite;
+  -moz-animation: EditorPageBackgroundGradient 200s ease infinite;
+  animation: EditorPageBackgroundGradient 200s ease infinite;
+}
+
+@-webkit-keyframes EditorPageBackgroundGradient {
+    0%{background-position:0% 14%}
+    50%{background-position:100% 87%}
+    100%{background-position:0% 14%}
+}
+@-moz-keyframes EditorPageBackgroundGradient {
+    0%{background-position:0% 14%}
+    50%{background-position:100% 87%}
+    100%{background-position:0% 14%}
+}
+@keyframes EditorPageBackgroundGradient { 
+    0%{background-position:0% 14%}
+    50%{background-position:100% 87%}
+    100%{background-position:0% 14%}
+}
+
+
+
 .editor-box .third-section, .editor-box .two-thirds-section {
 
   padding-right: 10%;
@@ -5,15 +33,16 @@
 
 .editor-box {
 
-  border: 1px solid black;
+  /*border: 1px solid black;*/
   text-align: left;
   padding: 1em 1.5em;
-  border-radius: 0.5em;
+  /*border-radius: 0.5em;*/
 }
 
-.editor-box form label {
+.editor-box label {
 
   margin-left: 0.9em;
+  color: white;
 }
 
 .editor-card-visual {
@@ -60,4 +89,63 @@
   text-overflow: ellipsis;
   max-width: 20em;
   margin-bottom: 1em;
+}
+
+.editor-box select {
+
+  width: 60%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.editor-box input, .editor-box select, .editor-box textarea {
+
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid white;
+  color: white;
+  border-radius: 5px;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.editor-box textarea {
+
+  border-top: 1px solid white;
+  resize: none;
+}
+
+.editor-box option {
+
+  background-color: black;
+  color: white;
+}
+
+.editor-box input:focus, .editor-box select:focus, .editor-box textarea:focus {
+
+  background-color: transparent;
+  outline: 0;
+  box-shadow: none;
+  color: white;
+  border-color: white;
+}
+
+.editor-box ::-webkit-scrollbar {
+    width: 10px;
+}
+
+.editor-box ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    border-radius: 5px;
+}
+
+.editor-box ::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 5px;
+}
+
+.editor-box ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
 }

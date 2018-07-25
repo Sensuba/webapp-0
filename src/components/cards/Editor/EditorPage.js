@@ -135,6 +135,8 @@ export default class EditorPage extends Component {
 
     var n = Object.assign({}, basis, this.currentCard, {cardType: newType});
     filter.forEach(f => delete n[f]);
+    if (newType === "hero")
+      n.idColor2 = 0;
     
     this.currentCard = n;
   }
@@ -176,7 +178,7 @@ export default class EditorPage extends Component {
     return (
       <div>
         <Nav api={this.props.api} history={this.props.history}/>
-      	<main>
+      	<main id="editor-page">
           <div className="half-section">
             <div className="editor-box">
               <Form>

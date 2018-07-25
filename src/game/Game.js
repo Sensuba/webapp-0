@@ -56,7 +56,7 @@ export default class Game extends Component {
       this.manager.find(n.data[0].id).identify(n.data[0]);
       break;
     case "draw":
-      this.manager.find(n.src).hand.addCard(this.manager.find(n.data[0]));
+      this.manager.find(n.data[0]).goto(this.manager.find(n.src).hand);
       break;
     default: break;
     }
@@ -70,8 +70,6 @@ export default class Game extends Component {
 
       var camera = new BABYLON.ArcRotateCamera("Camera", Math.PI/2, 0, 30, new BABYLON.Vector3(0, 10, 0), scene);
       camera.setTarget(BABYLON.Vector3.Zero());
-      camera.rotation.x = 20;
-      console.log(camera.rotation);
       //camera.attachControl(canvas, true);
 
       var light = new BABYLON.HemisphericLight("mainlight", new BABYLON.Vector3(1, 1, 1), scene);

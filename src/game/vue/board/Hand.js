@@ -29,9 +29,14 @@ export default class Hand {
 	addCard (card) {
 
 		this.cards.push(card);
-		card.changeParent(this);
 		this.replaceCards();
 		this.scene.manager.addSequence(new Pause(700));
+	}
+
+	removeCard (card) {
+
+		this.cards.splice(this.cards.indexOf(5), 1);
+		this.replaceCards();
 	}
 
 	replaceCards () {

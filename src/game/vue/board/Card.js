@@ -51,12 +51,17 @@ export default class Card {
         this.recto.material = mat;
     }
 
+    goto (location) {
+
+        this.parent.removeCard(this);
+        this.changeParent(location);
+        location.addCard(this);
+    }
+
     move (async, position, rotation, duration = 680) {
 
         return new MoveCardSequence(async, this, position, rotation, duration);
     }
-
-
 }
 
 class MoveCardSequence extends Sequence {
