@@ -35,9 +35,9 @@ export default class Game extends Component {
             101, 101, 101, 101, 101,
             101, 101, 101, 101, 101,
             101, 101, 101, 101, 101,
-            101, 101, 101, 101, 101,
-            101, 101, 101, 101, 101, 
-            101, 101, 101, 101, 101
+            105, 105, 105, 105, 105,
+            105, 105, 105, 105, 105, 
+            105, 105, 105, 105, 105
           ]
         });
       }
@@ -68,11 +68,14 @@ export default class Game extends Component {
 
       scene.manager = this.manager;
 
-      var camera = new BABYLON.ArcRotateCamera("Camera", 0, 0, 10, new BABYLON.Vector3(0, 6, -24), scene);
+      var camera = new BABYLON.ArcRotateCamera("Camera", Math.PI/2, 0, 30, new BABYLON.Vector3(0, 10, 0), scene);
       camera.setTarget(BABYLON.Vector3.Zero());
-      camera.attachControl(canvas, true);
+      camera.rotation.x = 20;
+      console.log(camera.rotation);
+      //camera.attachControl(canvas, true);
 
-      var light = new BABYLON.HemisphericLight("mainlight", new BABYLON.Vector3(0, 1, 0), scene);
+      var light = new BABYLON.HemisphericLight("mainlight", new BABYLON.Vector3(1, 1, 1), scene);
+      light.intensity = 2;
 
       this.vue = new Vue(scene);
 

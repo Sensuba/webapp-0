@@ -1,6 +1,7 @@
 import * as BABYLON from 'babylonjs';
 import Hand from './Hand';
 import Deck from './Deck';
+import Field from './Field';
 
 export default class Area {
 
@@ -26,8 +27,9 @@ export default class Area {
 
       //new Card(this.scene, new BABYLON.Vector3(0, 1, 0), new BABYLON.Vector3(0, 0, 0)).move(new BABYLON.Vector3(0, 5, 0), new BABYLON.Vector3(-1, 0, 0));
 
-      this.hand = new Hand(this, this.id.no, new BABYLON.Vector3(0, 5, -7), new BABYLON.Vector3(-1, 0, 0));
+      this.hand = new Hand(this, this.id.no, new BABYLON.Vector3(0, 15, -3), new BABYLON.Vector3(0, 0, 0));
       this.deck = new Deck(this, this.id.no, new BABYLON.Vector3(12, 0.5, 0), new BABYLON.Vector3(0, 0, 0));
+      this.field = new Field(this, this.id.no, new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 0));
       //var c = new Card(this, new BABYLON.Vector3(0, 1, 0), new BABYLON.Vector3(0, 0, 0));
 	}
 }
