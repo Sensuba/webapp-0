@@ -1,31 +1,3 @@
-#editor-page {
-
-  background: linear-gradient(169deg, #000000, #000000, #391f1f, #36391f, #1f391f, #1f3539, #291f39, #391f2e, #000000, #000000);
-  background-size: 2000% 2000%;
-
-  -webkit-animation: EditorPageBackgroundGradient 200s ease infinite;
-  -moz-animation: EditorPageBackgroundGradient 200s ease infinite;
-  animation: EditorPageBackgroundGradient 200s ease infinite;
-}
-
-@-webkit-keyframes EditorPageBackgroundGradient {
-    0%{background-position:0% 14%}
-    50%{background-position:100% 87%}
-    100%{background-position:0% 14%}
-}
-@-moz-keyframes EditorPageBackgroundGradient {
-    0%{background-position:0% 14%}
-    50%{background-position:100% 87%}
-    100%{background-position:0% 14%}
-}
-@keyframes EditorPageBackgroundGradient { 
-    0%{background-position:0% 14%}
-    50%{background-position:100% 87%}
-    100%{background-position:0% 14%}
-}
-
-
-
 .editor-box .third-section, .editor-box .two-thirds-section {
 
   padding-right: 10%;

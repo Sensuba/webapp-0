@@ -1,0 +1,53 @@
+.sens-intro {
+
+	color: white;
+	margin: 2em 10%;
+	text-align: center;
+}
+
+.sens-box {
+
+	color: white;
+	margin: 2em;
+	text-align: left;
+	background-color: rgba(0, 0, 0, 0.5);
+	padding: 2em;
+	border-radius: 10px;
+}
+
+.sens-intro .sens-title, .sens-box .sens-title {
+
+	font-size: 3em;
+	font-family: Cambria;
+	font-variant: small-caps;
+	margin-left: 0.5em;
+	margin-bottom: 0.2em;
+}
+
+.sens-box .sens-regex {
+
+	font-family: Consolas;
+	padding: 10px;
+	font-size: 1.3em;
+	color: blue;
+	border: solid red 1px;
+	background-color: #faf6d9;
+    color: #0041ff;
+    border-radius: 0.2em;
+    word-wrap: break-word;
+}
+
+.sens-box .sens-regex .sens-regex-p-syntax {
+
+	color: #fe2152;
+}
+
+.sens-box .sens-regex .sens-regex-k-syntax {
+
+	color: #24a03a;
+}
+
+.sens-box .sens-regex .sens-regex-c-syntax {
+
+	color: #6d6074;
+}
