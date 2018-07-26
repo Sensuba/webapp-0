@@ -4,11 +4,11 @@ import node from '../Node';
 
 export default class Field {
 
-	constructor (parent, noId, position, rotation) {
+	constructor (parent, position, rotation) {
 
 		this.parent = parent;
 		this.scene = parent.scene;
-		this.id = { type: "field", no: noId };
+		this.id = { type: "field", no: parent.id.no };
 		this.scene.manager.addItem(this);
 		this.mount();
 		this.obj.position = position;

@@ -4,12 +4,12 @@ import node from '../Node';
 
 export default class Deck {
 
-	constructor (parent, noId, position, rotation) {
+	constructor (parent, position, rotation) {
 
 		this.area = parent;
 		this.scene = parent.scene;
 		this.count = 30;
-		this.id = { type: "deck", no: noId };
+		this.id = { type: "deck", no: parent.id.no };
 		this.scene.manager.addItem(this);
 		this.mount();
 		this.obj.position = position;

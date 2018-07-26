@@ -178,7 +178,7 @@ export default class EditorPage extends Component {
     return (
       <div>
         <Nav api={this.props.api} history={this.props.history}/>
-      	<main id="editor-page" className="dark-page">
+      	<main id="editor-page">
           <div className="half-section">
             <div className="editor-box">
               <Form>

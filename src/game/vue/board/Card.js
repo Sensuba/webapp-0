@@ -1,6 +1,7 @@
 import * as BABYLON from 'babylonjs';
 import node from '../Node';
 import Sequence from '../sequence/Sequence';
+import Instant from '../sequence/Instant';
 
 export default class Card {
 
@@ -54,7 +55,6 @@ export default class Card {
     goto (location) {
 
         this.parent.removeCard(this);
-        this.changeParent(location);
         location.addCard(this);
     }
 

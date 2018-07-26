@@ -5,10 +5,10 @@
 
 .editor-box {
 
-  /*border: 1px solid black;*/
+  border: 1px solid black;
   text-align: left;
   padding: 1em 1.5em;
-  /*border-radius: 0.5em;*/
+  border-radius: 0.5em;
 }
 
 .editor-box label {
@@ -62,7 +62,7 @@
   max-width: 20em;
   margin-bottom: 1em;
 }
-
+/*
 .editor-box select {
 
   width: 60%;
@@ -74,8 +74,8 @@
 
   background-color: transparent;
   border: none;
-  border-bottom: 1px solid white;
-  color: white;
+  border-bottom: 1px solid black;
+  color: black;
   border-radius: 5px;
   padding: .375rem .75rem;
   font-size: 1rem;
@@ -83,16 +83,10 @@
   margin-bottom: 10px;
 }
 
-.editor-box textarea {
-
-  border-top: 1px solid white;
-  resize: none;
-}
-
 .editor-box option {
 
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: black;
 }
 
 .editor-box input:focus, .editor-box select:focus, .editor-box textarea:focus {
@@ -100,8 +94,8 @@
   background-color: transparent;
   outline: 0;
   box-shadow: none;
-  color: white;
-  border-color: white;
+  color: black;
+  border-color: black;
 }
 
 .editor-box ::-webkit-scrollbar {
@@ -120,4 +114,4 @@
 
 .editor-box ::-webkit-scrollbar-thumb:hover {
     background: #555; 
-}
+}*/

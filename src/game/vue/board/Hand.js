@@ -2,14 +2,15 @@ import * as BABYLON from 'babylonjs';
 import Card from './Card';
 import node from '../Node';
 import Pause from '../sequence/Pause';
+import Instant from '../sequence/Instant';
 
 export default class Hand {
 
-	constructor (parent, noId, position, rotation) {
+	constructor (parent, position, rotation) {
 
 		this.area = parent;
 		this.scene = parent.scene;
-		this.id = { type: "hand", no: noId };
+		this.id = { type: "hand", no: parent.id.no };
 		this.cards = [];
 		this.scene.manager.addItem(this);
 		this.mount();
@@ -29,13 +30,16 @@ export default class Hand {
 	addCard (card) {
 
 		this.cards.push(card);
+		this.scene.manager.addSequence(new Instant(() => card.changeParent(this)));
 		this.replaceCards();
 		this.scene.manager.addSequence(new Pause(700));
 	}
 
 	removeCard (card) {
 
-		this.cards.splice(this.cards.indexOf(5), 1);
+		console.log(this.cards.length);
+		this.cards = this.cards.filter(c => c.id !== card.id);
+		console.log(this.cards.length);
 		this.replaceCards();
 	}
 

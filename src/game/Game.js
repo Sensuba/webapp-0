@@ -55,8 +55,11 @@ export default class Game extends Component {
     case "identify":
       this.manager.find(n.data[0].id).identify(n.data[0]);
       break;
-    case "draw":
-      this.manager.find(n.data[0]).goto(this.manager.find(n.src).hand);
+    case "cardmove":
+      if (this.manager.find(n.src) && this.manager.find(n.data[0]))
+        this.manager.find(n.src).goto(this.manager.find(n.data[0]));
+      break;
+    case "destroycard":
       break;
     default: break;
     }
