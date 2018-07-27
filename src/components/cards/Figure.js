@@ -46,6 +46,7 @@ export default class Figure extends Component {
 		  { this.props.src.range > 1 ? <div className="sensuba-card-range-arrow sensuba-card-range-arrow-2"/> : <span/> }
 		  { this.props.src.range > 2 ? <div className="sensuba-card-range-arrow sensuba-card-range-arrow-3"/> : <span/> }
 		</div>
+	    { this.props.src.overload && this.props.src.overload > 0 ? <div className="sensuba-card-overload">{this.props.src.overload}</div> : <span/> }
 	  </div>
     );
   }

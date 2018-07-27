@@ -23,6 +23,7 @@ export default class Spell extends Component {
 	        	<div className="sensuba-card-flavour">{this.props.src.flavourText}</div>
 	        </div>
 	    </div>
+	    { this.props.src.overload && this.props.src.overload > 0 ? <div className="sensuba-card-overload">{this.props.src.overload}</div> : <span/> }
 	  </div>
     );
   }

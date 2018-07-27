@@ -1,13 +1,14 @@
 import * as BABYLON from 'babylonjs';
 import node from '../Node';
-import Sequence from '../sequence/Sequence';
 import Instant from '../sequence/Instant';
+import Movement from '../sequence/Movement';
 
 export default class Card {
 
 	constructor (parent, noId, position, rotation) {
 
         this.parent = parent;
+        this.location = parent;
         this.scene = parent.scene;
         this.id = { type: "card", no: noId };
         this.scene.manager.addItem(this);
@@ -54,52 +55,21 @@ export default class Card {
 
     goto (location) {
 
-        this.parent.removeCard(this);
+        if (this.location)
+            this.location.removeCard(this);
+        this.location = location;
         location.addCard(this);
+    }
+
+    destroy () {
+
+        if (this.location)
+            this.location.removeCard(this);
+        this.scene.manager.addSequence(new Instant(() => this.obj.dispose()));
     }
 
     move (async, position, rotation, duration = 680) {
 
-        return new MoveCardSequence(async, this, position, rotation, duration);
-    }
-}
-
-class MoveCardSequence extends Sequence {
-
-    constructor(async, card, position, rotation, duration) {
-
-        super(async);
-        this.card = card;
-        this.position = position;
-        this.rotation = rotation;
-        this.duration = duration;
-    }
-
-    start () {
-
-        var frameDuration = (this.duration * 30) / 1000;
-
-        var ease = new BABYLON.CircleEase();
-        ease.setEasingMode(BABYLON.EasingFunction.EASINGMODE_EASEINOUT);
-
-        var animP = new BABYLON.Animation("cardmovepos", "position", 30, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
-        var keysP = [];
-        keysP.push({ frame: 0, value: this.card.obj.position });
-        keysP.push({ frame: frameDuration, value: this.position});
-        animP.setKeys(keysP);
-        animP.setEasingFunction(ease);
-        this.card.obj.animations.push(animP);
-
-        var animR = new BABYLON.Animation("cardmoverot", "rotation", 30, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
-        var keysR = [];
-        keysR.push({ frame: 0, value: this.card.obj.rotation });
-        keysR.push({ frame: frameDuration, value: this.rotation});
-        animR.setKeys(keysR);
-        animR.setEasingFunction(ease);
-        this.card.obj.animations.push(animR);
-
-        this.card.scene.beginAnimation(this.card.obj, 0, frameDuration, true);
-
-        setTimeout(this.callback, this.duration);
+        return new Movement(async, this, position, rotation, duration);
     }
 }

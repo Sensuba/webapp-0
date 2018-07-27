@@ -29,6 +29,7 @@ export default class Artifact extends Component {
 	   	    <div className="sensuba-card-param-value">{this.props.src.hp}</div>
 		  </div>
 		</div>
+	    { this.props.src.overload && this.props.src.overload > 0 ? <div className="sensuba-card-overload">{this.props.src.overload}</div> : <span/> }
 	  </div>
     );
   }

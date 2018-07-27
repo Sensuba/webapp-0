@@ -34,6 +34,7 @@ export default class Chain extends Sequence {
 	add (seq) {
 
 		this.syncs.push(seq);
+		seq.init(this);
 		if (this.syncs.length === 1)
 			this.next();
 	}

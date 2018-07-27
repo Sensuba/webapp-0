@@ -60,6 +60,8 @@ export default class Game extends Component {
         this.manager.find(n.src).goto(this.manager.find(n.data[0]));
       break;
     case "destroycard":
+      if (this.manager.find(n.src))
+        this.manager.find(n.src).destroy();
       break;
     default: break;
     }

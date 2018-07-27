@@ -395,6 +395,24 @@
     font-size: 3.25em;
 }
 
+.sensuba-card .sensuba-card-overload  {
+
+    position: absolute;
+    top: 16.1em;
+    right: 1.2em;
+    font-size: 0.7em;
+    color: white;
+    text-shadow: 1px 1px 1px black;
+}
+
+.sensuba-card.sensuba-spell .sensuba-card-overload, .sensuba-card.sensuba-artifact .sensuba-card-overload { top: 18.3em }
+.sensuba-card.sensuba-artifact .sensuba-card-overload { left: 1.2em; right: unset; }
+
+.sensuba-card .sensuba-card-overload::before {
+
+    content: "⚡ ";
+}
+
 .sensuba-card-range {
 
 	position: absolute;

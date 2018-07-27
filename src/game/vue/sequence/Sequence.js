@@ -6,4 +6,8 @@ export default class Sequence {
         this.callback = () => {};
         this.asynchronize = () => {};
 	}
+
+	init () {}
+
+	start () {}
 }
