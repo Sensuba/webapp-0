@@ -60,6 +60,8 @@ export default (() => {
 
 		if (f.search && f.search !== "")
 			cards = cards.filter(card => card.nameCard.toLowerCase().includes(f.search.toLowerCase()) || card.anime.toLowerCase().includes(f.search.toLowerCase()) || card.description.toLowerCase().includes(f.search.toLowerCase()));
+		if (f.edition && f.edition !== "")
+			cards = cards.filter(card => card.idEdition === parseInt(f.edition, 10));
 		if (f.type && f.type !== "")
 			cards = cards.filter(card => card.cardType === f.type);
 		if (f.colors && f.colors.length > 0)

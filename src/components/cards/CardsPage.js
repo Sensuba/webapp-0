@@ -129,6 +129,12 @@ export default class CardsPage extends Component {
           <div className="sensuba-card-search">
             <div className="third-section">
               <Input id="sensuba-search-text" type="text" placeholder="Search" onChange={editFilter("search").bind(this)}/>
+              <Label for="sensuba-search-edition" className="sensuba-search-select-label">Edition</Label>
+              <select id="sensuba-search-edition" onChange={editFilter("edition").bind(this)}>
+                <option value="">---</option>
+                <option value="1">1st edition</option>
+                <option value="2">Next to come</option>
+              </select>
               <div>
                 { (cards.length > 0 ? <b>{ cards.length }</b> : "No")}{ " card" + (cards.length > 1 ? "s" : "") + " found" }
               </div>
