@@ -78,6 +78,9 @@ export default class EditorPage extends Component {
 
   saveCard() {
 
+    if (this.state.saved)
+      return;
+
     var shadow = this.state.card;
     shadow.htmlDescription = undefined;
 
@@ -93,6 +96,8 @@ export default class EditorPage extends Component {
       sessionStorage.removeItem("customcardlist");
       this.props.history.push('/cards');
     })
+
+    this.state.saved = true;
 
   }
 

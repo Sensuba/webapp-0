@@ -73,11 +73,11 @@ export default class Game extends Component {
 
       scene.manager = this.manager;
 
-      var camera = new BABYLON.ArcRotateCamera("Camera", Math.PI/2, 0, 30, new BABYLON.Vector3(0, 10, 0), scene);
+      var camera = new BABYLON.ArcRotateCamera("Camera", Math.PI/2, 0, 26, new BABYLON.Vector3(0, 3, 26), scene);
       camera.setTarget(BABYLON.Vector3.Zero());
       //camera.attachControl(canvas, true);
 
-      var light = new BABYLON.HemisphericLight("mainlight", new BABYLON.Vector3(1, 1, 1), scene);
+      var light = new BABYLON.HemisphericLight("mainlight", new BABYLON.Vector3(-18, 10, 10), scene);
       light.intensity = 2;
 
       this.vue = new Vue(scene);

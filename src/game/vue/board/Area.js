@@ -28,10 +28,10 @@ export default class Area {
 
       //new Card(this.scene, new BABYLON.Vector3(0, 1, 0), new BABYLON.Vector3(0, 0, 0)).move(new BABYLON.Vector3(0, 5, 0), new BABYLON.Vector3(-1, 0, 0));
 
-      this.hand = new Hand(this, new BABYLON.Vector3(0, 15, -3), new BABYLON.Vector3(0, 0, 0));
+      this.hand = new Hand(this, new BABYLON.Vector3(0, 4, -8), new BABYLON.Vector3(-0.8, 0, 0));
       this.deck = new Deck(this, new BABYLON.Vector3(12, 0.5, 0), new BABYLON.Vector3(0, 0, 0));
       this.field = new Field(this, new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 0));
-      this.court = new Court(this, new BABYLON.Vector3(-3, 30, 6), new BABYLON.Vector3(0, 0, 0));
+      this.court = new Court(this, new BABYLON.Vector3(-3, 24, -14), new BABYLON.Vector3(-0.8, 0, 0));
       //var c = new Card(this, new BABYLON.Vector3(0, 1, 0), new BABYLON.Vector3(0, 0, 0));
 	}
 }

@@ -25,7 +25,10 @@ export default class Api {
     this.addAuthorizationHeader();
     this.client.post("/user/cardmodels", params)
     .then(response => callback())
-    .catch(this.error(error));
+    .catch(err => {
+      this.error(err);
+      User.disconnect();
+    });
   }
 
   deleteCustomCards (id, callback, error) {
@@ -35,7 +38,10 @@ export default class Api {
     this.addAuthorizationHeader();
     this.client.delete("/user/cardmodels?id=" + id)
     .then(response => callback())
-    .catch(this.error(error));
+    .catch(err => {
+      this.error(err);
+      User.disconnect();
+    });
   }
 
   getCustomCards (callback, error) {
@@ -45,7 +51,10 @@ export default class Api {
     this.addAuthorizationHeader();
     this.client.get("/user/cardmodels")
     .then(response => callback(response.data))
-    .catch(this.error(error));
+    .catch(err => {
+      this.error(err);
+      User.disconnect();
+    });
   }
 
   login (username, password, callback, error) {
