@@ -135,6 +135,7 @@ export default class EditorPage extends Component {
     case "figure": filter = ["idColor2"]; break;
     case "hero": filter = ["archetypes", "mana"]; break;
     case "spell": filter = ["idColor2", "archetypes", "atk", "hp", "range"]; break;
+    case "trap": filter = ["idColor2", "archetypes", "atk", "hp", "range"]; break;
     case "artifact": filter = ["idColor2", "archetypes", "atk", "range"]; break;
     default: break;
     }
@@ -200,6 +201,12 @@ export default class EditorPage extends Component {
                     <Label for="figure-card">Figure</Label>
                     <Input id="spell-card" type="radio" name="sensuba-type" onChange={() => this.changeType("spell")} checked={this.currentCard.cardType === "spell"}/>
                     <Label for="spell-card">Spell</Label>
+                    <Input id="trap-card" type="radio" name="sensuba-type" onChange={() => this.changeType("trap")} checked={this.currentCard.cardType === "trap"}/>
+                    {
+                      this.state.token.length > 0
+                      ? <Label for="trap-card">Trap</Label>
+                      : <span/>
+                    }
                     <Input id="artifact-card" type="radio" name="sensuba-type" onChange={() => this.changeType("artifact")} checked={this.currentCard.cardType === "artifact"}/>
                     <Label for="artifact-card">Artifact</Label>
                   </div>

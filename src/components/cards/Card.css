@@ -24,6 +24,7 @@
 
 .sensuba-card {
 
+    filter: drop-shadow(2px 3px 2px #202020A0);
 	width: 15em;
     min-width: 15em;
     height: 20em;
@@ -483,7 +484,7 @@
     width: 2em;
     background-size: 2em;
     background-repeat: no-repeat; 
-    filter: drop-shadow(1px 2px 1px #222A);
+    filter: drop-shadow(1px 2px 1px #202020A0);
 }
 
 .sensuba-card-link {

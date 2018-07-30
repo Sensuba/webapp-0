@@ -28,7 +28,7 @@ export default class Card extends Component {
       desc = `<div class="sensuba-card-effect-p">${desc}</div>`;
       desc = desc.replace(/\n/g, '</div><div class="sensuba-card-effect-p">');
 
-      desc = desc.replace(/initiative|fury|rush|exaltation|lethal|conceal(ed)?|encore|frenzy:?|last will:?|silence|shield|flying|freeze|frozen|overload:?( ?\d+)?/gi, x => `<b>${x}</b>`);
+      desc = desc.replace(/initiative|fury|rush|exaltation|lethal|conceal(ed)?|encore|frenzy:?|last will:?|silence|shield|flying|freeze|frozen|overload|trap:/gi, x => `<b>${x}</b>`);
 
       desc = desc.replace(/-&gt; ?/g, x =>
         `<div class="sensuba-card-summon-effect-icon">
@@ -90,6 +90,7 @@ export default class Card extends Component {
   	switch (this.props.src.cardType) {
     case "hero": result = <Hero id={this.props.id} src={src} classColor={{color1: colorIdToClassName(this.props.src.idColor), color2: colorIdToClassName(this.props.src.idColor2)}}/>; break;
   	case "figure": result = <Figure id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
+    case "trap":
     case "spell": result = <Spell id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
     case "artifact": result = <Artifact id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
     default: break;
