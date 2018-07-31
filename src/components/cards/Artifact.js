@@ -30,6 +30,10 @@ export default class Artifact extends Component {
 		  </div>
 		</div>
 	    { this.props.src.overload && this.props.src.overload > 0 ? <div className="sensuba-card-overload">{this.props.src.overload}</div> : <span/> }
+	    <div className="sensuba-card-frame">
+	    	<div className="sensuba-frame-icon"/>
+	    	<div className="sensuba-card-inner-frame"/>
+	    </div>
 	  </div>
     );
   }
