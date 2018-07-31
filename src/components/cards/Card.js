@@ -47,8 +47,11 @@ export default class Card extends Component {
 
       desc = desc.replace(/(\+|\-)?(\d+|!|\*) ?:/g, x => {
         var emph = "";
-        if (x.charAt(0) === '!')
+        var actEmph = false;
+        if (x.charAt(0) === '!') {
           emph = "!";
+          actEmph = true;
+        }
         else if (x === "0:" || x === "0 :" || x === "*:" || x === "* :")
           emph = " ";
         else {
@@ -56,7 +59,7 @@ export default class Card extends Component {
           for (; x.charAt(i) !== ":"; i++)
             emph += x.charAt(i);
         }
-        return `<span class="sensuba-card-effect-emphasis">${emph}</span>:`
+        return `<span class="sensuba-card-effect-emphasis${ actEmph ? " sensuba-card-effect-action" : "" }">${emph}</span>:`
       });
 
       desc = desc.replace(/\*(\+|\-)?(\d+|!)\*/g, x => {

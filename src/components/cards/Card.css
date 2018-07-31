@@ -296,8 +296,13 @@
     top: 0.3em;
     margin-left: -0.3em;
     left: 50%;
-    background: #8888;
+    background: #80808080;
     transform: rotate(45deg);
+}
+
+.sensuba-card .sensuba-card-effect .sensuba-card-effect-action:before {
+
+    background: #00000080;
 }
 
 .sensuba-card .sensuba-card-effect .sensuba-card-effect-show {
