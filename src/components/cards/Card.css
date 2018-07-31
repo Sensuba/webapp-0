@@ -115,6 +115,7 @@
     font-size: 0.8em;
     border: solid white /*0.063em*/0.125em;
     border-radius: 0.2475em;
+    border-style: outset;
 }
 
 .sensuba-card .sensuba-card-title.sensuba-card-very-long-title {
@@ -125,6 +126,7 @@
     font-size: 0.75em;
     border: solid white 0.1333em;
     border-radius: 0.2933em;
+    border-style: outset;
 }
 
 .sensuba-card.golden-card .sensuba-card-title {
