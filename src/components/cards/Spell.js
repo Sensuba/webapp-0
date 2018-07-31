@@ -11,7 +11,13 @@ export default class Spell extends Component {
 		<img crossOrigin="Anonymous" className="sensuba-card-bg" src={this.props.src.imgLink} alt={this.props.src.nameCard}/>
 	    <div className="sensuba-card-header">
 	    	<div className="sensuba-card-mana">{this.props.src.mana}</div>
-	        <div className={"sensuba-card-title" + (this.props.src.nameCard.length >= 25 ? " sensuba-card-long-title" : "")}>{this.props.src.nameCard}</div>
+	        <div className={"sensuba-card-title" +
+	        	(this.props.src.nameCard.length >= 25 ?
+	        		(this.props.src.nameCard.length >= 30 ? " sensuba-card-very-long-title" : " sensuba-card-long-title")
+	        		: ""
+	        	)}>
+	        	{this.props.src.nameCard}
+	        </div>
 	    </div>
 	    <div className="sensuba-card-body">
 	    	<div className="sensuba-card-body-header">

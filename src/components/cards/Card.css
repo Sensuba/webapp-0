@@ -117,6 +117,16 @@
     border-radius: 0.2475em;
 }
 
+.sensuba-card .sensuba-card-title.sensuba-card-very-long-title {
+
+    top: 0.45em;
+    height: 1.584em;
+    line-height: 1.3333em;
+    font-size: 0.75em;
+    border: solid white 0.1333em;
+    border-radius: 0.2933em;
+}
+
 .sensuba-card.golden-card .sensuba-card-title {
 
     border-color: gold;
@@ -156,6 +166,12 @@
     background-color: rgba(255, 255, 255, 0.7);
     border-radius: 0.15em;
     overflow: hidden;
+}
+
+.sensuba-hero .sensuba-card-body {
+
+    top: 12em;
+    height: 5.5em;
 }
 
 .sensuba-spell .sensuba-card-body, .sensuba-artifact .sensuba-card-body {
@@ -305,7 +321,7 @@
     margin: 0 10%;
 }
 
-.sensuba-spell .sensuba-card-flavour, .sensuba-artifact .sensuba-card-flavour {
+.sensuba-spell .sensuba-card-flavour, .sensuba-artifact .sensuba-card-flavour, .sensuba-hero .sensuba-card-flavour {
 
     bottom: -10.7em;
 }
