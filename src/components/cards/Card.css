@@ -71,7 +71,7 @@
     line-height: 1.333em;
     background: rgb(133, 167, 193);
     border: solid white 0.0833em;
-    box-shadow: 0 -0.0417em 0.25em 0 rgba(0, 0, 0, 0.5) inset;
+    box-shadow: inset 0 -0.04em 0.1em 0.03em rgba(0,0,0,.5);
     font-size: 1.2em;
     border-style: outset;
 }
