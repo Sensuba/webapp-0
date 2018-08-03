@@ -1,0 +1,168 @@
+.sensuba-deckbuilder {
+
+	height: 31em;
+	width: 100%;
+	background: linear-gradient(150deg, #1565c020, #b92b2720);
+	background-size: 400% 400%;
+	animation: DeckbuilderLighting 20s ease infinite;
+    position: relative;
+    border-radius: 4px;
+    border: 3px solid #EEE;
+    border-style: outset;
+    box-shadow: 2px 2px 5px 0px rgba(150,150,150,0.6);
+    margin-top: 80px;
+}
+
+@keyframes DeckbuilderLighting { 
+    0%{background-position:0% 20%}
+    50%{background-position:100% 80%}
+    100%{background-position:0% 20%}
+}
+
+.sensuba-deckbuilder .sensuba-deckbuilder-list, .sensuba-deckbuilder .sensuba-deckbuilder-search {
+
+	height: 100%;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.sensuba-deckbuilder .sensuba-deckbuilder-list {
+
+	width: calc(100% - 200px);
+}
+
+.sensuba-deckbuilder .sensuba-deckbuilder-search {
+
+	width: 200px;
+    box-shadow: 0 1px 1px 0 #C7C7C7 inset;
+	background: none repeat scroll 0 0 #E9E9E980;
+}
+
+.sensuba-deckbuilder .sensuba-deckbuilder-search-list {
+
+	overflow-y: scroll;
+	height: calc(100% - 2em);
+}
+
+.sensuba-deckbuilder .sensuba-deckbuilder-list-cards {
+
+	width: 100%;
+	height: 100%;
+	display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding-bottom: 3em;
+}
+
+.sensuba-deckbuilder .sensuba-deckbuilder-list-group {
+
+	font-size: 8px;
+	width: 1em;
+	height: 0;
+	margin-bottom: 18em;
+	cursor: pointer;
+}
+
+.sensuba-deckbuilder .sensuba-deckbuilder-list-group:last-child {
+
+	width: 15em;
+}
+
+.sensuba-deckbuilder .sensuba-deckbuilder-list-group .sensuba-card {
+
+	display: inline-block;
+}
+
+.sensuba-deckbuilder .sensuba-deckbuilder-list-group .sensuba-card + .sensuba-card {
+
+	margin-top: -18em;
+}
+
+.sensuba-deckbuilder .sensuba-deckbuilder-search-input, .sensuba-deckbuilder .sensuba-deckbuilder-search-input:focus {
+
+	height: 2em;
+	background: none;
+	border: none;
+	outline: 0;
+	box-shadow: none;
+	transition: background 0.2s;
+	border-radius: 0;
+	font-family: Constantia;
+}
+
+.sensuba-deckbuilder .sensuba-deckbuilder-search-input:focus {
+
+	background: #20202010;
+}
+
+.sensuba-deckbuilder .sensuba-deckbuilder-tag {
+
+	font-family: "Imprint MT Shadow";
+    color: white;
+    text-shadow: 1px 1px 2px rgba(120, 120, 120, 1);
+    text-align: left;
+    border-style: outset;
+    border-top: none;
+    border-bottom: 1px solid white;
+    position: relative;
+    overflow: hidden;
+    height: 1.5em;
+    width: 100%;
+    cursor: pointer;
+}
+
+.sensuba-deckbuilder .sensuba-deckbuilder-tag .sensuba-deckbuilder-tag-name {
+
+	z-index: 1;
+    background: linear-gradient(110deg, rgba(146, 177, 200, 0.8), rgba(146, 177, 200, 1), rgba(105, 147, 179, 1) 60%, transparent 80%);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding-left: 0.2em;
+    text-overflow: ellipsis;
+    top: 0;
+    left: 0;
+}
+
+.sensuba-deckbuilder .sensuba-deckbuilder-tag .sensuba-deckbuilder-tag-img {
+
+	position: absolute;
+	z-index: 0;
+    top: -1em;
+    right: 0;
+    width: 40%;
+}
+
+
+.sensuba-deckbuilder .sensuba-deckbuilder-tag.white-mana .sensuba-deckbuilder-tag-name { background: linear-gradient(110deg, rgba(208, 186, 75, 0.8), rgba(242, 223, 130, 1), rgba(208, 186, 75, 1) 60%, transparent 80%) }
+.sensuba-deckbuilder .sensuba-deckbuilder-tag.red-mana .sensuba-deckbuilder-tag-name { background: linear-gradient(110deg, rgba(200, 47, 47, 0.8), rgba(255, 87, 87, 1), rgba(200, 47, 47, 1) 60%, transparent 80%) }
+.sensuba-deckbuilder .sensuba-deckbuilder-tag.blue-mana .sensuba-deckbuilder-tag-name { background: linear-gradient(110deg, rgba(11, 137, 200, 0.8), rgba(76, 181, 234, 1), rgba(11, 137, 200, 1) 60%, transparent 80%) }
+.sensuba-deckbuilder .sensuba-deckbuilder-tag.green-mana .sensuba-deckbuilder-tag-name { background: linear-gradient(110deg, rgba(129, 186, 88, 0.8), rgba(168, 219, 130, 1), rgba(129, 186, 88, 1) 60%, transparent 80%) }
+.sensuba-deckbuilder .sensuba-deckbuilder-tag.black-mana .sensuba-deckbuilder-tag-name { background: linear-gradient(110deg, rgba(44, 12, 28, 0.8), rgba(92, 37, 65, 1), rgba(44, 12, 28, 1) 60%, transparent 80%) }
+
+#img-preview-tooltip {
+
+	position: absolute;
+	z-index: 10;
+	width: 15em;
+	height: 20em;
+	margin-top: -12em;
+	display: none;
+}
+
+.big-text {
+
+	font-family: "Imprint MT Shadow";
+    color: #404040;
+    font-size: 4em;
+    text-shadow: 1px 1px 2px rgba(120, 120, 120, 1);
+}
+
+.hero-selector {
+
+	background: linear-gradient(150deg, #1565c020, #b92b2720);
+	background-size: 400% 400%;
+	animation: DeckbuilderLighting 20s ease infinite;
+	height: 25em;
+	width: 100%;
+}

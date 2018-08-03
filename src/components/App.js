@@ -9,6 +9,8 @@ import Play from './play/PlayPage';
 import Room from './play/room/RoomPage';
 import Rules from './rules/RulesPage';
 import Profile from './profile/ProfilePage';
+import Decks from './decks/DecksPage';
+import Deckbuilder from './decks/deckbuilder/DeckbuilderPage';
 import Home from './home/HomePage';
 import User from '../services/User';
 
@@ -28,6 +30,8 @@ export default class App extends Component {
             <Route exact path="/play" component={({ match, history }) => (<Play server={serverURL} history={history} api={this.props.options.api}/>)}/>
             <Route path="/play/:room" component={({ match, history }) => (<Room server={serverURL} room={match.params.room} history={history} api={this.props.options.api}/>)}/>
             <Route exact path="/profile" component={({ match, history }) => (<Profile history={history} api={this.props.options.api}/>)}/>
+            <Route exact path="/decks" component={({ match, history }) => (<Decks history={history} api={this.props.options.api}/>)}/>
+            <Route exact path="/decks/builder" component={({ match, history }) => (<Deckbuilder history={history} api={this.props.options.api}/>)}/>
             <Route exact path="/rules" component={({ match, history }) => (<Rules history={history} api={this.props.options.api}/>)}/>
           </Switch>
       </BrowserRouter>

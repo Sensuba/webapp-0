@@ -57,6 +57,19 @@ export default class Api {
     });
   }
 
+  getMyDecks (callback, error) {
+
+    if (!User.isConnected())
+      return;
+    this.addAuthorizationHeader();
+    this.client.get("/user/decks")
+    .then(response => callback(response.data))
+    .catch(err => {
+      this.error(err);
+      User.disconnect();
+    });
+  }
+
   login (username, password, callback, error) {
 
   	this.client.post("/auth", {username, password})

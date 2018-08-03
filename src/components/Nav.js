@@ -26,7 +26,7 @@ export default class Nav extends Component {
 		{ name: "Cards", path: "/cards" },
 		{ name: "Play", path: "/play" },
 		{ name: "Rules", path: "/rules" },
-		{ name: "Collection", path: "/collection" },
+		{ name: "My decks", path: "/decks" },
 		{ name: "Profile", path: "/profile" },
 		{ name: "Logout", action: () => this.logout() },
 	];
