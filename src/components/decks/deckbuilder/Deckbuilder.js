@@ -79,6 +79,9 @@ export default class Deckbuilder extends Component {
 		var cards = this.props.cards.filter(c => c.cardType !== "hero" && (c.idColor === 0 || c.idColor === hero.idColor || c.idColor === hero.idColor2))
 		sorter.sort(cards, "name");
 
+		var listCards = Object.keys(this.state.deck.cards).map(g => cards.find(c => c.idCardmodel == g));
+		sorter.sort(listCards, "type");
+
 		var colorIdToClassName = colorId => {
 
 	  	switch (colorId) {
@@ -122,12 +125,11 @@ export default class Deckbuilder extends Component {
       			<div className="sensuba-deckbuilder-list">
       				<div className="sensuba-deckbuilder-list-cards">
       					{
-      						Object.keys(this.state.deck.cards).map((g, i) => {
+      						listCards.map((model, i) => {
 
-      							var model = cards.find(c => c.idCardmodel == g);
       							var arr = [];
       							var j = 0;
-      							while (j++ < this.state.deck.cards[g])
+      							while (j++ < this.state.deck.cards[model.idCardmodel])
       								arr.push(j);
 
       							return <div key={i} className="sensuba-deckbuilder-list-group" onClick={() => this.removeCard(model.idCardmodel)}>{arr.map(i => <Card key={i} src={model}/>)}</div>;
