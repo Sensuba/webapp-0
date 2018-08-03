@@ -13,17 +13,19 @@ export default class DecksPage extends Component {
 
 		super(props);
 
-		//if (!User.isConnected()) this.props.history.push('/home');
+		if (!User.isConnected()) this.props.history.push('/home');
 
 		var decklist = [];
 		if (sessionStorage.getItem("decklist") !== null)
 	      decklist = JSON.parse(sessionStorage.getItem("decklist"));
 	    else
 	      this.props.api.getMyDecks(decks => {
-	        var d = decks.map(deck => this.readCard(deck));
+	        var d = decks.map(deck => this.readDeck(deck));
 	        sessionStorage.setItem("decklist", JSON.stringify(d));
 	        this.setState({decks: d})
 	      });
+
+	  console.log(decklist);
 
 		this.state = { decks: decklist };
 	}
@@ -40,7 +42,9 @@ export default class DecksPage extends Component {
 	        <Nav api={this.props.api} history={this.props.history}/>
 	      	<main>
           		<div className="sensuba-deck-container">
-	      			<Deck src={{nameDeck: "Shiroe Exodia", imgLink: "https://image.ibb.co/hS7WzT/shiroe.jpg"}}/>
+          		{
+          			this.state.decks.map((deck, i) => <Deck key={i} src={deck}/>)
+          		}
 	      		</div>
 	            <button className="editor-button" onClick={() => this.props.history.push('/decks/builder')}>
 	              <img className="editor-button-img" src="/deckbuilder.jpg" alt="editor-kun"/>

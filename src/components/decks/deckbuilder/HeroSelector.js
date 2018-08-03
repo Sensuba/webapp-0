@@ -3,6 +3,7 @@ import Deck from '../Deck.js';
 import { Input, Label } from 'reactstrap';
 import Nav from '../../Nav';
 import Card from '../../cards/Card';
+import sorter from '../../../utility/CollectionSorter';
 
 export default class HeroSelector extends Component {
 
@@ -10,22 +11,61 @@ export default class HeroSelector extends Component {
 
 		super(props);
 
-		//if (!User.isConnected()) this.props.history.push('/home');
+    var heroes = sorter.filter(this.props.cards, { type: "hero", orderBy: "name" });
 
-    var heroes = this.props.cards.filter(c => c.cardType === "hero");
-
-    this.state = { heroes: heroes, focus: 0 }
+    this.state = { heroes: heroes }
 	}
+
+  componentDidMount () {
+
+    if (this.state.heroes.length > 0)
+     this.setFocus(Math.floor(Math.random() * Math.floor(this.state.heroes.length)));
+  }
+
+  setFocus (i) {
+
+    var shift = val => {
+
+      if (val < 0)
+        return this.state.heroes.length + val;
+      return val % this.state.heroes.length;
+    }
+
+    var list = document.getElementsByClassName("select-hero-card");
+
+    for (var k = 0; k < list.length; k++) {
+      list[k].classList.remove('main-hero-card');
+      list[k].classList.remove('shadow-hero-card');
+      list[k].classList.remove('small-shadow-hero-card');
+    }
+
+    //var selector = document.getElementById("hero-selector");
+
+    document.getElementById(`select-hero-${i}`).classList.add('main-hero-card');
+    if (i > 0)
+    document.getElementById(`select-hero-${shift(i-1)}`).classList.add('shadow-hero-card');
+    if (i < this.state.heroes.length-1)
+    document.getElementById(`select-hero-${shift(i+1)}`).classList.add('shadow-hero-card');
+    if (i > 1)
+    document.getElementById(`select-hero-${shift(i-2)}`).classList.add('small-shadow-hero-card');
+    if (i < this.state.heroes.length-2)
+    document.getElementById(`select-hero-${shift(i+2)}`).classList.add('small-shadow-hero-card');
+  }
 
 	render () {
 
 		return (
 		<div>
 			<h1 className="big-text">Pick a hero</h1>
-      <div className="hero-selector">
-        <div className="select-hero-card shadow-hero-card"><Card src={this.state.heroes[this.state.focus === 0 ? this.state.heroes.length-1 : this.state.focus-1]}/></div>
-        <div className="select-hero-card main-hero-card"><Card src={this.state.heroes[this.state.focus]}/></div>
-        <div className="select-hero-card shadow-hero-card"><Card src={this.state.heroes[(this.state.focus+1)%this.state.heroes.length]}/></div>
+      <div id="hero-selector" className="hero-selector">
+      {
+        this.state.heroes.map((h, i) => <div key={i} id={`select-hero-${i}`} className="select-hero-card" onClick={() => {
+          if (document.getElementById(`select-hero-${i}`).classList.contains('main-hero-card'))
+            this.props.onSelect(h);
+          else
+            this.setFocus(i);
+        }}><Card src={h}/></div>)
+      }
       </div>
 	  </div>
 		)

@@ -3,6 +3,7 @@ import './DeckbuilderPage.css';
 import Nav from '../../Nav';
 import Deckbuilder from './Deckbuilder';
 import Selector from './HeroSelector';
+import User from '../../../services/User';
 
 export default class DeckbuilderPage extends Component {
 
@@ -10,7 +11,7 @@ export default class DeckbuilderPage extends Component {
 
 		super(props);
 
-		//if (!User.isConnected()) this.props.history.push('/home');
+		if (!User.isConnected()) this.props.history.push('/home');
 
 		var cardlist = [];
 
@@ -23,12 +24,21 @@ export default class DeckbuilderPage extends Component {
 		    this.setState({cards: c});
 		  });
 
-		this.state = { cards: cardlist };
+		this.state = { cards: cardlist, hero: null };
 	}
 
   readCard (card) {
 
     return Object.assign(card, JSON.parse(window.atob(card.supercode)));
+  }
+
+  onSave (params) {
+
+  	this.props.api.saveDeck(params, () => {
+
+      sessionStorage.removeItem("decklist");
+      this.props.history.push('/decks');
+    })
   }
 
 	render () {
@@ -37,7 +47,12 @@ export default class DeckbuilderPage extends Component {
 		<div>
 	        <Nav api={this.props.api} history={this.props.history}/>
 	      	<main>
-	      		<Selector cards={this.state.cards}/>
+	      		{
+	      			this.state.hero ?
+	      			<Deckbuilder onSave={this.onSave.bind(this)} hero={this.state.hero} cards={this.state.cards}/>
+	      			:
+	      			<Selector onSelect={hero => this.setState({hero: hero})} cards={this.state.cards}/>
+	      		}
 	      	</main>
 	    </div>
 		)

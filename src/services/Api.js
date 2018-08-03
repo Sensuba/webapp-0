@@ -70,6 +70,19 @@ export default class Api {
     });
   }
 
+  saveDeck (params, callback, error) {
+
+    if (!User.isConnected())
+      return;
+    this.addAuthorizationHeader();
+    this.client.post("/user/decks", params)
+    .then(response => callback())
+    .catch(err => {
+      this.error(err);
+      User.disconnect();
+    });
+  }
+
   login (username, password, callback, error) {
 
   	this.client.post("/auth", {username, password})

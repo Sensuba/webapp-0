@@ -5,11 +5,24 @@ export default class Deck extends Component {
 
 	render() {
 
+		var colorIdToClassName = colorId => {
+
+	  	switch (colorId) {
+	      case 0: return "neutral-mana";
+	  		case 1: return "white-mana";
+	  		case 2: return "red-mana";
+	  		case 3: return "blue-mana";
+	  		case 4: return "green-mana";
+	  		case 5: return "black-mana";
+	  		default: return "";
+	  		}
+	  	};
+
 		return (
-			<div className="sensuba-deck-case blue-mana green-mana">
+			<div className={ `sensuba-deck-case ${colorIdToClassName(this.props.src.idColor)} ${colorIdToClassName(this.props.src.idColor2)}` }>
 				<div className="sensuba-deck-case-mask"/>
-				<img className="sensuba-deck-case-bg" src={this.props.src.imgLink} alt="Deck case background"/>
-				<div className="sensuba-deck-case-name">{this.props.src.nameDeck}</div>
+				<img className="sensuba-deck-case-bg" src={this.props.src.background} alt="Deck case background"/>
+				<div className="sensuba-deck-case-name">{this.props.src.name}</div>
 			</div>
 		)
 	}

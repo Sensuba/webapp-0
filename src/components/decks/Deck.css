@@ -7,6 +7,7 @@
     border: 3px solid #EEE;
     border-style: outset;
     box-shadow: 2px 2px 5px 0px rgba(150,150,150,0.6);
+    margin: 1em;
 }
 
 .sensuba-deck-case .sensuba-deck-case-mask {
@@ -17,11 +18,11 @@
     top: 0;
     left: 0;
     z-index: 1;
-    opacity: 0.4;
+    opacity: 0.8;
     background-size: 400% 400% !important;
-    -webkit-animation: MaskLighting 20s ease infinite;
-    -moz-animation: MaskLighting 20s ease infinite;
-    animation: MaskLighting 20s ease infinite;
+    -webkit-animation: MaskLighting 8s ease infinite;
+    -moz-animation: MaskLighting 8s ease infinite;
+    animation: MaskLighting 8s ease infinite;
 }
 
 .sensuba-deck-case .sensuba-deck-case-bg {
@@ -34,21 +35,21 @@
     left: 0;
 }
 
-.sensuba-deck-case.neutral-mana.white-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(133, 167, 193, 0.8), rgba(232, 209, 97, 0.8)) }
-.sensuba-deck-case.neutral-mana.red-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(133, 167, 193, 0.8), rgba(247, 69, 69, 0.8)) }
-.sensuba-deck-case.neutral-mana.blue-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(133, 167, 193, 0.8), rgba(17, 150, 216, 0.8)) }
-.sensuba-deck-case.neutral-mana.green-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(133, 167, 193, 0.8), rgba(142, 197, 102, 0.8)) }
-.sensuba-deck-case.neutral-mana.black-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(133, 167, 193, 0.8), rgba(80, 26, 53, 0.8)) }
-.sensuba-deck-case.white-mana.red-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(232, 209, 97, 0.8), rgba(247, 69, 69, 0.8)) }
-.sensuba-deck-case.white-mana.blue-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(232, 209, 97, 0.8), rgba(17, 150, 216, 0.8)) }
-.sensuba-deck-case.white-mana.green-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(232, 209, 97, 0.8), rgba(142, 197, 102, 0.8)) }
-.sensuba-deck-case.white-mana.black-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(232, 209, 97, 0.8), rgba(80, 26, 53, 0.8)) }
-.sensuba-deck-case.red-mana.blue-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(247, 69, 69, 0.8), rgba(17, 150, 216, 0.8)) }
-.sensuba-deck-case.red-mana.green-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(247, 69, 69, 0.8), rgba(142, 197, 102, 0.8)) }
-.sensuba-deck-case.red-mana.black-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(247, 69, 69, 0.8), rgba(80, 26, 53, 0.8)) }
-.sensuba-deck-case.blue-mana.green-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(17, 150, 216, 0.8), rgba(142, 197, 102, 0.8)) }
-.sensuba-deck-case.blue-mana.black-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(17, 150, 216, 0.8), rgba(80, 26, 53, 0.8)) }
-.sensuba-deck-case.green-mana.black-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(142, 197, 102, 0.8), rgba(80, 26, 53, 0.8)) }
+.sensuba-deck-case.neutral-mana.white-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(133, 167, 193, 0.8), transparent, rgba(232, 209, 97, 0.8)) }
+.sensuba-deck-case.neutral-mana.red-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(133, 167, 193, 0.8), transparent, rgba(247, 69, 69, 0.8)) }
+.sensuba-deck-case.neutral-mana.blue-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(133, 167, 193, 0.8), transparent, rgba(17, 150, 216, 0.8)) }
+.sensuba-deck-case.neutral-mana.green-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(133, 167, 193, 0.8), transparent, rgba(142, 197, 102, 0.8)) }
+.sensuba-deck-case.neutral-mana.black-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(133, 167, 193, 0.8), transparent, rgba(80, 26, 53, 0.8)) }
+.sensuba-deck-case.white-mana.red-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(232, 209, 97, 0.8), transparent, rgba(247, 69, 69, 0.8)) }
+.sensuba-deck-case.white-mana.blue-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(232, 209, 97, 0.8), transparent, rgba(17, 150, 216, 0.8)) }
+.sensuba-deck-case.white-mana.green-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(232, 209, 97, 0.8), transparent, rgba(142, 197, 102, 0.8)) }
+.sensuba-deck-case.white-mana.black-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(232, 209, 97, 0.8), transparent, rgba(80, 26, 53, 0.8)) }
+.sensuba-deck-case.red-mana.blue-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(247, 69, 69, 0.8), transparent, rgba(17, 150, 216, 0.8)) }
+.sensuba-deck-case.red-mana.green-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(247, 69, 69, 0.8), transparent, rgba(142, 197, 102, 0.8)) }
+.sensuba-deck-case.red-mana.black-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(247, 69, 69, 0.8), transparent, rgba(80, 26, 53, 0.8)) }
+.sensuba-deck-case.blue-mana.green-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(17, 150, 216, 0.8), transparent, rgba(142, 197, 102, 0.8)) }
+.sensuba-deck-case.blue-mana.black-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(17, 150, 216, 0.8), transparent, rgba(80, 26, 53, 0.8)) }
+.sensuba-deck-case.green-mana.black-mana .sensuba-deck-case-mask { background: linear-gradient(150deg, rgba(142, 197, 102, 0.8), transparent, rgba(80, 26, 53, 0.8)) }
 
 .sensuba-deck-case .sensuba-deck-case-name {
 
@@ -61,6 +62,7 @@
 	color: white;
 	text-shadow: 0px 0px 6px rgba(0, 0, 0, 1);
 	font-size: 1.4em;
+	font-weight: bold;
 }
 
 @-webkit-keyframes MaskLighting { 
