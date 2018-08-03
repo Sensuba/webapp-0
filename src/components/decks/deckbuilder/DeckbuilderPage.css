@@ -166,3 +166,23 @@
 	height: 25em;
 	width: 100%;
 }
+
+.hero-selector .select-hero-card {
+
+	display: inline-block;
+	height: 25em;
+	margin: 2.5em 2em;
+	vertical-align: middle;
+}
+
+.hero-selector .select-hero-card .sensuba-card {
+
+	margin: 0;
+}
+
+.hero-selector .shadow-hero-card {
+
+	font-size: 0.7em;
+	opacity: 0.5;
+	filter: grayscale(50%);
+}

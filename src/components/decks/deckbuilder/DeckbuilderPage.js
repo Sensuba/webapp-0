@@ -37,7 +37,7 @@ export default class DeckbuilderPage extends Component {
 		<div>
 	        <Nav api={this.props.api} history={this.props.history}/>
 	      	<main>
-	      		<Deckbuilder cards={this.state.cards}/>
+	      		<Selector cards={this.state.cards}/>
 	      	</main>
 	    </div>
 		)
