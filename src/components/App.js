@@ -32,6 +32,7 @@ export default class App extends Component {
             <Route exact path="/profile" component={({ match, history }) => (<Profile history={history} api={this.props.options.api}/>)}/>
             <Route exact path="/decks" component={({ match, history }) => (<Decks history={history} api={this.props.options.api}/>)}/>
             <Route exact path="/decks/builder" component={({ match, history }) => (<Deckbuilder history={history} api={this.props.options.api}/>)}/>
+            <Route path="/decks/builder/:deck" component={({ match, history }) => (User.isConnected() ? <Deckbuilder deck={match.params.deck} history={history} api={this.props.options.api}/> : <Redirect to="/decks"/>)}/>
             <Route exact path="/rules" component={({ match, history }) => (<Rules history={history} api={this.props.options.api}/>)}/>
           </Switch>
       </BrowserRouter>

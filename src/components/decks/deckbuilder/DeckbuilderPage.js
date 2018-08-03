@@ -24,7 +24,11 @@ export default class DeckbuilderPage extends Component {
 		    this.setState({cards: c});
 		  });
 
-		this.state = { cards: cardlist, hero: null };
+		this.deckEdit = null;
+		if (this.props.deck && sessionStorage.getItem("decklist") !== null)
+	      this.deckEdit = JSON.parse(sessionStorage.getItem("decklist")).find(el => el.idDeck == this.props.deck)
+
+		this.state = { cards: cardlist, hero: this.deckEdit ? this.deckEdit.hero : null };
 	}
 
   readCard (card) {
@@ -49,7 +53,10 @@ export default class DeckbuilderPage extends Component {
 	      	<main>
 	      		{
 	      			this.state.hero ?
-	      			<Deckbuilder onSave={this.onSave.bind(this)} hero={this.state.hero} cards={this.state.cards}/>
+	      			(this.state.cards && this.state.cards.length > 0 ?
+		      			<Deckbuilder onSave={this.onSave.bind(this)} deck={this.deckEdit} hero={this.state.hero} cards={this.state.cards}/>
+		      			: <span/>
+	      			)
 	      			:
 	      			<Selector onSelect={hero => this.setState({hero: hero})} cards={this.state.cards}/>
 	      		}

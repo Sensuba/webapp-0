@@ -11,7 +11,12 @@ export default class Deckbuilder extends Component {
 
 		super(props);
 
-		this.state = { deck: { hero: this.props.hero.idCardmodel, cards: {}, name: "Deck Custom", background: this.props.hero.imgLink }, filter: "", preview: null };
+		var deck = { hero: this.props.hero.idCardmodel, cards: {}, name: "Deck Custom", background: this.props.hero.imgLink };
+
+		if (this.props.deck)
+			deck = this.props.deck;
+
+		this.state = { deck: deck, filter: "", preview: null };
 	}
 
 	get count () {
@@ -50,7 +55,7 @@ export default class Deckbuilder extends Component {
   	tooltip.setAttribute("style", `display: none`);
   }
 
-  saveCard() {
+  saveDeck() {
 
     if (this.state.saved)
       return;
@@ -59,8 +64,8 @@ export default class Deckbuilder extends Component {
 
     var params = { supercode };
 
-    if (this.props.card !== undefined)
-      params.id = this.props.card;
+    if (this.props.deck)
+      params.id = this.props.deck.idDeck;
 
     this.props.onSave(params);
 
@@ -70,7 +75,8 @@ export default class Deckbuilder extends Component {
 
 	render () {
 
-		var cards = this.props.cards.filter(c => c.cardType !== "hero" && (c.idColor === 0 || c.idColor === this.props.hero.idColor || c.idColor === this.props.hero.idColor2))
+		var hero = this.props.hero.idColor ? this.props.hero : this.props.cards.find(c => c.idCardmodel == this.props.hero);
+		var cards = this.props.cards.filter(c => c.cardType !== "hero" && (c.idColor === 0 || c.idColor === hero.idColor || c.idColor === hero.idColor2))
 		sorter.sort(cards, "name");
 
 		var colorIdToClassName = colorId => {
@@ -94,8 +100,8 @@ export default class Deckbuilder extends Component {
 				{ this.state.preview ? <Card src={this.state.preview}/> : <span/> }
 			</div>
       		<div className="half-section deck-image-preview">
-      			<Deck src={{name: this.state.deck.name, background: this.state.deck.background, idColor: this.props.hero.idColor, idColor2: this.props.hero.idColor2 }}/>
-      			<button className="menu-button" onClick={this.saveCard.bind(this)}>Save</button>
+      			<Deck src={{name: this.state.deck.name, background: this.state.deck.background, idColor: hero.idColor, idColor2: hero.idColor2 }}/>
+      			<button className="menu-button" onClick={this.saveDeck.bind(this)}>{ this.props.deck ? "Edit" : "Save" }</button>
       		</div>
       		<div className="half-section">
       			<div className="editor-box">
@@ -128,6 +134,7 @@ export default class Deckbuilder extends Component {
       						})
       					}
       				</div>
+      				<div className="sensuba-deckbuilder-list-count">{this.count}</div>
       			</div>
       			<div className="sensuba-deckbuilder-search">
       				<Input type="text" placeholder="Search" className="sensuba-deckbuilder-search-input" value={this.state.filter} onChange={e => this.setState({filter: e.target.value})}/>

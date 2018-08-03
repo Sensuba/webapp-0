@@ -25,8 +25,6 @@ export default class DecksPage extends Component {
 	        this.setState({decks: d})
 	      });
 
-	  console.log(decklist);
-
 		this.state = { decks: decklist };
 	}
 
@@ -43,7 +41,7 @@ export default class DecksPage extends Component {
 	      	<main>
           		<div className="sensuba-deck-container">
           		{
-          			this.state.decks.map((deck, i) => <Deck key={i} src={deck}/>)
+          			this.state.decks.map((deck, i) => <a className="sensuba-card-link" onClick={() => this.props.history.push(`/decks/builder/${deck.idDeck}`)} key={deck.idDeck}><Deck src={deck}/></a>)
           		}
 	      		</div>
 	            <button className="editor-button" onClick={() => this.props.history.push('/decks/builder')}>
