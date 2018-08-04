@@ -33,7 +33,7 @@ export default class HomePage extends Component {
               <div className="home-panel-filter"/>
               <div className="home-panel-text">
                 <h3>A full set of cards</h3>
-                <p>bon ok là j'ai pas encore grand chose CA VIENDRA</p>
+                <p>Explore the collection and discover more than 200 cards. Assemble effects to conceive powerful synergies.</p>
                 <button className="select-button" onClick={() => this.props.history.push("/cards")}>Explore the collection</button>
               </div>
             </div>

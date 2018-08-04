@@ -131,7 +131,7 @@
   padding: 0 5%;
 }
 
-.half-section, .third-section, .two-thirds-section {
+.half-section, .third-section, .two-thirds-section, .quarter-section {
 
   display: inline-block;
   vertical-align: top;
@@ -140,6 +140,7 @@
 .half-section { width: 50% }
 .third-section { width: 33% }
 .two-thirds-section { width: 66% }
+.quarter-section { width: 25% }
 
 .sensuba-card-search .colors-group {
 

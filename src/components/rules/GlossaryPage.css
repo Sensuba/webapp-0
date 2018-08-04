@@ -1,0 +1,42 @@
+.glossary-panel {
+
+    width: 100%;
+    position: relative;
+    height: 25em;
+    overflow: hidden;
+    margin: 0;
+}
+
+.glossary-panel .glossary-panel-background {
+
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    position: absolute;
+    transition: height 0.5s, width 0.5s, top 0.5s, left 0.5s;
+}
+
+.glossary-panel .glossary-panel-filter {
+
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to bottom, transparent, transparent 40%, #000B 60%, #000D);
+}
+
+.glossary-panel .glossary-panel-text {
+
+    position: absolute;
+    z-index: 2;
+    top: 55%;
+    left: 10%;
+    width: 80%;
+    color: white;
+    text-align: left;
+}

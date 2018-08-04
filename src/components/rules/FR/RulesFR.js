@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Glossary from './GlossaryFR';
 
 export default class RulesFR extends Component {
 
@@ -214,6 +215,8 @@ export default class RulesFR extends Component {
           </div>
           <img className="img-exp" src="/rules/mettre-en-place-des-synergies.png" alt="img"/>
         </div>
+        <div id="glossary" className="rule-part">Glossaire</div>
+        <Glossary/>
       </div>
     );
   }
