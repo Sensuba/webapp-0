@@ -4,6 +4,7 @@ import { Input, Label } from 'reactstrap';
 import Nav from '../../Nav';
 import Card from '../../cards/Card';
 import sorter from '../../../utility/CollectionSorter';
+import { Progress } from 'antd';
 
 export default class Deckbuilder extends Component {
 
@@ -97,6 +98,9 @@ export default class Deckbuilder extends Component {
 
     	var superCode = window.btoa(JSON.stringify(this.state.deck));
 
+    	var nbFigures = listCards.filter(c => c.cardType === "figure").map(c => this.state.deck.cards[c.idCardmodel]).reduce((acc, val) => acc + val, 0);
+    	var nbSpells = listCards.filter(c => c.cardType === "spell").map(c => this.state.deck.cards[c.idCardmodel]).reduce((acc, val) => acc + val, 0);
+
 		return (
 		<div>
 			<div id="img-preview-tooltip" data-toggle="tooltip" data-placement="right" src="" alt="preview" data-animation="false" data-trigger="manual">
@@ -149,6 +153,17 @@ export default class Deckbuilder extends Component {
       						</div>)
       				}
       				</div>
+      			</div>
+      		</div>
+      		<div>
+      			<div className="third-section">
+      				<Card src={hero}/>
+      			</div>
+      			<div className="third-section">
+      				<Progress className="empty" type="circle" percent={nbFigures * 100 / this.count} format={percent => `${nbFigures} figure${nbFigures > 1 ? "s" : ""}`}/>
+      				<Progress className="empty" type="circle" percent={nbSpells * 100 / this.count} format={percent => `${nbSpells} spell${nbSpells > 1 ? "s" : ""}`}/>
+      			</div>
+      			<div className="third-section">
       			</div>
       		</div>
 	    </div>

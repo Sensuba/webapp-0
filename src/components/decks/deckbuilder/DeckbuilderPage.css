@@ -11,6 +11,7 @@
     border-style: outset;
     box-shadow: 2px 2px 5px 0px rgba(150,150,150,0.6);
     margin-top: 80px;
+    margin-bottom: 30px;
 }
 
 @keyframes DeckbuilderLighting { 
@@ -224,3 +225,17 @@
 	opacity: 0.3;
 	filter: grayscale(80%);
 }
+
+.ant-progress .ant-progress-inner {
+
+	margin: 1em auto;
+}
+
+.ant-progress .ant-progress-text {
+
+	margin-top: -4.25em;
+	font-size: 0.8em;
+    display: block;
+}
+
+.ant-progress:first-child .ant-progress-circle .ant-progress-circle-path { stroke: #FF6000; }
