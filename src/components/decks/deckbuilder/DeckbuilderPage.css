@@ -239,3 +239,7 @@
 }
 
 .ant-progress:first-child .ant-progress-circle .ant-progress-circle-path { stroke: #FF6000; }
+
+.ant-progress:last-child .ant-progress-circle .ant-progress-circle-path { stroke: rgb(16, 142, 233); }
+
+.recharts-wrapper { margin-top: 2em }
