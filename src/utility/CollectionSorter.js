@@ -2,11 +2,13 @@ export default (() => {
 
 	var valueSort = attr => (a, b) => {
 
-		if (a[attr] && b[attr])
-			return a[attr] < b[attr] ? -1 : (a[attr] > b[attr] ? 1 : 0);
-		if (a[attr] && !b[attr])
+		var va = a[attr] !== undefined && a[attr] !== null ? parseInt(a[attr]) : null;
+		var vb = b[attr] !== undefined && b[attr] !== null ? parseInt(b[attr]) : null;
+		if (va && vb)
+			return va < vb ? -1 : (va > vb ? 1 : 0);
+		if (va && !vb)
 			return 1;
-		if (!a[attr] && b[attr])
+		if (!va && vb)
 			return -1;
 		return 0;
 	}
