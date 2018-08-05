@@ -1,6 +1,6 @@
 export default (() => {
 
-	var valueSort = attr => (a, b, text = false) => {
+	var valueSort = (attr, text = false) => (a, b) => {
 
 		var va = text ? a[attr] : (a[attr] !== undefined && a[attr] !== null ? parseInt(a[attr]) : null);
 		var vb = text ? b[attr] : (b[attr] !== undefined && b[attr] !== null ? parseInt(b[attr]) : null);
