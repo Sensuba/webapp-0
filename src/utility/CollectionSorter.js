@@ -1,9 +1,9 @@
 export default (() => {
 
-	var valueSort = attr => (a, b) => {
+	var valueSort = attr => (a, b, text = false) => {
 
-		var va = a[attr] !== undefined && a[attr] !== null ? parseInt(a[attr]) : null;
-		var vb = b[attr] !== undefined && b[attr] !== null ? parseInt(b[attr]) : null;
+		var va = text ? a[attr] : (a[attr] !== undefined && a[attr] !== null ? parseInt(a[attr]) : null);
+		var vb = text ? b[attr] : (b[attr] !== undefined && b[attr] !== null ? parseInt(b[attr]) : null);
 		if (va && vb)
 			return va < vb ? -1 : (va > vb ? 1 : 0);
 		if (va && !vb)
@@ -13,7 +13,7 @@ export default (() => {
 		return 0;
 	}
 
-	var nameSort = valueSort("nameCard");
+	var nameSort = valueSort("nameCard", true);
 
 	var manaSort = valueSort("mana");
 
