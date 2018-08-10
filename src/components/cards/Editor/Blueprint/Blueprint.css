@@ -1,0 +1,244 @@
+.blueprint-menu {
+
+	height: 40em;
+	width: 100%;
+	position: relative;
+}
+
+.blueprint-menu .blueprint-save {
+
+	position: absolute;
+    bottom: 10px;
+    right: 10px;
+    border-radius: 10px;
+    padding: 0.6em 1em;
+    font-size: 1.4em;
+    color: white;
+    opacity: 0.7;
+    background-color: #3a3a72;
+    transition: opacity 0.2s;
+    cursor: pointer;
+}
+
+.blueprint-menu .blueprint-save:hover { opacity: 1 }
+
+.blueprint-menu .blueprint-nav {
+
+	display: inline-block;
+	width: 25%;
+	height: 100%;
+	vertical-align: top;
+	border-right: 1px solid rgba(150, 150, 150, 0.4);
+	background-color: #FAFAFA;
+	text-align: left;
+}
+
+.blueprint-menu .blueprint-nav .blueprint-nav-header {
+
+	height: 3em;
+	line-height: 3em;
+	padding-left: 1.5em;
+	font-weight: bold;
+	border-bottom: 1px solid rgba(150, 150, 150, 0.4);
+}
+
+.blueprint-menu .blueprint-nav .blueprint-nav-body {
+
+	overflow: auto;
+	height: 36.8em;
+}
+
+.blueprint-menu .blueprint-tool {
+
+	position: relative;
+	border-radius: 2px;
+	background-color: white;
+	height: 2.3em;
+	line-height: 2.3em;
+	padding-left: 2.8em;
+	box-shadow: 0px 2px 3px 0px rgba(150, 150, 150, 0.75);
+	margin: 0.7em 1em;
+	font-size: 0.85em;
+}
+
+.blueprint-menu .blueprint-tool.blueprint-tool-operator {
+
+	margin: 0.2em;
+    padding-left: 2.3em;
+    display: inline-block;
+}
+
+.blueprint-menu .blueprint-tool.blueprint-tool-operator .blueprint-tool-name {
+
+	position: absolute;
+    width: 2.3em;
+    left: 0;
+    text-align: center;
+    top: 0;
+    color: white;
+    font-weight: bold;
+}
+
+.blueprint-menu .blueprint-tool .blueprint-tool-icon {
+
+	position: absolute;
+	width: 1.7em;
+	height: 1.7em;
+	top: 0.3em;
+	left: 0.3em;
+	border-radius: 2px;
+}
+
+.blueprint-menu .blueprint-schema {
+
+	display: inline-block;
+	width: 75%;
+	height: 100%;
+	vertical-align: top;
+}
+
+.blueprint-menu .blueprint-schema .srd-diagram {
+
+	height: 100%;
+	background-color: #3c3c3c !important;
+    background-image: linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.05) 75%, rgba(255, 255, 255, 0.05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.05) 75%, rgba(255, 255, 255, 0.05) 76%, transparent 77%, transparent);
+    background-size: 50px 50px;
+}
+
+.blueprint-menu .blueprint-schema .srd-diagram .srd-port {
+
+	width: 12px;
+	height: 12px;
+	border-radius: 6px;
+	background-color: black;
+	border: 2px solid white;
+}
+
+.blueprint-menu .blueprint-schema .srd-diagram .srd-port--selected {
+
+	background-color: #808080;
+}
+
+.blueprint-menu .blueprint-schema .srd-diagram .srd-default-node {
+
+	border: none;
+	border-radius: 5px;
+	overflow: hidden;
+	box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
+	transition: box-shadow 0.2s;
+}
+
+.blueprint-menu .blueprint-schema .srd-diagram .srd-node--selected {
+
+	box-shadow: 0px 0px 10px 0px rgba(0, 200, 255, 1);
+}
+
+.blueprint-menu .blueprint-schema .srd-diagram .srd-default-node__name {
+
+	text-align: left;
+    font-weight: bold;
+    padding-left: 0.5em;
+    padding-right: 25px;
+}
+
+.blueprint-menu .blueprint-schema .srd-diagram .node-operator.srd-default-node__title {
+
+	position: absolute;
+    background: transparent;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 50px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.blueprint-menu .blueprint-schema .srd-diagram .node-operator .srd-default-node__name {
+	z-index: 0;
+    background: linear-gradient(to right, transparent, #404040, transparent) !important;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    color: #ffffff60;
+}
+
+.blueprint-menu .blueprint-schema .srd-diagram .srd-default-node__event {
+	height: 1em;
+    width: 1em;
+    position: absolute;
+    top: 0.65em;
+    right: 0.65em;
+    border-radius: 2px;
+    border: 1px solid rgba(100, 10, 10, 0.6);
+}
+
+.blueprint-menu .blueprint-schema .srd-diagram .srd-default-node__event.checked {
+
+	background-color: rgba(100, 10, 10, 0.6);
+}
+
+.blueprint-menu .blueprint-schema .srd-diagram .srd-default-node__event input { display: none }
+
+.blueprint-menu .blueprint-schema .srd-diagram .srd-default-node__ports {
+
+	background: #202020;
+	z-index: 1;
+}
+
+.blueprint-menu .blueprint-schema .srd-diagram .srd-default-port {
+
+	margin: 0.5em;
+}
+
+.blueprint-menu .blueprint-schema .srd-diagram .srd-default-node__in, .blueprint-menu .blueprint-schema .srd-diagram .srd-default-node__out {
+
+	z-index: 1;
+}
+
+.blueprint-menu .blueprint-schema .srd-diagram .node-operator ~ .srd-default-node__ports .srd-default-node__in { margin-right: 30px }
+
+.blueprint-menu .blueprint-schema .srd-diagram .srd-port.exe {
+
+	margin: 0.2em !important;
+	border-radius: 2px !important;
+	transform: rotate(45deg);
+}
+
+.blueprint-menu .blueprint-schema .srd-diagram .srd-default-port .name {
+
+	margin: 0 0.5em;
+}
+
+.blueprint-menu .blueprint-schema .srd-diagram .srd-default-port .value {
+	
+	background: transparent;
+    border-width: 1px;
+    height: 1.5em;
+    color: white;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.blueprint-menu .blueprint-schema .srd-diagram .srd-default-port input.value { width: 30px }
+.blueprint-menu .blueprint-schema .srd-diagram .srd-default-port select.value { width: 55px }
+
+.blueprint-menu .blueprint-schema .srd-diagram .srd-default-port select.value option { background-color: #202020; }
+
+.blueprint-menu .blueprint-schema .srd-diagram .srd-default-port .linked ~ .value {
+
+	opacity: 0;
+	width: 0;
+	padding: 0;
+	border: 0;
+	box-sizing: border-box;
+}
+
+.blueprint-menu .blueprint-schema .srd-diagram .srd-default-port .linked ~ input.value { margin-right: 30px }
+.blueprint-menu .blueprint-schema .srd-diagram .srd-default-port .linked ~ select.value { margin-right: 55px }
+
+.blueprint-menu .blueprint-schema .srd-diagram .srd-default-port .value::-webkit-outer-spin-button,
+.blueprint-menu .blueprint-schema .srd-diagram .srd-default-port .value::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

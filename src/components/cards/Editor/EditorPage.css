@@ -1,3 +1,33 @@
+.editor-menu {
+
+  width: 100%;
+  border: 1px solid rgba(150, 150, 150, 0.4);
+}
+
+.editor-menu-tabs {
+
+  text-align: left;
+  background-color: #f1f1f1;
+  border-bottom: 1px solid rgba(150, 150, 150, 0.4);
+}
+
+.editor-menu-tabs input { display: none }
+
+.editor-menu-tabs label {
+
+    margin: 0;
+    padding: 0.5em 2em;
+    background-color: transparent;
+    color: black;
+    transition: background-color 0.1s, color 0.1s;
+}
+
+.editor-menu-tabs input:checked + label {
+
+    background-color: #616161;
+    color: white;
+}
+
 .editor-box .third-section, .editor-box .two-thirds-section {
 
   padding-right: 10%;
@@ -9,6 +39,12 @@
   text-align: left;
   padding: 1em 1.5em;
   border-radius: 0.5em;
+}
+
+.editor-menu .editor-box {
+
+  border: none;
+  border-radius: 0;
 }
 
 .editor-box label {

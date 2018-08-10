@@ -23,6 +23,7 @@
     "sha1": "^1.1.1",
     "socket.io": "^2.1.1",
     "socket.io-client": "^2.1.1",
+    "storm-react-diagrams": "^5.2.1",
     "uws": "^10.148.0"
   },
   "scripts": {
