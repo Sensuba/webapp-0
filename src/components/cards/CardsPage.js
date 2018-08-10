@@ -67,7 +67,7 @@ export default class CardsPage extends Component {
 
     cards = sorter.filter(cards, this.state.filter);
 
-    console.log(cards)
+    //console.log(cards)
 
     return cards;
   }
