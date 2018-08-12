@@ -245,8 +245,8 @@ export default class EditorPage extends Component {
         <div className="half-section">
           <div className="editor-card-visual">
             <Card id="card-preview" src={this.currentCard}/>
-            { this.props.token.length === 0 ? <button className="menu-button" onClick={this.saveCard.bind(this)}>{ this.props.isEdit ? "Edit" : "Save" }</button> : <span/> }
-            { this.props.card !== undefined || this.props.token.length > 0 ? <button className="red menu-button" onClick={this.deleteCard.bind(this)}>Delete</button> : <span/> }
+            { this.props.token.length === 0 ? <button className="menu-button" onClick={() => this.props.save()}>{ this.props.isEdit ? "Edit" : "Save" }</button> : <span/> }
+            { this.props.card !== undefined || this.props.token.length > 0 ? <button className="red menu-button" onClick={() => this.props.delete()}>Delete</button> : <span/> }
             <div className="editor-box">
               <Label for="form-card-supercode">Supercode</Label>
               <Input id="form-card-supercode" type="textarea" rows="8" value={superCode} onChange={ e => {
