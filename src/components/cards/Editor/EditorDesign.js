@@ -38,51 +38,6 @@ export default class EditorPage extends Component {
     this.props.setToken(c);
   }
 
-  saveCard() {
-
-    if (this.state.saved)
-      return;
-
-    var shadow = this.props.card;
-    shadow.htmlDescription = undefined;
-
-    var supercode = window.btoa(JSON.stringify(shadow));
-
-    var params = { supercode };
-
-    if (this.props.card !== undefined)
-      params.id = this.props.card;
-
-    this.props.api.saveCustomCards(params, () => {
-
-      sessionStorage.removeItem("customcardlist");
-      this.props.history.push('/cards');
-    })
-
-    this.state.saved = true;
-
-  }
-
-  deleteCard() {
-
-    if (this.props.token.length > 0) {
-
-      var t = this.props.token[this.props.token.length-1];
-      this.setState({token: this.props.token.slice(0,-1)}, () => {
-        var cc = Object.assign({}, this.currentCard);
-        cc.tokens = this.currentCard.tokens.filter((el, i) => i !== t);
-        this.currentCard = cc;
-      });
-    } else {
-
-      this.props.api.deleteCustomCards(this.props.card, () => {
-
-        sessionStorage.removeItem("customcardlist");
-        this.props.history.push('/cards');
-      })
-    }
-  }
-
   changeType(newType) {
 
     var filter = [];
@@ -290,7 +245,7 @@ export default class EditorPage extends Component {
         <div className="half-section">
           <div className="editor-card-visual">
             <Card id="card-preview" src={this.currentCard}/>
-            { this.props.token.length === 0 ? <button className="menu-button" onClick={this.saveCard.bind(this)}>{ this.props.card !== undefined ? "Edit" : "Save" }</button> : <span/> }
+            { this.props.token.length === 0 ? <button className="menu-button" onClick={this.saveCard.bind(this)}>{ this.props.isEdit ? "Edit" : "Save" }</button> : <span/> }
             { this.props.card !== undefined || this.props.token.length > 0 ? <button className="red menu-button" onClick={this.deleteCard.bind(this)}>Delete</button> : <span/> }
             <div className="editor-box">
               <Label for="form-card-supercode">Supercode</Label>

@@ -200,6 +200,9 @@ export default class EditorPage extends Component {
               token={this.state.token}
               update={card => this.setState({card})}
               defaultCard={this.defaultCard}
+              save={() => this.saveCard()}
+              delete={() => this.deleteCard()}
+              isEdit={this.props.card !== undefined}
               setToken={token => this.setState({token})}
               className={this.state.tab === "design" ? "" : "invisible"}
             />
