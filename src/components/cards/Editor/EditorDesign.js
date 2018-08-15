@@ -44,16 +44,17 @@ export default class EditorPage extends Component {
     var basis = {
         archetypes: [],
         mana: 0,
+        level: "1",
         atk: 200,
         hp: 200,
         range: 1
     };
     switch (newType) {
-    case "figure": filter = ["idColor2"]; break;
+    case "figure": filter = ["level", "idColor2"]; break;
     case "hero": filter = ["archetypes", "mana"]; break;
-    case "spell": filter = ["idColor2", "archetypes", "atk", "hp", "range"]; break;
-    case "trap": filter = ["idColor2", "archetypes", "atk", "hp", "range"]; break;
-    case "artifact": filter = ["idColor2", "archetypes", "atk", "range"]; break;
+    case "spell": filter = ["level", "idColor2", "archetypes", "atk", "hp", "range"]; break;
+    case "trap": filter = ["level", "idColor2", "archetypes", "atk", "hp", "range"]; break;
+    case "artifact": filter = ["level", "idColor2", "archetypes", "atk", "range"]; break;
     default: break;
     }
 
@@ -130,10 +131,24 @@ export default class EditorPage extends Component {
                 <Label for="form-card-name">Name</Label>
                 <Input id="form-card-name" type="text" value={this.currentCard.nameCard} onChange={editAttribute("nameCard").bind(this)}/>
               </FormGroup>
-              <FormGroup>
-                  <Label for="form-card-anime">Anime</Label>
-                  <Input id="form-card-anime" type="text" value={this.currentCard.anime} onChange={editAttribute("anime").bind(this)}/>
-              </FormGroup>
+              {
+                this.currentCard.cardType !== "hero" ?
+                  <FormGroup>
+                      <Label for="form-card-anime">Anime</Label>
+                      <Input id="form-card-anime" type="text" value={this.currentCard.anime} onChange={editAttribute("anime").bind(this)}/>
+                  </FormGroup>
+                  :
+                  <FormGroup>
+                      <div className="two-thirds-section">
+                        <Label for="form-card-anime">Anime</Label>
+                        <Input id="form-card-anime" type="text" value={this.currentCard.anime} onChange={editAttribute("anime").bind(this)}/>
+                      </div>
+                      <div className="third-section">
+                        <Label for="form-card-level">Level</Label>
+                        <Input id="form-card-level" type="text" value={this.currentCard.level} onChange={editAttribute("level").bind(this)}/>
+                      </div>
+                  </FormGroup>
+              }
               <FormGroup>
                 <div className="half-section">
                   <Label>Color</Label>

@@ -29,6 +29,7 @@ export default class Figure extends Component {
 	        	<div className="sensuba-card-flavour">{this.props.src.flavourText}</div>
 	        </div>
 	    </div>
+		<div className="sensuba-card-level">Lv {this.props.src.level}</div>
 		<div className="sensuba-card-param sensuba-card-param-atk">
 			<div className="sensuba-card-param-name">ATK</div>
 		   	<div className="sensuba-card-param-value">{this.props.src.atk}</div>

@@ -409,6 +409,21 @@
 
 .sensuba-card.sensuba-artifact .sensuba-card-param-hp { left: 3.5em }
 
+.sensuba-card .sensuba-card-level {
+
+    position: absolute;
+    top: 4.4em;
+    color: white;
+    font-size: 0.6em;
+    font-family: "Lucida Bright";
+    left: 2.4em;
+    font-weight: bold;
+    text-align: center;
+    width: 4em;
+    margin-left: -2em;
+    text-shadow: 0px 0px 6px rgba(0, 0, 0, 1);
+}
+
 .sensuba-card .sensuba-card-param-name {
 
     position: absolute;
