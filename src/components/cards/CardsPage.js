@@ -104,8 +104,10 @@ export default class CardsPage extends Component {
 
               var addTokens = parent => {
                 if (parent.tokens) {
-                  cf = cf.concat(parent.tokens);
-                  parent.tokens.forEach(addTokens);
+                  parent.tokens.forEach(token => {
+                    cf.push(token);
+                    addTokens(token);
+                  });
                 }
               }
               addTokens(cf[0]);
