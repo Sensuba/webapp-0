@@ -45,6 +45,15 @@ export default class DeckbuilderPage extends Component {
     })
   }
 
+  onDelete (id) {
+
+  	this.props.api.deleteDeck(id, () => {
+
+      sessionStorage.removeItem("decklist");
+      this.props.history.push('/decks');
+    })
+  }
+
 	render () {
 
 		return (
@@ -54,7 +63,7 @@ export default class DeckbuilderPage extends Component {
 	      		{
 	      			this.state.hero ?
 	      			(this.state.cards && this.state.cards.length > 0 ?
-		      			<Deckbuilder onSave={this.onSave.bind(this)} deck={this.deckEdit} hero={this.state.hero} cards={this.state.cards}/>
+		      			<Deckbuilder onSave={this.onSave.bind(this)} onDelete={this.onDelete.bind(this)} deck={this.deckEdit} hero={this.state.hero} cards={this.state.cards}/>
 		      			: <span/>
 	      			)
 	      			:

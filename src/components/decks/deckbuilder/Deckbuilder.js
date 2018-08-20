@@ -72,7 +72,16 @@ export default class Deckbuilder extends Component {
     this.props.onSave(params);
 
     this.state.saved = true;
+  }
 
+  deleteDeck() {
+
+    if (this.state.saved)
+      return;
+
+    this.props.onDelete(this.props.deck.idDeck);
+
+    this.state.saved = true;
   }
 
 	render () {
@@ -122,6 +131,7 @@ export default class Deckbuilder extends Component {
       		<div className="half-section deck-image-preview">
       			<Deck src={{name: this.state.deck.name, background: this.state.deck.background, idColor: hero.idColor, idColor2: hero.idColor2 }}/>
       			<button className="menu-button" onClick={this.saveDeck.bind(this)}>{ this.props.deck ? "Edit" : "Save" }</button>
+            { this.props.deck ? <button className="red menu-button" onClick={this.deleteDeck.bind(this)}>Delete</button> : <span/> }
       		</div>
       		<div className="half-section">
       			<div className="editor-box">

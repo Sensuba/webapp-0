@@ -83,6 +83,19 @@ export default class Api {
     });
   }
 
+  deleteDeck (id, callback, error) {
+
+    if (!User.isConnected())
+      return;
+    this.addAuthorizationHeader();
+    this.client.delete("/user/decks?id=" + id)
+    .then(response => callback())
+    .catch(err => {
+      this.error(err);
+      User.disconnect();
+    });
+  }
+
   login (username, password, callback, error) {
 
   	this.client.post("/auth", {username, password})
