@@ -10,7 +10,8 @@ export default class Hand {
 
 		this.area = parent;
 		this.scene = parent.scene;
-		this.id = { type: "hand", no: parent.id.no };
+		this.model = parent.model.hand;
+		this.id = this.model.id;
 		this.cards = [];
 		this.scene.manager.addItem(this);
 		this.mount();
@@ -37,9 +38,7 @@ export default class Hand {
 
 	removeCard (card) {
 
-		console.log(this.cards.length);
 		this.cards = this.cards.filter(c => c.id !== card.id);
-		console.log(this.cards.length);
 		this.replaceCards();
 	}
 

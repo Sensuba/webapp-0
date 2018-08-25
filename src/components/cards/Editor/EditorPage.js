@@ -84,7 +84,13 @@ export default class EditorPage extends Component {
       return;
 
     var shadow = this.state.card;
-    shadow.htmlDescription = undefined;
+    delete shadow.htmlDescription;
+    if (shadow.cardType === "hero") {
+      if (shadow.lv2)
+        delete shadow.lv2.htmlDescription;
+      if (shadow.lvmax)
+        delete shadow.lvmax.htmlDescription;
+    }
 
     var supercode = window.btoa(JSON.stringify(shadow));
 

@@ -10,7 +10,8 @@ export default class Court {
 
 		this.parent = parent;
 		this.scene = parent.scene;
-		this.id =  { type: "court", no: parent.id.no };
+		this.model = parent.model.court;
+		this.id = this.model.id;
 		this.scene.manager.addItem(this);
 		this.mount();
 		this.obj.position = position;

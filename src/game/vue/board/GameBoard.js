@@ -3,10 +3,11 @@ import Area from './Area';
 
 export default class GameBoard {
 
-	constructor (scene) {
+	constructor (scene, model) {
 
 		this.scene = scene;
-		this.id = { type: "gameboard", no: 0 };
+		this.model = model
+		this.id = model.id;
 		this.scene.manager.addItem(this);
 		this.mount();
 	}
@@ -14,8 +15,8 @@ export default class GameBoard {
 	mount () {
 
 		this.areas = [
-			new Area(this, 0, new BABYLON.Vector3(0, 0, -7), new BABYLON.Vector3(0, 0, 0)),
-	 		new Area(this, 1, new BABYLON.Vector3(0, 0, 7), new BABYLON.Vector3(0, Math.PI, 0))
+			new Area(this, this.model.areas[0], new BABYLON.Vector3(0, 0, -7), new BABYLON.Vector3(0, 0, 0)),
+	 		new Area(this, this.model.areas[1], new BABYLON.Vector3(0, 0, 7), new BABYLON.Vector3(0, Math.PI, 0))
 		];
 	}
 }

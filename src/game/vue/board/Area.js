@@ -6,11 +6,12 @@ import Court from './Court';
 
 export default class Area {
 
-	constructor (parent, noId, position, rotation) {
+	constructor (parent, model, position, rotation) {
 
 		this.parent = parent;
 		this.scene = parent.scene;
-		this.id = { type: "area", no: noId };
+		this.model = model;
+		this.id = model.id;
 		this.scene.manager.addItem(this);
 		this.mount();
 		this.obj.position = position;

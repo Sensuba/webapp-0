@@ -9,7 +9,8 @@ export default class Deck {
 		this.area = parent;
 		this.scene = parent.scene;
 		this.count = 30;
-		this.id = { type: "deck", no: parent.id.no };
+		this.model = parent.model.deck;
+		this.id = this.model.id;
 		this.scene.manager.addItem(this);
 		this.mount();
 		this.obj.position = position;

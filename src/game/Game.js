@@ -6,7 +6,10 @@ import Model from './model/board/GameBoard';
 import Vue from './vue/board/GameBoard';
 import User from '../services/User';
 import openSocket from 'socket.io-client';
-import Card from './vue/board/Card'
+import Card from './vue/board/Card';
+import CardModel from './model/board/Card';
+import WaitingState from './controller/state/WaitingState';
+import PlayingState from './controller/state/PlayingState';
 
 export default class Game extends Component {
 
@@ -21,7 +24,7 @@ export default class Game extends Component {
       model: new Model()
     };
 
-    this.manager = new Manager(this.state.model);
+    this.manager = new Manager(this.state.model, this.command.bind(this));
 
     socket.on('connected', () => {
       socket.emit("join", "room1");
@@ -29,6 +32,7 @@ export default class Game extends Component {
 
     socket.on('joined', role => {
       if (role.as === 'player') {
+        this.no = role.no;
         socket.emit('prepare', User.isConnected() ? User.getData().token : "Anonymous", {
           hero: 1,
           body: [
@@ -49,8 +53,13 @@ export default class Game extends Component {
   analyse (n) {
 
     switch(n.type) {
+    case "newturn":
+      this.manager.controller = (this.no === n.src.no ? new PlayingState(this.manager) : new WaitingState(this.manager));
+      break;
     case "newcard":
-      new Card(this.manager.find(n.data[0]), n.src.no, new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 0));
+      var loc = this.manager.find(n.data[0]);
+      var c = new CardModel(n.src.no, loc.model);
+      new Card(loc, c, new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 0));
       break;
     case "identify":
       this.manager.find(n.data[0].id).identify(n.data[0]);
@@ -73,14 +82,14 @@ export default class Game extends Component {
 
       scene.manager = this.manager;
 
-      var camera = new BABYLON.ArcRotateCamera("Camera", Math.PI/2, 0, 26, new BABYLON.Vector3(0, 3, 26), scene);
+      var camera = new BABYLON.ArcRotateCamera("Camera", Math.PI/2, 0, 26, new BABYLON.Vector3(0, 3, -26), scene);
       camera.setTarget(BABYLON.Vector3.Zero());
       //camera.attachControl(canvas, true);
 
-      var light = new BABYLON.HemisphericLight("mainlight", new BABYLON.Vector3(-18, 10, 10), scene);
+      var light = new BABYLON.HemisphericLight("mainlight", new BABYLON.Vector3(-18, 10, -10), scene);
       light.intensity = 2;
 
-      this.vue = new Vue(scene);
+      this.vue = new Vue(scene, this.state.model);
 
       scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
 
@@ -89,6 +98,11 @@ export default class Game extends Component {
               scene.render();
           }
       });
+  }
+
+  command (command) {
+
+    this.state.socket.emit('command', command);
   }
 
   render() {

@@ -15,6 +15,8 @@ export default class DecksPage extends Component {
 
 		if (!User.isConnected()) this.props.history.push('/home');
 
+		var sortDecks = (a, b) => a.name < b.name ? -1 : (a.name > b.name ? 1 : 0);
+
 		var decklist = [];
 		if (sessionStorage.getItem("decklist") !== null)
 	      decklist = JSON.parse(sessionStorage.getItem("decklist"));
@@ -22,10 +24,10 @@ export default class DecksPage extends Component {
 	      this.props.api.getMyDecks(decks => {
 	        var d = decks.map(deck => this.readDeck(deck));
 	        sessionStorage.setItem("decklist", JSON.stringify(d));
-	        this.setState({decks: d})
+	        this.setState({decks: d.sort(sortDecks)})
 	      });
 
-		this.state = { decks: decklist };
+		this.state = { decks: decklist.sort(sortDecks) };
 	}
 
 	readDeck (deck) {

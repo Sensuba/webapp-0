@@ -1,14 +1,16 @@
 import * as BABYLON from 'babylonjs';
 import node from '../Node';
+import Instant from '../sequence/Instant';
 
 export default class Tile {
 
-	constructor (parent, noId, position, rotation) {
+	constructor (parent, model, position, rotation) {
 
 		this.parent = parent;
 		this.scene = parent.scene;
 		this.card = null;
-		this.id = { type: "tile", no: noId };
+		this.model = model;
+		this.id = model.id;
 		this.scene.manager.addItem(this);
 		this.mount();
 		this.obj.position = position;
@@ -28,7 +30,8 @@ export default class Tile {
 	addCard (card) {
 
 		this.card = card;
-		this.scene.manager.addSequence(card.move(false, new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 0)));
+		this.scene.manager.addSequence(new Instant(() => card.changeParent(this)));
+		this.scene.manager.addSequence(card.move(false, new BABYLON.Vector3(0, 0.05, 0), new BABYLON.Vector3(0, 0, 0)));
 	}
 
 	removeCard (card) {
