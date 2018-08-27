@@ -14,7 +14,7 @@ export default class Card {
         this.scene = parent.scene;
         this.model = model;
         this.id = model.id;
-        this.interaction = new CardInHandInteraction(this);
+        this.interaction = new Interaction(this);
         this.scene.manager.addItem(this);
 		this.mount();
         Interaction.setInteractable(this, this.recto);
@@ -54,7 +54,7 @@ export default class Card {
 
     identify (data) {
 
-        this.model.identify(data);console.log(this.model);
+        this.model.identify(data);
         var mat = new BABYLON.StandardMaterial ("mat", this.scene);
         mat.diffuseTexture = new BABYLON.Texture(data.imgLink, this.scene);
         this.recto.material = mat;
@@ -64,8 +64,10 @@ export default class Card {
 
         if (this.location)
             this.location.removeCard(this);
+        this.model.goto(location.model);
         this.location = location;
         location.addCard(this);
+        this.interaction = this.model.inHand ? new CardInHandInteraction(this) : new Interaction(this);
     }
 
     destroy () {

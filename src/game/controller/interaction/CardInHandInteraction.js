@@ -1,10 +1,11 @@
 import * as BABYLON from 'babylonjs';
 import Interaction from './Interaction';
 
-export default class CardInHandInteraction {
+export default class CardInHandInteraction extends Interaction {
 
 	constructor (card) {
 
+		super();
 		this.card = card;
 	}
 
@@ -20,7 +21,7 @@ export default class CardInHandInteraction {
 
 	onMouseDown() {
 
-		this.card.scene.manager.select({ type: "play", id: this.card.id });
+		this.card.scene.manager.select(this.card.model);
 	}
 
 	update(state) {}

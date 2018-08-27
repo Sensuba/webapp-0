@@ -17,10 +17,6 @@ export default class Area {
 		this.hand = new Hand(this);
 		this.manapool = new ManaPool(this);
 		this.court = new Court(this);
-		
-		this.manapool.createReceptacle();
-		this.manapool.createReceptacle();
-		this.manapool.createReceptacle();
 	}
 
 	get opposite () {

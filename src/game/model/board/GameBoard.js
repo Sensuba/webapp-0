@@ -14,6 +14,11 @@ export default class GameBoard {
 		this.notify = () => {};
 	}
 
+	get tiles() {
+
+		return this.areas[0].field.tiles.concat(this.areas[1].field.tiles);
+	}
+
 	newTurn () {
 
 		this.currentArea = this.currentArea.opposite;

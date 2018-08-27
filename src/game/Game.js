@@ -72,6 +72,12 @@ export default class Game extends Component {
       if (this.manager.find(n.src))
         this.manager.find(n.src).destroy();
       break;
+    case "createmana":
+      this.state.model.areas[n.src.no].manapool.createReceptacle(n.data[0].value);
+      break;
+    case "usemana":
+      this.state.model.areas[n.src.no].manapool.use(n.data[0].value);
+      break;
     default: break;
     }
   }

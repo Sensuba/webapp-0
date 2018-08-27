@@ -1,3 +1,5 @@
+const MAX_MANA = 20;
+const MAX_GEMS = 3;
 
 export default class ManaPool {
 
@@ -11,9 +13,9 @@ export default class ManaPool {
 		this.gems = 0;
 	}
 
-	createReceptacle (filled) {
+	createReceptacle (filled = true) {
 
-		if (this.maxMana < 20)
+		if (this.maxMana < MAX_MANA)
 			this.receptacles.push(filled);
 	}
 
@@ -25,7 +27,7 @@ export default class ManaPool {
 
 	createGem () {
 
-		if (this.gems < 3)
+		if (this.gems < MAX_GEMS)
 			this.gems++;
 	}
 

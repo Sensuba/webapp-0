@@ -1,4 +1,7 @@
 import Event from "./Event";
+import Hand from './Hand';
+import Tile from './Tile';
+import Deck from './Deck';
 
 export default class Card {
 
@@ -20,10 +23,19 @@ export default class Card {
 		return copy;
 	}
 
-	set data(value) {
+	get inHand() {
 
-		for (var k in value)
-			this[k] = value[k];
+		return this.location instanceof Hand;
+	}
+
+	get inDeck() {
+
+		return this.location instanceof Deck;
+	}
+
+	get onBoard() {
+
+		return this.location instanceof Tile;
 	}
 
 	summon (tile) {
@@ -91,10 +103,11 @@ export default class Card {
 
 	identify (data) {
 
-		if (this.identified)
-			return;
-		this.data = data;
-		this.identified = true;
+		for (var k in data)
+			this[k] = data[k];
+		this.targets = [];
+		if (this.isType("entity"))
+			this.targets.push(Event.targets.emptyFriendlyTile);
 	}
 
 	get canBePaid () {
@@ -102,16 +115,39 @@ export default class Card {
 		return this.mana && this.area && this.mana <= this.area.manapool.usableMana;
 	}
 
-	play (target) {
+	get canBePlayed () {
 
+		if (!this.canBePaid)
+			return false;
+		if (this.targets.length === 0)
+			return true;
+
+		return this.area.gameboard.tiles.some(t => this.canBePlayedOn([t]));
+	}
+
+	canBePlayedOn (targets) {
+
+		if (!this.canBePaid)
+			return false;
+		if (this.targets.length === 0)
+			return true;
+		if (targets.length === 0)
+			return false;
+
+		return targets.every((t, i) => this.targets[i](this, t));
+	}
+
+	play (targets) {
+
+		this.area.manapool.use(this.mana);
 		switch(this.cardType) {
 		case "figure":
-			this.summon(target);
+			this.summon(targets[0]);
 			break;
 		case "spell":
 			this.goto(this.area.court);
 			if (this.event)
-				this.event.execute(target);
+				this.event.execute(targets ? targets[0] : undefined);
 			this.destroy();
 			break;
 		default: break;

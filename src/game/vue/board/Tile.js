@@ -1,6 +1,8 @@
 import * as BABYLON from 'babylonjs';
 import node from '../Node';
 import Instant from '../sequence/Instant';
+import Interaction from '../../controller/interaction/Interaction';
+import TileInteraction from '../../controller/interaction/TileInteraction';
 
 export default class Tile {
 
@@ -11,8 +13,10 @@ export default class Tile {
 		this.card = null;
 		this.model = model;
 		this.id = model.id;
+        this.interaction = new TileInteraction(this);
 		this.scene.manager.addItem(this);
 		this.mount();
+        Interaction.setInteractable(this);
 		this.obj.position = position;
 		this.obj.rotation = rotation;
 	}

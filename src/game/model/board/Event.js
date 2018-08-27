@@ -2,10 +2,12 @@ const targets = {
 
 	tile: (src, target) => true,
 	emptyTile: (src, target) => target.isEmpty,
+	friendlyTile: (src, target) => src.area === target.area,
+	emptyFriendlyTile: (src, target) => targets.emptyTile(src, target) && targets.friendlyTile(src, target),
 	entity: (src, target) => target.occupied && target.card.isType("entity")
 };
 
-class Event {
+export default class Event {
 
 	constructor (action, requirement) {
 
@@ -19,10 +21,8 @@ class Event {
 			this.action(target);
 	}
 
-	static get target () {
+	static get targets () {
 
-		return this.requirement;
+		return targets;
 	}
 }
-
-module.exports = Event;

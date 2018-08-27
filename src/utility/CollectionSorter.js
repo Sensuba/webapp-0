@@ -60,8 +60,19 @@ export default (() => {
 
 	var filter = (cards, f) => {
 
-		if (f.search && f.search !== "")
-			cards = cards.filter(card => card.nameCard.toLowerCase().includes(f.search.toLowerCase()) || card.anime.toLowerCase().includes(f.search.toLowerCase()) || card.description.toLowerCase().includes(f.search.toLowerCase()));
+		if (f.search && f.search !== "") {
+			var s = f.search.toLowerCase();
+			var searchFilter = card => {
+				if (card.nameCard && card.nameCard.toLowerCase().includes(s) || card.anime && card.anime.toLowerCase().includes(s) || card.description && card.description.toLowerCase().includes(s))
+			 		return true;
+			 	if (card.lv2 && searchFilter(card.lv2) || card.lvmax && searchFilter(card.lvmax))
+			 		return true;
+			 	if (card.tokens && card.tokens.some(token => searchFilter(token)))
+			 		return true;
+			 	return false;
+			}
+			cards = cards.filter(searchFilter);
+		}
 		if (f.edition && f.edition !== "")
 			cards = cards.filter(card => card.idEdition === parseInt(f.edition, 10));
 		if (f.type && f.type !== "")
