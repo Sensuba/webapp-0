@@ -67,8 +67,6 @@ export default class CardsPage extends Component {
 
     cards = sorter.filter(cards, this.state.filter);
 
-    //console.log(cards)
-
     return cards;
   }
   
@@ -76,6 +74,7 @@ export default class CardsPage extends Component {
 
     var cards = this.state.customs ? this.state.customCards : this.state.officialCards;
     cards = this.filterCards(cards);
+    window.result = cards;
 
     var editFilter = attr => (e => {
       var plus = {};

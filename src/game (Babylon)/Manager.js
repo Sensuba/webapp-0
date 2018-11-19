@@ -1,4 +1,4 @@
-//import Chain from './vue/sequence/Chain';
+import Chain from './vue/sequence/Chain';
 import WaitingState from './controller/state/WaitingState';
 import PlayingState from './controller/state/PlayingState';
 
@@ -9,7 +9,7 @@ export default class Manager {
 		this.model = model;
 		this.command = command;
 		this.items = {};
-		//this.sequencer = new Chain();
+		this.sequencer = new Chain();
 		this.controller = new WaitingState(this);
 	}
 
@@ -25,18 +25,13 @@ export default class Manager {
 		return this.items[id.type][id.no];
 	}
 
-	/*addSequence (seq) {
+	addSequence (seq) {
 
 		this.sequencer.add(seq);
-	}*/
+	}
 
 	select (target) {
 
 		this.controller.select(target);
-	}
-
-	endTurn () {
-
-		this.command({ type: "endturn" });
 	}
 }

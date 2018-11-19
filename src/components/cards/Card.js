@@ -9,6 +9,9 @@ export default class Card extends Component {
 
   render() {
 
+    if (!this.props.src)
+      return <img className="sensuba-card" src="/game/back.png"/>
+
     var escapeHtml = text => {
       var map = {
         '&': '&amp;',

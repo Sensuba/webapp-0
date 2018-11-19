@@ -108,8 +108,6 @@ export default class Card {
 		this.targets = [];
 		if (this.isType("entity"))
 			this.targets.push(Event.targets.emptyFriendlyTile);
-		if (this.isType("hero"))
-			this.area.hero = this;
 	}
 
 	get canBePaid () {

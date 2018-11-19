@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-import './Game.css';
+import Scene from './Scene';
 import Manager from './Manager';
+import * as BABYLON from 'babylonjs';
 import Model from './model/board/GameBoard';
-import View from './view/board/GameBoard';
+import Vue from './vue/board/GameBoard';
 import User from '../services/User';
 import openSocket from 'socket.io-client';
-import Card from './view/board/Card';
+import Card from './vue/board/Card';
 import CardModel from './model/board/Card';
-import CardPreview from '../components/cards/Card';
 import WaitingState from './controller/state/WaitingState';
 import PlayingState from './controller/state/PlayingState';
-import Loader from '../components/utility/Loader';
 
 export default class Game extends Component {
 
@@ -22,9 +21,7 @@ export default class Game extends Component {
 
     this.state = {
       socket: socket,
-      waiting: true,
-      model: new Model(),
-      cards: JSON.parse(sessionStorage.getItem("cardlist"))
+      model: new Model()
     };
 
     this.manager = new Manager(this.state.model, this.command.bind(this));
@@ -56,27 +53,24 @@ export default class Game extends Component {
   analyse (n) {
 
     switch(n.type) {
-    case "start":
-      this.setState({waiting: false});
-      break;
     case "newturn":
-      this.state.model.newTurn(n.src.no);
       this.manager.controller = (this.no === n.src.no ? new PlayingState(this.manager) : new WaitingState(this.manager));
       break;
     case "newcard":
       var loc = this.manager.find(n.data[0]);
       var c = new CardModel(n.src.no, loc.model);
+      new Card(loc, c, new BABYLON.Vector3(0, 0, 0), new BABYLON.Vector3(0, 0, 0));
       break;
     case "identify":
-      this.manager.find(n.data[0].id).model.identify(n.data[0]);
+      this.manager.find(n.data[0].id).identify(n.data[0]);
       break;
     case "cardmove":
       if (this.manager.find(n.src) && this.manager.find(n.data[0]))
-        this.manager.find(n.src).model.goto(this.manager.find(n.data[0]).model);
+        this.manager.find(n.src).goto(this.manager.find(n.data[0]));
       break;
     case "destroycard":
       if (this.manager.find(n.src))
-        this.manager.find(n.src).model.destroy();
+        this.manager.find(n.src).destroy();
       break;
     case "createmana":
       this.state.model.areas[n.src.no].manapool.createReceptacle(n.data[0].value);
@@ -86,8 +80,30 @@ export default class Game extends Component {
       break;
     default: break;
     }
+  }
 
-    this.forceUpdate();
+  onSceneMount = (e: SceneEventArgs) => {
+
+      const { canvas, scene, engine } = e;
+
+      scene.manager = this.manager;
+
+      var camera = new BABYLON.ArcRotateCamera("Camera", Math.PI/2, 0, 26, new BABYLON.Vector3(0, 3, -26), scene);
+      camera.setTarget(BABYLON.Vector3.Zero());
+      //camera.attachControl(canvas, true);
+
+      var light = new BABYLON.HemisphericLight("mainlight", new BABYLON.Vector3(-18, 10, -10), scene);
+      light.intensity = 2;
+
+      this.vue = new Vue(scene, this.state.model);
+
+      scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
+
+      engine.runRenderLoop(() => {
+          if (scene) {
+              scene.render();
+          }
+      });
   }
 
   command (command) {
@@ -95,30 +111,9 @@ export default class Game extends Component {
     this.state.socket.emit('command', command);
   }
 
-  register (element) {
-
-    this.manager.addItem(element);
-  }
-
   render() {
     return (
-      <div>
-      <div id="img-preview-tooltip" data-toggle="tooltip" data-placement="right" src="" alt="preview" data-animation="false" data-trigger="manual">
-        { this.state.preview ? <CardPreview src={this.state.preview}/> : <span/> }
-      </div>
-      {
-        this.state.waiting
-        ? 
-          <div className="waiting-room">
-            <Loader type="connect"/>
-            <div className="waiting-text">Waiting for an opponent...</div>
-          </div>
-        : <span/>
-      }
-      <div style={{ display: this.state.waiting ? "none" : "block" }}>
-        <View model={this.state.model} master={this}/>
-      </div>
-      </div>
+      <Scene onSceneMount={this.onSceneMount} />
     );
   }
 }

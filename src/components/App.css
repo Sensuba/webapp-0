@@ -32,7 +32,7 @@ main.dark-page {
 
 .invisible {
 
-	display: none;
+	display: none !important;
 } 
 
 .vintage-radio input {

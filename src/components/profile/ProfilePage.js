@@ -19,8 +19,10 @@ export default class ProfilePage extends Component {
       <div>
         <Nav api={this.props.api} history={this.props.history}/>
       	<main>
-          <div className="main-section">
-            <Input type="text">{ this.state.user.username }</Input>
+          <div className="two-thirds-section">
+            <Input type="text" defaultValue={ this.state.user.username }/>
+          </div>
+          <div className="third-section">
           </div>
       	</main>
       </div>

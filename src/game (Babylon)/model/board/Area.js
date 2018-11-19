@@ -36,13 +36,13 @@ export default class Area {
 
 	get isPlaying () {
 
-		return this.gameboard.currentArea === this;
+		return this.gameboard.currentArea = this;
 	}
 
 	newTurn () {
 
 		this.manapool.refill();
-		//this.draw();
+		this.draw();
 		/*if (this.hand.cards[0].isType("figure"))
 			this.hand.cards[0].play(this.field.tiles[1]);
 		else if (this.hand.cards[1].isType("figure"))

@@ -19,9 +19,9 @@ export default class GameBoard {
 		return this.areas[0].field.tiles.concat(this.areas[1].field.tiles);
 	}
 
-	newTurn (noArea) {
+	newTurn () {
 
-		this.currentArea = this.areas[noArea];
+		this.currentArea = this.currentArea.opposite;
 		this.currentArea.newTurn();
 	}
 }

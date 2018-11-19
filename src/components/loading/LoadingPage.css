@@ -1,0 +1,13 @@
+.page-wrapper {
+
+	height: 100vh;
+	width: 100%;
+	display: table;
+	position: absolute;
+}
+
+.page-wrapper .vertical-middle {
+
+	display: table-cell;
+	vertical-align: middle;
+}

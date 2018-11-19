@@ -1,0 +1,86 @@
+#sensuba-scene {
+
+	width: 100%;
+}
+
+.sensuba-gameboard {
+
+	width: 100%;
+}
+
+.sensuba-field, .sensuba-gauge-wrapper {
+
+	display: inline-block;
+	vertical-align: middle;
+	width: calc(100% - 200px);
+}
+
+.sensuba-deck-wrapper, .sensuba-end-turn-wrapper {
+
+	display: inline-block;
+	vertical-align: middle;
+	width: 200px;
+}
+
+.sensuba-deck {
+
+	height: 172px;
+	width: 130px;
+	background: url("/game/back.png");
+	background-size: 100%;
+	box-shadow: -3px 3px 2px 0px #282a2d;
+	margin: auto;
+}
+
+.sensuba-hand {
+
+	width: 100%;
+	background-color: rgba(100, 100, 100, 0.1);
+	border-radius: 10px;
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+.sensuba-tile {
+
+	display: inline-block;
+	height: 172px;
+	width: 130px;
+	background-color: rgba(100, 100, 100, 0.1);
+	margin: 6px;
+}
+
+.sensuba-card-view {
+
+	display: inline-block;
+	font-size: 8px;
+}
+
+.sensuba-tile .sensuba-card-view {
+
+	float: left;
+}
+
+.sensuba-gauge-wrapper {
+
+	min-height: 4.5em;
+	vertical-align: middle;
+}
+
+.sensuba-gauge-wrapper .gauge {
+
+	width: 48%;
+	margin-left: 1%;
+	margin-right: 1%;
+}
+
+.waiting-room {
+
+	padding-top: 9em;
+	text-align: center;
+}
+
+.waiting-room .waiting-text {
+
+	font-size: 1.2em;
+}

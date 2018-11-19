@@ -7,6 +7,7 @@ import Editor from './cards/Editor/EditorPage';
 import SENS from './cards/Editor/SENS/SENSPage';
 import Play from './play/PlayPage';
 import Room from './play/room/RoomPage';
+import Loading from './loading/LoadingPage';
 import Rules from './rules/RulesPage';
 import Profile from './profile/ProfilePage';
 import Decks from './decks/DecksPage';
@@ -17,7 +18,33 @@ import User from '../services/User';
 const serverURL = process.env.SERVER_URL || 'http://localhost:8080' || 'https://sensuba-server.herokuapp.com/';
 
 export default class App extends Component {
+
+  constructor (props) {
+
+    super(props);
+    this.state = {};
+
+    var cards = sessionStorage.getItem("cardlist");
+    if (cards)
+      this.state.cards = JSON.parse(cards);
+    else
+      this.props.options.api.getCards(cards => {
+        var c = cards.map(card => this.readCard(card));
+        this.setState({cards: c});
+        sessionStorage.setItem("cardlist", JSON.stringify(c));
+      });
+  }
+
+  readCard (card) {
+
+    return Object.assign(card, JSON.parse(window.atob(card.supercode)));
+  }
+
   render() {
+
+    if (!this.state.cards)
+      return <Loading/>;
+
     return (
       <BrowserRouter>
           <Switch>
