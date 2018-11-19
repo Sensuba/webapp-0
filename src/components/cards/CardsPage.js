@@ -111,7 +111,7 @@ export default class CardsPage extends Component {
               }
               addTokens(cf[0]);
 
-              return <div className="sensuba-card-focus">{ cf.map((card, i) => <Card key={i} src={card}/>) }</div>;
+              return <div className="sensuba-card-focus">{ cf.map((card, i) => <Card switch="manual" key={i} src={card}/>) }</div>;
             })()
           }
         </Lightbox>
@@ -183,7 +183,7 @@ export default class CardsPage extends Component {
               this.state.customs ?
                 cards.map(card => <a className="sensuba-card-link" onClick={() => this.props.history.push(`/cards/editor/${card.idCardmodel}`)} key={card.idCardmodel}><Card key={card.idCardmodel} src={card}/></a>)
                 :
-                cards.map((card, i) => <a className="sensuba-card-link" key={card.idCardmodel} onClick={() => this.setState({focus: i})}><Card src={card}/></a>)
+                cards.map((card, i) => <a className="sensuba-card-link" key={card.idCardmodel} onClick={() => this.setState({focus: i})}><Card switch="timer" src={card}/></a>)
             }
           </div>
           {

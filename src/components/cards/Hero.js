@@ -5,13 +5,15 @@ export default class Hero extends Component {
 	constructor (props) {
 
 		super(props);
-		this.state = { level: 1 }
-		this.timer = setInterval(() => this.setState({level: this.state.level%3+1}), 5000)
+		this.state = { level: props.level || 1 }
+		if (props.switch === "timer")
+			this.timer = setInterval(() => this.setState({level: this.state.level%3+1}), 5000)
 	}
 
 	componentWillUnmount () {
 
-		clearInterval(this.timer);
+		if (this.props.switch === "timer")
+			clearInterval(this.timer);
 	}
 
   render() {
@@ -19,7 +21,7 @@ export default class Hero extends Component {
   	var capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
   	
     return (
-      <div id={this.props.id} className={"sensuba-card sensuba-hero " + this.props.classColor.color1 + " " + this.props.classColor.color2}>
+      <div id={this.props.id} className={"sensuba-card sensuba-hero " + this.props.classColor.color1 + " " + this.props.classColor.color2} onClick={this.props.switch === "manual" ? e => this.setState({ level: this.state.level%3+1 }) : () => {}}>
 		<img crossOrigin="Anonymous" className="sensuba-card-bg" src={this.props.src.imgLink} alt={this.props.src.nameCard}/>
 	    <div className="sensuba-card-header">
 	        <div className={"sensuba-card-title" +

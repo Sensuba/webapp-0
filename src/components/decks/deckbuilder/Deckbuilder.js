@@ -181,7 +181,7 @@ export default class Deckbuilder extends Component {
       		<div>
       			<div className="half-section">
       			<div className="half-section deckbuilder-hero-preview">
-      				<Card src={hero}/>
+      				<Card switch="manual" src={hero}/>
       			</div>
       			<div className="half-section deckbuilder-type-repartition">
       				<Progress className="empty" type="circle" percent={nbFigures * 100 / this.count} format={percent => `${nbFigures} figure${nbFigures > 1 ? "s" : ""}`}/>

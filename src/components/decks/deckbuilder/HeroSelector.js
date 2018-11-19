@@ -64,7 +64,7 @@ export default class HeroSelector extends Component {
             this.props.onSelect(h);
           else
             this.setFocus(i);
-        }}><Card src={h}/></div>)
+        }}><Card switch="timer" src={h}/></div>)
       }
       </div>
 	  </div>

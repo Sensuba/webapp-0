@@ -158,6 +158,7 @@ nav .breadcrumb {
 .sensuba-deckbuilder .sensuba-deckbuilder-list-count {
 
 	right: 10px !important;
+	top: calc(29.5em - 10px) !important;
 }
 
 #img-preview-tooltip { display: none !important; }
