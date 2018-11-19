@@ -1,0 +1,213 @@
+@media only screen and (max-device-width: 1024px) {
+
+main {
+	padding: 2em 0 !important;
+}
+
+.navbar-brand {
+
+	display: block !important;
+}
+
+nav .breadcrumb {
+
+	padding: 0.5rem 0 !important;
+}
+
+.home-panel {
+
+	filter: none !important;
+}
+
+.home-panel:hover .home-panel-background {
+
+	height: inherit !important;
+	width: inherit !important;
+	top: inherit !important;
+	left: inherit !important;
+}
+
+.home-panel.panel-right .home-panel-filter {
+
+	height: inherit !important;
+	width: inherit !important;
+	top: inherit !important;
+	left: inherit !important;
+}
+
+.home-panel .home-panel-text, .home-panel.panel-right .home-panel-text {
+
+	left: 5% !important;
+	width: 90% !important;
+	top: unset !important;
+	bottom: 5% !important;
+}
+
+.home-panel .home-panel-filter, .home-panel.panel-right .home-panel-filter {
+
+	background: linear-gradient(180deg,transparent,transparent 40%,#000B 60%,#000D) !important;
+}
+
+.lightbox {
+
+	width: 100% !important;
+	border-radius: 0 !important;
+}
+
+.sensuba-card-search .third-section:nth-child(2) {
+
+	display: none !important;
+}
+
+.sensuba-card-container .sensuba-card-link .sensuba-card {
+
+	font-size: 8px !important;
+}
+
+.sensuba-focus-box .lightbox {
+
+	width: initial !important;
+}
+
+.sensuba-card-focus .sensuba-card {
+
+	font-size: 5vw !important;
+}
+
+.card-collection-choicer .vintage-radio label {
+
+	max-width: 50% !important;
+}
+
+.rule-extender .explanation {
+
+	display: block !important;
+	width: 100% !important;
+}
+
+.rule-extender .img-exp {
+
+	display: block !important;
+	margin: 1em auto !important;
+	max-width: 100% !important;
+}
+
+.quarter-section { width: 50% !important; }
+
+.third-section { width: 50% !important; }
+
+.half-section { width: 100% !important; }
+
+.glossary-panel .glossary-panel-text {
+
+	left: 5% !important;
+	top: unset !important;
+	bottom: 0 !important;
+	width: 90% !important;
+}
+
+.sensuba-deck-case {
+
+	height: 10em !important;
+	width: 7.5em !important;
+}
+
+.deck-image-prewiev {
+
+	margin-bottom: 1em !important;
+}
+
+.deck-image-preview .sensuba-deck-case {
+
+	height: 20em !important;
+	width: 15em !important;
+}
+
+.sensuba-deckbuilder {
+
+	margin-top: 30px !important;
+	border: none !important;
+	border-style: none !important;
+	border-radius: 0 !important;
+	height: unset !important;
+}
+
+.sensuba-deckbuilder .sensuba-deckbuilder-list {
+
+	width: 100% !important;
+	height: 31em !important;
+}
+
+.sensuba-deckbuilder .sensuba-deckbuilder-search {
+
+	display: block !important;
+	width: 100% !important;
+	font-size: 2em !important;
+}
+
+.sensuba-deckbuilder .sensuba-deckbuilder-search-list {
+
+	max-height: 4.51em !important;
+}
+
+.sensuba-deckbuilder .sensuba-deckbuilder-search-input, .sensuba-deckbuilder .sensuba-deckbuilder-search-input:focus {
+
+	font-size: 0.7em !important;
+}
+
+.sensuba-deckbuilder .sensuba-deckbuilder-list-count {
+
+	right: 10px !important;
+}
+
+#img-preview-tooltip { display: none !important; }
+
+.deckbuilder-hero-preview .sensuba-card {
+
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
+
+.deckbuilder-type-repartition .ant-progress {
+
+    width: 50% !important;
+    display: inline-block !important;
+}
+
+.editor-box {
+
+	border: none !important;
+}
+
+.editor-button {
+
+	height: none !important;
+	margin-top: 2em !important;
+}
+
+.editor-button-img {
+
+	width: 100% !important;
+	opacity: 1 !important;
+}
+
+.editor-button:hover .editor-button-img {
+
+	margin: inherit !important;
+}
+
+.editor-button-text {
+
+    text-shadow: 0 0 8px #000 !important;
+    font-size: 1.5em !important;
+    padding: .4em !important;
+}
+
+.recharts-wrapper, .recharts-surface, .recharts-legend-wrapper { max-width: 100% }
+
+.editor-menu .editor-menu-tabs label[for=blueprint-tab] {
+
+	display: none !important;
+}
+
+}

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import './App.css';
+import './handled/Handled.css';
 import Cards from './cards/CardsPage';
 import Editor from './cards/Editor/EditorPage';
 import SENS from './cards/Editor/SENS/SENSPage';

@@ -56,16 +56,6 @@ export default class GlossaryFR extends Component {
                 </div>
           </div>
         </div>
-        <div className="half-section">
-          <div className="glossary-panel">
-              <img className="glossary-panel-background" src="/glossary/shield.png" alt="bg"/>
-              <div className="glossary-panel-filter"/>
-              <div className="glossary-panel-text">
-                <h3>Shield</h3>
-                <p>Lorsqu'un personnage avec un <i>Bouclier</i> doit recevoir des dégâts, son <i>Bouclier</i> se brise et il ne reçoit aucun dégât.<br/>Un personnage ne peut avoir qu'un seul <i>Bouclier</i> à la fois.</p>
-                </div>
-          </div>
-        </div>
         <div className="quarter-section">
           <div className="glossary-panel">
               <img className="glossary-panel-background" src="/glossary/silence.jpg" alt="bg"/>
@@ -73,6 +63,16 @@ export default class GlossaryFR extends Component {
               <div className="glossary-panel-text">
                 <h3>Silence</h3>
                 <p>Annule tous les effets et les modifications de statistiques d'un personnage, hormis les dégâts.</p>
+                </div>
+          </div>
+        </div>
+        <div className="half-section">
+          <div className="glossary-panel">
+              <img className="glossary-panel-background" src="/glossary/shield.png" alt="bg"/>
+              <div className="glossary-panel-filter"/>
+              <div className="glossary-panel-text">
+                <h3>Shield</h3>
+                <p>Lorsqu'un personnage avec un <i>Bouclier</i> doit recevoir des dégâts, son <i>Bouclier</i> se brise et il ne reçoit aucun dégât.<br/>Un personnage ne peut avoir qu'un seul <i>Bouclier</i> à la fois.</p>
                 </div>
           </div>
         </div>
@@ -132,7 +132,7 @@ export default class GlossaryFR extends Component {
               <div className="glossary-panel-filter"/>
               <div className="glossary-panel-text">
                 <h3>Overload</h3>
-                <p>Si une carte avec un seuil de surcharge ⚡ reçoit de la <i>Surcharge</i>, les valeurs numériques sur la carte sont incrémentées de la <i>Surcharge</i> reçue divisée par le seuil de surcharge ⚡ de la carte.</p>
+                <p>Si une carte avec une limite ⚡ reçoit de la <i>Surcharge</i>, les valeurs numériques sur la carte sont incrémentées de la <i>Surcharge</i> reçue divisée par la limite ⚡ de la carte.</p>
                 </div>
           </div>
         </div>

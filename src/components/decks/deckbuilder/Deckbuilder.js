@@ -180,15 +180,15 @@ export default class Deckbuilder extends Component {
       		</div>
       		<div>
       			<div className="half-section">
-      			<div className="half-section">
+      			<div className="half-section deckbuilder-hero-preview">
       				<Card src={hero}/>
       			</div>
-      			<div className="half-section">
+      			<div className="half-section deckbuilder-type-repartition">
       				<Progress className="empty" type="circle" percent={nbFigures * 100 / this.count} format={percent => `${nbFigures} figure${nbFigures > 1 ? "s" : ""}`}/>
       				<Progress className="empty" type="circle" percent={nbSpells * 100 / this.count} format={percent => `${nbSpells} spell${nbSpells > 1 ? "s" : ""}`}/>
       			</div>
       			</div>
-      			<div className="half-section">
+      			<div className="half-section deckbuilder-cost-repartition">
       				<BarChart width={500} height={250} data={chart}>
 			       <CartesianGrid strokeDasharray="3 3"/>
 			       <XAxis dataKey="name"/>
