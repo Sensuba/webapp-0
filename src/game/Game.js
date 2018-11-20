@@ -30,7 +30,7 @@ export default class Game extends Component {
     this.manager = new Manager(this.state.model, this.command.bind(this));
 
     socket.on('connected', () => {
-      socket.emit("join", "room1");
+      socket.emit("join", props.room);
     });
 
     socket.on('joined', role => {
@@ -53,6 +53,11 @@ export default class Game extends Component {
     })
   }
 
+  componentWillUnmount () {
+
+    this.state.socket.emit('quit');
+  }
+
   analyse (n) {
 
     switch(n.type) {
@@ -62,6 +67,7 @@ export default class Game extends Component {
     case "newturn":
       this.state.model.newTurn(n.src.no);
       this.manager.controller = (this.no === n.src.no ? new PlayingState(this.manager) : new WaitingState(this.manager));
+      this.isPlaying = this.no === n.src.no;
       break;
     case "newcard":
       var loc = this.manager.find(n.data[0]);

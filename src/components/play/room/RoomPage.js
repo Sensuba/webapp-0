@@ -10,7 +10,7 @@ export default class RoomPage extends Component {
       <div>
         <Nav api={this.props.api} history={this.props.history}/>
         <main id="room-page">
-          <Game server={this.props.server}/>
+          <Game room={this.props.room} server={this.props.server}/>
         </main>
       </div>
     );

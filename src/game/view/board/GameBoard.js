@@ -16,7 +16,7 @@ export default class GameBoard extends Component {
 		super(props);
 		this.model = props.model;
 		this.id = props.model.id;
-		props.master.register(this);window.test = () => console.log(this.model.areas[0]);
+		props.master.register(this);
 	}
 
   render () {
@@ -52,7 +52,7 @@ export default class GameBoard extends Component {
     		<Gauge inverted color="dodgerblue" value={this.model.areas[1].manapool.mana} max={this.model.areas[1].manapool.maxMana}/>
     	</div>
     	<div className="sensuba-end-turn-wrapper">
-    		<EndTurn locked={!this.model.areas[0].isPlaying} endTurn={() => this.props.master.manager.endTurn()}/>
+    		<EndTurn locked={!this.props.master.isPlaying} endTurn={() => this.props.master.manager.endTurn()}/>
     	</div>
     	<Area model={this.model.areas[1]} master={this.props.master}>
 	    	<Court model={this.model.areas[1].court} master={this.props.master}/>

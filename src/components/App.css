@@ -35,6 +35,11 @@ main.dark-page {
 	display: none !important;
 } 
 
+.editable {
+
+  cursor: pointer;
+}
+
 .vintage-radio input {
 
   display: none;

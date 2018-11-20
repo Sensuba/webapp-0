@@ -16,16 +16,33 @@ export default class PlayPage extends Component {
     const socket = openSocket(this.props.server);
 
     this.state = {
-      socket: socket
+      socket: socket,
+      seeking: false
     };
 
     socket.on('connected', function () {
       //console.log("YEAH")
     });
 	}
+  componentWillUnmount () {
+
+    this.state.socket.disconnect();
+  }
 
   handleData (data) {
 
+  }
+
+  seekGame (prv) {
+
+    if (this.state.seeking)
+      return;
+    this.state.socket.emit('seek', prv);
+    var history = this.props.history;
+    this.state.socket.on('assign', function (res) {
+      history.push(`/play/${res.to}`);
+    });
+    this.setState({seeking: true});
   }
 
   render() {
@@ -34,10 +51,8 @@ export default class PlayPage extends Component {
         <Nav api={this.props.api} history={this.props.history}/>
       	<main>
           <div className="main-section">
-            <Button onClick={() => this.props.history.push(`/play/room1`)}>Créer une partie</Button>
-          </div>
-          <div className="main-section">
-            <h2>Parties en cours</h2>
+            <Button onClick={() => this.seekGame(false)}>Quick game</Button>
+            <Button onClick={() => this.seekGame(true)}>Private room</Button>
           </div>
       	</main>
       </div>
