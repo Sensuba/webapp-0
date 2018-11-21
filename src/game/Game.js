@@ -41,10 +41,10 @@ export default class Game extends Component {
           body: [
             101, 101, 101, 101, 101,
             101, 101, 101, 101, 101,
-            101, 101, 101, 101, 101,
             105, 105, 105, 105, 105,
             105, 105, 105, 105, 105, 
-            105, 105, 105, 105, 105
+            108, 108, 108, 108, 108,
+            108, 108, 108, 108, 108
           ]
         });
       }
@@ -117,7 +117,10 @@ export default class Game extends Component {
         ? 
           <div className="waiting-room">
             <Loader type="connect"/>
-            <div className="waiting-text">Waiting for an opponent...</div>
+            <div className="waiting-text">
+              Waiting for an opponent...
+              <br/><span className="small-text">To fight a friend, share the url with them.</span>
+            </div>
           </div>
         : <span/>
       }

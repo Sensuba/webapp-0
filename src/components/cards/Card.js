@@ -103,7 +103,7 @@ export default class Card extends Component {
     }
 
   	switch (this.props.src.cardType) {
-    case "hero": result = <Hero switch={this.props.switch} id={this.props.id} src={src} classColor={{color1: colorIdToClassName(this.props.src.idColor), color2: colorIdToClassName(this.props.src.idColor2)}}/>; break;
+    case "hero": result = <Hero level={this.props.level} switch={this.props.switch} id={this.props.id} src={src} classColor={{color1: colorIdToClassName(this.props.src.idColor), color2: colorIdToClassName(this.props.src.idColor2)}}/>; break;
   	case "figure": result = <Figure id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
     case "trap":
     case "spell": result = <Spell id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;

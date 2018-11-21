@@ -1,6 +1,7 @@
 .sensuba-deckbuilder {
 
 	height: 31em;
+	font-size: 1.4vw;
 	width: 100%;
 	background: linear-gradient(150deg, #1565c020, #b92b2720);
 	background-size: 400% 400%;
@@ -29,12 +30,12 @@
 
 .sensuba-deckbuilder .sensuba-deckbuilder-list {
 
-	width: calc(100% - 200px);
+	width: 85%;
 }
 
 .sensuba-deckbuilder .sensuba-deckbuilder-search {
 
-	width: 200px;
+	width: 15%;
     box-shadow: 0 1px 1px 0 #C7C7C7 inset;
 	background: none repeat scroll 0 0 #E9E9E980;
 }
@@ -57,7 +58,7 @@
 
 .sensuba-deckbuilder .sensuba-deckbuilder-list-group {
 
-	font-size: 8px;
+	font-size: 0.7vw;
 	width: 1em;
 	height: 0;
 	margin-bottom: 18em;
@@ -82,6 +83,7 @@
 .sensuba-deckbuilder .sensuba-deckbuilder-search-input, .sensuba-deckbuilder .sensuba-deckbuilder-search-input:focus {
 
 	height: 2em;
+	font-size: inherit;
 	background: none;
 	border: none;
 	outline: 0;
@@ -138,7 +140,7 @@
 
 	position: absolute;
     bottom: 10px;
-    right: 210px;
+    right: calc(15% + 10px);
     font-family: "Lucida Bright";
     font-weight: bold;
     font-style: italic;

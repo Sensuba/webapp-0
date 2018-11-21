@@ -4,11 +4,11 @@ export default (() => {
 
 		var va = text ? a[attr] : (a[attr] !== undefined && a[attr] !== null ? parseInt(a[attr]) : null);
 		var vb = text ? b[attr] : (b[attr] !== undefined && b[attr] !== null ? parseInt(b[attr]) : null);
-		if (va && vb)
+		if (va !== null && vb !== null)
 			return va < vb ? -1 : (va > vb ? 1 : 0);
-		if (va && !vb)
+		if (va !== null && vb === null)
 			return 1;
-		if (!va && vb)
+		if (va === null && vb !== null)
 			return -1;
 		return 0;
 	}

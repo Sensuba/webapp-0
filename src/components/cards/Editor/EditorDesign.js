@@ -324,7 +324,7 @@ export default class EditorPage extends Component {
         </div>
         <div className="half-section">
           <div className="editor-card-visual">
-            <Card id="card-preview" src={this.currentCard}/>
+            <Card id="card-preview" level={this.state.level} src={this.currentCard}/>
             { this.props.token.length === 0 ? <button className="menu-button" onClick={() => this.props.save()}>{ this.props.isEdit ? "Edit" : "Save" }</button> : <span/> }
             { this.props.card !== undefined || this.props.token.length > 0 ? <button className="red menu-button" onClick={() => this.props.delete()}>Delete</button> : <span/> }
             <div className="editor-box">

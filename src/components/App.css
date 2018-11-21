@@ -40,6 +40,11 @@ main.dark-page {
   cursor: pointer;
 }
 
+.small-text {
+
+  font-size: 0.7em;
+}
+
 .vintage-radio input {
 
   display: none;

@@ -42,7 +42,7 @@ export default class CardsPage extends Component {
       focus: null
     };
 
-    
+    window.search = name => sorter.filter(cardlist, {orderBy: "name", search: name});
 	}
 
   readCard (card) {
@@ -181,7 +181,7 @@ export default class CardsPage extends Component {
           <div className="sensuba-card-container">
       		  {
               this.state.customs ?
-                cards.map(card => <a className="sensuba-card-link" onClick={() => this.props.history.push(`/cards/editor/${card.idCardmodel}`)} key={card.idCardmodel}><Card key={card.idCardmodel} src={card}/></a>)
+                cards.map(card => <a className="sensuba-card-link" onClick={() => this.props.history.push(`/cards/editor/${card.idCardmodel}`)} key={card.idCardmodel}><Card switch="timer" key={card.idCardmodel} src={card}/></a>)
                 :
                 cards.map((card, i) => <a className="sensuba-card-link" key={card.idCardmodel} onClick={() => this.setState({focus: i})}><Card switch="timer" src={card}/></a>)
             }
