@@ -5,6 +5,7 @@ export default class Field {
 	constructor (area) {
 
 		this.id = { type: "field", "no": area.id.no };
+		area.gameboard.register(this);
 
 		this.area = area;
 		this.tiles = [];

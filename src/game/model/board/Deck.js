@@ -5,6 +5,7 @@ export default class Deck {
 	constructor (area) {
 
 		this.id = { type: "deck", no: area.id.no };
+		area.gameboard.register(this);
 
 		this.locationOrder = 1;
 

@@ -5,11 +5,14 @@ export default class GameBoard {
 	constructor () {
 
 		this.id = { type: "gameboard", no: 0 };
+		this.items = {};
+		this.register(this);
 
 		this.areas = [
 			new Area(0, this),
 			new Area(1, this)
 		];
+
 
 		this.notify = () => {};
 	}
@@ -23,5 +26,17 @@ export default class GameBoard {
 
 		this.currentArea = this.areas[noArea];
 		this.currentArea.newTurn();
+	}
+
+	register (item) {
+
+		var id = item.id;
+		this.items[id.type] = this.items[id.type] || {};
+		this.items[id.type][id.no] = item;
+	}
+
+	find (id) {
+
+		return this.items[id.type] ? this.items[id.type][id.no] : undefined;
 	}
 }

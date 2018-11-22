@@ -6,6 +6,7 @@ export default class ManaPool {
 	constructor (area) {
 
 		this.id = { type: "manapool", no: area.id.no };
+		area.gameboard.register(this);
 
 		this.area = area;
 

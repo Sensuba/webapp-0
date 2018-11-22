@@ -4,6 +4,7 @@ export default class Court {
 	constructor (area) {
 
 		this.id = { type: "court", no: area.id.no };
+		area.gameboard.register(this);
 
 		this.locationOrder = 3;
 

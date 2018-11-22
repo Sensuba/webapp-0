@@ -5,6 +5,7 @@ export default class Hand {
 	constructor (area) {
 
 		this.id = { type: "hand", no: area.id.no };
+		area.gameboard.register(this);
 
 		this.locationOrder = 2;
 

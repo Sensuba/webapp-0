@@ -61,7 +61,8 @@ export default class PortModel extends SuperPortModel {
 		case "state": this.color ="#ffe521"; break;
 		case "string": this.color ="#c8ce18"; break;
 		case "card": this.color ="#73BEC8"; break;
-		case "filter": this.color = "#f23ece"; break;
+		case "cardfilter": this.color = "#f23ece"; break;
+		case "tilefilter": this.color = "#fc5d5d"; break;
 		case "model": this.color = "#8930b2"; break;
 		case "location": this.color = "#ffa126"; break;
 		case "locations": this.color = "#b77012"; break;

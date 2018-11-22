@@ -8,6 +8,7 @@ export default class Card {
 	constructor (noId, location) {
 
 		this.id = { type: "card", no: noId };
+		location.area.gameboard.register(this);
 
 		this.location = null;
 		if (location) {

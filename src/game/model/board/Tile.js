@@ -4,6 +4,7 @@ export default class Tile {
 	constructor (id, field) {
 
 		this.id = { type: "tile", no: id };
+		field.area.gameboard.register(this);
 
 		this.locationOrder = 3;
 

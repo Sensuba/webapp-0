@@ -10,6 +10,7 @@ export default class Area {
 	constructor (noId, gameboard) {
 
 		this.id = { type: "area", no: noId };
+		gameboard.register(this);
 
 		this.gameboard = gameboard;
 		this.deck = new Deck(this);
