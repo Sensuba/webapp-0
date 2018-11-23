@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import './DecksPage.css';
 import Deck from './Deck.js';
-import { Input, Label } from 'reactstrap';
 import Nav from '../Nav';
 import User from '../../services/User';
-import sorter from '../../utility/CollectionSorter';
-import Lightbox from '../utility/Lightbox';
 
 export default class DecksPage extends Component {
 

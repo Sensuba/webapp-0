@@ -10,7 +10,7 @@ export default class Card extends Component {
   render() {
 
     if (!this.props.src)
-      return <img className="sensuba-card" src="/game/back.png"/>
+      return <img className="sensuba-card" src="/game/back.png" alt="back"/>
 
     var escapeHtml = text => {
       var map = {
@@ -25,6 +25,9 @@ export default class Card extends Component {
     }
 
     var descHTML = desc => {
+
+      if (!desc)
+        return;
 
       desc = escapeHtml(desc);
 
@@ -48,7 +51,7 @@ export default class Card extends Component {
           </svg>
         </div>`);
 
-      desc = desc.replace(/(\+|\-)?(\d+|!|\*) ?:/g, x => {
+      desc = desc.replace(/(\+|-)?(\d+|!|\*) ?:/g, x => {
         var emph = "";
         var actEmph = false;
         if (x.charAt(0) === '!') {
@@ -65,7 +68,7 @@ export default class Card extends Component {
         return `<span class="sensuba-card-effect-emphasis${ actEmph ? " sensuba-card-effect-action" : "" }">${emph}</span>:`
       });
 
-      desc = desc.replace(/\*(\+|\-)?(\d+|!)\*/g, x => {
+      desc = desc.replace(/\*(\+|-)?(\d+|!)\*/g, x => {
         var emph = "";
         var i = 1;
         for (; x.charAt(i) !== "*"; i++)

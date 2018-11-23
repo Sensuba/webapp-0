@@ -1,8 +1,5 @@
-import { LinkModel as SuperLinkModel, LinkModelListener } from "storm-react-diagrams";
-import { BaseEvent } from "storm-react-diagrams";
+import { LinkModel as SuperLinkModel } from "storm-react-diagrams";
 import * as _ from "lodash";
-import { PointModel } from "storm-react-diagrams";
-import { DiagramEngine } from "storm-react-diagrams";
 import { DefaultLabelModel } from "storm-react-diagrams";
 import { LabelModel } from "storm-react-diagrams";
 

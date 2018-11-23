@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Deck from '../Deck.js';
 import { Input, Label } from 'reactstrap';
-import Nav from '../../Nav';
 import Card from '../../cards/Card';
 import sorter from '../../../utility/CollectionSorter';
 import { Progress } from 'antd';
@@ -71,7 +70,7 @@ export default class Deckbuilder extends Component {
 
     this.props.onSave(params);
 
-    this.state.saved = true;
+    this.setState({saved: true});
   }
 
   deleteDeck() {
@@ -81,16 +80,16 @@ export default class Deckbuilder extends Component {
 
     this.props.onDelete(this.props.deck.idDeck);
 
-    this.state.saved = true;
+    this.setState({saved: true});
   }
 
 	render () {
 
-		var hero = this.props.hero.idColor ? this.props.hero : this.props.cards.find(c => c.idCardmodel == this.props.hero);
-		var cards = this.props.cards.filter(c => c.idEdition == 1 && c.cardType !== "hero" && (c.idColor === 0 || c.idColor === hero.idColor || c.idColor === hero.idColor2))
+		var hero = this.props.hero.idColor ? this.props.hero : this.props.cards.find(c => c.idCardmodel.toString() === this.props.hero);
+		var cards = this.props.cards.filter(c => c.idEdition === 1 && c.cardType !== "hero" && (c.idColor === 0 || c.idColor === hero.idColor || c.idColor === hero.idColor2))
 		sorter.sort(cards, "name");
 
-		var listCards = Object.keys(this.state.deck.cards).map(g => this.props.cards.find(c => c.idCardmodel == g));
+		var listCards = Object.keys(this.state.deck.cards).map(g => this.props.cards.find(c => c.idCardmodel === g));
 		sorter.sort(listCards, "type");
 
 		var colorIdToClassName = colorId => {
@@ -111,7 +110,7 @@ export default class Deckbuilder extends Component {
     	var nbFigures = listCards.filter(c => c.cardType === "figure").map(c => this.state.deck.cards[c.idCardmodel]).reduce((acc, val) => acc + val, 0);
     	var nbSpells = listCards.filter(c => c.cardType === "spell").map(c => this.state.deck.cards[c.idCardmodel]).reduce((acc, val) => acc + val, 0);
 
-    	var chartFilter = (type, mana, plus = false) => listCards.filter(c => c.cardType === type && (plus ? c.mana >= mana : c.mana == mana)).map(c => this.state.deck.cards[c.idCardmodel]).reduce((acc, val) => acc + val, 0);
+    	var chartFilter = (type, mana, plus = false) => listCards.filter(c => c.cardType === type && (plus ? c.mana >= mana : c.mana === mana)).map(c => this.state.deck.cards[c.idCardmodel]).reduce((acc, val) => acc + val, 0);
 
     	var chart = [
     		{name: "0", figures: chartFilter("figure", 0), spells: chartFilter("spell", 0), artifacts: chartFilter("artifact", 0)},
@@ -136,9 +135,9 @@ export default class Deckbuilder extends Component {
       		<div className="half-section">
       			<div className="editor-box">
       				<Label for="deck-name-form">Deck name</Label>
-      				<Input type="text" id="deck-name-form" value={this.state.deck.name} onChange={e => { this.state.deck.name = e.target.value; this.setState({deck: this.state.deck});}}/>
+      				<Input type="text" id="deck-name-form" value={this.state.deck.name} onChange={e => { var d = Object.assign(this.state.deck, {name: e.target.value}); this.setState({deck: d}); }}/>
       				<Label for="deck-background-form">Image link</Label>
-      				<Input type="text" id="deck-background-form" value={this.state.deck.background} onChange={e => { this.state.deck.background = e.target.value; this.setState({deck: this.state.deck});}}/>
+      				<Input type="text" id="deck-background-form" value={this.state.deck.background} onChange={e => { var d = Object.assign(this.state.deck, {background: e.target.value}); this.setState({deck: d}); }}/>
       				<Label for="deck-supercode-form">Supercode</Label>
 	                <Input id="deck-supercode-form" type="textarea" rows="6" value={superCode} onChange={ e => {
 	                    try {

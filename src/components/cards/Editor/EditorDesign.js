@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Card from '../Card';
-import Nav from '../../Nav';
 import { Form, Input, FormGroup, Label } from 'reactstrap';
 
 export default class EditorPage extends Component {
@@ -317,7 +316,7 @@ export default class EditorPage extends Component {
               </FormGroup>
               <FormGroup>
                 <Label for="form-card-illustrator">Illustrator</Label>
-                <Input id="form-card-illustrator" type="text" value={this.currentCard.illustrator} onChange={editAttribute("illustrator").bind(this)}/>
+                <Input id="form-card-illustrator" type="text" value={this.currentCard.illustrator || ""} onChange={editAttribute("illustrator").bind(this)}/>
               </FormGroup>
             </Form>
           </div>

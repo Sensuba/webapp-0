@@ -2,8 +2,8 @@ export default (() => {
 
 	var valueSort = (attr, text = false) => (a, b) => {
 
-		var va = text ? a[attr] : (a[attr] !== undefined && a[attr] !== null ? parseInt(a[attr]) : null);
-		var vb = text ? b[attr] : (b[attr] !== undefined && b[attr] !== null ? parseInt(b[attr]) : null);
+		var va = text ? a[attr] : (a[attr] !== undefined && a[attr] !== null ? parseInt(a[attr], 10) : null);
+		var vb = text ? b[attr] : (b[attr] !== undefined && b[attr] !== null ? parseInt(b[attr], 10) : null);
 		if (va !== null && vb !== null)
 			return va < vb ? -1 : (va > vb ? 1 : 0);
 		if (va !== null && vb === null)
@@ -63,9 +63,9 @@ export default (() => {
 		if (f.search && f.search !== "") {
 			var s = f.search.toLowerCase();
 			var searchFilter = card => {
-				if (card.nameCard && card.nameCard.toLowerCase().includes(s) || card.anime && card.anime.toLowerCase().includes(s) || card.description && card.description.toLowerCase().includes(s))
+				if ((card.nameCard && card.nameCard.toLowerCase().includes(s)) || (card.anime && card.anime.toLowerCase().includes(s)) || (card.description && card.description.toLowerCase().includes(s)))
 			 		return true;
-			 	if (card.lv2 && searchFilter(card.lv2) || card.lvmax && searchFilter(card.lvmax))
+			 	if ((card.lv2 && searchFilter(card.lv2)) || (card.lvmax && searchFilter(card.lvmax)))
 			 		return true;
 			 	if (card.tokens && card.tokens.some(token => searchFilter(token)))
 			 		return true;

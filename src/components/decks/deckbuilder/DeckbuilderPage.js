@@ -26,7 +26,7 @@ export default class DeckbuilderPage extends Component {
 
 		this.deckEdit = null;
 		if (this.props.deck && sessionStorage.getItem("decklist") !== null)
-	      this.deckEdit = JSON.parse(sessionStorage.getItem("decklist")).find(el => el.idDeck == this.props.deck)
+	      this.deckEdit = JSON.parse(sessionStorage.getItem("decklist")).find(el => el.idDeck.toString() === this.props.deck)
 
 		this.state = { cards: cardlist, hero: this.deckEdit ? this.deckEdit.hero : null };
 	}

@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import './Game.css';
 import Manager from './Manager';
-import Model from './model/board/GameBoard';
+//import Model from './model/board/GameBoard';
 import View from './view/board/GameBoard';
 import User from '../services/User';
 import openSocket from 'socket.io-client';
-import Card from './view/board/Card';
-import CardModel from './model/board/Card';
+//import Card from './view/board/Card';
+//import CardModel from './model/board/Card';
 import CardPreview from '../components/cards/Card';
-import WaitingState from './controller/state/WaitingState';
-import PlayingState from './controller/state/PlayingState';
+//import WaitingState from './controller/state/WaitingState';
+//import PlayingState from './controller/state/PlayingState';
 import Loader from '../components/utility/Loader';
 
 import { createStore } from 'redux';
@@ -23,18 +23,14 @@ export default class Game extends Component {
 
     this.socket = openSocket(this.props.server);
     this.store = createStore(reducers);
-
-    /*this.state = {
-      socket: socket,
-      waiting: true,
-      model: new Model(),
-      cards: JSON.parse(sessionStorage.getItem("cardlist"))
-    };*/
+    this.store.subscribe(() => {
+      this.setState({model: this.store.getState()}, () => this.manager.control(this.isPlaying));
+    });
 
     this.state = {
 
       cards: JSON.parse(sessionStorage.getItem("cardlist")),
-      waiting: true
+      model: this.store.getState()
     }
 
     this.manager = new Manager(this.state.model, this.command.bind(this));
@@ -70,7 +66,6 @@ export default class Game extends Component {
 
   analyse (n) {
 
-    this.setState({waiting: false});
     this.store.dispatch(n);
   }
 
@@ -79,14 +74,14 @@ export default class Game extends Component {
     this.socket.emit('command', command);
   }
 
-  register (element) {
+  get waiting () {
 
-    this.manager.addItem(element);
+    return !this.state.model.started;
   }
 
   get isPlaying () {
 
-    var ca = this.store.getState().currentArea;
+    var ca = this.state.model.currentArea;
     return ca ? ca.id.no === this.no : false;
   }
 
@@ -97,7 +92,7 @@ export default class Game extends Component {
         { this.state.preview ? <CardPreview src={this.state.preview}/> : <span/> }
       </div>
       {
-        this.state.waiting
+        this.waiting
         ? 
           <div className="waiting-room">
             <Loader type="connect"/>
@@ -108,8 +103,8 @@ export default class Game extends Component {
           </div>
         : <span/>
       }
-      <div style={{ display: this.state.waiting ? "none" : "block" }}>
-        <View model={this.store.getState()} master={this}/>
+      <div style={{ display: this.waiting ? "none" : "block" }}>
+        <View model={this.state.model} master={this}/>
       </div>
       </div>
     );

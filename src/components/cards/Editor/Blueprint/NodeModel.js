@@ -1,5 +1,5 @@
 import * as _ from "lodash";
-import { NodeModel as SuperNodeModel, Toolkit, DiagramEngine } from "storm-react-diagrams";
+import { NodeModel as SuperNodeModel, Toolkit } from "storm-react-diagrams";
 import Port from './PortModel'
 
 export default class NodeModel extends SuperNodeModel {

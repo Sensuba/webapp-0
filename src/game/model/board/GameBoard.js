@@ -7,12 +7,12 @@ export default class GameBoard {
 		this.id = { type: "gameboard", no: 0 };
 		this.items = {};
 		this.register(this);
+		this.started = false;
 
 		this.areas = [
 			new Area(0, this),
 			new Area(1, this)
 		];
-
 
 		this.notify = () => {};
 	}
@@ -20,6 +20,11 @@ export default class GameBoard {
 	get tiles() {
 
 		return this.areas[0].field.tiles.concat(this.areas[1].field.tiles);
+	}
+
+	start () {
+
+		this.started = true;
 	}
 
 	newTurn (noArea) {

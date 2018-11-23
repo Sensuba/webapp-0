@@ -74,12 +74,12 @@ export default class Tile {
 
 	get neighbors () {
 
-		var n = [];
+		var n = [], i;
 		var line = this.inFront ? this.field.front : this.field.back;
-		for (var i = 0; i < line.length-1; i++)
+		for (i = 0; i < line.length-1; i++)
 			if (line[i] === this)
 				n.push(line[i+1]);
-		for (var i = 1; i < line.length; i++)
+		for (i = 1; i < line.length; i++)
 			if (line[i] === this)
 				n.push(line[i-1]);
 		return n;
@@ -96,24 +96,24 @@ export default class Tile {
 		if (this.inBack)
 			return b;
 		for (var i = 0; i < this.field.front.length; i++)
-			if (this.field.front [i] === this) {
-				b.push (this.field.back [i]);
-				b.push (this.field.back [i+1]);
+			if (this.field.front[i] === this) {
+				b.push (this.field.back[i]);
+				b.push (this.field.back[i+1]);
 			}
 		return b;
 	}
 
 	get tilesAhead () {
 
-		var a = [];
+		var a = [], i;
 		if (this.inFront)
 			return a;
-		for (var i = 0; i < this.field.back.length-1; i++)
-			if (this.field.back [i] === this)
-				a.push (this.field.front [i]);
-		for (var i = 1; i < this.field.back.length; i++)
-			if (this.field.back [i] === this)
-				a.push (this.field.front [i-1]);
+		for (i = 0; i < this.field.back.length-1; i++)
+			if (this.field.back[i] === this)
+				a.push (this.field.front[i]);
+		for (i = 1; i < this.field.back.length; i++)
+			if (this.field.back[i] === this)
+				a.push (this.field.front[i-1]);
 		return a;
 	}
 

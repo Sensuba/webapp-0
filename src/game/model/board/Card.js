@@ -111,7 +111,7 @@ export default class Card {
 			this.targets.push(Event.targets.emptyFriendlyTile);
 		if (this.blueprint && this.blueprint.triggers && this.blueprint.triggers.some(trigger => trigger.target)) {
 			var filter = this.blueprint.triggers.find(trigger => trigger.target).in[0];
-			this.targets.push((src, target) => !filter || target.occupied && target.card.isType(filter));
+			this.targets.push((src, target) => !filter || (target.occupied && target.card.isType(filter)));
 		}
 		if (this.isType("hero"))
 			this.area.hero = this;

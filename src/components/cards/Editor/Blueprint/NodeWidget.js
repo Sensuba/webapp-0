@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as _ from "lodash";
 import PortLabel from "./PortLabelWidget";
-import { DefaultPortLabel, DiagramEngine, BaseWidget, BaseWidgetProps } from "storm-react-diagrams";
+import { BaseWidget } from "storm-react-diagrams";
 
 export default class NodeWidget extends BaseWidget<DefaultNodeProps, DefaultNodeState> {
 	constructor(props) {

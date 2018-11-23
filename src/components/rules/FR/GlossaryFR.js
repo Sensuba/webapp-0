@@ -132,7 +132,7 @@ export default class GlossaryFR extends Component {
               <div className="glossary-panel-filter"/>
               <div className="glossary-panel-text">
                 <h3>Overload</h3>
-                <p>Si une carte avec une limite ⚡ reçoit de la <i>Surcharge</i>, les valeurs numériques sur la carte sont incrémentées de la <i>Surcharge</i> reçue divisée par la limite ⚡ de la carte.</p>
+                <p>Si une carte avec une limite <span role="img" aria-label="limit">⚡</span> reçoit de la <i>Surcharge</i>, les valeurs numériques sur la carte sont incrémentées de la <i>Surcharge</i> reçue divisée par la limite <span role="img" aria-label="limit">⚡</span> de la carte.</p>
                 </div>
           </div>
         </div>

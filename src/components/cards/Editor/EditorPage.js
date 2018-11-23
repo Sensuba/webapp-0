@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import Card from '../Card';
 import Nav from '../../Nav';
-import { Form, Input, FormGroup, Label } from 'reactstrap';
+import { Input, Label } from 'reactstrap';
 import Design from './EditorDesign';
 import Blueprint from './Blueprint/EditorBlueprint';
 import './EditorPage.css';
@@ -158,7 +157,7 @@ export default class EditorPage extends Component {
   
   render() {
 
-    var editAttribute = attr => (e => {
+    /*var editAttribute = attr => (e => {
       var plus = {};
       this.currentCard[attr] = e.target.value;
       if (typeof plus[attr] === 'string') plus[attr].replace(/[\u0250-\ue007]/g, '');
@@ -183,12 +182,12 @@ export default class EditorPage extends Component {
     var changeColor2 = idColor => () => {
       this.currentCard.idColor2 = idColor;
       this.setState({card: this.state.card});
-    };
+    };*/
 
     var shadow = this.currentCard;
     delete shadow.htmlDescription;
 
-    var superCode = window.btoa(JSON.stringify(shadow));
+    //var superCode = window.btoa(JSON.stringify(shadow));
 
     return (
       <div>

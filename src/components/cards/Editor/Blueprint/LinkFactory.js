@@ -1,6 +1,5 @@
 import * as React from "react";
 import LinkWidget from "./LinkWidget";
-import { DiagramEngine } from "storm-react-diagrams";
 import { AbstractLinkFactory } from "storm-react-diagrams";
 import LinkModel from "./LinkModel";
 

@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import Deck from '../Deck.js';
-import { Input, Label } from 'reactstrap';
-import Nav from '../../Nav';
 import Card from '../../cards/Card';
 import sorter from '../../../utility/CollectionSorter';
 

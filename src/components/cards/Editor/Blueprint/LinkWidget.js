@@ -1,13 +1,9 @@
 import * as React from "react";
-import { DiagramEngine } from "storm-react-diagrams";
 import { PointModel } from "storm-react-diagrams";
 import { Toolkit } from "storm-react-diagrams";
-import LinkFactory from "./LinkFactory";
-import LinkModel from "./LinkModel";
 import PathFinding from "storm-react-diagrams";
 import * as _ from "lodash";
-import { LabelModel } from "storm-react-diagrams";
-import { BaseWidget, BaseWidgetProps } from "storm-react-diagrams";
+import { BaseWidget } from "storm-react-diagrams";
 
 export default class LinkWidget extends BaseWidget {
 
@@ -300,7 +296,7 @@ export default class LinkWidget extends BaseWidget {
 
 				paths.push(
 					this.generateLink(
-						Toolkit.generateCurvePath(pointLeft, pointRight, this.props.link.curvyness),
+						Toolkit.generateCurvePath(pointLeft, pointRight, margin/*this.props.link.curvyness*/),
 						{
 							onMouseDown: event => {
 								this.addPointToLink(event, 1);

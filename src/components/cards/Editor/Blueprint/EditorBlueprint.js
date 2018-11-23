@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Nav from '../../../Nav';
 import './Blueprint.css';
 import * as SRD from "storm-react-diagrams";
 import Tray from './TrayWidget';
@@ -162,6 +161,8 @@ export default class EditorBlueprint extends Component {
   					<Tray type="destroyreceptacle" name="Destroy receptacle" model={[ {inout: "in", type: "exe", name: " "}, {inout: "in", type: "area", name: "player"}, {inout: "in", type: "int", name: "count"}, {inout: "out", type: "exe", name: " "} ]} event={[ {inout: "out", type: "event", name: "event"}, {inout: "out", type: "area", name: "player"} ]} color="#73BEC8"/>
   					<Tray type="creategem" name="Create gem" model={[ {inout: "in", type: "exe", name: " "}, {inout: "in", type: "area", name: "player"}, {inout: "in", type: "int", name: "count"}, {inout: "out", type: "exe", name: " "} ]} event={[ {inout: "out", type: "event", name: "event"}, {inout: "out", type: "area", name: "player"} ]} color="#73BEC8"/>
   					<Tray type="destroygem" name="Destroy gem" model={[ {inout: "in", type: "exe", name: " "}, {inout: "in", type: "area", name: "player"}, {inout: "in", type: "int", name: "count"}, {inout: "out", type: "exe", name: " "} ]} event={[ {inout: "out", type: "event", name: "event"}, {inout: "out", type: "area", name: "player"} ]} color="#73BEC8"/>
+  					<Tray type="addaspect" name="Add aspect" model={[ {inout: "in", type: "exe", name: " "}, {inout: "in", type: "string", name: "name"}, {inout: "in", type: "effect", name: "aspect"}, {inout: "in", type: "timestamp", name: "end"}, {inout: "out", type: "exe", name: " "} ]} color="#73BEC8"/>
+  					<Tray type="clearaspect" name="Clear aspec" model={[ {inout: "in", type: "exe", name: " "}, {inout: "in", type: "string", name: "name"}, {inout: "out", type: "exe", name: " "} ]} color="#73BEC8"/>
   					<Tray type="writeintvar" name="Write int variable" model={[ {inout: "in", type: "exe", name: " "}, {inout: "in", type: "string", name: "name"}, {inout: "in", type: "int", name: "value"}, {inout: "out", type: "exe", name: " "} ]} color="#73BEC8"/>
   					<Tray type="writecardvar" name="Write card variable" model={[ {inout: "in", type: "exe", name: " "}, {inout: "in", type: "string", name: "name"}, {inout: "in", type: "card", name: "value"}, {inout: "out", type: "exe", name: " "} ]} color="#73BEC8"/>
   					<Tray type="clearvar" name="Clear variable" model={[ {inout: "in", type: "exe", name: " "}, {inout: "in", type: "string", name: "name"}, {inout: "out", type: "exe", name: " "} ]} color="#73BEC8"/>
@@ -170,7 +171,9 @@ export default class EditorBlueprint extends Component {
   					<Tray type="cmpcards" name="Compare cards" model={[ {inout: "in", type: "card", name: "card 1"}, {inout: "in", type: "card", name: "card 2"}, {inout: "out", type: "bool", name: "same card"}, {inout: "out", type: "bool", name: "same type"}, {inout: "out", type: "bool", name: "same player"} ]} color="#89BC62"/>
   					<Tray type="cmplocations" name="Compare locations" model={[ {inout: "in", type: "location", name: "location 1"}, {inout: "in", type: "location", name: "location 2"}, {inout: "out", type: "bool", name: "same location"}, {inout: "out", type: "bool", name: "same player"} ]} color="#89BC62"/>
   					<Tray type="cmpplayers" name="Compare players" model={[ {inout: "in", type: "area", name: "player 1"}, {inout: "in", type: "area", name: "player 2"}, {inout: "out", type: "bool", name: "same player"} ]} color="#89BC62"/>
+  					<Tray type="tiletotiles" name="Tile to tiles" model={[ {inout: "in", type: "location", name: "tile"}, {inout: "out", type: "locations", name: "tiles"} ]} color="#89BC62"/>
   					<Tray type="containstile" name="Contains tile" model={[ {inout: "in", type: "locations", name: "area"}, {inout: "in", type: "location", name: "tile"}, {inout: "out", type: "bool", name: "contains"} ]} color="#89BC62"/>
+  					<Tray type="mergeloc" name="Merge locations" model={[ {inout: "in", type: "locations", name: "locations 1"}, {inout: "in", type: "locations", name: "locations 2"}, {inout: "out", type: "locations", name: "or"}, {inout: "out", type: "locations", name: "and"} ]} color="#89BC62"/>
   					<Tray type="checkcard" name="Check card" model={[ {inout: "in", type: "card", name: "card"}, {inout: "in", type: "cardfilter", name: "filter"}, {inout: "out", type: "bool", name: "checked"} ]} color="#89BC62"/>
   					<Tray type="checktile" name="Check tile" model={[ {inout: "in", type: "location", name: "tile"}, {inout: "in", type: "tilefilter", name: "filter"}, {inout: "out", type: "bool", name: "checked"} ]} color="#89BC62"/>
   					<Tray type="checkeffect" name="Check effect" model={[ {inout: "in", type: "effect", name: "effect"}, {inout: "in", type: "effecttype", name: "type"}, {inout: "out", type: "bool", name: "checked"} ]} color="#89BC62"/>
@@ -195,6 +198,7 @@ export default class EditorBlueprint extends Component {
   					
   					<Tray type="timestamp" name="Timestamp" model={[ {inout: "in", type: "timestamp", name: "timestamp"}, {inout: "out", type: "event", name: "event"} ]} color="#212121"/>
   					<Tray type="analyse" name="Analyse" model={[ {inout: "in", type: "event", name: "event"}, {inout: "in", type: "period", name: "period"}, {inout: "in", type: "bool", name: "condition"}, {inout: "out", type: "bool", name: "happened"}, {inout: "out", type: "int", name: "count"} ]} color="#212121"/>
+  					<Tray type="findcard" name="Find random card" model={[ {inout: "in", type: "location", name: "location"}, {inout: "in", type: "cardfilter", name: "filter"}, {inout: "out", type: "card", name: "result"}, {inout: "out", type: "bool", name: "found"} ]} color="#212121"/>
   					<Tray type="randint" name="Random int" model={[ {inout: "in", type: "int", name: "min"}, {inout: "in", type: "int", name: "max"}, {inout: "out", type: "int", name: "result"} ]} color="#212121"/>
   					<Tray type="randbool" name="Random bool" model={[ {inout: "out", type: "bool", name: "result"} ]} color="#212121"/>
   					
@@ -202,6 +206,7 @@ export default class EditorBlueprint extends Component {
   					<Tray type="while" name="While" model={[ {inout: "in", type: "exe", name: " "}, {inout: "in", type: "bool", name: "condition"}, {inout: "out", type: "exe", name: "completed"}, {inout: "out", type: "exe", name: "loop"} ]} color="#C0C0C0"/>
   					<Tray type="loop" name="Loop" model={[ {inout: "in", type: "exe", name: " "}, {inout: "in", type: "int", name: "times"}, {inout: "out", type: "exe", name: "completed"}, {inout: "out", type: "exe", name: "loop"}, {inout: "out", type: "int", name: "index"} ]} color="#C0C0C0"/>
   					<Tray type="timer" name="Timer" model={[ {inout: "in", type: "exe", name: " "}, {inout: "in", type: "timestamp", name: "timestamp"}, {inout: "out", type: "exe", name: " "}, {inout: "out", type: "exe", name: "callback"} ]} color="#C0C0C0"/>
+  					<Tray type="watchdog" name="Watchdog" model={[ {inout: "in", type: "exe", name: " "}, {inout: "in", type: "event", name: "event"}, {inout: "in", type: "timestamp", name: "end"}, {inout: "out", type: "exe", name: " "}, {inout: "out", type: "exe", name: "callback"} ]} color="#C0C0C0"/>
   					<Tray type="aoe" name="Area of effect" model={[ {inout: "in", type: "exe", name: " "}, {inout: "in", type: "locations", name: "area"}, {inout: "in", type: "cardfilter", name: "targets"}, {inout: "out", type: "exe", name: "completed"}, {inout: "out", type: "exe", name: "for each"}, {inout: "out", type: "card", name: "card"} ]} color="#C0C0C0"/>
   					<Tray type="fortile" name="For each tile" model={[ {inout: "in", type: "exe", name: " "}, {inout: "in", type: "locations", name: "area"}, {inout: "in", type: "tilefilter", name: "targets"}, {inout: "out", type: "exe", name: "completed"}, {inout: "out", type: "exe", name: "for each"}, {inout: "out", type: "location", name: "tile"} ]} color="#C0C0C0"/>
   					<Tray type="foreffect" name="For each effect" model={[ {inout: "in", type: "exe", name: " "}, {inout: "in", type: "card", name: "card"}, {inout: "in", type: "effecttype", name: "type"}, {inout: "out", type: "exe", name: "completed"}, {inout: "out", type: "exe", name: "for each"}, {inout: "out", type: "effect", name: "effect"} ]} color="#C0C0C0"/>
@@ -228,9 +233,9 @@ export default class EditorBlueprint extends Component {
   				onDrop={event => {
   					try {
 						var data = JSON.parse(event.dataTransfer.getData("storm-diagram-node"));
-						var nodesCount = Object.keys(
+						/*var nodesCount = Object.keys(
 							this.state.model.getNodes()
-						).length;
+						).length;*/
 
 						var node = new Node(data.type, data.name, data.color);
 						node.model = data.model;

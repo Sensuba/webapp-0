@@ -1,7 +1,7 @@
 import NodeModel from "./NodeModel";
 import * as React from "react";
 import NodeWidget from "./NodeWidget";
-import { DiagramEngine, AbstractNodeFactory } from "storm-react-diagrams";
+import { AbstractNodeFactory } from "storm-react-diagrams";
 
 export default class DefaultNodeFactory extends AbstractNodeFactory<NodeModel> {
 	constructor() {

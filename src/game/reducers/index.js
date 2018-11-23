@@ -1,37 +1,39 @@
 import GameBoard from '../model/board/GameBoard';
 import Card from '../model/board/Card';
 
-export default (state = new GameBoard(), action) => {
+export default (state = new GameBoard(), n) => {
 
-  switch(action.type) {
+  switch(n.type) {
     case "start":
-      //this.setState({waiting: false});
+      state.start();
       break;
     case "newturn":
-      state.newTurn(action.src.no);
-      //this.manager.controller = (this.no === action.src.no ? new PlayingState(this.manager) : new WaitingState(this.manager));
-      //this.isPlaying = this.no === action.src.no;
+      state.newTurn(n.src.no);
+      //this.manager.controller = (this.no === n.src.no ? new PlayingState(this.manager) : new WaitingState(this.manager));
+      //this.isPlaying = this.no === n.src.no;
       break;
     case "newcard":
-      //var loc = this.manager.find(action.data[0]);
-      //var c = new Card(action.src.no, loc.model);
+      new Card(n.src.no, state.find(n.data[0]));
       break;
     case "identify":
-      //this.manager.find(action.data[0].id).model.identify(action.data[0]);
+      state.find(n.data[0].id).identify(n.data[0]);
       break;
-    case "cardmove":
-      //if (this.manager.find(action.src) && this.manager.find(action.data[0]))
-      //  this.manager.find(action.src).model.goto(this.manager.find(action.data[0]).model);
-      break;
-    case "destroycard":
-      //if (this.manager.find(action.src))
-      //  this.manager.find(action.src).model.destroy();
-      break;
+    case "cardmove": {
+      var card = state.find(n.src),
+          loc = state.find(n.data[0]);
+      if (card && loc)
+        card.goto(loc);
+      break; }
+    case "destroycard": {
+      var card = state.find(n.src);
+      if (card)
+        card.destroy();
+      break; }
     case "createmana":
-      //this.state.model.areas[action.src.no].manapool.createReceptacle(action.data[0].value);
+      state.areas[n.src.no].manapool.createReceptacle(n.data[0].value);
       break;
     case "usemana":
-      //this.state.model.areas[action.src.no].manapool.use(action.data[0].value);
+      state.areas[n.src.no].manapool.use(n.data[0].value);
       break;
     default: break;
     }

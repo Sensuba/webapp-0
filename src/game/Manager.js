@@ -8,10 +8,11 @@ export default class Manager {
 
 		this.model = model;
 		this.command = command;
-		this.items = {};
+		//this.items = {};
 		//this.sequencer = new Chain();
-		this.controller = new WaitingState(this);
-	}
+		this.states = { playing: new PlayingState(this), waiting: new WaitingState(this) };
+		this.controller = this.states.waiting;
+	}/*
 
 	addItem (item) {
 
@@ -23,12 +24,17 @@ export default class Manager {
 	find (id) {
 
 		return this.items[id.type][id.no];
-	}
+	}*/
 
 	/*addSequence (seq) {
 
 		this.sequencer.add(seq);
 	}*/
+
+	control (playing) {
+
+		this.controller = playing ? this.states.playing : this.states.waiting;
+	}
 
 	select (target) {
 

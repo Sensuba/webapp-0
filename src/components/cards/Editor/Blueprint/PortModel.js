@@ -1,5 +1,5 @@
 import * as _ from "lodash";
-import { PortModel as SuperPortModel, DiagramEngine } from "storm-react-diagrams";
+import { PortModel as SuperPortModel } from "storm-react-diagrams";
 import LinkModel from "./LinkModel";
 
 export default class PortModel extends SuperPortModel {

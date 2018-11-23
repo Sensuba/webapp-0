@@ -1,7 +1,6 @@
 import * as React from "react";
-import PortModel from "./PortModel";
 import PortWidget from "./PortWidget";
-import { BaseWidget, BaseWidgetProps } from "storm-react-diagrams";
+import { BaseWidget } from "storm-react-diagrams";
 
 export default class PortLabelWidget extends BaseWidget<DefaultPortLabelProps, DefaultPortLabelState> {
 	constructor(props) {
