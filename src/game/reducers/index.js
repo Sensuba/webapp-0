@@ -9,8 +9,6 @@ export default (state = new GameBoard(), n) => {
       break;
     case "newturn":
       state.newTurn(n.src.no);
-      //this.manager.controller = (this.no === n.src.no ? new PlayingState(this.manager) : new WaitingState(this.manager));
-      //this.isPlaying = this.no === n.src.no;
       break;
     case "newcard":
       new Card(n.src.no, state.find(n.data[0]));
