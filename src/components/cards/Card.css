@@ -450,6 +450,22 @@
 
 .sensuba-card.sensuba-hero .sensuba-card-param-value { top: -0.231em; }
 
+.sensuba-card .sensuba-card-param-bonus, .sensuba-card .sensuba-card-param-malus {
+
+    font-weight: bold;
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.8);
+}
+
+.sensuba-card .sensuba-card-param-bonus {
+
+    color: #0bcc2b;
+}
+
+.sensuba-card .sensuba-card-param-malus {
+
+    color: #ff0303;
+}
+
 .sensuba-card .sensuba-card-param-separator {
 
 	position: absolute;

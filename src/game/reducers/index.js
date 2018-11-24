@@ -17,13 +17,24 @@ export default (state = new GameBoard(), n) => {
       state.find(n.data[0].id).identify(n.data[0]);
       break;
     case "cardmove": {
-      var card = state.find(n.src),
+      let card = state.find(n.src),
           loc = state.find(n.data[0]);
       if (card && loc)
         card.goto(loc);
       break; }
+    case "summon": {
+      let card = state.find(n.src),
+          loc = state.find(n.data[0]);
+      if (card && loc)
+        card.summon(loc);
+      break; }
+    case "damagecard": {
+      let card = state.find(n.src);
+      if (card)
+        card.damage(n.data[0], state.find(n.data[1]));
+      break; }
     case "destroycard": {
-      var card = state.find(n.src);
+      let card = state.find(n.src);
       if (card)
         card.destroy();
       break; }
