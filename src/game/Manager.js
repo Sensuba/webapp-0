@@ -43,6 +43,7 @@ export default class Manager {
 
 	endTurn () {
 
-		this.command({ type: "endturn" });
+		if(!(this.controller === this.states.waiting))
+			this.command({ type: "endturn" });
 	}
 }

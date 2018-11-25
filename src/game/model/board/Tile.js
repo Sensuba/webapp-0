@@ -129,11 +129,11 @@ export default class Tile {
 
 	isBehind (other) {
 
-		return this.tilesBehind.includes(other);
+		return this.tilesAhead.includes(other);
 	}
 
 	isAhead (other) {
 
-		return this.tilesAhead.includes(other);
+		return this.tilesBehind.includes(other);
 	}
 }

@@ -27,7 +27,7 @@ export default class Card extends Component {
         onMouseLeave={this.props.model.idCardmodel ? e => this.hideTooltip() : e => {}}
         className={"sensuba-card-view" + (this.props.hidden ? " invisible" : "")}
         onClick={() => this.props.select(this.props.model)}>
-      	<View src={this.props.model.idCardmodel ? this.props.model : null}/>
+      	<View src={this.props.model.idCardmodel ? this.props.model : null} className={this.props.master.manager.controller.haloFor(this.props.model)}/>
       </div>
     )
   }

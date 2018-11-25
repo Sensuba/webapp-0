@@ -139,8 +139,13 @@ export default class Card {
 			var filter = this.blueprint.triggers.find(trigger => trigger.target).in[0];
 			this.targets.push((src, target) => !filter || (target.occupied && target.card.isType(filter)));
 		}
-		if (this.isType("hero"))
+		if (this.isType("hero")) {
 			this.area.hero = this;
+			this.chp = this.hp;
+			this.actionPt = 1;
+			this.motionPt = 1;
+			this.skillPt = 1;
+		}
 	}
 
 	get canBePaid () {
@@ -150,7 +155,7 @@ export default class Card {
 
 	get canBePlayed () {
 
-		if (!this.canBePaid)
+		if (!this.inHand || !this.canBePaid)
 			return false;
 		if (this.targets.length === 0)
 			return true;
@@ -176,15 +181,72 @@ export default class Card {
 		switch(this.cardType) {
 		case "figure":
 			this.summon(targets[0]);
+			if (this.event)
+				this.event.execute(this.gameboard, targets ? targets[1] : undefined);
 			break;
 		case "spell":
 			this.goto(this.area.court);
 			if (this.event)
-				this.event.execute(targets ? targets[0] : undefined);
+				this.event.execute(this.gameboard, targets ? targets[0] : undefined);
 			this.destroy();
 			break;
 		default: break;
 		}
+	}
+
+	possibleTargets (targets) {
+
+		return this.gameboard.tiles.map(tile => targets(this, tile));
+	}
+
+	canAttack (target) {
+
+		if (this.firstTurn || !this.actionPt || !this.isType("character") || !this.onBoard || !target.onBoard || this.area === target.area)
+			return false;
+
+		var needed = 1;
+		if (this.location.inBack)
+			needed++;
+		if (target.covered)
+			needed++;
+
+		return this.range >= needed;
+	}
+
+	cover (other) {
+
+		if (!this.isType("character") || !this.onBoard || !other.onBoard)
+			return false;
+		return other.location.isBehind(this.location);
+	}
+
+	get covered () {
+
+		if (!this.onBoard)
+			return false;
+		return this.location.field.entities.some(e => e.cover(this));
+	}
+
+	canMoveOn (tile) {
+
+		if (!this.onBoard || !this.motionPt)
+			return;
+		return this.location.isAdjacentTo(tile);
+	}
+
+	attack () {
+
+		this.actionPt--;
+	}
+
+	move () {
+
+		this.motionPt--;
+	}
+
+	get gameboard () {
+
+		return this.location ? this.location.area.gameboard : null;
 	}
 
 	resetSickness () {

@@ -5,14 +5,26 @@
 
 .sensuba-gameboard {
 
+	margin-top: -15vw;
 	width: 100%;
+	perspective: 1000px;
+}
+
+.sensuba-gameboard .sensuba-board {
+
+	transform: rotateX(50deg);
+	transform-style: preserve-3d;
+	width: 90%;
+    margin: 0 5%;
 }
 
 .sensuba-field, .sensuba-gauge-wrapper {
 
 	display: inline-block;
 	vertical-align: middle;
-	width: calc(100% - 200px);
+	max-width: calc(100% - 200px);
+	margin-left: 100px;
+	margin-right: -100px;
 }
 
 .sensuba-deck-wrapper, .sensuba-end-turn-wrapper {
@@ -20,40 +32,56 @@
 	display: inline-block;
 	vertical-align: middle;
 	width: 200px;
+	padding-left: 150px;
 }
 
 .sensuba-deck {
 
-	height: 172px;
-	width: 130px;
+	height: 10.75vw;
+	width: 8.135vw;
 	background: url("/game/back.png");
 	background-size: 100%;
-	box-shadow: -3px 3px 2px 0px #282a2d;
-	margin: auto;
+	box-shadow: -3px 5px 0px 0px #282a2d;
 }
 
 .sensuba-hand {
 
 	width: 100%;
-	background-color: rgba(100, 100, 100, 0.1);
-	border-radius: 10px;
-	margin-top: 1em;
-	margin-bottom: 1em;
+	display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    margin-top: -3vw;
+    margin-bottom: 6vw;
+}
+
+.sensuba-area + .sensuba-hand {
+
+	margin-bottom: 0;
 }
 
 .sensuba-tile {
 
 	display: inline-block;
-	height: 172px;
-	width: 130px;
+	height: 10.75vw;
+	width: 8.135vw;
 	background-color: rgba(100, 100, 100, 0.1);
-	margin: 6px;
+	margin: 0.4vw;
+}
+
+.sensuba-tile-targetable {
+
+	background-color: rgba(255, 0, 0, 0.1);
 }
 
 .sensuba-card-view {
 
 	display: inline-block;
-	font-size: 8px;
+	font-size: 0.5vw;
+}
+
+.sensuba-hand .sensuba-card-view {
+
+	transform: rotateX(310deg);
 }
 
 .sensuba-tile .sensuba-card-view {
@@ -64,7 +92,14 @@
 .sensuba-gauge-wrapper {
 
 	min-height: 4.5em;
+	width: 50vw;
 	vertical-align: middle;
+}
+
+.sensuba-gauge-wrapper, .sensuba-end-turn-wrapper {
+
+	transform: rotateX(310deg);
+	transform-style: preserve-3d;
 }
 
 .sensuba-gauge-wrapper .gauge {

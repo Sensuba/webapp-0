@@ -15,6 +15,18 @@ import Loader from '../components/utility/Loader';
 import { createStore } from 'redux';
 import reducers from './reducers';
 
+const defaultDeck = {
+  hero: 1,
+  body: [
+    101, 101, 101, 101, 101,
+    101, 101, 101, 101, 101,
+    101, 101, 101, 101, 101,
+    101, 101, 101, 101, 101,
+    101, 101, 101, 101, 101,
+    101, 101, 101, 101, 101
+  ]
+};
+
 export default class Game extends Component {
 
   constructor (props) {
@@ -27,10 +39,15 @@ export default class Game extends Component {
       this.setState({model: this.store.getState()}, () => this.manager.control(this.isPlaying));
     });
 
+    var myDeck = sessionStorage.getItem("playdeck");
+    if (myDeck)
+      myDeck = JSON.parse(myDeck);
+
     this.state = {
 
       cards: JSON.parse(sessionStorage.getItem("cardlist")),
-      model: this.store.getState()
+      model: this.store.getState(),
+      deck: myDeck || defaultDeck
     }
 
     this.manager = new Manager(this.state.model, this.command.bind(this));
@@ -42,17 +59,7 @@ export default class Game extends Component {
     this.socket.on('joined', role => {
       if (role.as === 'player') {
         this.no = role.no;
-        this.socket.emit('prepare', User.isConnected() ? User.getData().token : "Anonymous", {
-          hero: 1,
-          body: [
-            101, 101, 101, 101, 101,
-            101, 101, 101, 101, 101,
-            105, 105, 105, 105, 105,
-            105, 105, 105, 105, 105, 
-            321, 321, 321, 321, 321,
-            321, 321, 321, 321, 321
-          ]
-        });
+        this.socket.emit('prepare', User.isConnected() ? User.getData().token : "Anonymous", this.state.deck);
       }
 
       this.socket.on('notification',  this.analyse.bind(this));

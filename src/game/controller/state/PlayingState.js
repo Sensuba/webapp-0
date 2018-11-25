@@ -1,4 +1,5 @@
 import SelectTargetState from './SelectTargetState';
+import AttackOrMoveState from './AttackOrMoveState';
 
 export default class PlayingState {
 
@@ -16,6 +17,19 @@ export default class PlayingState {
 				else
 					this.manager.controller = new SelectTargetState(this.manager, target);
 			}
+		} else if (target.onBoard) {
+			if (target.motionPt || target.actionPt)
+				this.manager.controller = new AttackOrMoveState(this.manager, target);
 		}
+	}
+
+	haloFor (card) {
+
+		return card.canBePlayed ? "sensuba-card-playable" : "";
+	}
+
+	targetable (tile) {
+
+		return "";
 	}
 }

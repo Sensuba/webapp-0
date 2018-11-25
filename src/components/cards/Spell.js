@@ -7,7 +7,7 @@ export default class Spell extends Component {
   	var capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
   	
     return (
-      <div id={this.props.id} className={"sensuba-card sensuba-spell " + this.props.classColor}>
+      <div id={this.props.id} className={"sensuba-card sensuba-spell " + this.props.classColor + " " + this.props.className}>
 		<img crossOrigin="Anonymous" className="sensuba-card-bg" src={this.props.src.imgLink} alt={this.props.src.nameCard}/>
 	    <div className="sensuba-card-header">
 	    	<div className="sensuba-card-mana">{this.props.src.mana}</div>

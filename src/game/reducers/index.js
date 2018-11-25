@@ -28,6 +28,16 @@ export default (state = new GameBoard(), n) => {
       if (card && loc)
         card.summon(loc);
       break; }
+    case "charmove": {
+      let card = state.find(n.src);
+      if (card)
+        card.move();
+      break; }
+    case "charattack": {
+      let card = state.find(n.src);
+      if (card)
+        card.attack();
+      break; }
     case "damagecard": {
       let card = state.find(n.src);
       if (card)

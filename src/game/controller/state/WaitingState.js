@@ -6,4 +6,14 @@ export default class WaitingState {
 	}
 
 	select (target) { }
+
+	haloFor (card) {
+
+		return "";
+	}
+
+	targetable (tile) {
+
+		return "";
+	}
 }
