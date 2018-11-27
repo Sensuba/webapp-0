@@ -10,26 +10,8 @@ export default class DecksPage extends Component {
 
 		super(props);
 
-		if (!User.isConnected()) this.props.history.push('/home');
-
-		var sortDecks = (a, b) => a.name < b.name ? -1 : (a.name > b.name ? 1 : 0);
-
-		var decklist = [];
-		if (sessionStorage.getItem("decklist") !== null)
-	      decklist = JSON.parse(sessionStorage.getItem("decklist"));
-	    else
-	      this.props.api.getMyDecks(decks => {
-	        var d = decks.map(deck => this.readDeck(deck));
-	        sessionStorage.setItem("decklist", JSON.stringify(d));
-	        this.setState({decks: d.sort(sortDecks)})
-	      });
-
-		this.state = { decks: decklist.sort(sortDecks) };
-	}
-
-	readDeck (deck) {
-
-		return Object.assign(deck, JSON.parse(window.atob(deck.supercode)));
+		if (!User.isConnected())
+			this.props.history.push('/home');
 	}
 
 	render () {
@@ -40,7 +22,7 @@ export default class DecksPage extends Component {
 	      	<main>
           		<div className="sensuba-deck-container">
           		{
-          			this.state.decks.map((deck, i) => <a className="sensuba-card-link" onClick={() => this.props.history.push(`/decks/builder/${deck.idDeck}`)} key={deck.idDeck}><Deck src={deck}/></a>)
+          			(this.props.decks || []).map((deck, i) => <a className="sensuba-card-link" onClick={() => this.props.history.push(`/decks/builder/${deck.idDeck}`)} key={deck.idDeck}><Deck src={deck}/></a>)
           		}
 	      		</div>
 	            <button className="editor-button" onClick={() => this.props.history.push('/decks/builder')}>

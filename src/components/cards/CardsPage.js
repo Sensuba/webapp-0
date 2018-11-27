@@ -13,93 +13,84 @@ export default class CardsPage extends Component {
 
 		super(props);
 
-    var cardlist = [], ccardlist = [];
-
-    if (sessionStorage.getItem("cardlist") !== null)
-      cardlist = JSON.parse(sessionStorage.getItem("cardlist"));
-    else
-      this.props.api.getCards(cards => {
-        var c = cards.map(card => this.readCard(card));
-        sessionStorage.setItem("cardlist", JSON.stringify(c));
-        this.setState({officialCards: c});
-      });
-
-    if (sessionStorage.getItem("customcardlist") !== null)
-      ccardlist = JSON.parse(sessionStorage.getItem("customcardlist"));
-    else
-      this.props.api.getCustomCards(cards => {
-        var c = cards.map(card => this.readCard(card));
-        sessionStorage.setItem("customcardlist", JSON.stringify(c));
-        this.setState({customCards: c})
-      });
-
     this.state = {
-      officialCards: cardlist,
-      customCards: ccardlist,
-      customs: false,
-      loadedCustoms: false,
-      filter: {orderBy: "type", colors: []},
-      focus: null
+      customs: false
     };
 
-    window.search = name => sorter.filter(cardlist, {orderBy: "name", search: name});
+    window.search = name => sorter.filter(this.state.customs ? this.props.customs : this.props.cards, {orderBy: "name", search: name});
 	}
 
-  readCard (card) {
+  get filter () {
 
-    return Object.assign(card, JSON.parse(window.atob(card.supercode)));
+    var url = new URL(window.location.href);
+
+    var colors = url.searchParams.get("colors");
+    colors = colors ? colors.split(",").filter(color => !isNaN(color)).map(color => parseInt(color, 10)) : [];
+
+    return {
+      orderBy: url.searchParams.get("orderBy") || "type",
+      colors: colors,
+      search: url.searchParams.get("search") || "",
+      archetype: url.searchParams.get("archetype") || "",
+      type: url.searchParams.get("type") || "",
+      edition: url.searchParams.get("edition") || ""
+    };
   }
 
   displayCustoms (customs) {
 
-    if (customs && !this.state.loadedCustoms) {
-
-      this.props.api.getCustomCards(cards => this.setState({customCards: cards.map(card => this.readCard(card))}));
-    }
-
-    this.setState({
-      customs: customs,
-      loadedCustoms: this.state.loadedCustoms || customs
-    });
+    this.setState({customs: customs});
   }
 
   filterCards (cards) {
 
-    cards = sorter.filter(cards, this.state.filter);
+    cards = sorter.filter(cards, this.filter);
 
     return cards;
+  }
+
+  focus (card) {
+
+    this.props.history.push(`/cards${card ? "/" + card : ""}${new URL(window.location.href).search}`);
+  }
+
+  search (filter) {
+
+    var colors = filter.colors.length > 0 ? filter.colors.reduce((acc, color) => acc + "," + color) : "";
+
+    this.props.history.push(`/cards?search=${filter.search}&archetype=${filter.archetype}&colors=${colors}&edition=${filter.edition}&type=${filter.type}&orderBy=${filter.orderBy}`);
   }
   
   render() {
 
-    var cards = this.state.customs ? this.state.customCards : this.state.officialCards;
+    var cards = this.state.customs ? this.props.customs : this.props.cards;
     cards = this.filterCards(cards);
     window.result = cards;
 
     var editFilter = attr => (e => {
       var plus = {};
       plus[attr] = e.target.value;
-      this.setState({filter: Object.assign(this.state.filter, plus)});
+      this.search(Object.assign({}, this.filter, plus));
     });
 
     var colorFilter = color => (e => {
-      var colors = this.state.filter.colors;
+      var colors = this.filter.colors.slice();
       if (e.target.checked)
         colors.push(color);
       else
         colors = colors.filter(c => c !== color);
-      this.setState({filter: Object.assign(this.state.filter, {colors: colors})});
+      this.search(Object.assign(this.filter, {colors: colors}));
     });
 
     return (
       <div>
-        <Lightbox className="sensuba-focus-box" open={this.state.focus !== null} onClose={() => this.setState({focus: null})}>
+        <Lightbox className="sensuba-focus-box" open={this.props.focus !== undefined} onClose={() => this.focus(null)}>
           {
             (() => {
 
-              if (this.state.focus === null) return <span/>;
+              if (!this.props.focus) return <span/>;
 
-              var cf = [cards[this.state.focus]];
+              var cf = [this.props.cards.find(card => card.idCardmodel.toString() === this.props.focus)];
 
               var addTokens = parent => {
                 if (parent.tokens) {
@@ -131,9 +122,9 @@ export default class CardsPage extends Component {
           }
           <div className="sensuba-card-search">
             <div className="third-section">
-              <Input id="sensuba-search-text" type="text" placeholder="Search" onChange={editFilter("search").bind(this)}/>
+              <Input id="sensuba-search-text" value={this.filter.search} type="text" placeholder="Search" onChange={editFilter("search").bind(this)}/>
               <Label for="sensuba-search-edition" className="sensuba-search-select-label">Edition</Label>
-              <select id="sensuba-search-edition" onChange={editFilter("edition").bind(this)}>
+              <select value={this.filter.edition} id="sensuba-search-edition" onChange={editFilter("edition").bind(this)}>
                 <option value="">---</option>
                 <option value="1">1st edition</option>
                 <option value="2">Next to come</option>
@@ -143,9 +134,9 @@ export default class CardsPage extends Component {
               </div>
             </div>
             <div className="third-section">
-              <Input id="sensuba-search-archetype" type="text" placeholder="Archetype" onChange={editFilter("archetype").bind(this)}/>
+              <Input id="sensuba-search-archetype" value={this.filter.archetype} type="text" placeholder="Archetype" onChange={editFilter("archetype").bind(this)}/>
               <Label for="sensuba-search-type" className="sensuba-search-select-label">Type</Label>
-              <select id="sensuba-search-type" onChange={editFilter("type").bind(this)}>
+              <select value={this.filter.type} id="sensuba-search-type" onChange={editFilter("type").bind(this)}>
                 <option value="">---</option>
                 <option value="hero">Hero</option>
                 <option value="figure">Figure</option>
@@ -155,21 +146,21 @@ export default class CardsPage extends Component {
             </div>
             <div className="third-section">
               <div className="colors-group">
-                <Input id="neutral-mana" type="checkbox" name="sensuba-color" onChange={colorFilter(0)}/>
+                <Input id="neutral-mana" type="checkbox" checked={this.filter.colors.includes(0)} name="sensuba-color" onChange={colorFilter(0)}/>
                 <Label for="neutral-mana"/>
-                <Input id="white-mana" type="checkbox" name="sensuba-color" onChange={colorFilter(1)}/>
+                <Input id="white-mana" type="checkbox" checked={this.filter.colors.includes(1)} name="sensuba-color" onChange={colorFilter(1)}/>
                 <Label for="white-mana"/>
-                <Input id="red-mana" type="checkbox" name="sensuba-color" onChange={colorFilter(2)}/>
+                <Input id="red-mana" type="checkbox" checked={this.filter.colors.includes(2)} name="sensuba-color" onChange={colorFilter(2)}/>
                 <Label for="red-mana"/>
-                <Input id="blue-mana" type="checkbox" name="sensuba-color" onChange={colorFilter(3)}/>
+                <Input id="blue-mana" type="checkbox" checked={this.filter.colors.includes(3)} name="sensuba-color" onChange={colorFilter(3)}/>
                 <Label for="blue-mana"/>
-                <Input id="green-mana" type="checkbox" name="sensuba-color" onChange={colorFilter(4)}/>
+                <Input id="green-mana" type="checkbox" checked={this.filter.colors.includes(4)} name="sensuba-color" onChange={colorFilter(4)}/>
                 <Label for="green-mana"/>
-                <Input id="black-mana" type="checkbox" name="sensuba-color" onChange={colorFilter(5)}/>
+                <Input id="black-mana" type="checkbox" checked={this.filter.colors.includes(5)} name="sensuba-color" onChange={colorFilter(5)}/>
                 <Label for="black-mana"/>
               </div>
               <Label for="sensuba-search-orderby" className="sensuba-search-select-label">Order by</Label>
-              <select id="sensuba-search-orderby" onChange={editFilter("orderBy").bind(this)}>
+              <select value={this.filter.orderBy} id="sensuba-search-orderby" onChange={editFilter("orderBy").bind(this)}>
                 <option value="type">Type</option>
                 <option value="mana">Mana</option>
                 <option value="atk">ATK</option>
@@ -183,7 +174,7 @@ export default class CardsPage extends Component {
               this.state.customs ?
                 cards.map(card => <a className="sensuba-card-link" onClick={() => this.props.history.push(`/cards/editor/${card.idCardmodel}`)} key={card.idCardmodel}><Card switch="timer" key={card.idCardmodel} src={card}/></a>)
                 :
-                cards.map((card, i) => <a className="sensuba-card-link" key={card.idCardmodel} onClick={() => this.setState({focus: i})}><Card switch="timer" src={card}/></a>)
+                cards.map((card, i) => <a className="sensuba-card-link" key={card.idCardmodel} onClick={() => this.focus(card.idCardmodel)}><Card switch="timer" src={card}/></a>)
             }
           </div>
           {

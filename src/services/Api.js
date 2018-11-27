@@ -20,78 +20,90 @@ export default class Api {
 
   saveCustomCards (params, callback, error) {
 
-    if (!User.isConnected())
+    if (!User.isConnected()) {
+      this.error(error)("Not connected");
       return;
+    }
     this.addAuthorizationHeader();
     this.client.post("/user/cardmodels", params)
     .then(response => callback())
     .catch(err => {
-      this.error(err);
+      this.error(error)(err);
       User.disconnect();
     });
   }
 
   deleteCustomCards (id, callback, error) {
 
-    if (!User.isConnected())
+    if (!User.isConnected()) {
+      this.error(error)("Not connected");
       return;
+    }
     this.addAuthorizationHeader();
     this.client.delete("/user/cardmodels?id=" + id)
     .then(response => callback())
     .catch(err => {
-      this.error(err);
+      this.error(error)(err);
       User.disconnect();
     });
   }
 
   getCustomCards (callback, error) {
 
-    if (!User.isConnected())
+    if (!User.isConnected()) {
+      this.error(error)("Not connected");
       return;
+    }
     this.addAuthorizationHeader();
     this.client.get("/user/cardmodels")
     .then(response => callback(response.data))
     .catch(err => {
-      this.error(err);
+      this.error(error)(err);
       User.disconnect();
     });
   }
 
   getMyDecks (callback, error) {
 
-    if (!User.isConnected())
+    if (!User.isConnected()) {
+      this.error(error)("Not connected");
       return;
+    }
     this.addAuthorizationHeader();
     this.client.get("/user/decks")
     .then(response => callback(response.data))
     .catch(err => {
-      this.error(err);
+      this.error(error)(err);
       User.disconnect();
     });
   }
 
   saveDeck (params, callback, error) {
 
-    if (!User.isConnected())
+    if (!User.isConnected()) {
+      this.error(error)("Not connected");
       return;
+    }
     this.addAuthorizationHeader();
     this.client.post("/user/decks", params)
     .then(response => callback())
     .catch(err => {
-      this.error(err);
+      this.error(error)(err);
       User.disconnect();
     });
   }
 
   deleteDeck (id, callback, error) {
 
-    if (!User.isConnected())
+    if (!User.isConnected()) {
+      this.error(error)("Not connected");
       return;
+    }
     this.addAuthorizationHeader();
     this.client.delete("/user/decks?id=" + id)
     .then(response => callback())
     .catch(err => {
-      this.error(err);
+      this.error(error)(err);
       User.disconnect();
     });
   }

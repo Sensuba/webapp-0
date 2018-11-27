@@ -29,18 +29,7 @@ export default class EditorPage extends Component {
 
 		super(props);
       
-    var card = Object.assign({}, this.defaultCard);
-    
-    if (this.props.card !== undefined) {
-      var ccl = sessionStorage.getItem("customcardlist");
-      if (ccl === null) this.props.history.push("/cards");
-      var found = JSON.parse(sessionStorage.getItem("customcardlist")).find(el => el.idCardmodel === parseInt(this.props.card, 10));
-      if (found === undefined || found === null) {
-        this.props.history.push("/cards");
-        return;
-      }
-      card = JSON.parse(window.atob(found.supercode));
-    }
+    var card = this.props.card || Object.assign({}, this.defaultCard);
 
     this.state = { card, token: [], tab: "design" };
 	}

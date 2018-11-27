@@ -24,25 +24,45 @@ export default class App extends Component {
     super(props);
     this.state = {};
 
-    var cards = sessionStorage.getItem("cardlist");
+    var readObject = obj => Object.assign(obj, JSON.parse(window.atob(obj.supercode)));
+    var sortDecks = (a, b) => a.name < b.name ? -1 : (a.name > b.name ? 1 : 0);
+
+    var cards = localStorage.getItem("cardlist");
     if (cards)
       this.state.cards = JSON.parse(cards);
     else
       this.props.options.api.getCards(cards => {
-        var c = cards.map(card => this.readCard(card));
+        var c = cards.map(card => readObject(card));
         this.setState({cards: c});
-        sessionStorage.setItem("cardlist", JSON.stringify(c));
+        localStorage.setItem("cardlist", JSON.stringify(c));
       });
-  }
 
-  readCard (card) {
+    if (User.isConnected()) {
+      var decks = localStorage.getItem("decklist");
+      if (decks)
+        this.state.decks = JSON.parse(decks);
+      else
+        this.props.options.api.getMyDecks(decks => {
+          var d = decks.map(deck => readObject(deck)).sort(sortDecks);
+          localStorage.setItem("decklist", JSON.stringify(d));
+          this.setState({decks: d})
+        }, err => this.setState({decks: []}));
 
-    return Object.assign(card, JSON.parse(window.atob(card.supercode)));
+      var ccards = localStorage.getItem("customcardlist");
+      if (ccards !== null)
+        this.state.customCards = JSON.parse(ccards);
+      else
+        this.props.options.api.getCustomCards(cards => {
+          var c = cards.map(card => readObject(card));
+          localStorage.setItem("customcardlist", JSON.stringify(c));
+          this.setState({customCards: c});
+        }, err => this.setState({customCards: []}));
+    }
   }
 
   render() {
 
-    if (!this.state.cards)
+    if (!this.state.cards || (User.isConnected() && (!this.state.decks || !this.state.customCards)))
       return <Loading/>;
 
     return (
@@ -50,13 +70,14 @@ export default class App extends Component {
           <Switch>
             <Route exact path="/" component={({ match, history }) => (<Redirect to="/home"/>)}/>
             <Route exact path="/home" component={({ match, history }) => (<Home history={history} api={this.props.options.api}/>)}/>
-            <Route exact path="/cards" component={({ match, history }) => (<Cards history={history} api={this.props.options.api}/>)}/>
+            <Route exact path="/cards" component={({ match, history }) => (<Cards cards={this.state.cards} customs={this.state.customCards} history={history} api={this.props.options.api}/>)}/>
+            <Route exact path="/cards/:focus" component={({ match, history }) => (<Cards focus={match.params.focus} cards={this.state.cards} customs={this.state.customCards} history={history} api={this.props.options.api}/>)}/>
             <Route exact path="/cards/editor" component={({ match, history }) => <Editor history={history} api={this.props.options.api}/>}/>
-            <Route path="/cards/editor/:card" component={({ match, history }) => (User.isConnected() ? <Editor card={match.params.card} history={history} api={this.props.options.api}/> : <Redirect to="/cards"/>)}/>
-            <Route exact path="/play" component={({ match, history }) => (<Play server={serverURL} history={history} api={this.props.options.api}/>)}/>
+            <Route path="/cards/editor/:card" component={({ match, history }) => (User.isConnected() ? <Editor card={this.state.customCards.find(card => card.idCardmodel.toString() === match.params.card)} history={history} api={this.props.options.api}/> : <Redirect to="/cards"/>)}/>
+            <Route exact path="/play" component={({ match, history }) => (<Play decks={this.state.decks} server={serverURL} history={history} api={this.props.options.api}/>)}/>
             <Route path="/play/:room" component={({ match, history }) => (<Room server={serverURL} room={match.params.room} history={history} api={this.props.options.api}/>)}/>
             <Route exact path="/profile" component={({ match, history }) => (<Profile history={history} api={this.props.options.api}/>)}/>
-            <Route exact path="/decks" component={({ match, history }) => (<Decks history={history} api={this.props.options.api}/>)}/>
+            <Route exact path="/decks" component={({ match, history }) => (<Decks history={history} decks={this.state.decks} api={this.props.options.api}/>)}/>
             <Route exact path="/decks/builder" component={({ match, history }) => (<Deckbuilder history={history} api={this.props.options.api}/>)}/>
             <Route path="/decks/builder/:deck" component={({ match, history }) => (User.isConnected() ? <Deckbuilder deck={match.params.deck} history={history} api={this.props.options.api}/> : <Redirect to="/decks"/>)}/>
             <Route exact path="/rules" component={({ match, history }) => (<Redirect to="/rules/en"/>)}/>
