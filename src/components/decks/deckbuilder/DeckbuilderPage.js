@@ -13,34 +13,28 @@ export default class DeckbuilderPage extends Component {
 
 		if (!User.isConnected()) this.props.history.push('/home');
 
-		var cardlist = [];
-
-		if (sessionStorage.getItem("cardlist") !== null)
-		  cardlist = JSON.parse(sessionStorage.getItem("cardlist"));
-		else
-		  this.props.api.getCards(cards => {
-		    var c = cards.map(card => this.readCard(card));
-		    sessionStorage.setItem("cardlist", JSON.stringify(c));
-		    this.setState({cards: c});
-		  });
-
+/*
 		this.deckEdit = null;
-		if (this.props.deck && sessionStorage.getItem("decklist") !== null)
-	      this.deckEdit = JSON.parse(sessionStorage.getItem("decklist")).find(el => el.idDeck.toString() === this.props.deck)
+		if (this.props.deck && localStorage.getItem("decklist") !== null)
+	      this.deckEdit = JSON.parse(localStorage.getItem("decklist")).find(el => el.idDeck.toString() === this.props.deck)
+*/
+	  	var deck = this.props.deck;
+	  	if (!deck)
+		  	deck = {
+		  		hero: null,
+		  		cards: {},
+		  		name: "Custom Deck"
+		  	}
 
-		this.state = { cards: cardlist, hero: this.deckEdit ? this.deckEdit.hero : null };
+	  	this.state = { deck, new: deck === null || deck === undefined };
+		//this.state = { hero: this.deckEdit ? this.deckEdit.hero : null };
 	}
-
-  readCard (card) {
-
-    return Object.assign(card, JSON.parse(window.atob(card.supercode)));
-  }
 
   onSave (params) {
 
   	this.props.api.saveDeck(params, () => {
 
-      sessionStorage.removeItem("decklist");
+  		this.props.updateDecks();
       this.props.history.push('/decks');
     })
   }
@@ -49,7 +43,7 @@ export default class DeckbuilderPage extends Component {
 
   	this.props.api.deleteDeck(id, () => {
 
-      sessionStorage.removeItem("decklist");
+  		this.props.updateDecks();
       this.props.history.push('/decks');
     })
   }
@@ -61,13 +55,13 @@ export default class DeckbuilderPage extends Component {
 	        <Nav api={this.props.api} history={this.props.history}/>
 	      	<main>
 	      		{
-	      			this.state.hero ?
-	      			(this.state.cards && this.state.cards.length > 0 ?
-		      			<Deckbuilder onSave={this.onSave.bind(this)} onDelete={this.onDelete.bind(this)} deck={this.deckEdit} hero={this.state.hero} cards={this.state.cards}/>
+	      			this.state.deck.hero ?
+	      			(this.props.cards && this.props.cards.length > 0 ?
+		      			<Deckbuilder new={this.state.new} onSave={this.onSave.bind(this)} onDelete={this.onDelete.bind(this)} deck={this.state.deck} cards={this.props.cards}/>
 		      			: <span/>
 	      			)
 	      			:
-	      			<Selector onSelect={hero => this.setState({hero: hero})} cards={this.state.cards}/>
+	      			<Selector onSelect={hero => this.setState({deck: Object.assign(this.state.deck, { hero })})} cards={this.props.cards}/>
 	      		}
 	      	</main>
 	    </div>

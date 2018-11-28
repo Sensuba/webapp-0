@@ -12,10 +12,9 @@ export default class Deckbuilder extends Component {
 
 		super(props);
 
-		var deck = { hero: this.props.hero.idCardmodel, cards: {}, name: "Deck Custom", background: this.props.hero.imgLink };
+		var deck = { hero: this.props.deck.hero.idCardmodel, cards: {}, name: "Custom Deck", background: this.props.deck.hero.imgLink };
 
-		if (this.props.deck)
-			deck = this.props.deck;
+		deck = Object.assign(deck, this.props.deck);
 
 		this.state = { deck: deck, filter: "", preview: null };
 	}
@@ -65,7 +64,7 @@ export default class Deckbuilder extends Component {
 
     var params = { supercode };
 
-    if (this.props.deck)
+    if (!this.state.new)
       params.id = this.props.deck.idDeck;
 
     this.props.onSave(params);
@@ -78,14 +77,14 @@ export default class Deckbuilder extends Component {
     if (this.state.saved)
       return;
 
-    this.props.onDelete(this.props.deck.idDeck);
+    this.props.onDelete(this.state.deck.idDeck);
 
     this.setState({saved: true});
   }
 
 	render () {
 
-		var hero = this.props.hero.idColor ? this.props.hero : this.props.cards.find(c => c.idCardmodel === this.props.hero);
+		var hero = this.state.deck.hero.idColor ? this.state.deck.hero : this.props.cards.find(c => c.idCardmodel === this.state.deck.hero);
 		var cards = this.props.cards.filter(c => c.idEdition === 1 && c.cardType !== "hero" && (c.idColor === 0 || c.idColor === hero.idColor || c.idColor === hero.idColor2))
 		sorter.sort(cards, "name");
 
@@ -110,7 +109,7 @@ export default class Deckbuilder extends Component {
     	var nbFigures = listCards.filter(c => c.cardType === "figure").map(c => this.state.deck.cards[c.idCardmodel]).reduce((acc, val) => acc + val, 0);
     	var nbSpells = listCards.filter(c => c.cardType === "spell").map(c => this.state.deck.cards[c.idCardmodel]).reduce((acc, val) => acc + val, 0);
 
-    	var chartFilter = (type, mana, plus = false) => listCards.filter(c => c.cardType === type && (plus ? c.mana >= mana : c.mana === mana)).map(c => this.state.deck.cards[c.idCardmodel]).reduce((acc, val) => acc + val, 0);
+    	var chartFilter = (type, mana, plus = false) => listCards.filter(c => c.cardType === type && (plus ? c.mana >= mana : c.mana === mana.toString())).map(c => this.state.deck.cards[c.idCardmodel]).reduce((acc, val) => acc + val, 0);
 
     	var chart = [
     		{name: "0", figures: chartFilter("figure", 0), spells: chartFilter("spell", 0), artifacts: chartFilter("artifact", 0)},
@@ -129,8 +128,8 @@ export default class Deckbuilder extends Component {
 			</div>
       		<div className="half-section deck-image-preview">
       			<Deck src={{name: this.state.deck.name, background: this.state.deck.background, idColor: hero.idColor, idColor2: hero.idColor2 }}/>
-      			<button className="menu-button" onClick={this.saveDeck.bind(this)}>{ this.props.deck ? "Edit" : "Save" }</button>
-            { this.props.deck ? <button className="red menu-button" onClick={this.deleteDeck.bind(this)}>Delete</button> : <span/> }
+      			<button className="menu-button" onClick={this.saveDeck.bind(this)}>{ !this.props.new ? "Edit" : "Save" }</button>
+            { !this.props.new ? <button className="red menu-button" onClick={this.deleteDeck.bind(this)}>Delete</button> : <span/> }
       		</div>
       		<div className="half-section">
       			<div className="editor-box">
@@ -183,8 +182,8 @@ export default class Deckbuilder extends Component {
       				<Card switch="manual" src={hero}/>
       			</div>
       			<div className="half-section deckbuilder-type-repartition">
-      				<Progress className="empty" type="circle" percent={nbFigures * 100 / this.count} format={percent => `${nbFigures} figure${nbFigures > 1 ? "s" : ""}`}/>
-      				<Progress className="empty" type="circle" percent={nbSpells * 100 / this.count} format={percent => `${nbSpells} spell${nbSpells > 1 ? "s" : ""}`}/>
+      				<Progress className="figures empty" type="circle" percent={nbFigures * 100 / this.count} format={percent => `${nbFigures} figure${nbFigures > 1 ? "s" : ""}`}/>
+      				<Progress className="spells empty" type="circle" percent={nbSpells * 100 / this.count} format={percent => `${nbSpells} spell${nbSpells > 1 ? "s" : ""}`}/>
       			</div>
       			</div>
       			<div className="half-section deckbuilder-cost-repartition">
