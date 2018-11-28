@@ -51,7 +51,7 @@ export default class CardsPage extends Component {
 
   focus (card) {
 
-    this.props.history.push(`/cards${card ? "/" + card : ""}${new URL(window.location.href).search}`);
+    this.props.history.push(`/cards${card ? "/focus/" + card : ""}${new URL(window.location.href).search}`);
   }
 
   search (filter) {

@@ -87,7 +87,7 @@ export default class App extends Component {
             <Route exact path="/" component={({ match, history }) => (<Redirect to="/home"/>)}/>
             <Route exact path="/home" component={({ match, history }) => (<Home history={history} api={this.props.options.api}/>)}/>
             <Route exact path="/cards" component={({ match, history }) => (<Cards cards={this.state.cards} customs={this.state.customCards} history={history} api={this.props.options.api}/>)}/>
-            <Route path="/cards/:focus" component={({ match, history }) => (<Cards focus={match.params.focus} cards={this.state.cards} customs={this.state.customCards} history={history} api={this.props.options.api}/>)}/>
+            <Route path="/cards/focus/:focus" component={({ match, history }) => (<Cards focus={match.params.focus} cards={this.state.cards} customs={this.state.customCards} history={history} api={this.props.options.api}/>)}/>
             <Route exact path="/cards/editor" component={({ match, history }) => <Editor history={history} api={this.props.options.api}/>}/>
             <Route path="/cards/editor/:card" component={({ match, history }) => (User.isConnected() ? <Editor card={this.state.customCards.find(card => card.idCardmodel.toString() === match.params.card)} history={history} api={this.props.options.api}/> : <Redirect to="/cards"/>)}/>
             <Route exact path="/play" component={({ match, history }) => (<Play decks={this.state.decks} socket={this.state.socket} history={history} api={this.props.options.api}/>)}/>
