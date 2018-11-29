@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Input } from 'reactstrap'
 import Card from '../../cards/Card';
 import sorter from '../../../utility/CollectionSorter';
 
@@ -49,20 +50,39 @@ export default class HeroSelector extends Component {
     document.getElementById(`select-hero-${shift(i+2)}`).classList.add('small-shadow-hero-card');
   }
 
+  searchFor (hero) {
+
+    if (hero.length === 0)
+      return;
+    var index = this.state.heroes.findIndex(h => h.nameCard.toLowerCase().startsWith(hero.toLowerCase()));
+    if (index >= 0) 
+      this.setFocus(index);
+    else {
+      index = this.state.heroes.findIndex(h => h.nameCard.toLowerCase().includes(hero.toLowerCase()));
+      if (index >= 0)
+        this.setFocus(index);
+    }
+  }
+
 	render () {
 
 		return (
 		<div>
 			<h1 className="big-text">Pick a hero</h1>
       <div id="hero-selector" className="hero-selector">
-      {
-        this.state.heroes.map((h, i) => <div key={i} id={`select-hero-${i}`} className="select-hero-card" onClick={() => {
-          if (document.getElementById(`select-hero-${i}`).classList.contains('main-hero-card'))
-            this.props.onSelect(h);
-          else
-            this.setFocus(i);
-        }}><Card switch="timer" src={h}/></div>)
-      }
+        <div id="hero-list" className="hero-list">
+        {
+          this.state.heroes.map((h, i) => <div key={i} id={`select-hero-${i}`} className="select-hero-card" onClick={() => {
+            if (document.getElementById(`select-hero-${i}`).classList.contains('main-hero-card'))
+              this.props.onSelect(h);
+            else
+              this.setFocus(i);
+          }}><Card switch="timer" src={h}/></div>)
+        }
+        </div>
+        <div className="search-hero-wrapper">
+          <Input onChange={e => this.searchFor(e.target.value)} type="text"/>
+        </div>
       </div>
 	  </div>
 		)

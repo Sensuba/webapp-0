@@ -123,6 +123,31 @@ nav .breadcrumb {
 	width: 15em !important;
 }
 
+.hero-selector .hero-list {
+
+	height: 75vw !important;
+}
+
+.hero-selector .main-hero-card {
+
+	font-size: 3vw !important;
+	box-shadow: 0px 0px 50px 0px #ffd83dC0 !important;
+}
+
+.hero-selector .shadow-hero-card {
+
+	font-size: 2vw !important;
+	opacity: 0.5 !important;
+	filter: grayscale(50%) !important;
+}
+
+.hero-selector .small-shadow-hero-card {
+
+	font-size: 0vw !important;
+	opacity: 0 !important;
+	filter: grayscale(100%) !important;
+}
+
 .sensuba-deckbuilder {
 
 	margin-top: 30px !important;
