@@ -79,18 +79,20 @@ export default class EditorPage extends Component {
       if (shadow.lvmax)
         delete shadow.lvmax.htmlDescription;
     }
+    if (shadow.supercode)
+      delete shadow.supercode;
 
     var supercode = window.btoa(JSON.stringify(shadow));
 
     var params = { supercode };
 
     if (this.props.card !== undefined)
-      params.id = this.props.card;
+      params.id = this.props.card.idCardmodel;
 
     this.props.api.saveCustomCards(params, () => {
 
-      sessionStorage.removeItem("customcardlist");
       this.props.history.push('/cards');
+      this.props.updateCustoms();
     })
 
     this.saved = true;
@@ -109,10 +111,10 @@ export default class EditorPage extends Component {
       });
     } else {
 
-      this.props.api.deleteCustomCards(this.props.card, () => {
+      this.props.api.deleteCustomCards(this.props.card.idCardmodel, () => {
 
-        sessionStorage.removeItem("customcardlist");
         this.props.history.push('/cards');
+        this.props.updateCustoms();
       })
     }
   }
@@ -175,6 +177,14 @@ export default class EditorPage extends Component {
 
     var shadow = this.currentCard;
     delete shadow.htmlDescription;
+    if (shadow.cardType === "hero") {
+      if (shadow.lv2)
+        delete shadow.lv2.htmlDescription;
+      if (shadow.lvmax)
+        delete shadow.lvmax.htmlDescription;
+    }
+    if (shadow.supercode)
+      delete shadow.supercode;
 
     //var superCode = window.btoa(JSON.stringify(shadow));
 

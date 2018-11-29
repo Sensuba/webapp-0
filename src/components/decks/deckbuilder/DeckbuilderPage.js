@@ -13,11 +13,6 @@ export default class DeckbuilderPage extends Component {
 
 		if (!User.isConnected()) this.props.history.push('/home');
 
-/*
-		this.deckEdit = null;
-		if (this.props.deck && localStorage.getItem("decklist") !== null)
-	      this.deckEdit = JSON.parse(localStorage.getItem("decklist")).find(el => el.idDeck.toString() === this.props.deck)
-*/
 	  	var deck = this.props.deck;
 	  	if (!deck)
 		  	deck = {
@@ -26,16 +21,15 @@ export default class DeckbuilderPage extends Component {
 		  		name: "Custom Deck"
 		  	}
 
-	  	this.state = { deck, new: deck === null || deck === undefined };
-		//this.state = { hero: this.deckEdit ? this.deckEdit.hero : null };
+	  	this.state = { deck, new: deck.hero === null || deck.hero === undefined };
 	}
 
   onSave (params) {
 
   	this.props.api.saveDeck(params, () => {
 
+      	this.props.history.push('/decks');
   		this.props.updateDecks();
-      this.props.history.push('/decks');
     })
   }
 
@@ -43,8 +37,8 @@ export default class DeckbuilderPage extends Component {
 
   	this.props.api.deleteDeck(id, () => {
 
+      	this.props.history.push('/decks');
   		this.props.updateDecks();
-      this.props.history.push('/decks');
     })
   }
 

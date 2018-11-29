@@ -325,7 +325,7 @@ export default class EditorPage extends Component {
           <div className="editor-card-visual">
             <Card id="card-preview" level={this.state.level} src={this.currentCard}/>
             { this.props.token.length === 0 ? <button className="menu-button" onClick={() => this.props.save()}>{ this.props.isEdit ? "Edit" : "Save" }</button> : <span/> }
-            { this.props.card !== undefined || this.props.token.length > 0 ? <button className="red menu-button" onClick={() => this.props.delete()}>Delete</button> : <span/> }
+            { this.props.card.idCardmodel !== undefined || this.props.token.length > 0 ? <button className="red menu-button" onClick={() => this.props.delete()}>Delete</button> : <span/> }
             <div className="editor-box">
               <Label for="form-card-supercode">Supercode</Label>
               <Input id="form-card-supercode" type="textarea" rows="8" value={superCode} onChange={ e => {
