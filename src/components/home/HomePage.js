@@ -42,8 +42,8 @@ export default class HomePage extends Component {
               <div className="home-panel-filter"/>
               <div className="home-panel-text">
                 <h3>Join us on Discord</h3>
-                <p>Meet the community and share you playstyle with everyone. By sharing your experience and your time with others, you support the game and get better at it.</p>
-                <a className="select-button" target="_blank" rel="noopener noreferrer" href="https://discordapp.com/invite/gqRdwg2">Go on Discord</a>
+                <p>Meet the community and share your playstyle with everyone. By sharing your experience and your time with others, you support the game and get better at it.</p>
+                <a className="select-button" target="_blank" rel="noopener noreferrer" href="https://discordapp.com/invite/gqRdwg2">Continue to Discord</a>
               </div>
             </div>
           </div>
