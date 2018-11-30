@@ -74,7 +74,7 @@ export default class HeroSelector extends Component {
         {
           this.state.heroes.map((h, i) => <div key={i} id={`select-hero-${i}`} className="select-hero-card" onClick={() => {
             if (document.getElementById(`select-hero-${i}`).classList.contains('main-hero-card'))
-              this.props.onSelect(h);
+              this.props.onSelect(h.idCardmodel);
             else
               this.setFocus(i);
           }}><Card switch="timer" src={h}/></div>)

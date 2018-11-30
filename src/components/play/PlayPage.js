@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './PlayPage.css';
 import { Button, Input } from 'reactstrap'
 import Nav from '../Nav';
+import Deck from '../decks/Deck';
 
 export default class PlayPage extends Component {
 
@@ -9,8 +10,20 @@ export default class PlayPage extends Component {
 
 		super(props);
 
+    var deck = localStorage.getItem("playdeck");
+    if (deck) 
+      deck = JSON.parse(deck);
+    else if (this.props.decks && this.props.decks.length > 0) {
+      this.setDeck(this.props.decks[0], false);
+      deck = this.props.decks[0];
+    }
+    else
+      deck = null;
+
     this.state = {
-      seeking: false
+      seeking: false,
+      deck: deck,
+      filter: ""
     };
 	}
 
@@ -26,43 +39,78 @@ export default class PlayPage extends Component {
     this.setState({seeking: true});
   }
 
-  choice () {
+  choice (idDeck) {
 
-    var idDeck = parseInt(document.getElementById("deck-choice").value, 10);
-    if (idDeck === -1)
+    if (idDeck === -1) {
       localStorage.removeItem("playdeck");
-    else {
-      var deck = this.props.decks.find(deck => deck.idDeck === idDeck);
-      var res = { hero: deck.hero, body: [] };
-      Object.keys(deck.cards).forEach(c => {
-        for (let i = 0; i < deck.cards[c]; i++)
-          res.body.push(parseInt(c, 10));
-      })
-      localStorage.setItem("playdeck", JSON.stringify(res));
+      this.setState({deck: null});
     }
+    else
+      this.setDeck(this.props.decks.find(deck => deck.idDeck === idDeck));
   }
 
-  componentDidMount () {
+  setDeck (deck, setState = true) {
 
-    this.choice();
+    var res = { id: deck.idDeck, hero: deck.hero, body: [] };
+    Object.keys(deck.cards).forEach(c => {
+      for (let i = 0; i < deck.cards[c]; i++)
+        res.body.push(parseInt(c, 10));
+    })
+    localStorage.setItem("playdeck", JSON.stringify(res));
+    if (setState)
+      this.setState({deck: res});
   }
 
   render() {
+
+    var colorIdToClassName = colorId => {
+
+      switch (colorId) {
+        case 0: return "neutral-mana";
+        case 1: return "white-mana";
+        case 2: return "red-mana";
+        case 3: return "blue-mana";
+        case 4: return "green-mana";
+        case 5: return "black-mana";
+        default: return "";
+        }
+      }
 
     return (
       <div>
         <Nav api={this.props.api} history={this.props.history}/>
       	<main>
           <div className="main-section">
-          {
-            this.props.decks && this.props.decks.length > 0 ?
-            <Input onChange={() => this.choice()} type="select" name="deck-choice" id="deck-choice">
-              { this.props.decks.map(deck => <option key={deck.idDeck} value={deck.idDeck}>{deck.name}</option>) }
-            </Input> :
-            <Input onChange={() => this.choice()} type="select" name="deck-choice" id="deck-choice">
-              <option value="-1">Default deck</option>
-            </Input>
-          }
+            <div className="deck-selection-area">
+            {
+              this.state.deck ?
+              <div className="deck-selection-memberlist">
+                <div className="half-section">
+                  <Deck src={this.props.decks ? this.props.decks.find(deck => deck.idDeck === this.state.deck.id) : null}/>
+                </div>
+                <div className="half-section">
+                  <div className="sensuba-deckbuilder-search">
+                    <Input type="text" placeholder="Search" className="sensuba-deckbuilder-search-input" value={this.state.filter} onChange={e => this.setState({filter: e.target.value})}/>
+                    <div className="sensuba-deckbuilder-search-list">
+                    {
+                      this.props.decks.filter(c => c.name.toLowerCase().includes(this.state.filter.toLowerCase())).map((c, i) => {
+                        var idHero = c.hero.idCardmodel || c.hero;
+                        var hero = this.props.cards.find(s => s.idCardmodel === idHero);
+                        return (
+                          <div key={i} className={"sensuba-deckbuilder-tag " + colorIdToClassName(hero.idColor) + " " + colorIdToClassName(hero.idColor2)} onClick={() => this.choice(c.idDeck)}>
+                            <div className="sensuba-deckbuilder-tag-name">{c.name}</div>
+                            <img className="sensuba-deckbuilder-tag-img" src={c.background} alt={c.name}/>
+                          </div>
+                        )
+                      })
+                    }
+                    </div>
+                  </div>
+                </div>
+              </div>
+              : <Deck/>
+            }
+            </div>
             <Button onClick={() => this.seekGame(false)}>Quick game</Button>
             <Button onClick={() => this.seekGame(true)}>Private room</Button>
           </div>

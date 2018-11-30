@@ -5,6 +5,15 @@ export default class Deck extends Component {
 
 	render() {
 
+		if (!this.props.src)
+			return (
+				<div className="sensuba-deck-case">
+					<div className="sensuba-deck-case-mask"/>
+					<img className="sensuba-deck-case-bg" src="/game/back.png" alt="Deck case background"/>
+					<div className="sensuba-deck-case-name">Default deck</div>
+				</div>
+			)
+
 		var colorIdToClassName = colorId => {
 
 	  	switch (colorId) {

@@ -16,7 +16,7 @@ export default class HomePage extends Component {
               <div className="home-panel-text">
                 <h3>Get into the game</h3>
                 <p>Once again, worlds will collide ! With the power of your cards, engage fierce battles between heroes of any time or any world, and gather people to help you during your fight. Play Sensuba online for free to experience the world of card battles between your favorites anime characters.</p>
-                <button className="select-button">Start a game</button>
+                <button className="select-button" onClick={() => this.props.history.push("/play")}>Start a game</button>
               </div>
             </div>
             <div className="home-panel panel-right">

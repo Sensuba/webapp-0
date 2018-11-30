@@ -21,32 +21,32 @@
     100%{background-position:0% 20%}
 }
 
-.sensuba-deckbuilder .sensuba-deckbuilder-list, .sensuba-deckbuilder .sensuba-deckbuilder-search {
+.sensuba-deckbuilder-list, .sensuba-deckbuilder-search {
 
 	height: 100%;
 	display: inline-block;
 	vertical-align: top;
 }
 
-.sensuba-deckbuilder .sensuba-deckbuilder-list {
+.sensuba-deckbuilder-list {
 
 	width: 85%;
 }
 
-.sensuba-deckbuilder .sensuba-deckbuilder-search {
+.sensuba-deckbuilder-search {
 
 	width: 15%;
     box-shadow: 0 1px 1px 0 #C7C7C7 inset;
 	background: none repeat scroll 0 0 #E9E9E980;
 }
 
-.sensuba-deckbuilder .sensuba-deckbuilder-search-list {
+.sensuba-deckbuilder-search .sensuba-deckbuilder-search-list {
 
 	overflow-y: scroll;
 	height: calc(100% - 2em);
 }
 
-.sensuba-deckbuilder .sensuba-deckbuilder-list-cards {
+.sensuba-deckbuilder-list-cards {
 
 	width: 100%;
 	height: 100%;
@@ -56,7 +56,7 @@
     padding-bottom: 3em;
 }
 
-.sensuba-deckbuilder .sensuba-deckbuilder-list-group {
+.sensuba-deckbuilder-list-group {
 
 	font-size: 0.7vw;
 	width: 1em;
@@ -65,22 +65,22 @@
 	cursor: pointer;
 }
 
-.sensuba-deckbuilder .sensuba-deckbuilder-list-group:last-child {
+.sensuba-deckbuilder-list-group:last-child {
 
 	width: 15em;
 }
 
-.sensuba-deckbuilder .sensuba-deckbuilder-list-group .sensuba-card {
+.sensuba-deckbuilder-list-group .sensuba-card {
 
 	display: inline-block;
 }
 
-.sensuba-deckbuilder .sensuba-deckbuilder-list-group .sensuba-card + .sensuba-card {
+.sensuba-deckbuilder-list-group .sensuba-card + .sensuba-card {
 
 	margin-top: -18em;
 }
 
-.sensuba-deckbuilder .sensuba-deckbuilder-search-input, .sensuba-deckbuilder .sensuba-deckbuilder-search-input:focus {
+.sensuba-deckbuilder-search .sensuba-deckbuilder-search-input, .sensuba-deckbuilder-search .sensuba-deckbuilder-search-input:focus {
 
 	height: 2em;
 	font-size: inherit;
@@ -93,12 +93,12 @@
 	font-family: Constantia;
 }
 
-.sensuba-deckbuilder .sensuba-deckbuilder-search-input:focus {
+.sensuba-deckbuilder-search .sensuba-deckbuilder-search-input:focus {
 
 	background: #20202010;
 }
 
-.sensuba-deckbuilder .sensuba-deckbuilder-tag {
+.sensuba-deckbuilder-search .sensuba-deckbuilder-tag {
 
 	font-family: "Imprint MT Shadow";
     color: white;
@@ -114,7 +114,7 @@
     cursor: pointer;
 }
 
-.sensuba-deckbuilder .sensuba-deckbuilder-tag .sensuba-deckbuilder-tag-name {
+.sensuba-deckbuilder-search .sensuba-deckbuilder-tag .sensuba-deckbuilder-tag-name {
 
 	z-index: 1;
     background: linear-gradient(110deg, rgba(146, 177, 200, 0.8), rgba(146, 177, 200, 1), rgba(105, 147, 179, 1) 60%, transparent 80%);
@@ -127,7 +127,7 @@
     left: 0;
 }
 
-.sensuba-deckbuilder .sensuba-deckbuilder-tag .sensuba-deckbuilder-tag-img {
+.sensuba-deckbuilder-search .sensuba-deckbuilder-tag .sensuba-deckbuilder-tag-img {
 
 	position: absolute;
 	z-index: 0;
@@ -136,7 +136,7 @@
     width: 40%;
 }
 
-.sensuba-deckbuilder .sensuba-deckbuilder-list-count {
+.sensuba-deckbuilder-search .sensuba-deckbuilder-list-count {
 
 	position: absolute;
     bottom: 10px;
@@ -147,11 +147,22 @@
     color: #00000090;
 }
 
-.sensuba-deckbuilder .sensuba-deckbuilder-tag.white-mana .sensuba-deckbuilder-tag-name { background: linear-gradient(110deg, rgba(208, 186, 75, 0.8), rgba(242, 223, 130, 1), rgba(208, 186, 75, 1) 60%, transparent 80%) }
-.sensuba-deckbuilder .sensuba-deckbuilder-tag.red-mana .sensuba-deckbuilder-tag-name { background: linear-gradient(110deg, rgba(200, 47, 47, 0.8), rgba(255, 87, 87, 1), rgba(200, 47, 47, 1) 60%, transparent 80%) }
-.sensuba-deckbuilder .sensuba-deckbuilder-tag.blue-mana .sensuba-deckbuilder-tag-name { background: linear-gradient(110deg, rgba(11, 137, 200, 0.8), rgba(76, 181, 234, 1), rgba(11, 137, 200, 1) 60%, transparent 80%) }
-.sensuba-deckbuilder .sensuba-deckbuilder-tag.green-mana .sensuba-deckbuilder-tag-name { background: linear-gradient(110deg, rgba(129, 186, 88, 0.8), rgba(168, 219, 130, 1), rgba(129, 186, 88, 1) 60%, transparent 80%) }
-.sensuba-deckbuilder .sensuba-deckbuilder-tag.black-mana .sensuba-deckbuilder-tag-name { background: linear-gradient(110deg, rgba(44, 12, 28, 0.8), rgba(92, 37, 65, 1), rgba(44, 12, 28, 1) 60%, transparent 80%) }
+.sensuba-deckbuilder-tag.white-mana .sensuba-deckbuilder-tag-name { background: linear-gradient(110deg, rgba(208, 186, 75, 0.8), rgba(242, 223, 130, 1), rgba(208, 186, 75, 1) 60%, transparent 80%) }
+.sensuba-deckbuilder-tag.red-mana .sensuba-deckbuilder-tag-name { background: linear-gradient(110deg, rgba(200, 47, 47, 0.8), rgba(255, 87, 87, 1), rgba(200, 47, 47, 1) 60%, transparent 80%) }
+.sensuba-deckbuilder-tag.blue-mana .sensuba-deckbuilder-tag-name { background: linear-gradient(110deg, rgba(11, 137, 200, 0.8), rgba(76, 181, 234, 1), rgba(11, 137, 200, 1) 60%, transparent 80%) }
+.sensuba-deckbuilder-tag.green-mana .sensuba-deckbuilder-tag-name { background: linear-gradient(110deg, rgba(129, 186, 88, 0.8), rgba(168, 219, 130, 1), rgba(129, 186, 88, 1) 60%, transparent 80%) }
+.sensuba-deckbuilder-tag.black-mana .sensuba-deckbuilder-tag-name { background: linear-gradient(110deg, rgba(44, 12, 28, 0.8), rgba(92, 37, 65, 1), rgba(44, 12, 28, 1) 60%, transparent 80%) }
+
+.sensuba-deckbuilder-tag.white-mana.red-mana .sensuba-deckbuilder-tag-name { background: linear-gradient(110deg, rgba(208, 186, 75, 0.8), rgba(242, 223, 130, 1) 20%, rgba(200, 47, 47, 1) 60%, transparent 80%) }
+.sensuba-deckbuilder-tag.white-mana.blue-mana .sensuba-deckbuilder-tag-name { background: linear-gradient(110deg, rgba(208, 186, 75, 0.8), rgba(242, 223, 130, 1) 20%, rgba(11, 137, 200, 1) 60%, transparent 80%) }
+.sensuba-deckbuilder-tag.white-mana.green-mana .sensuba-deckbuilder-tag-name { background: linear-gradient(110deg, rgba(208, 186, 75, 0.8), rgba(242, 223, 130, 1) 20%, rgba(129, 186, 88, 1) 60%, transparent 80%) }
+.sensuba-deckbuilder-tag.white-mana.black-mana .sensuba-deckbuilder-tag-name { background: linear-gradient(110deg, rgba(208, 186, 75, 0.8), rgba(242, 223, 130, 1) 20%, rgba(44, 12, 28, 1) 60%, transparent 80%) }
+.sensuba-deckbuilder-tag.red-mana.blue-mana .sensuba-deckbuilder-tag-name { background: linear-gradient(110deg, rgba(200, 47, 47, 0.8), rgba(255, 87, 87, 1) 20%, rgba(11, 137, 200, 1) 60%, transparent 80%) }
+.sensuba-deckbuilder-tag.red-mana.green-mana .sensuba-deckbuilder-tag-name { background: linear-gradient(110deg, rgba(200, 47, 47, 0.8), rgba(255, 87, 87, 1) 20%, rgba(129, 186, 88, 1) 60%, transparent 80%) }
+.sensuba-deckbuilder-tag.red-mana.black-mana .sensuba-deckbuilder-tag-name { background: linear-gradient(110deg, rgba(200, 47, 47, 0.8), rgba(255, 87, 87, 1) 20%, rgba(44, 12, 28, 1) 60%, transparent 80%) }
+.sensuba-deckbuilder-tag.blue-mana.green-mana .sensuba-deckbuilder-tag-name { background: linear-gradient(110deg, rgba(11, 137, 200, 0.8), rgba(76, 181, 234, 1) 20%, rgba(129, 186, 88, 1) 60%, transparent 80%) }
+.sensuba-deckbuilder-tag.blue-mana.black-mana .sensuba-deckbuilder-tag-name { background: linear-gradient(110deg, rgba(11, 137, 200, 0.8), rgba(76, 181, 234, 1) 20%, rgba(44, 12, 28, 1) 60%, transparent 80%) }
+.sensuba-deckbuilder-tag.green-mana.black-mana .sensuba-deckbuilder-tag-name { background: linear-gradient(110deg, rgba(129, 186, 88, 0.8), rgba(168, 219, 130, 1) 20%, rgba(44, 12, 28, 1) 60%, transparent 80%) }
 
 #img-preview-tooltip {
 

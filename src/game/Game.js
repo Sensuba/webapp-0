@@ -37,13 +37,13 @@ export default class Game extends Component {
       this.setState({model: this.store.getState()}, () => this.manager.control(this.isPlaying));
     });
 
-    var myDeck = sessionStorage.getItem("playdeck");
+    var myDeck = localStorage.getItem("playdeck");
     if (myDeck)
       myDeck = JSON.parse(myDeck);
 
     this.state = {
 
-      cards: JSON.parse(sessionStorage.getItem("cardlist")),
+      cards: JSON.parse(localStorage.getItem("cardlist")),
       model: this.store.getState(),
       deck: myDeck || defaultDeck
     }

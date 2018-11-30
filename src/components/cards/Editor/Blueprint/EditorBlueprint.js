@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Input } from 'reactstrap';
 import './Blueprint.css';
 import * as SRD from "storm-react-diagrams";
 import Tray from './TrayWidget';
@@ -120,7 +121,10 @@ export default class EditorBlueprint extends Component {
 		return (
 	    <div className={"blueprint-menu " + this.props.className}>
   			<div className="blueprint-nav">
-  				<div className="blueprint-nav-header">Blocks</div>
+  				<div className="blueprint-nav-header">
+  					<div className="blueprint-nav-title">Blocks</div>
+  					<Input type="text" placeholder="search" className="blueprint-nav-search"/>
+  				</div>
   				<div className="blueprint-nav-body">
   					
   					<Tray type="state" name="State" model={[ {inout: "in", type: "state", name: " "}, {inout: "out", type: "effect", name: " "}, {inout: "out", type: "mutation", name: "mutation"}, {inout: "out", type: "cardfilter", name: "filter"} ]} color="#ffe521"/>

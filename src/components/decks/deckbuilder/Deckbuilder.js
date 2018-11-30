@@ -12,7 +12,7 @@ export default class Deckbuilder extends Component {
 
 		super(props);
 
-		var deck = { hero: this.props.deck.hero.idCardmodel, cards: {}, name: "Custom Deck", background: this.props.deck.hero.imgLink };
+		var deck = { hero: this.props.deck.hero, cards: {}, name: "Custom Deck", background: this.props.cards.find(c => c.idCardmodel === this.props.deck.hero).imgLink };
 
 		deck = Object.assign(deck, this.props.deck);
 
@@ -84,7 +84,7 @@ export default class Deckbuilder extends Component {
 
 	render () {
 
-		var hero = this.state.deck.hero.idColor ? this.state.deck.hero : this.props.cards.find(c => c.idCardmodel === this.state.deck.hero);
+		var hero = this.props.cards.find(c => c.idCardmodel === this.state.deck.hero);
 		var cards = this.props.cards.filter(c => c.idEdition === 1 && c.cardType !== "hero" && (c.idColor === 0 || c.idColor === hero.idColor || c.idColor === hero.idColor2))
 		sorter.sort(cards, "name");
 

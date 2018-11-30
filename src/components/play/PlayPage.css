@@ -1,0 +1,37 @@
+.deck-selection-area {
+
+	height: 21em;
+}
+
+.deck-selection-area .deck-selection-memberlist {
+
+	height: 100%;
+}
+
+.deck-selection-area .half-section {
+
+	max-height: 100%;
+	vertical-align: top;
+}
+
+.deck-selection-area .sensuba-deck-case {
+
+	margin: 0 auto 1em auto;
+}
+
+.deck-selection-area .sensuba-deckbuilder-search {
+
+	width: 100%;
+	font-size: 3.5vw;
+	height: 20rem;
+}
+
+.deck-selection-area .sensuba-deckbuilder-search .sensuba-deckbuilder-search-input, .deck-selection-area .sensuba-deckbuilder-search .sensuba-deckbuilder-search-input:focus {
+
+	font-size: 1.5rem;
+}
+
+.deck-selection-area .sensuba-deckbuilder-search .sensuba-deckbuilder-search-list {
+
+	height: calc(100% - 3rem);
+}
