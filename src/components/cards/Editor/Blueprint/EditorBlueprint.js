@@ -63,6 +63,7 @@ const blocks = [
 	{ type: "cmpplayers", name: "Compare players", model: [ {inout: "in", type: "area", name: "player 1"}, {inout: "in", type: "area", name: "player 2"}, {inout: "out", type: "bool", name: "same player"} ], color: "#89BC62" },
 	{ type: "tiletotiles", name: "Tile to tiles", model: [ {inout: "in", type: "location", name: "tile"}, {inout: "out", type: "locations", name: "tiles"} ], color: "#89BC62" },
 	{ type: "containstile", name: "Contains tile", model: [ {inout: "in", type: "locations", name: "area"}, {inout: "in", type: "location", name: "tile"}, {inout: "out", type: "bool", name: "contains"} ], color: "#89BC62" },
+	{ type: "counttiles", name: "Count tiles", model: [ {inout: "in", type: "locations", name: "area"}, {inout: "in", type: "tilefilter", name: "filter"}, {inout: "out", type: "int", name: "count"} ], color: "#89BC62" },
 	{ type: "mergeloc", name: "Merge locations", model: [ {inout: "in", type: "locations", name: "locations 1"}, {inout: "in", type: "locations", name: "locations 2"}, {inout: "out", type: "locations", name: "or"}, {inout: "out", type: "locations", name: "and"} ], color: "#89BC62" },
 	{ type: "checkcard", name: "Check card", model: [ {inout: "in", type: "card", name: "card"}, {inout: "in", type: "cardfilter", name: "filter"}, {inout: "out", type: "bool", name: "checked"} ], color: "#89BC62" },
 	{ type: "checktile", name: "Check tile", model: [ {inout: "in", type: "location", name: "tile"}, {inout: "in", type: "tilefilter", name: "filter"}, {inout: "out", type: "bool", name: "checked"} ], color: "#89BC62" },
