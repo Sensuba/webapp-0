@@ -36,9 +36,14 @@
 .blueprint-menu .blueprint-nav .blueprint-nav-header {
 
 	line-height: 2.5em;
-	padding: 0 1.5em 0.5em 1.5em;
+	padding: 0 0.7em 0.5em 0.7em;
 	font-weight: bold;
 	border-bottom: 1px solid rgba(150, 150, 150, 0.4);
+}
+
+.blueprint-menu .blueprint-nav .blueprint-nav-header .blueprint-nav-title {
+
+	margin: 0 0.8em;
 }
 
 .blueprint-menu .blueprint-nav .blueprint-nav-body {
