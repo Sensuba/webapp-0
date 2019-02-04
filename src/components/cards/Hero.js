@@ -54,13 +54,13 @@ export default class Hero extends Component {
 		<div className={"sensuba-card-level" + (level !== 3 ? " sensuba-card-invisible" : "")}>Lv MAX</div>
 		<div className="sensuba-card-param sensuba-card-param-atk">
 			<div className="sensuba-card-param-name">ATK</div>
-		   	<div className={"sensuba-card-param-value" + (level !== 1 ? " sensuba-card-invisible" : "")}>{src.atk}</div>
-		   	<div className={"sensuba-card-param-value" + (level !== 2 ? " sensuba-card-invisible" : "")}>{src.lv2.atk}</div>
-		   	<div className={"sensuba-card-param-value" + (level !== 3 ? " sensuba-card-invisible" : "")}>{src.lvmax.atk}</div>
+		   	<div className={"sensuba-card-param-value" + (level !== 1 ? " sensuba-card-invisible" : "") + (this.props.model ? (src.atk < this.props.model.atk ? " sensuba-card-param-malus" : (src.atk > this.props.model.atk ? " sensuba-card-param-bonus" : "")) : "")}>{src.atk}</div>
+		   	<div className={"sensuba-card-param-value" + (level !== 2 ? " sensuba-card-invisible" : "") + (this.props.model ? (src.atk < this.props.model.atk ? " sensuba-card-param-malus" : (src.atk > this.props.model.atk ? " sensuba-card-param-bonus" : "")) : "")}>{src.lv2.atk}</div>
+		   	<div className={"sensuba-card-param-value" + (level !== 3 ? " sensuba-card-invisible" : "") + (this.props.model ? (src.atk < this.props.model.atk ? " sensuba-card-param-malus" : (src.atk > this.props.model.atk ? " sensuba-card-param-bonus" : "")) : "")}>{src.lvmax.atk}</div>
 		</div>
 		<div className="sensuba-card-param sensuba-card-param-hp">
 		    <div className="sensuba-card-param-name">HP</div>
-	   	    <div className={"sensuba-card-param-value" + (src.hasOwnProperty('chp') && src.chp < src.hp ? " sensuba-card-param-malus" : "")}>{src.chp || src.hp}</div>
+	   	    <div className={"sensuba-card-param-value" + (src.hasOwnProperty('chp') && src.chp < src.hp ? " sensuba-card-param-malus" : "") + (src.hasOwnProperty('chp') ? (src.chp < src.hp ? " sensuba-card-param-malus" : (this.props.model && src.hp > this.props.model.hp ? " sensuba-card-param-bonus" : "")) : "")}>{src.chp || src.hp}</div>
 		</div>
 		<div className={"sensuba-card-range" + (level !== 1 ? " sensuba-card-invisible" : "")}>
 		  <div className="sensuba-card-range-arrow"/>

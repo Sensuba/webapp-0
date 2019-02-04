@@ -5,6 +5,8 @@ export default class TrayWidget extends Component {
 	render() {
 		return (
 			<div
+				onMouseMove={this.props.onMouseMove}
+				onMouseLeave={this.props.onMouseLeave}
 				style={{ borderColor: this.props.color }}
 				draggable={true}
 				onDragStart={event => {

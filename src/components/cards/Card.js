@@ -106,11 +106,11 @@ export default class Card extends Component {
     }
 
   	switch (this.props.src.cardType) {
-    case "hero": result = <Hero className={this.props.className} level={this.props.level} switch={this.props.switch} id={this.props.id} src={src} classColor={{color1: colorIdToClassName(this.props.src.idColor), color2: colorIdToClassName(this.props.src.idColor2)}}/>; break;
-  	case "figure": result = <Figure className={this.props.className} id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
+    case "hero": result = <Hero model={this.props.model} className={this.props.className} level={this.props.level} switch={this.props.switch} id={this.props.id} src={src} classColor={{color1: colorIdToClassName(this.props.src.idColor), color2: colorIdToClassName(this.props.src.idColor2)}}/>; break;
+  	case "figure": result = <Figure model={this.props.model} className={this.props.className} id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
     case "trap":
-    case "spell": result = <Spell className={this.props.className} id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
-    case "artifact": result = <Artifact className={this.props.className} id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
+    case "spell": result = <Spell model={this.props.model} className={this.props.className} id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
+    case "artifact": result = <Artifact model={this.props.model} className={this.props.className} id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
     default: break;
   	}
 

@@ -18,7 +18,7 @@ export default class GameBoard extends Component {
   	var model = this.props.model;
 
     return (
-    	<div className="sensuba-gameboard">
+    	<div className="sensuba-gameboard" onClick={() => this.props.master.manager.unselect()}>>
     	<div className="sensuba-board">
     	<Hand model={model.areas[1-no].hand} master={this.props.master}/>
 	    	<Area model={model.areas[1-no]} master={this.props.master}>

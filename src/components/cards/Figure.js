@@ -41,12 +41,12 @@ export default class Figure extends Component {
 		<div className="sensuba-card-footer">
 		  <div className="sensuba-card-param sensuba-card-param-atk">
 		  	<div className="sensuba-card-param-name">ATK</div>
-		   	<div className="sensuba-card-param-value">{src.atk}</div>
+		   	<div className={"sensuba-card-param-value" + (this.props.model ? (src.atk < this.props.model.atk ? " sensuba-card-param-malus" : (src.atk > this.props.model.atk ? " sensuba-card-param-bonus" : "")) : "")}>{src.atk}</div>
 		  </div>
 		  <span className="sensuba-card-param-separator">/</span>
 		  <div className="sensuba-card-param sensuba-card-param-hp">
 		    <div className="sensuba-card-param-name">HP</div>
-	   	    <div className={"sensuba-card-param-value" + (src.hasOwnProperty('chp') && src.chp < src.hp ? " sensuba-card-param-malus" : "")}>{src.chp || src.hp}</div>
+	   	    <div className={"sensuba-card-param-value" + (src.hasOwnProperty('chp') ? (src.chp < src.hp ? " sensuba-card-param-malus" : (this.props.model && src.hp > this.props.model.hp ? " sensuba-card-param-bonus" : "")) : "")}>{src.chp || src.hp}</div>
 		  </div>
 		</div>
 		<div className="sensuba-card-range">

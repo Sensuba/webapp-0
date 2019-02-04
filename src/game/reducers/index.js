@@ -43,6 +43,21 @@ export default (state = new GameBoard(), n) => {
       if (card)
         card.damage(n.data[0], state.find(n.data[1]));
       break; }
+    case "healcard": {
+      let card = state.find(n.src);
+      if (card)
+        card.heal(n.data[0], state.find(n.data[1]));
+      break; }
+    case "boostcard": {
+      let card = state.find(n.src);
+      if (card)
+        card.boost(n.data[0], n.data[1], n.data[2]);
+      break; }
+    case "setcard": {
+      let card = state.find(n.src);
+      if (card)
+        card.set(n.data[0], n.data[1], n.data[2], n.data[3]);
+      break; }
     case "destroycard": {
       let card = state.find(n.src);
       if (card)

@@ -82,9 +82,8 @@ export default class Card {
 
 	resetBody () {
 
-		var model = null;//Bank.get(this.model);
-		for (var k in model)
-			this[k] = model[k];
+		for (var k in this.model)
+			this[k] = this.model[k];
 		delete this.supercode;
 		this.clearBoardInstance();
 		if (this.blueprint)
@@ -93,7 +92,8 @@ export default class Card {
 
 	destroy () {
 
-		this.area.gameboard.notify("destroycard", this.id);
+		if (this.area)
+			this.area.gameboard.notify("destroycard", this.id);
 		this.clearBoardInstance();
 		this.goto(null);
 	}
@@ -105,8 +105,45 @@ export default class Card {
 
 		this.chp -= dmg;
 		this.area.gameboard.notify("damagecard", this.id, dmg, src.id);
-		//if (this.chp <= 0)
-		//	this.destroy();
+	}
+
+	heal (amt, src) {
+
+		if (!this.chp || amt <= 0)
+			return;
+
+		this.chp = Math.min(this.hp, this.chp + amt);
+		this.gameboard.notify("healcard", this.id, amt, src.id);
+	}
+
+	boost (atk, hp, range) {
+
+		if (atk === 0 && hp === 0 && range === 0)
+			return;
+
+		this.atk += atk;
+		this.hp += hp;
+		if (hp >= 0)
+			this.chp += hp;
+		else
+			this.chp = Math.min(this.chp, this.hp);
+		this.range += range;
+		this.gameboard.notify("boostcard", this.id, atk, hp, range);
+	}
+
+	set (cost, atk, hp, range) {
+
+		if (cost || cost === 0)
+			this.mana = cost;
+		if (atk || atk === 0)
+			this.atk = atk;
+		if (hp || hp === 0) {
+			this.hp = hp;
+			this.chp = hp;
+		}
+		if (range || range === 0)
+			this.range = range;
+		this.gameboard.notify("setcard", this.id, cost, atk, hp, range);
 	}
 
 	get area () {
@@ -130,9 +167,15 @@ export default class Card {
 
 	identify (data) {
 
-		for (var k in data)
+		for (var k in data) {
 			this[k] = data[k];
+			if (!isNaN(this[k]))
+				this[k] = parseInt(this[k], 10);
+		}
+		if (this.idCardmodel)
+			this.model = JSON.parse(localStorage.getItem("cardlist")).find(c => c.idCardmodel === this.idCardmodel);
 		this.targets = [];
+		this.faculties = [];
 		if (this.isType("entity"))
 			this.targets.push(Event.targets.emptyFriendlyTile);
 		if (this.blueprint && this.blueprint.triggers && this.blueprint.triggers.some(trigger => trigger.target)) {
@@ -145,12 +188,13 @@ export default class Card {
 			this.actionPt = 1;
 			this.motionPt = 1;
 			this.skillPt = 1;
+			this.faculties.push({desc: "Create a mana receptacle.", cost: "!"});
 		}
 	}
 
 	get canBePaid () {
 
-		return this.mana && this.area && this.mana <= this.area.manapool.usableMana;
+		return (this.mana || this.mana === 0) && this.area && this.mana <= this.area.manapool.usableMana;
 	}
 
 	get canBePlayed () {
@@ -196,7 +240,7 @@ export default class Card {
 
 	possibleTargets (targets) {
 
-		return this.gameboard.tiles.map(tile => targets(this, tile));
+		return this.gameboard.tiles.filter(tile => targets(this, tile));
 	}
 
 	canAttack (target) {

@@ -4,14 +4,16 @@ import PlayingState from './controller/state/PlayingState';
 
 export default class Manager {
 
-	constructor (model, command) {
+	constructor (model, command, update) {
 
 		this.model = model;
 		this.command = command;
+		this.update = () => {};
 		//this.items = {};
 		//this.sequencer = new Chain();
-		this.states = { playing: new PlayingState(this), waiting: new WaitingState(this) };
+		this.states = { waiting: new WaitingState(this) };
 		this.controller = this.states.waiting;
+		this.update = update;
 	}/*
 
 	addItem (item) {
@@ -33,7 +35,7 @@ export default class Manager {
 
 	control (playing) {
 
-		this.controller = playing ? this.states.playing : this.states.waiting;
+		this.controller = playing ? new PlayingState(this) : this.states.waiting;
 	}
 
 	select (target) {
@@ -41,9 +43,20 @@ export default class Manager {
 		this.controller.select(target);
 	}
 
+	unselect () {
+
+		this.control(this.isPlaying);
+		this.update();
+	}
+
 	endTurn () {
 
-		if(!(this.controller === this.states.waiting))
+		if(this.isPlaying)
 			this.command({ type: "endturn" });
+	}
+
+	get isPlaying () {
+
+		return !(this.controller === this.states.waiting);
 	}
 }

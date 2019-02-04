@@ -10,6 +10,7 @@ import CardPreview from '../components/cards/Card';
 //import WaitingState from './controller/state/WaitingState';
 //import PlayingState from './controller/state/PlayingState';
 import Loader from '../components/utility/Loader';
+import FacultyBox from './view/UI/FacultyBox';
 
 import { createStore } from 'redux';
 import reducers from './reducers';
@@ -17,12 +18,12 @@ import reducers from './reducers';
 const defaultDeck = {
   hero: 1,
   body: [
-    101, 101, 101, 101, 101,
-    101, 101, 101, 101, 101,
-    101, 101, 101, 101, 101,
-    101, 101, 101, 101, 101,
-    101, 101, 101, 101, 101,
-    101, 101, 101, 101, 101
+    168, 168, 168, 168, 168,
+    109, 109, 109, 109, 109,
+    159, 159, 159, 159, 159,
+    132, 132, 132, 132, 132,
+    173, 173, 173, 173, 173,
+    124, 124, 124, 124, 124
   ]
 };
 
@@ -48,7 +49,7 @@ export default class Game extends Component {
       deck: myDeck || defaultDeck
     }
 
-    this.manager = new Manager(this.state.model, this.command.bind(this));
+    this.manager = new Manager(this.state.model, this.command.bind(this), state => state ? this.setState(state) : this.forceUpdate());
 
     this.props.socket.emit("join", props.room);
 
@@ -93,6 +94,9 @@ export default class Game extends Component {
       <div>
       <div id="img-preview-tooltip" data-toggle="tooltip" data-placement="right" src="" alt="preview" data-animation="false" data-trigger="manual">
         { this.state.preview ? <CardPreview src={this.state.preview}/> : <span/> }
+      </div>
+      <div id="faculty-tooltip" data-toggle="tooltip" data-placement="right" data-animation="false" data-trigger="manual">
+        { this.state.faculties && this.state.faculties.length > 0 ? <FacultyBox faculties={ this.state.faculties } select={m => this.manager.select(m)}/> : <span/> }
       </div>
       {
         this.waiting

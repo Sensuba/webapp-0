@@ -21,17 +21,105 @@
 
 .deck-selection-area .sensuba-deckbuilder-search {
 
-	width: 100%;
-	font-size: 3.5vw;
-	height: 20rem;
+	width: calc(100% - 4em);
+    font-size: 2vw;
+    height: 15rem;
+    margin-top: 2rem;
 }
 
 .deck-selection-area .sensuba-deckbuilder-search .sensuba-deckbuilder-search-input, .deck-selection-area .sensuba-deckbuilder-search .sensuba-deckbuilder-search-input:focus {
 
-	font-size: 1.5rem;
+	font-size: 1rem;
 }
 
 .deck-selection-area .sensuba-deckbuilder-search .sensuba-deckbuilder-search-list {
 
-	height: calc(100% - 3rem);
+	height: calc(100% - 2rem);
 }
+
+.deck-selection-area .sensuba-deckbuilder-search .sensuba-deckbuilder-search .sensuba-deckbuilder-tag .sensuba-deckbuilder-tag-img {
+
+	top: -3.5vw;
+}
+
+.play-panel-wrapper {
+
+	height: 18em;
+    margin: 2em 0;
+    overflow: hidden;
+}
+
+.play-panel {
+
+	pointer-events: all;
+	width: 50%;
+    position: relative;
+	display: inline-block;
+	vertical-align: center;
+    height: 18em;
+    filter: grayscale(75%);
+    overflow: hidden;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+.play-panel + .play-panel {
+
+	border-left: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.play-panel-wrapper:hover .play-panel {
+
+	width: 0;
+}
+
+.play-panel:hover {
+
+	width: 100% !important;
+    filter: grayscale(0%);
+}
+
+.play-panel .play-panel-background {
+
+	object-fit: cover;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    position: absolute;
+    transition: height 0.5s, width 0.5s, top 0.5s, left 0.5s;
+}
+
+.play-panel .play-panel-filter {
+
+	position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to right, transparent, transparent 40%, #000B 60%, #000D);
+}
+
+.play-panel.panel-right .play-panel-filter { background: linear-gradient(to left, transparent, transparent 40%, #000B 60%, #000D) }
+
+.play-panel .play-panel-text {
+
+	position: absolute;
+    z-index: 2;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 1);
+    top: 30%;
+    left: 5%;
+    width: 80%;
+    color: white;
+    text-align: right;
+}
+
+.play-panel .play-panel-text h3 {
+
+	font-family: Constantia;
+	font-variant: small-caps;
+}
+
+.play-panel.panel-left .play-panel-text { left: 15%; text-align: left; }

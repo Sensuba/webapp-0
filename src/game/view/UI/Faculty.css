@@ -1,0 +1,58 @@
+#faculty-tooltip {
+
+    position: absolute;
+    z-index: 10;
+    margin-top: -6em;
+}
+
+.faculty-box {
+
+    width: 18em;
+    min-height: 1em;
+    padding: 0.2em;
+    background: white;
+    filter: drop-shadow(2px 3px 2px #202020A0);
+}
+
+.faculty {
+
+	width: 100%;
+    border: 1px dotted lightgray;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.faculty:hover {
+
+    background: darkgray;
+    color: white;
+    border-color: #d3d3d300;
+}
+
+.faculty-box .faculty + .faculty {
+
+	margin-top: 0.2em;
+}
+
+.faculty .faculty-desc {
+
+	display: inline-block;
+    min-height: 2em;
+    width: calc(100% - 2em);
+    font-family: Ebrima;
+    line-height: 2em;
+    vertical-align: middle;
+    text-align: left;
+    padding: 0 0.5em;
+}
+
+.faculty .faculty-cost {
+
+	display: inline-block;
+    font-family: "Lucida Bright";
+    font-style: italic;
+    width: 2em;
+    height: 2em;
+    line-height: 2em;
+    vertical-align: middle;
+}

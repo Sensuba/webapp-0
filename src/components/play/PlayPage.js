@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './PlayPage.css';
-import { Button, Input } from 'reactstrap'
+import { Input } from 'reactstrap'
 import Nav from '../Nav';
 import Deck from '../decks/Deck';
 
@@ -111,8 +111,20 @@ export default class PlayPage extends Component {
               : <Deck/>
             }
             </div>
-            <Button onClick={() => this.seekGame(false)}>Quick game</Button>
-            <Button onClick={() => this.seekGame(true)}>Private room</Button>
+            <div className="play-panel-wrapper">
+              <div className="play-panel panel-left">
+                <img className="play-panel-background" src="/img2.jpg" alt="bg"/>
+                <div onClick={() => this.seekGame(false)} className="play-panel-text">
+                  <h3>Quick game</h3>
+                </div>
+              </div>
+              <div className="play-panel panel-right">
+                <img className="play-panel-background" src="/img2.jpg" alt="bg"/>
+                <div onClick={() => this.seekGame(true)} className="play-panel-text">
+                  <h3>Private room</h3>
+                </div>
+              </div>
+            </div>
           </div>
       	</main>
       </div>

@@ -18,6 +18,11 @@
     margin: 0 5%;
 }
 
+.sensuba-board, .sensuba-area, .sensuba-field, .sensuba-row {
+
+	pointer-events: none;
+}
+
 .sensuba-field, .sensuba-gauge-wrapper {
 
 	display: inline-block;
@@ -35,6 +40,11 @@
 	padding-left: 150px;
 }
 
+.sensuba-end-turn-wrapper .sensuba-end-turn {
+
+	pointer-events: all;
+}
+
 .sensuba-deck {
 
 	height: 10.75vw;
@@ -50,13 +60,17 @@
 	display: flex;
     justify-content: center;
     flex-wrap: nowrap;
-    margin-top: -3vw;
+    margin-top: 3vw;
     margin-bottom: 6vw;
+    height: 10vw;
+    position: relative;
 }
 
 .sensuba-area + .sensuba-hand {
 
-	margin-bottom: 0;
+    margin-top: -3vw;
+	margin-bottom: 10vw;
+    height: 0;
 }
 
 .sensuba-tile {
@@ -66,27 +80,36 @@
 	width: 8.135vw;
 	background-color: rgba(100, 100, 100, 0.1);
 	margin: 0.4vw;
+	position: relative;
 }
 
 .sensuba-tile-targetable {
 
 	background-color: rgba(255, 0, 0, 0.1);
+	pointer-events: all;
 }
 
 .sensuba-card-view {
 
 	display: inline-block;
 	font-size: 0.5vw;
+	position: absolute;
+	pointer-events: all;
+	z-index: 100;
 }
 
 .sensuba-hand .sensuba-card-view {
 
 	transform: rotateX(310deg);
+	top: 0;
+	left: calc(50% - 4.1vw);
 }
 
 .sensuba-tile .sensuba-card-view {
 
-	float: left;
+	/*float: left;*/
+	top: 0;
+	left: 0;
 }
 
 .sensuba-gauge-wrapper {

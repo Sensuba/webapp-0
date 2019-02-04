@@ -6,6 +6,7 @@ export default class PlayingState {
 	constructor (manager) {
 
 		this.manager = manager;
+		this.manager.update({faculties: undefined});
 	}
 
 	select (target) {
