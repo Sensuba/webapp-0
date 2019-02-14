@@ -95,7 +95,10 @@ export default class Card {
 		if (this.area)
 			this.area.gameboard.notify("destroycard", this.id);
 		this.clearBoardInstance();
-		this.goto(null);
+		if (this.area)
+			this.goto(this.area.cemetery)
+		else
+			this.goto(null);
 	}
 
 	damage (dmg, src) {
@@ -165,6 +168,11 @@ export default class Card {
 		return this.archetypes && this.archetypes.includes(arc);
 	}
 
+	hasState (state) {
+
+		return this.states && this.states[state];
+	}
+
 	identify (data) {
 
 		for (var k in data) {
@@ -178,17 +186,89 @@ export default class Card {
 		this.faculties = [];
 		if (this.isType("entity"))
 			this.targets.push(Event.targets.emptyFriendlyTile);
-		if (this.blueprint && this.blueprint.triggers && this.blueprint.triggers.some(trigger => trigger.target)) {
-			var filter = this.blueprint.triggers.find(trigger => trigger.target).in[0];
-			this.targets.push((src, target) => !filter || (target.occupied && target.card.isType(filter)));
-		}
 		if (this.isType("hero")) {
 			this.area.hero = this;
 			this.chp = this.hp;
 			this.actionPt = 1;
-			this.motionPt = 1;
 			this.skillPt = 1;
-			this.faculties.push({desc: "Create a mana receptacle.", cost: "!"});
+			this.faculties.push({no: 0, desc: "Create a mana receptacle.", cost: "!"});
+		}
+		/*if (this.blueprint && this.blueprint.triggers && this.blueprint.triggers.some(trigger => trigger.target && trigger.type === "play")) {
+			var filter = this.blueprint.triggers.find(trigger => trigger.target).in[0];
+			this.targets.push((src, target) => (!filter || typeof filter === 'object') || (target.occupied && target.card.isType(filter) && !target.card.hasState("exaltation")));
+		}*/
+		if (this.blueprint && this.blueprint.triggers) {
+
+			this.blueprint.triggers.forEach (trigger => {
+
+				var filter = trigger.in[0];
+				switch (trigger.type) {
+				case "play":
+					if (trigger.target) 
+						this.targets.push((src, target) => (!filter || typeof filter === 'object') || (target.occupied && target.card.isType(filter) && !target.card.hasState("exaltation")));
+					break;
+				case "action":
+					var action = {no: this.faculties.length, desc: trigger.in[1], cost: "!"};
+					if (trigger.target) 
+						action.target = (src, target) => (!filter || typeof filter === 'object') || (target.occupied && target.card.isType(filter) && !target.card.hasState("exaltation"));
+					this.faculties.push(action);
+					break;
+				case "skill":
+					var skill = {no: this.faculties.length, desc: trigger.in[1], cost: trigger.in[2]};
+					if (trigger.target) 
+						skill.target = (src, target) => (!filter || typeof filter === 'object') || (target.occupied && target.card.isType(filter) && !target.card.hasState("exaltation"));
+					this.faculties.push(skill);
+					break;
+				default:
+				}
+			})
+		}
+	}
+
+	levelUp () {
+
+		if (!this.isType("hero"))
+			return;
+
+		this.level++;
+		var lv = this.level === 2 ? this.lv2 : this.lvmax;
+		if (!lv) {
+			this.level--;
+			return;
+		}
+
+		this.atk = lv.atk;
+		this.range = lv.range;
+		this.overload = lv.overload;
+		this.blueprint = lv.blueprint;
+		this.targets = [Event.targets.emptyFriendlyTile];
+		this.faculties = [{no: 0, desc: "Create a mana receptacle.", cost: "!"}];
+
+		if (this.blueprint && this.blueprint.triggers) {
+
+			this.blueprint.triggers.forEach (trigger => {
+
+				var filter = trigger.in[0];
+				switch (trigger.type) {
+				case "play":
+					if (trigger.target) 
+						this.targets.push((src, target) => (!filter || typeof filter === 'object') || (target.occupied && target.card.isType(filter) && !target.card.hasState("exaltation")));
+					break;
+				case "action":
+					var action = {no: this.faculties.length, desc: trigger.in[1], cost: "!"};
+					if (trigger.target) 
+						action.target = (src, target) => (!filter || typeof filter === 'object') || (target.occupied && target.card.isType(filter) && !target.card.hasState("exaltation"));
+					this.faculties.push(action);
+					break;
+				case "skill":
+					var skill = {no: this.faculties.length, desc: trigger.in[1], cost: trigger.in[2]};
+					if (trigger.target) 
+						skill.target = (src, target) => (!filter || typeof filter === 'object') || (target.occupied && target.card.isType(filter) && !target.card.hasState("exaltation"));
+					this.faculties.push(skill);
+					break;
+				default:
+				}
+			})
 		}
 	}
 
@@ -243,9 +323,25 @@ export default class Card {
 		return this.gameboard.tiles.filter(tile => targets(this, tile));
 	}
 
+	get canAct () {
+
+		if (!this.onBoard || !this.area || !this.area.isPlaying)
+			return false;
+		if (this.motionPt)
+			return true;
+		if ((this.actionPt || (this.hasState("fury") && this.strikes === 1)) && (!this.firstTurn || this.hasState("rush")))
+			return true;
+
+		return false;
+	}
+
 	canAttack (target) {
 
-		if (this.firstTurn || !this.actionPt || !this.isType("character") || !this.onBoard || !target.onBoard || this.area === target.area)
+		if (!this.isType("character") || !this.onBoard || !target.onBoard || this.area === target.area)
+			return false;
+		if (this.firstTurn && !this.hasState("rush"))
+			return false;
+		if (!this.actionPt && (!this.hasState("fury") || this.strikes !== 1))
 			return false;
 
 		var needed = 1;
@@ -280,12 +376,28 @@ export default class Card {
 
 	attack () {
 
-		this.actionPt--;
+		if (!this.hasState("fury") || this.strikes !== 1)
+			this.actionPt--;
+		this.strikes++;
+		this.motionPt = 0;
 	}
 
 	move () {
 
 		this.motionPt--;
+	}
+
+	setState (state, value) {
+
+		this.states[state] = value;
+	}
+
+	use (isAction) {
+
+		if (isAction)
+			this.actionPt--;
+		else
+			this.skillPt--;
 	}
 
 	get gameboard () {
@@ -298,6 +410,7 @@ export default class Card {
 		this.actionPt = 1;
 		this.motionPt = 0;
 		this.firstTurn = true;
+		this.strikes = 0;
 	}
 
 	refresh () {
@@ -307,6 +420,7 @@ export default class Card {
 			this.actionPt = 1;
 			this.motionPt = 1;
 			this.firstTurn = false;
+			this.strikes = 0;
 		}
 	}
 

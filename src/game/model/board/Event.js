@@ -4,7 +4,7 @@ const targets = {
 	emptyTile: (src, target) => target.isEmpty,
 	friendlyTile: (src, target) => src.area === target.area,
 	emptyFriendlyTile: (src, target) => targets.emptyTile(src, target) && targets.friendlyTile(src, target),
-	entity: (src, target) => target.occupied && target.card.isType("entity")
+	entity: (src, target) => target.occupied && target.card.isType("entity") && !target.card.hasState("exaltation")
 };
 
 export default class Event {
