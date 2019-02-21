@@ -82,6 +82,7 @@
 .play-panel .play-panel-background {
 
 	object-fit: cover;
+    object-position: 50% 20%;
     height: 100%;
     width: 100%;
     top: 0;
@@ -114,6 +115,7 @@
     width: 80%;
     color: white;
     text-align: right;
+    white-space: nowrap;
 }
 
 .play-panel .play-panel-text h3 {

@@ -112,15 +112,15 @@ export default class PlayPage extends Component {
             }
             </div>
             <div className="play-panel-wrapper">
-              <div className="play-panel panel-left">
-                <img className="play-panel-background" src="/img2.jpg" alt="bg"/>
-                <div onClick={() => this.seekGame(false)} className="play-panel-text">
+              <div onClick={() => this.seekGame(false)} className="play-panel panel-left">
+                <img className="play-panel-background" src="/play1.jpg" alt="bg"/>
+                <div className="play-panel-text">
                   <h3>Quick game</h3>
                 </div>
               </div>
-              <div className="play-panel panel-right">
-                <img className="play-panel-background" src="/img2.jpg" alt="bg"/>
-                <div onClick={() => this.seekGame(true)} className="play-panel-text">
+              <div onClick={() => this.seekGame(true)} className="play-panel panel-right">
+                <img className="play-panel-background" src="/play2.jpg" alt="bg"/>
+                <div className="play-panel-text">
                   <h3>Private room</h3>
                 </div>
               </div>

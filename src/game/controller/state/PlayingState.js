@@ -19,7 +19,7 @@ export default class PlayingState {
 					this.manager.controller = new SelectTargetState(this.manager, target);
 			}
 		} else if (target.onBoard) {
-			if (target.motionPt || target.actionPt)
+			if (target.canAct)
 				this.manager.controller = new AttackOrMoveState(this.manager, target);
 		}
 	}

@@ -63,6 +63,21 @@ export default (state = new GameBoard(), n) => {
       if (card)
         card.destroy();
       break; }
+    case "levelup": {
+      let card = state.find(n.src);
+      if (card)
+        card.levelUp();
+      break; }
+    case "cardfaculty": {
+      let card = state.find(n.src);
+      if (card)
+        card.use(n.data[0].value);
+      break; }
+    case "setstate": {
+      let card = state.find(n.src);
+      if (card)
+        card.setState(n.data[0].value, n.data[1].value);
+      break; }
     case "createmana":
       state.areas[n.src.no].manapool.createReceptacle(n.data[0].value);
       break;

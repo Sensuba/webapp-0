@@ -62,17 +62,17 @@ export default class Hero extends Component {
 		    <div className="sensuba-card-param-name">HP</div>
 	   	    <div className={"sensuba-card-param-value" + (src.hasOwnProperty('chp') && src.chp < src.hp ? " sensuba-card-param-malus" : "") + (src.hasOwnProperty('chp') ? (src.chp < src.hp ? " sensuba-card-param-malus" : (this.props.model && src.hp > this.props.model.hp ? " sensuba-card-param-bonus" : "")) : "")}>{src.chp || src.hp}</div>
 		</div>
-		<div className={"sensuba-card-range" + (level !== 1 ? " sensuba-card-invisible" : "")}>
+		<div className={"sensuba-card-range" + (level !== 1 ? " sensuba-card-invisible" : "") + (this.props.model ? (src.range < this.props.model.range ? " sensuba-card-param-malus" : (src.range > this.props.model.range ? " sensuba-card-param-bonus" : "")) : "")}>
 		  <div className="sensuba-card-range-arrow"/>
 		  { src.range > 1 ? <div className="sensuba-card-range-arrow sensuba-card-range-arrow-2"/> : <span/> }
 		  { src.range > 2 ? <div className="sensuba-card-range-arrow sensuba-card-range-arrow-3"/> : <span/> }
 		</div>
-		<div className={"sensuba-card-range" + (level !== 2 ? " sensuba-card-invisible" : "")}>
+		<div className={"sensuba-card-range" + (level !== 2 ? " sensuba-card-invisible" : "") + (this.props.model ? (src.range < this.props.model.range ? " sensuba-card-param-malus" : (src.range > this.props.model.range ? " sensuba-card-param-bonus" : "")) : "")}>
 		  <div className="sensuba-card-range-arrow"/>
 		  { src.lv2.range > 1 ? <div className="sensuba-card-range-arrow sensuba-card-range-arrow-2"/> : <span/> }
 		  { src.lv2.range > 2 ? <div className="sensuba-card-range-arrow sensuba-card-range-arrow-3"/> : <span/> }
 		</div>
-		<div className={"sensuba-card-range" + (level !== 3 ? " sensuba-card-invisible" : "")}>
+		<div className={"sensuba-card-range" + (level !== 3 ? " sensuba-card-invisible" : "") + (this.props.model ? (src.range < this.props.model.range ? " sensuba-card-param-malus" : (src.range > this.props.model.range ? " sensuba-card-param-bonus" : "")) : "")}>
 		  <div className="sensuba-card-range-arrow"/>
 		  { src.lvmax.range > 1 ? <div className="sensuba-card-range-arrow sensuba-card-range-arrow-2"/> : <span/> }
 		  { src.lvmax.range > 2 ? <div className="sensuba-card-range-arrow sensuba-card-range-arrow-3"/> : <span/> }

@@ -173,8 +173,15 @@
     position: absolute;
     top: 0.65em;
     right: 0.65em;
-    border-radius: 2px;
-    border: 1px solid rgba(100, 10, 10, 0.6);
+    cursor: pointer;
+    background: url('./switch.png');
+	background-size: 1em;
+	filter: grayscale(100%) drop-shadow(0 0 0em transparent);
+	transition: 0.1s filter;
+}
+.blueprint-menu .blueprint-schema .srd-diagram .srd-default-node__event:hover {
+	
+	filter: grayscale(0) drop-shadow(0 0 0.15em white);
 }
 
 .blueprint-menu .blueprint-schema .srd-diagram .srd-default-node__event.checked {

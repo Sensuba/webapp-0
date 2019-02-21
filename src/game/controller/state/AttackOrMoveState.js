@@ -1,4 +1,5 @@
 import PlayingState from './PlayingState';
+import SelectFacultyTargetState from './SelectFacultyTargetState';
 
 export default class AttackOrMoveState {
 
@@ -12,8 +13,14 @@ export default class AttackOrMoveState {
 	select (target) {
 
 		if (target.id.type === "faculty") {
-			this.manager.command({ type: "faculty", id: this.card.id, faculty: target.id.no });
-			this.manager.controller = new PlayingState(this.manager);
+			var faculty = this.card.faculties[target.id.no];
+			if (faculty.target) {
+				this.manager.controller = new SelectFacultyTargetState(this.manager, this.card, faculty);
+			}
+			else {
+				this.manager.command({ type: "faculty", id: this.card.id, faculty: target.id.no });
+				this.manager.controller = new PlayingState(this.manager);
+			}
 			return;
 		}
 
@@ -40,6 +47,6 @@ export default class AttackOrMoveState {
 
 	targetable (tile) {
 
-		return this.card.canMoveOn(tile) || (tile.occupied && this.card.canAttack(tile.card)) ? "sensuba-tile-targetable" : "";
+		return (this.card.motionPt > 0 && this.card.canMoveOn(tile)) || (tile.occupied && this.card.canAttack(tile.card)) ? "sensuba-tile-targetable" : "";
 	}
 }

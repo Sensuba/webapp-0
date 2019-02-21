@@ -6,9 +6,18 @@ export default class NodeModel extends SuperNodeModel {
 
 	constructor(type = "Untitled", name = "Untitled", color = "rgb(0,192,255)") {
 		super("default");
-		this.nodeType = type;
+		this.defaultNodeType = type;
 		this.name = name;
 		this.color = color;
+	}
+
+	get nodeType () {
+
+		switch (this.stateEvent) {
+		case 1: return this.defaultNodeType + "-trigger";
+		case 2: return this.defaultNodeType + "-data";
+		default: return this.defaultNodeType;
+		}
 	}
 
 	addInPort(type, label) {
@@ -44,21 +53,21 @@ export default class NodeModel extends SuperNodeModel {
 		});
 	}
 
-	setStateEvent(stateEvent) {
-
-		if (this.stateEvent === undefined || this.stateEvent !== stateEvent)
-			this.switch();
-	}
-
 	switch () {
 
 		var ports = this.getPorts();
 		Object.keys(ports).forEach(keyp => this.removePort(ports[keyp]));
 		if (this.stateEvent === undefined)
-			this.stateEvent = false;
+			this.stateEvent = 0;
 		else
-			this.stateEvent = !this.stateEvent;
-		(this.stateEvent ? this.event : this.model).forEach(inout => {
+			this.stateEvent = (this.stateEvent + 1) % 3;
+		var model;
+		switch (this.stateEvent) {
+		case 1: model = [ {inout: "out", type: "trigger", name: "trigger"} ]; break;
+		case 2: model = this.event; break;
+		default: model = this.model; break;
+		}
+		model.forEach(inout => {
 
 			if (inout.inout === "in")
 				this.addInPort(inout.type, inout.name);

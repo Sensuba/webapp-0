@@ -18,7 +18,7 @@ export default class NodeWidget extends BaseWidget<DefaultNodeProps, DefaultNode
 			<div {...this.getProps()} style={{ background: this.props.node.color }}>
 				<div className={(this.props.node.color === "#202020" ? "node-operator " : "") + this.bem("__title")}>
 					<div style={{background: `linear-gradient(to right, ${this.props.node.color}, #404040)`}} className={this.bem("__name")}>{this.props.node.name}</div>
-					{ this.props.node.event ? <label className={this.bem("__event")}><input id={"event_" + this.props.node.id} type="checkbox" onChange={() => { this.props.node.switch(); document.getElementById("event_" + this.props.node.id).parentElement.classList.toggle("checked"); }}/></label> : <span/> }
+					{ this.props.node.event ? <label className={this.bem("__event")}><input id={"event_" + this.props.node.id} type="button" onClick={() => { this.props.node.switch(); /*document.getElementById("event_" + this.props.node.id).parentElement.classList.toggle("checked");*/ }}/></label> : <span/> }
 				</div>
 				<div className={this.bem("__ports")}>
 					<div className={this.bem("__in")}>

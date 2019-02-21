@@ -186,6 +186,38 @@ export default class EditorPage extends Component {
     if (shadow.supercode)
       delete shadow.supercode;
 
+    var design =
+    <Design
+      ref="design"
+      card={this.state.card}
+      token={this.state.token}
+      update={card => this.setState({card})}
+      defaultCard={this.defaultCard}
+      save={() => this.saveCard()}
+      delete={() => this.deleteCard()}
+      isEdit={this.props.card !== undefined}
+      setToken={token => this.setState({token})}
+      className={this.state.tab === "design" ? "" : "invisible"}
+    />;
+
+    var blueprint =
+    <Blueprint
+      key={JSON.stringify(this.state.token)}
+      save={bp => {
+        if (this.currentCard.cardType === "hero") {
+          switch (this.refs.design.state.level) {
+          case 1: this.currentCard.blueprint = bp; break;
+          case 2: this.currentCard.lv2.blueprint = bp; break;
+          case 3: this.currentCard.lvmax.blueprint = bp; break;
+          default: break;
+          }
+        } else 
+          this.currentCard.blueprint = bp;
+        this.setState({card: this.state.card, tab: "design"});
+      }}
+      className={this.state.tab === "blueprint" ? "" : "invisible"}
+    />
+
     //var superCode = window.btoa(JSON.stringify(shadow));
 
     return (
@@ -199,25 +231,8 @@ export default class EditorPage extends Component {
               <Input id="blueprint-tab" type="radio" onChange={() => this.setState({tab: "blueprint"})} checked={this.state.tab === "blueprint"}/>
               <Label for="blueprint-tab">Blueprint</Label>
             </div>
-            <Design
-              card={this.state.card}
-              token={this.state.token}
-              update={card => this.setState({card})}
-              defaultCard={this.defaultCard}
-              save={() => this.saveCard()}
-              delete={() => this.deleteCard()}
-              isEdit={this.props.card !== undefined}
-              setToken={token => this.setState({token})}
-              className={this.state.tab === "design" ? "" : "invisible"}
-            />
-            <Blueprint
-              key={JSON.stringify(this.state.token)}
-              save={bp => {
-                this.currentCard.blueprint = bp;
-                this.setState({card: this.state.card, tab: "design"});
-              }}
-              className={this.state.tab === "blueprint" ? "" : "invisible"}
-            />
+            { design }
+            { blueprint }
           </div>
       	</main>
       </div>

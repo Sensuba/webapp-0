@@ -60,6 +60,22 @@ export default class Deckbuilder extends Component {
     if (this.state.saved)
       return;
 
+    var currentDeck = localStorage.getItem("playdeck");
+    if (currentDeck) {
+      currentDeck = JSON.parse(currentDeck);
+
+      if (currentDeck.id === this.state.deck.idDeck) {
+
+        var deck = this.state.deck;
+        var res = { id: deck.idDeck, hero: deck.hero, body: [] };
+        Object.keys(deck.cards).forEach(c => {
+          for (let i = 0; i < deck.cards[c]; i++)
+            res.body.push(parseInt(c, 10));
+        })
+        localStorage.setItem("playdeck", JSON.stringify(res));
+      }
+    }
+    
     var supercode = window.btoa(JSON.stringify(this.state.deck));
 
     var params = { supercode };

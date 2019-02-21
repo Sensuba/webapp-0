@@ -9,7 +9,7 @@ export default class FacultyBox extends Component {
     return (
     	<div className="faculty-box">
       {
-        this.props.faculties.map((f, i) => <Faculty key={i} no={i} src={f} select={this.props.select}/>)
+        this.props.faculties.map((f, i) => <Faculty key={i} src={f} select={this.props.select}/>)
       }
 		</div>
     )

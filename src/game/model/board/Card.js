@@ -2,6 +2,7 @@ import Event from "./Event";
 import Hand from './Hand';
 import Tile from './Tile';
 import Deck from './Deck';
+import Target from './Target';
 
 export default class Card {
 
@@ -185,7 +186,7 @@ export default class Card {
 		this.targets = [];
 		this.faculties = [];
 		if (this.isType("entity"))
-			this.targets.push(Event.targets.emptyFriendlyTile);
+			this.targets.push(new Target(Event.targets.friendlyEmpty));
 		if (this.isType("hero")) {
 			this.area.hero = this;
 			this.chp = this.hp;
@@ -201,22 +202,21 @@ export default class Card {
 
 			this.blueprint.triggers.forEach (trigger => {
 
-				var filter = trigger.in[0];
 				switch (trigger.type) {
 				case "play":
 					if (trigger.target) 
-						this.targets.push((src, target) => (!filter || typeof filter === 'object') || (target.occupied && target.card.isType(filter) && !target.card.hasState("exaltation")));
+						this.targets.push(Target.read(trigger, this.blueprint));
 					break;
 				case "action":
 					var action = {no: this.faculties.length, desc: trigger.in[1], cost: "!"};
 					if (trigger.target) 
-						action.target = (src, target) => (!filter || typeof filter === 'object') || (target.occupied && target.card.isType(filter) && !target.card.hasState("exaltation"));
+						action.target = Target.read(trigger, this.blueprint);
 					this.faculties.push(action);
 					break;
 				case "skill":
 					var skill = {no: this.faculties.length, desc: trigger.in[1], cost: trigger.in[2]};
 					if (trigger.target) 
-						skill.target = (src, target) => (!filter || typeof filter === 'object') || (target.occupied && target.card.isType(filter) && !target.card.hasState("exaltation"));
+						skill.target = Target.read(trigger, this.blueprint);
 					this.faculties.push(skill);
 					break;
 				default:
@@ -241,29 +241,28 @@ export default class Card {
 		this.range = lv.range;
 		this.overload = lv.overload;
 		this.blueprint = lv.blueprint;
-		this.targets = [Event.targets.emptyFriendlyTile];
+		this.targets = [new Target(Event.targets.friendlyEmpty)];
 		this.faculties = [{no: 0, desc: "Create a mana receptacle.", cost: "!"}];
 
 		if (this.blueprint && this.blueprint.triggers) {
 
 			this.blueprint.triggers.forEach (trigger => {
 
-				var filter = trigger.in[0];
 				switch (trigger.type) {
 				case "play":
 					if (trigger.target) 
-						this.targets.push((src, target) => (!filter || typeof filter === 'object') || (target.occupied && target.card.isType(filter) && !target.card.hasState("exaltation")));
+						this.targets.push(Target.read(trigger, this.blueprint));
 					break;
 				case "action":
 					var action = {no: this.faculties.length, desc: trigger.in[1], cost: "!"};
 					if (trigger.target) 
-						action.target = (src, target) => (!filter || typeof filter === 'object') || (target.occupied && target.card.isType(filter) && !target.card.hasState("exaltation"));
+						action.target = Target.read(trigger, this.blueprint);
 					this.faculties.push(action);
 					break;
 				case "skill":
 					var skill = {no: this.faculties.length, desc: trigger.in[1], cost: trigger.in[2]};
 					if (trigger.target) 
-						skill.target = (src, target) => (!filter || typeof filter === 'object') || (target.occupied && target.card.isType(filter) && !target.card.hasState("exaltation"));
+						skill.target = Target.read(trigger, this.blueprint);
 					this.faculties.push(skill);
 					break;
 				default:
@@ -296,7 +295,7 @@ export default class Card {
 		if (targets.length === 0)
 			return false;
 
-		return targets.every((t, i) => this.targets[i](this, t));
+		return targets.every((t, i) => this.targets[i].check(this, t));
 	}
 
 	play (targets) {
