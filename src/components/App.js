@@ -14,9 +14,10 @@ import Decks from './decks/DecksPage';
 import Deckbuilder from './decks/deckbuilder/DeckbuilderPage';
 import Home from './home/HomePage';
 import User from '../services/User';
+import Library from '../services/Library';
 import openSocket from 'socket.io-client';
 
-const serverURL = /*process.env.SERVER_URL ||*/ 'http://localhost:8080' || 'https://sensuba-server.herokuapp.com/';
+const serverURL = process.env.SERVER_URL || 'http://localhost:8080' || 'https://sensuba-server.herokuapp.com/';
 
 export default class App extends Component {
 
@@ -29,17 +30,58 @@ export default class App extends Component {
 
     this.readObject = obj => Object.assign(obj, JSON.parse(window.atob(obj.supercode)));
 
-    var cards = localStorage.getItem("cardlist");
+    Library.instantiate(() => {
+
+      var f = () => {
+        Library.getCardList(list => {
+
+          if (list && list.length)
+            this.setState({cards: list});
+          else
+            this.props.options.api.getCards(cards => {
+              var c = cards.map(card => this.readObject(card));
+              this.setState({cards: c});
+              Library.update(c);
+            });
+        })
+
+        if (User.isConnected()) {
+
+          Library.getCustomCardList(list => {
+
+            if (list && list.length)
+              this.setState({customCards: list});
+            else
+              this.updateCustoms();
+          })
+
+          Library.getDeckList(list => {
+
+            if (list && list.length)
+              this.setState({decks: list});
+            else
+              this.updateDecks();
+          })
+        }
+      }
+
+      if (Library.upToDate())
+        f();
+      else
+        Library.clearAll(f);
+    })
+
+    /*var cards = localStorage.getItem("cardlist");
     if (cards)
       this.state.cards = JSON.parse(cards);
     else
       this.props.options.api.getCards(cards => {
         var c = cards.map(card => this.readObject(card));
-        this.setState({cards: c});
+        this.setState({cards: c}); c = c.slice(10, 30);
         localStorage.setItem("cardlist", JSON.stringify(c));
-      });
+      });*/
 
-    if (User.isConnected()) {
+    /*if (User.isConnected()) {
       var decks = localStorage.getItem("decklist");
       if (decks)
         this.state.decks = JSON.parse(decks);
@@ -51,10 +93,10 @@ export default class App extends Component {
         this.state.customCards = JSON.parse(ccards);
       else
         this.updateCustoms();
-    }
+    }*/
   }
 
-  updateDecks () {
+  /*updateDecks () {
 
     var sortDecks = (a, b) => a.name < b.name ? -1 : (a.name > b.name ? 1 : 0);
 
@@ -74,6 +116,26 @@ export default class App extends Component {
       localStorage.setItem("customcardlist", JSON.stringify(c));
       this.setState({customCards: c});
     }, err => this.setState({customCards: []}));
+  }*/
+
+  updateCustoms () {
+
+    this.props.options.api.getCustomCards(cards => {
+      var c = cards.map(card => this.readObject(card));
+      this.setState({customCards: c});
+      Library.updateCustoms(c);
+    }, err => this.setState({customCards: []}));
+  }
+
+  updateDecks () {
+
+    let sortDecks = (a, b) => a.name < b.name ? -1 : (a.name > b.name ? 1 : 0);
+
+    this.props.options.api.getMyDecks(decks => {
+      var d = decks.map(deck => this.readObject(deck)).sort(sortDecks);
+      this.setState({decks: d});
+      Library.updateDecks(d);
+    }, err => this.setState({decks: []}));
   }
 
   render() {

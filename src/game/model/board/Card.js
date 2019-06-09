@@ -2,7 +2,8 @@ import Event from "./Event";
 import Hand from './Hand';
 import Tile from './Tile';
 import Deck from './Deck';
-import Target from './Target';
+import Reader from '../blueprint/Reader';
+import Library from '../../../services/Library';
 
 export default class Card {
 
@@ -16,6 +17,25 @@ export default class Card {
 			location.area.gameboard.notify("newcard", this.id, location.id);
 			this.goto(location);
 		}
+	}
+
+	get eff () {
+
+		if (this.computing || !this.nameCard)
+			return this;
+		this.computing = true;
+		var res;
+		if (this.isEff)
+			res = this;
+		else {
+			res = Object.assign({}, this);
+			res.isEff = true;
+			res.states = Object.assign({}, this.states);
+			res = this.mutations.reduce((card, mut) => mut(card), res);
+		}
+		this.computing = false;
+
+		return res;
 	}
 
 	get data() {
@@ -52,12 +72,13 @@ export default class Card {
 
 	summon (tile) {
 
+		if (this.onBoard && this.chp !== undefined && this.chp <= 0)
+			this.resetBody();
 		this.skillPt = 1;
-		this.chp = this.hp;
+		this.chp = this.eff.hp;
 		this.goto(tile);
 		if (this.isType("character"))
 			this.resetSickness();
-		this.area.gameboard.notify("summon", this.id, tile.id);
 	}
 
 	goto (loc) {
@@ -67,8 +88,6 @@ export default class Card {
 
 		var former = this.location;
 		this.location = loc;
-		if (this.area)
-			this.area.gameboard.notify("cardmove", this.id, loc.id);
 		if (former && former.hasCard (this))
 			former.removeCard (this);
 		if (former && (loc === null || former.locationOrder > loc.locationOrder || loc.locationOrder === 0))
@@ -88,7 +107,7 @@ export default class Card {
 		delete this.supercode;
 		this.clearBoardInstance();
 		if (this.blueprint)
-			;//Reader.read(this.blueprint, this);
+			Reader.read(this.blueprint, this);
 	}
 
 	destroy () {
@@ -100,6 +119,16 @@ export default class Card {
 			this.goto(this.area.cemetery)
 		else
 			this.goto(null);
+	}
+
+	freeze () {
+
+		this.states.frozen = true;
+	}
+
+	get frozen () {
+
+		return this.states && this.states.frozen ? true : false;
 	}
 
 	damage (dmg, src) {
@@ -116,7 +145,7 @@ export default class Card {
 		if (!this.chp || amt <= 0)
 			return;
 
-		this.chp = Math.min(this.hp, this.chp + amt);
+		this.chp = Math.min(this.eff.hp, this.chp + amt);
 		this.gameboard.notify("healcard", this.id, amt, src.id);
 	}
 
@@ -130,7 +159,7 @@ export default class Card {
 		if (hp >= 0)
 			this.chp += hp;
 		else
-			this.chp = Math.min(this.chp, this.hp);
+			this.chp = Math.min(this.chp, this.eff.hp);
 		this.range += range;
 		this.gameboard.notify("boostcard", this.id, atk, hp, range);
 	}
@@ -148,6 +177,19 @@ export default class Card {
 		if (range || range === 0)
 			this.range = range;
 		this.gameboard.notify("setcard", this.id, cost, atk, hp, range);
+	}
+
+	silence () {
+
+		this.faculties = [];
+		this.mutations = [];
+		this.events = [];
+		this.states = {};
+		delete this.blueprint;
+		this.atk = parseInt(this.model.atk, 10);
+		this.hp = parseInt(this.model.hp, 10);
+		this.chp = Math.min(this.eff.hp, this.chp);
+		this.silenced = true;
 	}
 
 	get area () {
@@ -169,9 +211,9 @@ export default class Card {
 		return this.archetypes && this.archetypes.includes(arc);
 	}
 
-	hasState (state) {
+	hasState (state) {//if (this.states && this.nameCard && this.nameCard.startsWith("Princess")) console.log(this.states.initiative + " " + this.eff.states.initiative);
 
-		return this.states && this.states[state];
+		return this.states && this.eff.states[state] ? true : false;
 	}
 
 	identify (data) {
@@ -182,11 +224,13 @@ export default class Card {
 				this[k] = parseInt(this[k], 10);
 		}
 		if (this.idCardmodel)
-			this.model = JSON.parse(localStorage.getItem("cardlist")).find(c => c.idCardmodel === this.idCardmodel);
+			//this.model = JSON.parse(localStorage.getItem("cardlist")).find(c => c.idCardmodel === this.idCardmodel);
+			Library.getCard(this.idCardmodel, card => this.model = card);
 		this.targets = [];
 		this.faculties = [];
+		this.mutations = [];
 		if (this.isType("entity"))
-			this.targets.push(new Target(Event.targets.friendlyEmpty));
+			this.targets.push(Event.targets.friendlyEmpty);
 		if (this.isType("hero")) {
 			this.area.hero = this;
 			this.chp = this.hp;
@@ -198,9 +242,13 @@ export default class Card {
 			var filter = this.blueprint.triggers.find(trigger => trigger.target).in[0];
 			this.targets.push((src, target) => (!filter || typeof filter === 'object') || (target.occupied && target.card.isType(filter) && !target.card.hasState("exaltation")));
 		}*/
-		if (this.blueprint && this.blueprint.triggers) {
+		if (this.blueprint)
+			Reader.read(this.blueprint, this);
+		/*if (this.blueprint && this.blueprint.basis) {
 
-			this.blueprint.triggers.forEach (trigger => {
+			this.blueprint.basis.forEach (basis => {
+
+				var trigger = this.blueprint[basis.type][basis.index];
 
 				switch (trigger.type) {
 				case "play":
@@ -219,10 +267,12 @@ export default class Card {
 						skill.target = Target.read(trigger, this.blueprint);
 					this.faculties.push(skill);
 					break;
+				case "passivemut":
+					break;
 				default:
 				}
 			})
-		}
+		}*/
 	}
 
 	levelUp () {
@@ -241,44 +291,21 @@ export default class Card {
 		this.range = lv.range;
 		this.overload = lv.overload;
 		this.blueprint = lv.blueprint;
-		this.targets = [new Target(Event.targets.friendlyEmpty)];
+		this.targets = [Event.targets.friendlyEmpty];
 		this.faculties = [{no: 0, desc: "Create a mana receptacle.", cost: "!"}];
 
-		if (this.blueprint && this.blueprint.triggers) {
-
-			this.blueprint.triggers.forEach (trigger => {
-
-				switch (trigger.type) {
-				case "play":
-					if (trigger.target) 
-						this.targets.push(Target.read(trigger, this.blueprint));
-					break;
-				case "action":
-					var action = {no: this.faculties.length, desc: trigger.in[1], cost: "!"};
-					if (trigger.target) 
-						action.target = Target.read(trigger, this.blueprint);
-					this.faculties.push(action);
-					break;
-				case "skill":
-					var skill = {no: this.faculties.length, desc: trigger.in[1], cost: trigger.in[2]};
-					if (trigger.target) 
-						skill.target = Target.read(trigger, this.blueprint);
-					this.faculties.push(skill);
-					break;
-				default:
-				}
-			})
-		}
+		if (this.blueprint)
+			Reader.read(this.blueprint, this);
 	}
 
 	get canBePaid () {
 
-		return (this.mana || this.mana === 0) && this.area && this.mana <= this.area.manapool.usableMana;
+		return (this.mana || this.eff.mana === 0) && this.area && this.eff.mana <= this.area.manapool.usableMana;
 	}
 
 	get canBePlayed () {
 
-		if (!this.inHand || !this.canBePaid)
+		if (!this.inHand || !this.canBePaid || !this.area.isPlaying)
 			return false;
 		if (this.targets.length === 0)
 			return true;
@@ -288,14 +315,14 @@ export default class Card {
 
 	canBePlayedOn (targets) {
 
-		if (!this.canBePaid)
+		if (!this.canBePaid || !this.area.isPlaying)
 			return false;
 		if (this.targets.length === 0)
 			return true;
 		if (targets.length === 0)
 			return false;
 
-		return targets.every((t, i) => this.targets[i].check(this, t));
+		return targets.every((t, i) => this.targets[i](this, t));
 	}
 
 	play (targets) {
@@ -326,9 +353,13 @@ export default class Card {
 
 		if (!this.onBoard || !this.area || !this.area.isPlaying)
 			return false;
+		if (this.frozen)
+			return false;
 		if (this.motionPt)
 			return true;
 		if ((this.actionPt || (this.hasState("fury") && this.strikes === 1)) && (!this.firstTurn || this.hasState("rush")))
+			return true;
+		if (this.skillPt && this.faculties && this.faculties.some(f => !isNaN(f.cost) && this.area.manapool.usableMana >= f.cost))
 			return true;
 
 		return false;
@@ -336,7 +367,7 @@ export default class Card {
 
 	canAttack (target) {
 
-		if (!this.isType("character") || !this.onBoard || !target.onBoard || this.area === target.area)
+		if (!this.isType("character") || !this.onBoard || !target.onBoard || this.area === target.area || this.frozen || this.eff.atk <= 0)
 			return false;
 		if (this.firstTurn && !this.hasState("rush"))
 			return false;
@@ -346,30 +377,37 @@ export default class Card {
 		var needed = 1;
 		if (this.location.inBack)
 			needed++;
-		if (target.covered)
+		if (target.isCovered(this.hasState("flying")))
+			needed++;
+		if (!this.hasState("flying") && target.hasState("flying"))
 			needed++;
 
 		return this.range >= needed;
 	}
 
-	cover (other) {
+	cover (other, flying = false) {
 
 		if (!this.isType("character") || !this.onBoard || !other.onBoard)
 			return false;
-		return other.location.isBehind(this.location);
+		return (other.location.isBehind(this.location) || (this.hasState("cover neighbors") && other.location.isNeighborTo(this.location))) && flying === this.hasState("flying");
 	}
 
 	get covered () {
 
+		return this.isCovered();
+	}
+
+	isCovered (flying = false) {
+
 		if (!this.onBoard)
 			return false;
-		return this.location.field.entities.some(e => e.cover(this));
+		return this.location.field.entities.some(e => e.cover(this, flying));
 	}
 
 	canMoveOn (tile) {
 
-		if (!this.onBoard || !this.motionPt)
-			return;
+		if (!this.onBoard || !this.motionPt || this.frozen || tile.occupied)
+			return false;
 		return this.location.isAdjacentTo(tile);
 	}
 
@@ -379,6 +417,21 @@ export default class Card {
 			this.actionPt--;
 		this.strikes++;
 		this.motionPt = 0;
+	}
+
+	addShield () {
+
+		this.shield = true;
+	}
+
+	breakShield () {
+
+		this.shield = false;
+	}
+
+	get hasShield () {
+
+		return this.shield ? true : false;
 	}
 
 	move () {
@@ -393,8 +446,10 @@ export default class Card {
 
 	use (isAction) {
 
-		if (isAction)
+		if (isAction) {
 			this.actionPt--;
+			this.motionPt = 0;
+		}
 		else
 			this.skillPt--;
 	}

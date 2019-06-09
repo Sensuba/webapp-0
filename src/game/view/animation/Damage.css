@@ -1,0 +1,10 @@
+.sensuba-card-damage {
+
+	animation: card-damage 0.2s 1;
+}
+
+@keyframes card-damage {
+  0% {filter: contrast(1)}
+  50% {filter: contrast(3)}
+  100% {filter: contrast(1)}
+}

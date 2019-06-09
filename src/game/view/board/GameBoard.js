@@ -3,6 +3,7 @@ import Area from './Area';
 import Hand from './Hand';
 import Deck from './Deck';
 import Field from './Field';
+import GemPool from './GemPool';
 import Row from './Row';
 import Tile from './Tile';
 import Court from './Court';
@@ -18,7 +19,7 @@ export default class GameBoard extends Component {
   	var model = this.props.model;
 
     return (
-    	<div className="sensuba-gameboard" onClick={() => this.props.master.manager.unselect()}>>
+    	<div className="sensuba-gameboard" onClick={() => this.props.master.manager.unselect()}>
     	<div className="sensuba-board">
     	<Hand model={model.areas[1-no].hand} master={this.props.master}/>
 	    	<Area model={model.areas[1-no]} master={this.props.master}>
@@ -40,6 +41,7 @@ export default class GameBoard extends Component {
 		    	<div className="sensuba-deck-wrapper">
 	    			<Deck model={model.areas[1-no].deck} master={this.props.master}/>
 	    		</div>
+	    		<GemPool model={model.areas[1-no].manapool} master={this.props.master}/>
 		    	<Court model={model.areas[1-no].court} master={this.props.master}/>
 	    	</Area>
 	    	<div className="sensuba-gauge-wrapper">
@@ -71,6 +73,7 @@ export default class GameBoard extends Component {
 		    	<div className="sensuba-deck-wrapper">
 	    			<Deck model={model.areas[no].deck} master={this.props.master}/>
 	    		</div>
+	    		<GemPool model={model.areas[no].manapool} master={this.props.master}/>
 	    	</Area>
     	<Hand model={model.areas[no].hand} master={this.props.master}/>
     	</div>

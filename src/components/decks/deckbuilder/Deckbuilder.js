@@ -104,7 +104,7 @@ export default class Deckbuilder extends Component {
 		var cards = this.props.cards.filter(c => c.idEdition === 1 && c.cardType !== "hero" && (c.idColor === 0 || c.idColor === hero.idColor || c.idColor === hero.idColor2))
 		sorter.sort(cards, "name");
 
-		var listCards = Object.keys(this.state.deck.cards).map(g => this.props.cards.find(c => c.idCardmodel.toString() === g));
+		var listCards = Object.keys(this.state.deck.cards).map(g => this.props.cards.find(c => c.idCardmodel.toString() === g)).filter(c => c !== undefined);
 		sorter.sort(listCards, "type");
 
 		var colorIdToClassName = colorId => {

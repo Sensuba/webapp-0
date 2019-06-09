@@ -1,0 +1,9 @@
+.sensuba-card-destroy {
+
+	animation: card-destroy 0.4s 1;
+}
+
+@keyframes card-destroy {
+  0% {opacity: 1}
+  100% {opacity: 0}
+}

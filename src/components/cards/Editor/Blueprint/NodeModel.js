@@ -63,7 +63,7 @@ export default class NodeModel extends SuperNodeModel {
 			this.stateEvent = (this.stateEvent + 1) % 3;
 		var model;
 		switch (this.stateEvent) {
-		case 1: model = [ {inout: "out", type: "trigger", name: "trigger"} ]; break;
+		case 1: model = [ {inout: "out", type: "event", name: "event"} ]; break;
 		case 2: model = this.event; break;
 		default: model = this.model; break;
 		}

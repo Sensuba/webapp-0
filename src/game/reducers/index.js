@@ -58,6 +58,16 @@ export default (state = new GameBoard(), n) => {
       if (card)
         card.set(n.data[0], n.data[1], n.data[2], n.data[3]);
       break; }
+    case "charfreeze": {
+      let card = state.find(n.src);
+      if (card)
+        card.freeze();
+      break; }
+    case "silence": {
+      let card = state.find(n.src);
+      if (card)
+        card.silence();
+      break; }
     case "destroycard": {
       let card = state.find(n.src);
       if (card)
@@ -73,6 +83,16 @@ export default (state = new GameBoard(), n) => {
       if (card)
         card.use(n.data[0].value);
       break; }
+    case "addshield": {
+      let card = state.find(n.src);
+      if (card)
+        card.addShield();
+      break; }
+    case "breakshield": {
+      let card = state.find(n.src);
+      if (card)
+        card.breakShield();
+      break; }
     case "setstate": {
       let card = state.find(n.src);
       if (card)
@@ -83,6 +103,12 @@ export default (state = new GameBoard(), n) => {
       break;
     case "usemana":
       state.areas[n.src.no].manapool.use(n.data[0].value);
+      break;
+    case "creategem":
+      state.areas[n.src.no].manapool.createGem();
+      break;
+    case "usegem":
+      state.areas[n.src.no].manapool.useGem();
       break;
     default: break;
     }

@@ -1,0 +1,10 @@
+.sensuba-card-attack {
+
+	animation: card-attack 0.6s 1;
+}
+
+@keyframes card-attack {
+  0% {transform: rotateZ(0deg) translateY(0)}
+  50% {transform: rotateZ(360deg) translateY(8px)}
+  100% {transform: rotateZ(360deg) translateY(0)}
+}

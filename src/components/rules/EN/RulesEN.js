@@ -21,7 +21,7 @@ export default class RulesEN extends Component {
           <img className="img-exp" src="/rules/gerer-son-mana.png" alt="img"/>
           <div className="explanation">
             <p>In order to play cards and trigger abilities, you will need some mana. This is the currency shared by every card in the game. Without mana, you can not do much.</p>
-            <p>Your hero is able to create mana receptacles genearating this valued resource. They fill up each turn, allowing you to summon more and more powerful characters.</p>
+            <p>Your hero is able to create mana receptacles generating this valued resource. They fill up each turn, allowing you to summon more and more powerful characters.</p>
           </div>
         </div>
         <div className="rule-extender">
@@ -47,7 +47,7 @@ export default class RulesEN extends Component {
             <p>During a turn, you can perform many actions. You can use your mana to play spells directly influencing the game, move your characters on adjacent tiles, attack with, trigger their abilities, in order to setup your strategy while stamping on the opponent's.</p>
           </div>
           <img className="img-exp" src="/rules/mettre-son-jeu-en-place.png" alt="img"/>
-          <div className="rule-title">Une partie évolutive</div>
+          <div className="rule-title">A game in evolution</div>
           <img className="img-exp" src="/rules/une-partie-evolutive.png" alt="img"/>
           <div className="explanation">
             <p>Once a turn, your hero can create a mana receptacle that fill up every turn. This way, you have access to more and more mana as the game goes on, and will be able to play cards more and more powerful.</p>
@@ -104,15 +104,15 @@ export default class RulesEN extends Component {
         <div className="rule-extender">
           <div className="rule-title">Position is key</div>
           <div className="explanation">
-            <p>The field is formed by 2 battle lines : a 4-tiles front line, and a 5-tiles back line. Each front tile is located right ahead of 2 back tiles. Each tile can host one character. Knowing how to position your characters on the field is a prime skill in order to win the game.</p>
+            <p>The field is formed by 2 battle lines : a 4-tiles front line, and a 5-tiles back line. Each front tile is located right ahead of 2 back tiles. Each tile can host one entity. Knowing how to position your characters on the field is a prime skill in order to win the game.</p>
             <p>Once a turn, if they have not attacked or been summoned during this turn, a character can move on a free adjacent tile, being able to switch lines or simply shift away. Reorganizing characters allows them to go fight to the front or protect weaker entities.</p>
           </div>
           <img className="img-exp" src="/rules/le-placement-est-la-clef.png" alt="img"/>
           <div className="rule-title">Covering their allies</div>
           <img className="img-exp" src="/rules/defendre-ses-allies.png" alt="img"/>
           <div className="explanation">
-            <p>While a character is located behind one of its allies, they is covered. Therefore, each character in front can cover up to 2 characters in the back line.</p>
-            <p>It is good use to cover your allies so they are harder to target. Covering your hero is also a basic strategy used to protect their precious HP.</p>
+            <p>While a character is located behind one of its allies, they are covered. Therefore, each character in front can cover up to 2 characters in the back line.</p>
+            <p>It's important to cover vulnerables allies to make them harder to target. Covering your hero is also a basic strategy used to protect their precious HP.</p>
             <p>Two characters cannot cover themselves mutually. If that would be the case, then no one covers the other. Flying characters also have the ability to bypass grounded defenses, but the opposite is also true.</p>
           </div>
           <div className="rule-title">Reaching the opponent</div>
@@ -125,7 +125,7 @@ export default class RulesEN extends Component {
         </div>
         <div className="rule-part">Fighting the opponent</div>
         <div className="rule-extender">
-          <div className="rule-title">Launch a strike</div>
+          <div className="rule-title">Launching a strike</div>
           <img className="img-exp" src="/rules/lancer-une-attaque.png" alt="img"/>
           <div className="explanation">
             <p>Once a turn, if they have not been summon during the turn, a character can attack an opponent's entity within reach (cf. <i>Range and movement</i>), costing them one action point. Characters with multiple action points may attack several times a turn (cf. <i>Triggering effects</i>).</p>
@@ -174,11 +174,11 @@ export default class RulesEN extends Component {
           <div className="rule-title">Powerful items</div>
           <img className="img-exp" src="/rules/des-objets-puissants.png" alt="img"/>
           <div className="explanation">
-            <p>Artifacts are an especial card category containing all kinds of items with great power. Like characters, artifacts are summoned on the field by paying their mana cost.</p>
+            <p>Artifacts is an especial card category containing all kinds of items with great power. Like characters, artifacts are summoned on the field by paying their mana cost.</p>
             <p>Not like a character however, an artifact cannot attack, move, or defend. They do not possess neither action nor motion points. Yet they can get attacked and destroyed.</p>
             <p>Despite these flaws, artifacts are often a good pick. Their effect often provide a powerful impact on the game, and may prove to be decisive if not managed by the opponent.</p>
           </div>
-          <div className="rule-title">Use an artifact</div>
+          <div className="rule-title">Using an artifact</div>
           <div className="explanation">
             <p>Whenever you play an artifact, it is summoned with a default durability. When its durability reaches 0, the artifact is destroyed.</p>
             <p>Like characters, artifact do have skill points. You can use a skill of your artifact once a turn. Unlike characters however, artifact skills do not cost mana but durability. The artifact gain or lose durability according to the cost associated with the skill. If the artifact does not have enough durability, you cannot use the skill. And when the artifact is gaining durability, there is no maximum, it can go past the default durability.</p>

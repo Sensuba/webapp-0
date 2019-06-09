@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Game.css';
 import Manager from './Manager';
+import Sequencer from './Sequencer';
 //import Model from './model/board/GameBoard';
 import View from './view/board/GameBoard';
 import User from '../services/User';
@@ -50,6 +51,7 @@ export default class Game extends Component {
     }
 
     this.manager = new Manager(this.state.model, this.command.bind(this), state => state ? this.setState(state) : this.forceUpdate());
+    this.sequencer = new Sequencer(this.state.model, this.store.dispatch);
 
     this.props.socket.emit("join", props.room);
 
@@ -60,7 +62,9 @@ export default class Game extends Component {
       }
 
       this.props.socket.on('notification',  this.analyse.bind(this));
-    })
+    });
+
+    this.createParticle = () => {};
   }
 
   componentWillUnmount () {
@@ -70,7 +74,7 @@ export default class Game extends Component {
 
   analyse (n) {
 
-    this.store.dispatch(n);
+    this.sequencer.add(n);
   }
 
   command (command) {

@@ -1,0 +1,29 @@
+.sensuba-tile-target::after {
+    height: 8.135vw;
+    width: 8.135vw;
+    margin-left: -4.0675vw;
+    content: "";
+    margin-top: 1.3075vw;
+    background: url('../../images/target.png');
+    background-size: 100%;
+    border-radius: 50%;
+    position: absolute;
+    opacity: 0;
+    z-index: 100;
+	animation: tile-target-size 2s 1, tile-target-opacity 2s 1;
+}
+
+@keyframes tile-target-size {
+  0% {height: 11vw; width: 11vw; margin-left: -5.5vw; margin-top: -0.125vw;}
+  22% {height: 6vw; width: 6vw; margin-left: -3vw; margin-top: 2.875vw;}
+  50% {height: 11vw; width: 11vw; margin-left: -5.5vw; margin-top: -0.125vw;}
+  78% {height: 6vw; width: 6vw; margin-left: -3vw; margin-top: 2.875vw;}
+  100% {height: 11vw; width: 11vw; margin-left: -5.5vw; margin-top: -0.125vw;}
+}
+
+@keyframes tile-target-opacity {
+  0% {opacity: 0}
+  15% {opacity: 1}
+  85% {opacity: 1}
+  100% {opacity: 0}
+}

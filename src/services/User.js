@@ -1,3 +1,5 @@
+import Library from './Library';
+
 var User = (() => {
 
 	var connect = (save) => {
@@ -7,7 +9,9 @@ var User = (() => {
 
 	var disconnect = () => {
 
-		localStorage.clear();
+		localStorage.removeItem("user.shadow");
+		Library.clearCustoms();
+		Library.clearDecks();
 	}
 
 	var getData = () => {
@@ -20,12 +24,7 @@ var User = (() => {
 		return localStorage.getItem("user.shadow") !== null;
 	}
 
-	return {
-		connect: connect,
-		disconnect: disconnect,
-		getData: getData,
-		isConnected: isConnected
-	}
+	return { connect, disconnect, getData, isConnected }
 })();
 
 export default User;
