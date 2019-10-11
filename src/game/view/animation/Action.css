@@ -1,0 +1,10 @@
+.sensuba-card.sensuba-card-action {
+
+	animation: card-action 1s 1;
+}
+
+@keyframes card-action {
+  0%   { box-shadow: 0 0 0 0 #f5e942; }
+  50% { box-shadow: 0 0 1.5em 1.5em #f5e942; }
+  100%   { box-shadow: 0 0 0 0 #f5e942; }
+}

@@ -7,6 +7,7 @@ export default class Destroy extends Animation {
 
 		super(400, true);
 		this.card = card;
+		this.loadAudio("vanish");
 	}
 
 	run () {

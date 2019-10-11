@@ -45,17 +45,24 @@
     vertical-align: middle;
     width: 8.135vw;
     margin-left: -8.135vw;
-    margin-top: calc(10.75vw + 45px);
+    margin-top: calc(13.4vw + 28px);
+    transform: rotateX(310deg);
 }
 
 .sensuba-gem {
 
     display: inline-block;
-    width: 10px;
-    height: 10px;
-    margin-left: 2px;
-    border-radius: 4px;
-    background-color: #005dff;
+    width: calc(1vw + 4px);
+    height: calc(1vw + 4px);
+    margin-left: 4px;
+    background-image: url('/game/gem.png');
+    background-size: calc(1vw + 4px);
+    animation: gemrotate 4s infinite alternate;
+}
+
+@keyframes gemrotate {
+  from {transform: rotateZ(-20deg);}
+  to {transform: rotateZ(20deg);}
 }
 
 .sensuba-end-turn-wrapper {

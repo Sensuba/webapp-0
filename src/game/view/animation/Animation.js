@@ -6,13 +6,21 @@ export default class Animation {
 		this.before = before;
 	}
 
+	loadAudio (name) {
+
+		this.audio = new Audio("/audio/" + name + ".ogg");
+		this.audio.setAttribute("type", "audio/ogg");
+	}
+
 	start (update) {
 		
+		if (this.audio)
+			this.audio.play();
 		this.run();
 
 		if (this.sync)
 			setTimeout(update, this.time);
-		else
+		else if (update)
 			update();
 	}
 

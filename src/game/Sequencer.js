@@ -2,7 +2,11 @@ import Attack from './view/animation/Attack';
 import Damage from './view/animation/Damage';
 import Spell from './view/animation/Spell';
 import Target from './view/animation/Target';
-//import Destroy from './view/animation/Destroy';
+import Draw from './view/animation/Draw';
+import Action from './view/animation/Action';
+import Ability from './view/animation/Ability';
+import Destroy from './view/animation/Destroy';
+import Summon from './view/animation/Summon';
 
 export default class Sequencer {
 
@@ -57,18 +61,39 @@ export default class Sequencer {
 	notifToAnim (n) {
 
 	  switch(n.type) {
+	  	case "draw": return new Draw();
+	  	case "summon": return new Summon(n.src.no);
 	    case "charattack": return new Attack(n.src.no);
 	    case "damagecard": return new Damage(n.src.no);
 	    case "playcard": 
 	    	let card = this.model.find(n.src);
-		    if (card.cardType === "spell" && n.data[0])
-		    	return new Target(n.data[0].no);
+		    if (card.cardType === "spell") {
+		    	if (n.data[0])
+		    		new Target(n.data[0].no).start();
+		    	return new Spell();
+		    } else if (card.cardType === "figure") {
+		    	if (n.data[1]) {
+		    		new Target(n.data[1].no).start();
+		    		return new Spell();
+		    	}
+		    }
 		    break;
 	    case "cardmove": 
-		    if (n.data[0].type === "court")
-		    	return new Spell();
+		    //if (n.data[0].type === "court")
+		    //	return new Spell();
 		    break;
-	    //case "destroycard": return new Destroy(n.src.no);
+		case "cardfaculty":
+			let anim = n.data[0].value ? new Action(n.src.no) : new Ability(n.src.no);
+			let target = n.data[1];
+			if (target) {
+				new Target(target.no).start();
+				anim.time = 2000;
+			}
+			return anim;
+	    case "destroycard":
+	    	if (this.model.find(n.src).onBoard)
+	    		return new Destroy(n.src.no);
+	    	break;
 	    default: return null;
 	    }
 	}

@@ -1,0 +1,10 @@
+.sensuba-card.sensuba-card-ability {
+
+	animation: card-ability 0.8s 1;
+}
+
+@keyframes card-ability {
+  0%   { box-shadow: 0 0 0 0 #03fcc6; }
+  50% { box-shadow: 0 0 1.5em 1.5em #03fcc6; }
+  100%   { box-shadow: 0 0 0 0 #03fcc6; }
+}

@@ -7,6 +7,7 @@ export default class Damage extends Animation {
 
 		super(0);
 		this.card = card;
+		this.loadAudio("damage");
 	}
 
 	run () {

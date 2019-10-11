@@ -4,6 +4,7 @@
 }
 
 @keyframes card-destroy {
-  0% {opacity: 1}
-  100% {opacity: 0}
+  0% { font-size: 0.5vw; margin: 0vw; filter: brightness(1); }
+  50% { font-size: 0.25vw; margin: 2vw; filter: brightness(0); }
+  100% { font-size: 0vw; margin: 4vw; filter: brightness(0); }
 }
