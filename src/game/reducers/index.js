@@ -98,6 +98,11 @@ export default (state = new GameBoard(), n) => {
       if (card)
         card.setState(n.data[0].value, n.data[1].value);
       break; }
+    case "setpoints": {
+      let card = state.find(n.src);
+      if (card)
+        card.setPoints(n.data[0].value, n.data[1].value, n.data[2].value);
+      break; }
     case "createmana":
       state.areas[n.src.no].manapool.createReceptacle(n.data[0].value);
       break;

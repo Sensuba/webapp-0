@@ -477,6 +477,13 @@ export default class Card {
 		this.strikes = 0;
 	}
 
+	setPoints (action, skill, motion) {
+
+		this.actionPt = action;
+		this.skillPt = skill;
+		this.motionPt = motion;
+	}
+
 	refresh () {
 
 		this.skillPt = 1;

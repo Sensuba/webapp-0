@@ -4,6 +4,7 @@ import './CardsPage.css';
 import { Input, Label } from 'reactstrap';
 import Nav from '../Nav';
 import User from '../../services/User';
+import Library from '../../services/Library';
 import sorter from '../../utility/CollectionSorter';
 import Lightbox from '../utility/Lightbox';
 
@@ -18,6 +19,7 @@ export default class CardsPage extends Component {
     };
 
     window.search = name => sorter.filter(this.state.customs ? this.props.customs : this.props.cards, {orderBy: "name", search: name});
+    window.update = () => Library.clear();
 	}
 
   get filter () {
