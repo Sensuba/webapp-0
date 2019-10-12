@@ -131,6 +131,11 @@ export default class Card {
 		return this.states && this.states.frozen ? true : false;
 	}
 
+	get exalted () {
+
+		return this.states && this.states.exaltation ? true : false;
+	}
+
 	damage (dmg, src) {
 
 		if (!this.chp || dmg <= 0)
@@ -359,10 +364,15 @@ export default class Card {
 			return true;
 		if ((this.actionPt || (this.hasState("fury") && this.strikes === 1)) && (!this.firstTurn || this.hasState("rush")))
 			return true;
-		if (this.skillPt && this.faculties && this.faculties.some(f => !isNaN(f.cost) && this.area.manapool.usableMana >= f.cost))
+		if (this.skillPt && this.faculties && this.faculties.some(f => this.canUse(f)))
 			return true;
 
 		return false;
+	}
+
+	canUse (faculty) {
+
+		return (this.skillPt && !isNaN(faculty.cost) && this.area.manapool.usableMana >= faculty.cost) || (this.actionPt && isNaN(faculty.cost));
 	}
 
 	canAttack (target) {

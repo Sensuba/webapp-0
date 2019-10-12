@@ -3,6 +3,7 @@ import './PlayPage.css';
 import { Input } from 'reactstrap'
 import Nav from '../Nav';
 import Deck from '../decks/Deck';
+import User from '../../services/User';
 
 export default class PlayPage extends Component {
 
@@ -11,7 +12,9 @@ export default class PlayPage extends Component {
 		super(props);
 
     var deck = localStorage.getItem("playdeck");
-    if (deck) 
+    if (!User.isConnected())
+      deck = null;
+    else if (deck) 
       deck = JSON.parse(deck);
     else if (this.props.decks && this.props.decks.length > 0) {
       this.setDeck(this.props.decks[0], false);
@@ -93,7 +96,7 @@ export default class PlayPage extends Component {
                     <Input type="text" placeholder="Search" className="sensuba-deckbuilder-search-input" value={this.state.filter} onChange={e => this.setState({filter: e.target.value})}/>
                     <div className="sensuba-deckbuilder-search-list">
                     {
-                      this.props.decks.filter(c => c.name.toLowerCase().includes(this.state.filter.toLowerCase())).map((c, i) => {
+                      (this.props.decks || []).filter(c => c.name.toLowerCase().includes(this.state.filter.toLowerCase())).map((c, i) => {
                         var idHero = c.hero.idCardmodel || c.hero;
                         var hero = this.props.cards.find(s => s.idCardmodel === idHero);
                         return (

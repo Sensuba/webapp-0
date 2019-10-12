@@ -41,6 +41,7 @@ export default class Card extends Component {
       	<View model={this.props.model.model} level={this.props.model.level} src={this.props.model.nameCard ? this.props.model.eff : null} className={this.props.master.manager.controller.haloFor(this.props.model)}/>
         { this.props.model.hasShield ? <div className="sensuba-card-shield"/> : <span/> }
         { this.props.model.frozen ? <div className="sensuba-card-freeze"/> : <span/> }
+        { this.props.model.exalted && this.props.model.onBoard ? <div className="sensuba-card-exalt"/> : <span/> }
         { this.props.model.silenced ? <div className="sensuba-card-silence"/> : <span/> }
       </div>
     )

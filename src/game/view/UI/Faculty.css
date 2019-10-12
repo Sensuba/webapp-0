@@ -22,11 +22,25 @@
     transition: all 0.2s;
 }
 
+.locked-faculty {
+
+    background: #E8E8E8;
+    color: darkgray;
+    cursor: default;
+}
+
 .faculty:hover {
 
     background: darkgray;
     color: white;
     border-color: #d3d3d300;
+}
+
+.locked-faculty:hover {
+
+    background: #E8E8E8;
+    color: darkgray;
+    border-color: lightgray;
 }
 
 .faculty-box .faculty + .faculty {
