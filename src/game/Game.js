@@ -64,6 +64,10 @@ export default class Game extends Component {
       this.props.socket.on('notification',  this.analyse.bind(this));
     });
 
+    this.props.socket.on('endgame', win => {
+      this.props.quitRoom();
+    });
+
     this.createParticle = () => {};
   }
 

@@ -45,8 +45,8 @@ export default class GameBoard extends Component {
 		    	<Court model={model.areas[1-no].court} master={this.props.master}/>
 	    	</Area>
 	    	<div className="sensuba-gauge-wrapper">
-	    		<Gauge color="red" value={model.areas[no].hero ? model.areas[no].hero.chp : 0} max={model.areas[no].hero ? model.areas[no].hero.hp : 0}/>
-	    		<Gauge inverted color="red" value={model.areas[1-no].hero ? model.areas[1-no].hero.chp : 0} max={model.areas[1-no].hero ? model.areas[1-no].hero.hp : 0}/>
+	    		<Gauge color="red" value={model.areas[no].hero ? model.areas[no].hero.chp : 0} max={model.areas[no].hero && model.areas[no].hero.hp ? model.areas[no].hero.hp : 0}/>
+	    		<Gauge inverted color="red" value={model.areas[1-no].hero ? model.areas[1-no].hero.chp : 0} max={model.areas[1-no].hero && model.areas[1-no].hero.hp ? model.areas[1-no].hero.hp : 0}/>
 	    		<Gauge color="dodgerblue" value={model.areas[no].manapool.mana} max={model.areas[no].manapool.maxMana}/>
 	    		<Gauge inverted color="dodgerblue" value={model.areas[1-no].manapool.mana} max={model.areas[1-no].manapool.maxMana}/>
 	    	</div>
