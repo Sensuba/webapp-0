@@ -7,6 +7,7 @@ import Action from './view/animation/Action';
 import Ability from './view/animation/Ability';
 import Destroy from './view/animation/Destroy';
 import Summon from './view/animation/Summon';
+import Fatigue from './view/animation/Fatigue';
 
 export default class Sequencer {
 
@@ -94,6 +95,8 @@ export default class Sequencer {
 	    	if (this.model.find(n.src).onBoard)
 	    		return new Destroy(n.src.no);
 	    	break;
+	    case "fatigue":
+	    	return new Fatigue(n.src.no);
 	    default: return null;
 	    }
 	}

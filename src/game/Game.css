@@ -3,6 +3,54 @@
 	width: 100%;
 }
 
+#endgame-window {
+
+  min-width: 28em;
+  text-align: center;
+}
+
+#endgame-window .sensuba-card {
+
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2em;
+  margin-top: 1em;
+}
+
+#endgame-window .btn {
+
+  margin: 0.2em 0.5em;
+  border-radius: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.replay-button {
+
+  background-color: white !important;
+  color: black !important;
+  border: solid black 2px !important;
+}
+
+.replay-button:hover {
+
+  background-color: black !important;
+  color: white !important;
+}
+
+.proceed-button {
+
+  background-color: #900e1b !important;
+  color: white !important;
+  border: solid #900e1b 2px !important;
+}
+
+.proceed-button:hover {
+
+  background-color: #3e1919 !important;
+  color: white !important;
+  border: solid #3e1919 2px !important;
+}
+
 .sensuba-gameboard {
 
 	margin-top: -15vw;
@@ -77,11 +125,51 @@
 
 .sensuba-deck {
 
+  position: relative;
 	height: 10.75vw;
 	width: 8.135vw;
 	background: url("/game/back.png");
 	background-size: 100%;
-	box-shadow: -3px 5px 0px 0px #282a2d;
+}
+
+.sensuba-deck-size1 { box-shadow: -3px 5px 0px 0px #282a2d }
+.sensuba-deck-size2 { box-shadow: -2px 4px 0px 0px #282a2d }
+.sensuba-deck-size3 { box-shadow: -2px 3px 0px 0px #282a2d }
+.sensuba-deck-size4 { box-shadow: -1px 2px 0px 0px #282a2d }
+.sensuba-deck-size5 { box-shadow: -1px 1px 0px 0px #282a2d }
+.sensuba-deck-size6 { box-shadow: 0px 0px 0px 0px #282a2d }
+.sensuba-deck-size7 { background: none }
+
+.fatigue-mark {
+
+  position: absolute;
+  border-radius: 50%;
+  width: 8.135vw;
+  height: 8.135vw;
+  top: 1.3075vw;
+  opacity: 0;
+}
+
+@keyframes fatigue-shift {
+
+  0% { transform: translateZ(0) }
+  20% { transform: translateZ(0) }
+  25% { transform: translateZ(0.02em) }
+  30% { transform: translateZ(0.06em) }
+  35% { transform: translateZ(0.12em) }
+  40% { transform: translateZ(0.2em) }
+  45% { transform: translateZ(0.3em) }
+  50% { transform: translateZ(0.42em) }
+  55% { transform: translateZ(0.56em) }
+  60% { transform: translateZ(0.72em) }
+  65% { transform: translateZ(0.9em) }
+  70% { transform: translateZ(1.1em) }
+  75% { transform: translateZ(1.32em) }
+  80% { transform: translateZ(1.56em) }
+  85% { transform: translateZ(1.82em) }
+  90% { transform: translateZ(2.1em) }
+  95% { transform: translateZ(2.4em) }
+  100% { transform: translateZ(2.72em) }
 }
 
 .sensuba-hand {

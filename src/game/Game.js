@@ -12,6 +12,9 @@ import CardPreview from '../components/cards/Card';
 //import PlayingState from './controller/state/PlayingState';
 import Loader from '../components/utility/Loader';
 import FacultyBox from './view/UI/FacultyBox';
+import Lightbox from '../components/utility/Lightbox';
+import { Button } from 'reactstrap';
+import Library from '../services/Library';
 
 import { createStore } from 'redux';
 import reducers from './reducers';
@@ -45,7 +48,6 @@ export default class Game extends Component {
 
     this.state = {
 
-      cards: JSON.parse(localStorage.getItem("cardlist")),
       model: this.store.getState(),
       deck: myDeck || defaultDeck
     }
@@ -64,9 +66,10 @@ export default class Game extends Component {
       this.props.socket.on('notification',  this.analyse.bind(this));
     });
 
-    this.props.socket.on('endgame', win => {
-      this.props.quitRoom();
+    this.props.socket.on('endgame', data => {
+      this.sequencer.add({type: "end", src: 0, data: [{type: "bool", no: data.win}]});
     });
+    Library.getCard((myDeck || defaultDeck).hero, hero => this.setState({hero}));
 
     this.createParticle = () => {};
   }
@@ -100,6 +103,14 @@ export default class Game extends Component {
   render() {
     return (
       <div>
+      <Lightbox open={this.state.model.gamestate > 0} onClose={this.props.quitRoom}>
+        <div id="endgame-window">
+          <h2>{ this.state.model.gamestate === 1 ? "Victory !" : "Defeat..." }</h2>
+          <CardPreview src={this.state.hero} level={1} model={this.state.hero}/>
+          <Button className="replay-button">Save replay</Button>
+          <Button onClick={this.props.quitRoom} className="proceed-button">Proceed</Button>
+        </div>
+      </Lightbox>
       <div id="img-preview-tooltip" data-toggle="tooltip" data-placement="right" src="" alt="preview" data-animation="false" data-trigger="manual">
         { this.state.preview ? <CardPreview src={this.state.preview} level={this.state.preview.level} model={this.state.preview.model}/> : <span/> }
       </div>

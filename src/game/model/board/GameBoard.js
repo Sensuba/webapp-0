@@ -8,6 +8,7 @@ export default class GameBoard {
 		this.items = {};
 		this.register(this);
 		this.started = false;
+		this.gamestate = 0; // 0: ongoing ; 1: win ; 2: lose
 
 		this.areas = [
 			new Area(0, this),
@@ -25,6 +26,11 @@ export default class GameBoard {
 	start () {
 
 		this.started = true;
+	}
+
+	end (win) {
+
+		this.gamestate = win ? 1 : 2;
 	}
 
 	newTurn (noArea) {

@@ -1,0 +1,25 @@
+.fatigue-anim {
+
+  animation: fatigue-opacity 0.9s, fatigue-color 0.9s, fatigue-shift 0.9s, fatigue-inside 0.9s;
+}
+
+@keyframes fatigue-opacity {
+  0% { opacity: 0 }
+  40% { opacity: 1 }
+  60% { opacity: 1 }
+  100% { opacity: 0 }
+}
+
+@keyframes fatigue-color {
+
+  0% { box-shadow: red 0 0 5px 2px, inset red 0 0 5px 2px; }
+  50% { box-shadow: crimson 0 0 5px 2px, inset crimson 0 0 5px 2px; }
+  100% { box-shadow: mediumvioletred 0 0 5px 2px, inset mediumvioletred 0 0 5px 2px; }
+}
+
+@keyframes fatigue-inside {
+
+  0% { background: rgba(255, 0, 0, 0) }
+  30% { background: rgba(255, 0, 0, 0.15) }
+  60% { background: rgba(255, 0, 0, 0) }
+}
