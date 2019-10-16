@@ -46,6 +46,11 @@ export default class GameBoard {
 		this.items[id.type][id.no] = item;
 	}
 
+	update () {
+
+		this.items.card.forEach(card => card.update());
+	}
+
 	find (id) {
 
 		return this.items[id.type] ? this.items[id.type][id.no] : undefined;

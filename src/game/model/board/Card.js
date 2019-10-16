@@ -19,25 +19,6 @@ export default class Card {
 		}
 	}
 
-	get eff () {
-
-		if (this.computing || !this.nameCard)
-			return this;
-		this.computing = true;
-		var res;
-		if (this.isEff)
-			res = this;
-		else {
-			res = Object.assign({}, this);
-			res.isEff = true;
-			res.states = Object.assign({}, this.states);
-			res = this.mutations.reduce((card, mut) => mut(card), res);
-		}
-		this.computing = false;
-
-		return res;
-	}
-
 	get data() {
 
 		var copy = Object.assign({}, this);
@@ -191,6 +172,7 @@ export default class Card {
 		this.events = [];
 		this.states = {};
 		delete this.blueprint;
+		this.mana = parseInt(this.model.mana, 10);
 		this.atk = parseInt(this.model.atk, 10);
 		this.hp = parseInt(this.model.hp, 10);
 		this.chp = Math.min(this.eff.hp, this.chp);
@@ -216,7 +198,7 @@ export default class Card {
 		return this.archetypes && this.archetypes.includes(arc);
 	}
 
-	hasState (state) {//if (this.states && this.nameCard && this.nameCard.startsWith("Princess")) console.log(this.states.initiative + " " + this.eff.states.initiative);
+	hasState (state) {
 
 		return this.states && this.eff.states[state] ? true : false;
 	}
@@ -356,15 +338,15 @@ export default class Card {
 
 	get canAct () {
 
-		if (!this.onBoard || !this.area || !this.area.isPlaying)
+		var eff = this.eff;
+
+		if (!this.onBoard)
 			return false;
-		if (this.frozen)
+		if (eff.frozen)
 			return false;
-		if (this.motionPt)
+		if (eff.motionPt)
 			return true;
-		if ((this.actionPt || (this.hasState("fury") && this.strikes === 1)) && (!this.firstTurn || this.hasState("rush")))
-			return true;
-		if (this.skillPt && this.faculties && this.faculties.some(f => this.canUse(f)))
+		if ((eff.actionPt || (this.hasState("fury") && eff.strikes === 1)) && (!eff.firstTurn || this.hasState("rush")))
 			return true;
 
 		return false;
@@ -377,11 +359,13 @@ export default class Card {
 
 	canAttack (target) {
 
-		if (!this.isType("character") || !this.onBoard || !target.onBoard || this.area === target.area || this.frozen || this.eff.atk <= 0)
+		var eff = this.eff;
+
+		if (!this.isType("character") || !this.onBoard || !target.onBoard || this.area === target.area || eff.frozen || eff.atk <= 0)
 			return false;
-		if (this.firstTurn && !this.hasState("rush"))
+		if (eff.firstTurn && !this.hasState("rush"))
 			return false;
-		if (!this.actionPt && (!this.hasState("fury") || this.strikes !== 1))
+		if (!eff.actionPt && (!this.hasState("fury") || eff.strikes !== 1))
 			return false;
 
 		var needed = 1;
@@ -392,7 +376,7 @@ export default class Card {
 		if (!this.hasState("flying") && target.hasState("flying"))
 			needed++;
 
-		return this.range >= needed;
+		return eff.range >= needed;
 	}
 
 	cover (other, flying = false) {
@@ -494,6 +478,49 @@ export default class Card {
 			this.strikes = 0;
 		}
 	}
+
+	get eff () {
+
+		if (this.isEff)
+			return this;
+		//if (!this.mutatedState)
+			this.update();
+		return this.mutatedState;
+	}
+
+	update () {
+
+		if (this.isEff)
+			return;
+		var res;
+		res = Object.assign({}, this);
+		res.isEff = true;
+		res.states = Object.assign({}, this.states);
+		res = this.mutations.reduce((card, mut) => mut(card), res);
+
+		this.mutatedState = res;
+	}
+
+	/*get eff () {
+
+		if (this.computing)
+			return this;
+		this.computing = true;
+		var res;
+		if (this.isEff)
+			res = this;
+		else {
+			res = Object.assign({}, this);
+			res.isEff = true;
+			res.states = Object.assign({}, this.states);
+			res = this.mutations.reduce((card, mut) => mut(card), res);
+		}
+		this.computing = false;
+
+		return res;
+	}
+
+	update () {}*/
 
 	clearBoardInstance () {
 

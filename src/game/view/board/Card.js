@@ -9,7 +9,7 @@ export default class Card extends Component {
     if (e.pageX < 300)
       left = false;
   	tooltip.setAttribute("style", `display: block; top: ${e.pageY > window.innerHeight - 200 + window.scrollY ? window.innerHeight - 200 + window.scrollY : e.pageY}px; left: ${e.pageX}px; margin-left: ${left ? -18 : 4}em`);
-  	this.props.master.setState({preview: card});
+  	this.props.master.setState({preview: card.eff});
   }
 
   hideTooltip() {
@@ -34,8 +34,10 @@ export default class Card extends Component {
         onMouseLeave={this.props.model.nameCard ? e => this.hideTooltip() : e => {}}
         className={"sensuba-card-view" + (this.props.model.hasState("flying") ? " flying" : "") + (this.props.hidden ? " invisible" : "")}
         onClick={e => {
-          this.props.select(this.props.model);
-          document.getElementById("faculty-tooltip").setAttribute("style", `top: ${e.pageY}px; left: ${e.pageX}px; margin-left: 4em`);
+          if (this.props.select) {
+            this.props.select(this.props.model);
+            document.getElementById("faculty-tooltip").setAttribute("style", `top: ${e.pageY}px; left: ${e.pageX}px; margin-left: 4em`);
+          }
           e.stopPropagation();
         }}>
       	<View model={this.props.model.model} level={this.props.model.level} src={this.props.model.nameCard ? this.props.model.eff : null} className={this.props.master.manager.controller.haloFor(this.props.model)}/>
