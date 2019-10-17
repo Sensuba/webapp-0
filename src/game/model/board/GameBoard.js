@@ -6,6 +6,7 @@ export default class GameBoard {
 
 		this.id = { type: "gameboard", no: 0 };
 		this.items = {};
+		this.auras = [];
 		this.register(this);
 		this.started = false;
 		this.gamestate = 0; // 0: ongoing ; 1: win ; 2: lose
@@ -46,9 +47,19 @@ export default class GameBoard {
 		this.items[id.type][id.no] = item;
 	}
 
+	addAura (aura) {
+
+		this.auras.push(aura);
+	}
+
+	clearAura (aura) {
+
+		this.auras = this.auras.filter(a => a !== aura)
+	}
+
 	update () {
 
-		this.items.card.forEach(card => card.update());
+		Object.keys(this.items.card).forEach(k => this.items.card[k].update());
 	}
 
 	find (id) {

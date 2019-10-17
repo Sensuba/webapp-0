@@ -60,6 +60,7 @@ export default class Card {
 		this.goto(tile);
 		if (this.isType("character"))
 			this.resetSickness();
+		this.activate();
 	}
 
 	goto (loc) {
@@ -89,6 +90,7 @@ export default class Card {
 		this.clearBoardInstance();
 		if (this.blueprint)
 			Reader.read(this.blueprint, this);
+		this.update();
 	}
 
 	destroy () {
@@ -123,6 +125,7 @@ export default class Card {
 			return;
 
 		this.chp -= dmg;
+		this.update();
 		this.area.gameboard.notify("damagecard", this.id, dmg, src.id);
 	}
 
@@ -169,6 +172,7 @@ export default class Card {
 
 		this.faculties = [];
 		this.mutations = [];
+		this.passives = [];
 		this.events = [];
 		this.states = {};
 		delete this.blueprint;
@@ -177,6 +181,7 @@ export default class Card {
 		this.hp = parseInt(this.model.hp, 10);
 		this.chp = Math.min(this.eff.hp, this.chp);
 		this.silenced = true;
+		this.update();
 	}
 
 	get area () {
@@ -215,6 +220,7 @@ export default class Card {
 			Library.getCard(this.idCardmodel, card => this.model = card);
 		this.targets = [];
 		this.faculties = [];
+		this.passives = [];
 		this.mutations = [];
 		if (this.isType("entity"))
 			this.targets.push(Event.targets.friendlyEmpty);
@@ -231,6 +237,7 @@ export default class Card {
 		}*/
 		if (this.blueprint)
 			Reader.read(this.blueprint, this);
+		this.update();
 		/*if (this.blueprint && this.blueprint.basis) {
 
 			this.blueprint.basis.forEach (basis => {
@@ -283,6 +290,7 @@ export default class Card {
 
 		if (this.blueprint)
 			Reader.read(this.blueprint, this);
+		this.update();
 	}
 
 	get canBePaid () {
@@ -329,6 +337,7 @@ export default class Card {
 			break;
 		default: break;
 		}
+		this.gameboard.update();
 	}
 
 	possibleTargets (targets) {
@@ -361,7 +370,7 @@ export default class Card {
 
 		var eff = this.eff;
 
-		if (!this.isType("character") || !this.onBoard || !target.onBoard || this.area === target.area || eff.frozen || eff.atk <= 0)
+		if (!this.isType("character") || !this.onBoard || !target.onBoard || this.area === target.area || eff.frozen || eff.atk <= 0 || eff.range <= 0)
 			return false;
 		if (eff.firstTurn && !this.hasState("rush"))
 			return false;
@@ -411,6 +420,7 @@ export default class Card {
 			this.actionPt--;
 		this.strikes++;
 		this.motionPt = 0;
+		this.gameboard.update();
 	}
 
 	addShield () {
@@ -431,6 +441,7 @@ export default class Card {
 	move () {
 
 		this.motionPt--;
+		this.gameboard.update();
 	}
 
 	setState (state, value) {
@@ -479,11 +490,27 @@ export default class Card {
 		}
 	}
 
+	activate () {
+
+		this.activated = true;
+		this.passives.forEach(passive => passive.activate());
+		this.gameboard.update();
+	}
+
+	deactivate () {
+
+		this.activated = false;
+		this.passives.forEach(passive => passive.deactivate());
+		this.gameboard.update();
+	}
+
 	get eff () {
 
 		if (this.isEff)
 			return this;
-		//if (!this.mutatedState)
+		if (!this.nameCard)
+			return this;
+		if (!this.mutatedState)
 			this.update();
 		return this.mutatedState;
 	}
@@ -492,11 +519,17 @@ export default class Card {
 
 		if (this.isEff)
 			return;
+		if (!this.nameCard)
+			return;
 		var res;
 		res = Object.assign({}, this);
 		res.isEff = true;
 		res.states = Object.assign({}, this.states);
 		res = this.mutations.reduce((card, mut) => mut(card), res);
+		this.gameboard.auras.forEach(aura => {
+			if (aura.applicable(this))
+				res = aura.apply(res);
+		});
 
 		this.mutatedState = res;
 	}
@@ -529,5 +562,6 @@ export default class Card {
 		delete this.skillPt;
 		delete this.motionPt;
 		delete this.firstTurn;
+		this.deactivate();
 	}
 }

@@ -46,6 +46,7 @@ export default class Area {
 
 		this.manapool.refill();
 		this.field.entities.forEach(e => e.refresh());
+		this.gameboard.update();
 	}
 
 	endTurn () {
