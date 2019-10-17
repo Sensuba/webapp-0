@@ -103,6 +103,14 @@ export default (state = new GameBoard(), n) => {
       if (card)
         card.setPoints(n.data[0].value, n.data[1].value, n.data[2].value);
       break; }
+    case "addmut": {
+      let card = state.find(n.src);
+      let mutsrc = state.find(n.data[0]);
+      if (card) {
+        let mut = mutsrc.mutdata[n.data[1].value].getMutation();
+        card.mutate(mut.effect, mut.end);
+      }
+      break; }
     case "createmana":
       state.areas[n.src.no].manapool.createReceptacle(n.data[0].value);
       break;
@@ -120,6 +128,7 @@ export default (state = new GameBoard(), n) => {
       break;
     default: break;
     }
+    state.notify(n.type, n.src, n.data);
 
     return state;
 }

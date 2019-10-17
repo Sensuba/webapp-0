@@ -2,6 +2,7 @@ import Event from "./Event";
 import Hand from './Hand';
 import Tile from './Tile';
 import Deck from './Deck';
+import Mutation from './Mutation';
 import Reader from '../blueprint/Reader';
 import Library from '../../../services/Library';
 
@@ -490,17 +491,31 @@ export default class Card {
 		}
 	}
 
+	mutate (effect, end) {
+
+		var mut = new Mutation(effect);
+		mut.attach(this);
+		if (end)
+			var unsub = end((t,s,d) => {
+				mut.detach();
+				this.update();
+				unsub();
+			});
+	}
+
 	activate () {
 
 		this.activated = true;
-		this.passives.forEach(passive => passive.activate());
+		if (this.passives)
+			this.passives.forEach(passive => passive.activate());
 		this.gameboard.update();
 	}
 
 	deactivate () {
 
 		this.activated = false;
-		this.passives.forEach(passive => passive.deactivate());
+		if (this.passives)
+			this.passives.forEach(passive => passive.deactivate());
 		this.gameboard.update();
 	}
 
@@ -525,7 +540,7 @@ export default class Card {
 		res = Object.assign({}, this);
 		res.isEff = true;
 		res.states = Object.assign({}, this.states);
-		res = this.mutations.reduce((card, mut) => mut(card), res);
+		res = this.mutations.reduce((card, mut) => mut.apply(card), res);
 		this.gameboard.auras.forEach(aura => {
 			if (aura.applicable(this))
 				res = aura.apply(res);

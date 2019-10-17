@@ -10,13 +10,13 @@ export default class GameBoard {
 		this.register(this);
 		this.started = false;
 		this.gamestate = 0; // 0: ongoing ; 1: win ; 2: lose
+		this.subscriptions = {};
+		this.indexSubscription = 0;
 
 		this.areas = [
 			new Area(0, this),
 			new Area(1, this)
 		];
-
-		this.notify = () => {};
 	}
 
 	get tiles() {
@@ -45,6 +45,22 @@ export default class GameBoard {
 		var id = item.id;
 		this.items[id.type] = this.items[id.type] || {};
 		this.items[id.type][id.no] = item;
+	}
+
+	notify (type, src, data) {
+
+		if (!this.subscriptions[type])
+			return;
+		this.subscriptions[type].slice().forEach(sub => sub.notify(type, src, data));
+	}
+
+	subscribe (type, notify) {
+
+		if (!this.subscriptions[type])
+			this.subscriptions[type] = [];
+		let id = this.indexSubscription++;
+		this.subscriptions[type].push({ id, notify });
+		return () => this.subscriptions[type].splice(this.subscriptions[type].findIndex(sub => sub.id === id), 1);
 	}
 
 	addAura (aura) {
