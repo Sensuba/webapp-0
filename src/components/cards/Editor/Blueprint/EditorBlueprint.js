@@ -89,6 +89,7 @@ const blocks = [
 	{ type: "token", name: "Token", model: [ {inout: "in", type: "int", name: "no"}, {inout: "out", type: "model", name: "model"} ], tooltip: "Get the model of a token", color: "#670e6b" },
 	{ type: "limitbrk", name: "Limit break", model: [ {inout: "out", type: "int", name: "bonus"} ], tooltip: "Card effect bonus due to overload", color: "#670e6b" },
 	{ type: "manapool", name: "Mana pool", model: [ {inout: "in", type: "area", name: "player"}, {inout: "out", type: "int", name: "mana"}, {inout: "out", type: "int", name: "receptacles"}, {inout: "out", type: "int", name: "gems"} ], tooltip: "Data on a player's mana pool", color: "#670e6b" },
+	{ type: "innerdata", name: "Mutation target", model: [ {inout: "out", type: "card", name: "target"} ], tooltip: "Card targeted by a mutation", color: "#670e6b" },
 	{ type: "intvar", name: "Int variable", model: [ {inout: "in", type: "string", name: "name"}, {inout: "out", type: "int", name: "value"}, {inout: "out", type: "bool", name: "exists"} ], tooltip: "Get a stored integer", color: "#670e6b" },
 	{ type: "cardvar", name: "Card variable", model: [ {inout: "in", type: "string", name: "name"}, {inout: "out", type: "card", name: "value"}, {inout: "out", type: "bool", name: "exists"} ], tooltip: "Get a stored card", color: "#670e6b" },
 	
