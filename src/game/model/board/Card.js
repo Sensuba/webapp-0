@@ -108,6 +108,7 @@ export default class Card {
 	freeze () {
 
 		this.states.frozen = true;
+		this.update();
 	}
 
 	get frozen () {
@@ -136,6 +137,7 @@ export default class Card {
 			return;
 
 		this.chp = Math.min(this.eff.hp, this.chp + amt);
+		this.update();
 		this.gameboard.notify("healcard", this.id, amt, src.id);
 	}
 
@@ -151,6 +153,7 @@ export default class Card {
 		else
 			this.chp = Math.min(this.chp, this.eff.hp);
 		this.range += range;
+		this.update();
 		this.gameboard.notify("boostcard", this.id, atk, hp, range);
 	}
 
@@ -166,6 +169,7 @@ export default class Card {
 		}
 		if (range || range === 0)
 			this.range = range;
+		this.update();
 		this.gameboard.notify("setcard", this.id, cost, atk, hp, range);
 	}
 
@@ -432,11 +436,13 @@ export default class Card {
 	addShield () {
 
 		this.shield = true;
+		this.update();
 	}
 
 	breakShield () {
 
 		this.shield = false;
+		this.update();
 	}
 
 	get hasShield () {
