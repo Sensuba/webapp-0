@@ -136,4 +136,17 @@ export default class Tile {
 
 		return this.tilesBehind.includes(other);
 	}
+
+	distanceTo (other) {
+
+		if (this.area !== other.area || other.id.type !== "tile")
+			return -1;
+
+		var num = this.id.no - 9 * this.field.id.no;
+		num = num > 3 ? (num - 4) * 2 : num * 2 + 1;
+		var numo = other.id.no - 9 * other.field.id.no;
+		numo = numo > 3 ? (numo - 4) * 2 : numo * 2 + 1;
+
+		return Math.ceil(Math.abs(num - numo)/2);
+	}
 }

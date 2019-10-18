@@ -211,6 +211,8 @@ export default class Card {
 
 	identify (data) {
 
+		if (this.nameCard)
+			return;
 		for (var k in data) {
 			this[k] = data[k];
 			if (!isNaN(this[k]))
@@ -230,6 +232,7 @@ export default class Card {
 			this.chp = this.hp;
 			this.actionPt = 1;
 			this.skillPt = 1;
+			this.activated = true;
 			this.faculties.push({no: 0, desc: "Create a mana receptacle.", cost: "!"});
 		}
 		/*if (this.blueprint && this.blueprint.triggers && this.blueprint.triggers.some(trigger => trigger.target && trigger.type === "play")) {
@@ -282,16 +285,16 @@ export default class Card {
 			return;
 		}
 
-		this.atk = lv.atk;
-		this.range = lv.range;
-		this.overload = lv.overload;
+		this.atk = parseInt(lv.atk, 10);
+		this.range = parseInt(lv.range, 10);
+		this.overload = parseInt(lv.blueprint, 10);
 		this.blueprint = lv.blueprint;
 		this.targets = [Event.targets.friendlyEmpty];
 		this.faculties = [{no: 0, desc: "Create a mana receptacle.", cost: "!"}];
 
 		if (this.blueprint)
 			Reader.read(this.blueprint, this);
-		this.update();
+		this.gameboard.update();
 	}
 
 	get canBePaid () {
@@ -357,6 +360,8 @@ export default class Card {
 		if (eff.motionPt)
 			return true;
 		if ((eff.actionPt || (this.hasState("fury") && eff.strikes === 1)) && (!eff.firstTurn || this.hasState("rush")))
+			return true;
+		if (this.faculties.some(f => this.canUse(f)))
 			return true;
 
 		return false;
@@ -501,6 +506,7 @@ export default class Card {
 				this.update();
 				unsub();
 			});
+		this.update();
 	}
 
 	activate () {
