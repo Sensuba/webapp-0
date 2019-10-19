@@ -52,7 +52,7 @@
 
 	display: inline-block;
     min-height: 2em;
-    width: calc(100% - 2em);
+    width: calc(100% - 2.8em);
     font-family: Ebrima;
     line-height: 2em;
     vertical-align: middle;
@@ -65,7 +65,7 @@
 	display: inline-block;
     font-family: "Lucida Bright";
     font-style: italic;
-    width: 2em;
+    width: 2.8em;
     height: 2em;
     line-height: 2em;
     vertical-align: middle;

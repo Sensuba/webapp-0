@@ -34,7 +34,7 @@ export default class Artifact extends Component {
 		<div className="sensuba-card-footer">
 		  <div className="sensuba-card-param sensuba-card-param-hp">
 		    <div className="sensuba-card-param-name">DUR</div>
-	   	    <div className="sensuba-card-param-value">{src.hp}</div>
+	   	    <div className="sensuba-card-param-value">{src.chp || src.hp}</div>
 		  </div>
 		</div>
 	    { src.overload && src.overload > 0 ? <div className="sensuba-card-overload">{src.overload}</div> : <span/> }

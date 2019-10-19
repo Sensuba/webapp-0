@@ -245,6 +245,8 @@ export default class Card {
 		}*/
 		if (this.blueprint)
 			Reader.read(this.blueprint, this);
+		if (this.isType("artifact"))
+			this.faculties.push({no: this.faculties.length, desc: "Explode.", cost: "0"});
 		this.update();
 		/*if (this.blueprint && this.blueprint.basis) {
 
@@ -373,7 +375,7 @@ export default class Card {
 
 	canUse (faculty) {
 
-		return (this.skillPt && !isNaN(faculty.cost) && this.area.manapool.usableMana >= faculty.cost) || (this.actionPt && isNaN(faculty.cost));
+		return (this.skillPt && !isNaN(faculty.cost) && (this.isType("artifact") ? this.eff.chp >= -faculty.cost : this.area.manapool.usableMana >= faculty.cost)) || (this.actionPt && isNaN(faculty.cost));
 	}
 
 	canAttack (target) {
