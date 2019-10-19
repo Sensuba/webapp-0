@@ -15,14 +15,14 @@ class Play extends Bloc {
 	setup (owner, image) {
 
 		var req = this.computeIn()[0];
-		req = this.target ? (req ? req : (src, target) => true) : null;
+		var tar = this.target ? (req ? (src, target) => (req(src, target) && (!target.card || !target.card.hasState("exaltation"))) : (src, target) => true) : null;
 		/*owner.events.push(new Event(target => {
 			if (target)
 				this.chosen = target;
 			this.execute(image);
 		}, req));*/
-		if (this.target && !(typeof req === "string")) 
-			owner.targets.push(req);
+		if (this.target && !(typeof tar === "string")) 
+			owner.targets.push(tar);
 	}
 }
 

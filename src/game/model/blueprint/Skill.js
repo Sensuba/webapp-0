@@ -16,7 +16,7 @@ class Skill extends Bloc {
 
 		var cpt = this.computeIn();
 		var req = cpt[0];
-		req = this.target ? (req ? req : (src, target) => true) : null;
+		var tar = this.target ? (req ? (src, target) => (req(src, target) && (!target.card || !target.card.hasState("exaltation"))) : (src, target) => true) : null;
 		/*owner.faculties.push(new ESkill(new Event(target => {
 			if (target)
 				this.chosen = target;
@@ -24,7 +24,7 @@ class Skill extends Bloc {
 		}, req), ins[2]));*/
 		var skill = {no: owner.faculties.length, desc: cpt[1], cost: cpt[2]};
 		if (this.target) 
-			skill.target = req;
+			skill.target = tar;
 		owner.faculties.push(skill);
 	}
 }
