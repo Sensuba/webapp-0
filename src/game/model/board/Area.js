@@ -27,14 +27,9 @@ export default class Area {
 		return this.gameboard.areas[1 - this.id.no];
 	}
 
-	draw (n = 1) {
+	draw () {
 
-		if (n <= 0) return;
-		var d = this.deck.draw();
-		d.goto(this.hand);
-		this.gameboard.notify("draw", this.id, d.id);
-		if (n > 1)
-			this.draw(n-1);
+		this.gameboard.update();
 	}
 
 	get isPlaying () {

@@ -113,12 +113,12 @@ export default class Card {
 
 	get frozen () {
 
-		return this.states && this.states.frozen ? true : false;
+		return this.hasState("frozen") ? true : false;
 	}
 
 	get exalted () {
 
-		return this.states && this.states.exaltation ? true : false;
+		return this.hasState("exaltation") ? true : false;
 	}
 
 	damage (dmg, src) {
@@ -533,7 +533,7 @@ export default class Card {
 
 	get eff () {
 
-		if (this.isEff)
+		if (this.isEff || this.computing)
 			return this;
 		if (!this.nameCard)
 			return this;
@@ -548,6 +548,9 @@ export default class Card {
 			return;
 		if (!this.nameCard)
 			return;
+		if (this.computing)
+			return;
+		this.computing = true;
 		var res;
 		res = Object.assign({}, this);
 		res.isEff = true;
@@ -557,6 +560,7 @@ export default class Card {
 			if (aura.applicable(this))
 				res = aura.apply(res);
 		});
+		this.computing = false;
 
 		this.mutatedState = res;
 	}

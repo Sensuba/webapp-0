@@ -16,7 +16,7 @@ export default class NodeWidget extends BaseWidget<DefaultNodeProps, DefaultNode
 	render() {
 		return (
 			<div {...this.getProps()} style={{ background: this.props.node.color }}>
-				<div className={(this.props.node.color === "#202020" ? "node-operator " : "") + this.bem("__title")}>
+				<div className={(this.props.node.color === "#202020" ? "node-operator " : "") + (this.props.node.name.length > 2 ? "node-minmax " : "") + this.bem("__title")}>
 					<div style={{background: `linear-gradient(to right, ${this.props.node.color}, #404040)`}} className={this.bem("__name")}>{this.props.node.name}</div>
 					{ this.props.node.event ? <label className={this.bem("__event")}><input id={"event_" + this.props.node.id} type="button" onClick={() => { this.props.node.switch(); /*document.getElementById("event_" + this.props.node.id).parentElement.classList.toggle("checked");*/ }}/></label> : <span/> }
 				</div>

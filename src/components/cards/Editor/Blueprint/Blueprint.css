@@ -167,6 +167,11 @@
     color: #ffffff60;
 }
 
+.blueprint-menu .blueprint-schema .srd-diagram .node-operator.node-minmax.srd-default-node__title {
+
+    font-size: 40px;
+}
+
 .blueprint-menu .blueprint-schema .srd-diagram .srd-default-node__event {
 	height: 1em;
     width: 1em;

@@ -22,6 +22,10 @@ export default (state = new GameBoard(), n) => {
       if (card && loc)
         card.goto(loc);
       break; }
+    case "draw": {
+      state.find(n.src).draw()
+      break;
+    }
     case "summon": {
       let card = state.find(n.src),
           loc = state.find(n.data[0]);
@@ -127,8 +131,8 @@ export default (state = new GameBoard(), n) => {
       state.end(n.data[0].no);
       break;
     default: break;
-    }
-    state.notify(n.type, n.src, n.data);
+  }
+  state.notify(n.type, n.src, n.data);
 
-    return state;
+  return state;
 }

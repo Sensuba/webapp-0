@@ -1,0 +1,22 @@
+.sensuba-card-shuffle {
+
+	visibility: visible !important;
+    display: inline-block !important;
+    margin-left: -4.0675vw;
+}
+
+.invisible.sensuba-card-shuffle {
+
+	visibility: visible !important;
+}
+
+.sensuba-card-shuffle .sensuba-card {
+
+	animation: card-shuffle 0.8s 1 ease-in-out;
+}
+
+@keyframes card-shuffle {
+
+  from {transform: translateZ(2em)}
+  to {transform: translateZ(0em)}
+}

@@ -75,7 +75,8 @@ export default class GameBoard {
 
 	update () {
 
-		Object.keys(this.items.card).forEach(k => this.items.card[k].update());
+		if (this.items && this.items.card)
+			Object.keys(this.items.card).forEach(k => this.items.card[k].update());
 	}
 
 	find (id) {
