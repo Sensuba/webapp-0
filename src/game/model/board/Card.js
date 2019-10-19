@@ -49,7 +49,7 @@ export default class Card {
 
 	get damaged() {
 
-		return this.hp && this.chp && this.chp < this.hp;
+		return this.hp && this.chp && this.chp < this.eff.hp;
 	}
 
 	summon (tile) {
@@ -136,7 +136,10 @@ export default class Card {
 		if (!this.chp || amt <= 0)
 			return;
 
-		this.chp = Math.min(this.eff.hp, this.chp + amt);
+		if (this.isType("artifact"))
+			this.chp += amt;
+		else
+			this.chp = Math.min(this.eff.hp, this.chp + amt);
 		this.update();
 		this.gameboard.notify("healcard", this.id, amt, src.id);
 	}
@@ -148,7 +151,7 @@ export default class Card {
 
 		this.atk += atk;
 		this.hp += hp;
-		if (hp >= 0)
+		if (hp >= 0 || this.isType("artifact"))
 			this.chp += hp;
 		else
 			this.chp = Math.min(this.chp, this.eff.hp);
@@ -562,6 +565,13 @@ export default class Card {
 			if (aura.applicable(this))
 				res = aura.apply(res);
 		});
+		if (this.isType("character")) {
+			this.php = this.php || { hp: this.hp, chp: this.chp };
+			var plushp = Math.max (0, res.hp - this.php.hp);
+			this.chp = Math.min(res.hp, this.chp + plushp);
+			res.chp = this.chp;
+			this.php = { hp: res.hp, chp: res.chp };
+		}
 		this.computing = false;
 
 		this.mutatedState = res;
