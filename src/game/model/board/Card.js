@@ -464,6 +464,7 @@ export default class Card {
 	setState (state, value) {
 
 		this.states[state] = value;
+		this.update();
 	}
 
 	use (isAction) {
