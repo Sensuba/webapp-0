@@ -29,7 +29,7 @@ export default class Hero extends Component {
   		switch (level) {
   		case 1: break;
   		case 2: efflv = this.props.model.lv2; break;
-  		case 3: efflv = this.props.model.lv3; break;
+  		case 3: efflv = this.props.model.lvmax; break;
   		default: break;
   		}
   	}
