@@ -277,7 +277,7 @@ export default class EditorPage extends Component {
                       <div className="third-section">
                         <Label for="form-card-font-size">Font size</Label>
                         <Input id="form-card-font-size" type="number" min="0.95" max="1.3" step="0.05" value={currentLevel.fontSize} onChange={e => editLevelAttribute("fontSize")(e, currentLevel)}/>
-                        <Label for="form-card-overload">Limite</Label>
+                        <Label for="form-card-overload">Limit</Label>
                         <Input id="form-card-overload" type="number" min="0" max="10000" step="10" value={currentLevel.overload} onChange={e => editLevelAttribute("overload")(e, currentLevel)}/>
                       </div>
                     </FormGroup>
@@ -301,7 +301,7 @@ export default class EditorPage extends Component {
                 <div className="third-section">
                   <Label for="form-card-font-size">Font size</Label>
                   <Input id="form-card-font-size" type="number" min="0.95" max="1.3" step="0.05" value={this.currentCard.fontSize} onChange={editAttribute("fontSize").bind(this)}/>
-                  <Label for="form-card-overload">Overload</Label>
+                  <Label for="form-card-overload">Limit</Label>
                   <Input id="form-card-overload" type="number" min="0" max="10000" step="10" value={this.currentCard.overload} onChange={editAttribute("overload").bind(this)}/>
                 </div>
               </FormGroup> : <span/>

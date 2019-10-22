@@ -121,6 +121,16 @@ export default class Card {
 		return this.hasState("exaltation") ? true : false;
 	}
 
+	get concealed () {
+
+		return this.hasState("concealed") ? true : false;
+	}
+
+	get targetable () {
+
+		return !this.exalted && !this.concealed;
+	}
+
 	damage (dmg, src) {
 
 		if (!this.chp || dmg <= 0)
@@ -383,7 +393,7 @@ export default class Card {
 
 		var eff = this.eff;
 
-		if (!this.isType("character") || !this.onBoard || !target.onBoard || this.area === target.area || eff.frozen || eff.atk <= 0 || eff.range <= 0)
+		if (!this.isType("character") || !this.onBoard || !target.onBoard || this.area === target.area || eff.frozen || eff.atk <= 0 || eff.range <= 0 || target.concealed)
 			return false;
 		if (eff.firstTurn && !this.hasState("rush"))
 			return false;
@@ -403,7 +413,7 @@ export default class Card {
 
 	cover (other, flying = false) {
 
-		if (!this.isType("character") || !this.onBoard || !other.onBoard)
+		if (!this.isType("character") || !this.onBoard || !other.onBoard || this.concealed)
 			return false;
 		return (other.location.isBehind(this.location) || (this.hasState("cover neighbors") && other.location.isNeighborTo(this.location))) && flying === this.hasState("flying");
 	}

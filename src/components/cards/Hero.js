@@ -24,7 +24,6 @@ export default class Hero extends Component {
 
   	var level = this.props.level || this.state.level;
   	var eff = src.isEff;
-  	
     return (
       <div id={this.props.id} className={"sensuba-card sensuba-hero " + this.props.classColor.color1 + " " + this.props.classColor.color2 + (this.props.switch === "manual" ? " editable " : " ") + this.props.className} onClick={this.props.switch === "manual" ? e => this.setState({ level: level%3+1 }) : () => {}}>
 		<img crossOrigin="Anonymous" className="sensuba-card-bg" src={src.imgLink} alt={src.nameCard}/>
@@ -56,8 +55,8 @@ export default class Hero extends Component {
 		<div className="sensuba-card-param sensuba-card-param-atk">
 			<div className="sensuba-card-param-name">ATK</div>
 		   	<div className={"sensuba-card-param-value" + (level !== 1 && !eff ? " sensuba-card-invisible" : "") + (this.props.model ? (src.atk < this.props.model.atk ? " sensuba-card-param-malus" : (src.atk > this.props.model.atk ? " sensuba-card-param-bonus" : "")) : "")}>{src.atk}</div>
-		   	<div className={"sensuba-card-param-value" + (level !== 2 || eff ? " sensuba-card-invisible" : "") + (this.props.model ? (src.atk < this.props.model.atk ? " sensuba-card-param-malus" : (src.atk > this.props.model.atk ? " sensuba-card-param-bonus" : "")) : "")}>{src.lv2.atk}</div>
-		   	<div className={"sensuba-card-param-value" + (level !== 3 || eff ? " sensuba-card-invisible" : "") + (this.props.model ? (src.atk < this.props.model.atk ? " sensuba-card-param-malus" : (src.atk > this.props.model.atk ? " sensuba-card-param-bonus" : "")) : "")}>{src.lvmax.atk}</div>
+		   	<div className={"sensuba-card-param-value" + (level !== 2 || eff ? " sensuba-card-invisible" : "") + (this.props.model && this.props.model.lv2 ? (src.atk < this.props.model.lv2.atk ? " sensuba-card-param-malus" : (src.atk > this.props.model.lv2.atk ? " sensuba-card-param-bonus" : "")) : "")}>{src.lv2.atk}</div>
+		   	<div className={"sensuba-card-param-value" + (level !== 3 || eff ? " sensuba-card-invisible" : "") + (this.props.model && this.props.model.lvmax ? (src.atk < this.props.model.lvmax.atk ? " sensuba-card-param-malus" : (src.atk > this.props.model.lvmax.atk ? " sensuba-card-param-bonus" : "")) : "")}>{src.lvmax.atk}</div>
 		</div>
 		<div className="sensuba-card-param sensuba-card-param-hp">
 		    <div className="sensuba-card-param-name">HP</div>
@@ -68,19 +67,19 @@ export default class Hero extends Component {
 		  { src.range > 1 ? <div className="sensuba-card-range-arrow sensuba-card-range-arrow-2"/> : <span/> }
 		  { src.range > 2 ? <div className="sensuba-card-range-arrow sensuba-card-range-arrow-3"/> : <span/> }
 		</div>
-		<div className={"sensuba-card-range" + (level !== 2 || eff ? " sensuba-card-invisible" : "") + (this.props.model ? (src.range < this.props.model.range ? " sensuba-card-param-malus" : (src.range > this.props.model.range ? " sensuba-card-param-bonus" : "")) : "")}>
+		<div className={"sensuba-card-range" + (level !== 2 || eff ? " sensuba-card-invisible" : "") + (this.props.model && this.props.model.lv2 ? (src.range < this.props.model.lv2.range ? " sensuba-card-param-malus" : (src.range > this.props.model.lv2.range ? " sensuba-card-param-bonus" : "")) : "")}>
 		  <div className="sensuba-card-range-arrow"/>
 		  { src.lv2.range > 1 ? <div className="sensuba-card-range-arrow sensuba-card-range-arrow-2"/> : <span/> }
 		  { src.lv2.range > 2 ? <div className="sensuba-card-range-arrow sensuba-card-range-arrow-3"/> : <span/> }
 		</div>
-		<div className={"sensuba-card-range" + (level !== 3 || eff ? " sensuba-card-invisible" : "") + (this.props.model ? (src.range < this.props.model.range ? " sensuba-card-param-malus" : (src.range > this.props.model.range ? " sensuba-card-param-bonus" : "")) : "")}>
+		<div className={"sensuba-card-range" + (level !== 3 || eff ? " sensuba-card-invisible" : "") + (this.props.model && this.props.model.lvmax ? (src.range < this.props.model.lvmax.range ? " sensuba-card-param-malus" : (src.range > this.props.model.lvmax.range ? " sensuba-card-param-bonus" : "")) : "")}>
 		  <div className="sensuba-card-range-arrow"/>
 		  { src.lvmax.range > 1 ? <div className="sensuba-card-range-arrow sensuba-card-range-arrow-2"/> : <span/> }
 		  { src.lvmax.range > 2 ? <div className="sensuba-card-range-arrow sensuba-card-range-arrow-3"/> : <span/> }
 		</div>
-	    { src.overload && src.overload > 0 ? <div className={"sensuba-card-overload" + (level !== 1 && !eff ? " sensuba-card-invisible" : "")}>{src.overload}</div> : <span/> }
-	    { src.overload && src.overload > 0 ? <div className={"sensuba-card-overload" + (level !== 2 || eff ? " sensuba-card-invisible" : "")}>{src.lv2.overload}</div> : <span/> }
-	    { src.overload && src.overload > 0 ? <div className={"sensuba-card-overload" + (level !== 3 || eff ? " sensuba-card-invisible" : "")}>{src.lvmax.overload}</div> : <span/> }
+	    { src.overload && src.overload > 0 ? <div className={"sensuba-card-overload" + (src.ol && src.ol > src.overload ? " sensuba-card-overload-limit-break" : "") + (level !== 1 && !eff ? " sensuba-card-invisible" : "")}>{src.overload}</div> : <span/> }
+	    { src.lv2.overload && src.lv2.overload > 0 ? <div className={"sensuba-card-overload" + (src.ol && src.ol > src.lv2.overload ? " sensuba-card-overload-limit-break" : "") + (level !== 2 || eff ? " sensuba-card-invisible" : "")}>{src.lv2.overload}</div> : <span/> }
+	    { src.lv2.overload && src.lvmax.overload > 0 ? <div className={"sensuba-card-overload" + (src.ol && src.ol > src.lvmax.overload ? " sensuba-card-overload-limit-break" : "") + (level !== 3 || eff ? " sensuba-card-invisible" : "")}>{src.lvmax.overload}</div> : <span/> }
 	  </div>
     );
   }

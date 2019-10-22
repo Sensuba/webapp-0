@@ -16,7 +16,7 @@ class Action extends Bloc {
 
 		var cpt = this.computeIn();
 		var req = cpt[0];
-		var tar = this.target ? (req ? (src, target) => (req(src, target) && (!target.card || !target.card.hasState("exaltation"))) : (src, target) => true) : null;
+		var tar = this.target ? (req ? (src, target) => (req(src, target) && (!target.card || target.card.targetable)) : (src, target) => true) : null;
 		/*owner.faculties.push(new EAction(new Event(target => {
 			if (target)
 				this.chosen = target;

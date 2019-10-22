@@ -31,7 +31,7 @@ export default class Spell extends Component {
 	        	<div className="sensuba-card-flavour">{src.flavourText}</div>
 	        </div>
 	    </div>
-	    { src.overload && src.overload > 0 ? <div className="sensuba-card-overload">{src.overload}</div> : <span/> }
+	    { src.overload && src.overload > 0 ? <div className={"sensuba-card-overload" + (src.ol && src.ol > src.overload ? " sensuba-card-overload-limit-break" : "")}>{src.overload}</div> : <span/> }
 	    <div className="sensuba-card-frame">
 	    	<div className="sensuba-frame-icon"/>
 	    	<div className="sensuba-card-inner-frame"/>
