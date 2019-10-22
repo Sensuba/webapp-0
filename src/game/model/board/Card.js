@@ -188,6 +188,7 @@ export default class Card {
 
 		this.faculties = [];
 		this.mutations = [];
+		this.cmutations = [];
 		this.passives = [];
 		this.events = [];
 		this.states = {};
@@ -240,6 +241,7 @@ export default class Card {
 		this.faculties = [];
 		this.passives = [];
 		this.mutations = [];
+		this.cmutations = [];
 		if (this.isType("entity"))
 			this.targets.push(Event.targets.friendlyEmpty);
 		if (this.isType("hero")) {
@@ -547,13 +549,25 @@ export default class Card {
 
 	get eff () {
 
+		var contacteffect = (eff) => {
+
+			if (!this.oncontact)
+				return eff;
+			var res = Object.assign({}, eff);
+			this.cmutations.forEach(cmut => {
+				if (!cmut.targets || cmut.targets(this.oncontact))
+					res = cmut.effect(res);
+			});
+			return res;
+		}
+
 		if (this.isEff || this.computing)
-			return this;
+			return contacteffect(this);
 		if (!this.nameCard)
-			return this;
+			return contacteffect(this);
 		if (!this.mutatedState)
 			this.update();
-		return this.mutatedState;
+		return contacteffect(this.mutatedState);
 	}
 
 	update () {
