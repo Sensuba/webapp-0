@@ -61,7 +61,7 @@ export default class Card extends Component {
         return `<span class="sensuba-card-effect-show">${emph}</span>`
       });
       if (this.props.src.ol && this.props.src.overload && this.props.src.ol >= this.props.src.overload)
-        desc = desc.replace(/[^<]\d+[^>]/g, x => {
+        desc = desc.replace(/[^>]\d+[^<]/g, x => {
           let before = "", number = "", after = "";
           let state = 0;
           let isDigit = c => c >= '0' && c <= '9';
