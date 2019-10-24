@@ -62,8 +62,6 @@ export default class ManaPool {
 					value--;
 				}
 			}
-			while (value-- > 0)
-				this.useGem();
 		}
 	}
 

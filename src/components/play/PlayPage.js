@@ -11,7 +11,7 @@ export default class PlayPage extends Component {
 
 		super(props);
 
-    var deck = localStorage.getItem("playdeck");
+    var deck = User.getDeck();
     if (!User.isConnected())
       deck = null;
     else if (deck) 
@@ -45,7 +45,7 @@ export default class PlayPage extends Component {
   choice (idDeck) {
 
     if (idDeck === -1) {
-      localStorage.removeItem("playdeck");
+      User.updateDeck(null);
       this.setState({deck: null});
     }
     else
@@ -59,7 +59,7 @@ export default class PlayPage extends Component {
       for (let i = 0; i < deck.cards[c]; i++)
         res.body.push(parseInt(c, 10));
     })
-    localStorage.setItem("playdeck", JSON.stringify(res));
+    User.updateDeck(res);
     if (setState)
       this.setState({deck: res});
   }

@@ -24,7 +24,20 @@ var User = (() => {
 		return localStorage.getItem("user.shadow") !== null;
 	}
 
-	return { connect, disconnect, getData, isConnected }
+	var updateDeck = (deck) => {
+
+		if (deck)
+			localStorage.setItem("playdeck", JSON.stringify(deck));
+		else
+			localStorage.removeItem("playdeck");
+	}
+
+	var getDeck = () => {
+
+		return localStorage.getItem("playdeck");
+	}
+
+	return { connect, disconnect, getData, isConnected, updateDeck, getDeck }
 })();
 
 export default User;

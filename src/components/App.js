@@ -57,8 +57,10 @@ export default class App extends Component {
 
           Library.getDeckList(list => {
 
+            let sortDecks = (a, b) => a.name < b.name ? -1 : (a.name > b.name ? 1 : 0);
+
             if (list && list.length)
-              this.setState({decks: list});
+              this.setState({decks: list.sort(sortDecks)});
             else
               this.updateDecks();
           })
@@ -129,10 +131,8 @@ export default class App extends Component {
 
   updateDecks () {
 
-    let sortDecks = (a, b) => a.name < b.name ? -1 : (a.name > b.name ? 1 : 0);
-
     this.props.options.api.getMyDecks(decks => {
-      var d = decks.map(deck => this.readObject(deck)).sort(sortDecks);
+      var d = decks.map(deck => this.readObject(deck));
       this.setState({decks: d});
       Library.updateDecks(d);
     }, err => this.setState({decks: []}));

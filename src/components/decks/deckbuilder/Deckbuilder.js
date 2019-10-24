@@ -5,6 +5,7 @@ import Card from '../../cards/Card';
 import sorter from '../../../utility/CollectionSorter';
 import { Progress } from 'antd';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import User from '../../../services/User';
 
 export default class Deckbuilder extends Component {
 
@@ -60,7 +61,7 @@ export default class Deckbuilder extends Component {
     if (this.state.saved)
       return;
 
-    var currentDeck = localStorage.getItem("playdeck");
+    var currentDeck = User.getDeck();
     if (currentDeck) {
       currentDeck = JSON.parse(currentDeck);
 
@@ -72,7 +73,7 @@ export default class Deckbuilder extends Component {
           for (let i = 0; i < deck.cards[c]; i++)
             res.body.push(parseInt(c, 10));
         })
-        localStorage.setItem("playdeck", JSON.stringify(res));
+        User.updateDeck(res);
       }
     }
     
@@ -92,6 +93,13 @@ export default class Deckbuilder extends Component {
 
     if (this.state.saved)
       return;
+
+    var currentDeck = User.getDeck();
+    if (currentDeck) {
+      currentDeck = JSON.parse(currentDeck);
+      if (currentDeck.id === this.state.deck.idDeck)
+        User.updateDeck(null);
+    }
 
     this.props.onDelete(this.state.deck.idDeck);
 

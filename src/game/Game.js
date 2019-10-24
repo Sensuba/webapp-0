@@ -42,14 +42,14 @@ export default class Game extends Component {
       this.setState({model: this.store.getState()}, () => this.manager.control(this.isPlaying));
     });
 
-    var myDeck = localStorage.getItem("playdeck");
+    var myDeck = User.getDeck();
     if (myDeck)
       myDeck = JSON.parse(myDeck);
 
     this.state = {
 
       model: this.store.getState(),
-      deck: myDeck || defaultDeck
+      deck: (User.isConnected() && myDeck) ? myDeck : defaultDeck
     }
 
     this.manager = new Manager(this.state.model, this.command.bind(this), state => state ? this.setState(state) : this.forceUpdate());
