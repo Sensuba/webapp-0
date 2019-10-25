@@ -83,6 +83,6 @@ export default class GameBoard {
 
 	find (id) {
 
-		return this.items[id.type] ? this.items[id.type][id.no] : undefined;
+		return id ? (this.items[id.type] ? this.items[id.type][id.no] : undefined) : id;
 	}
 }

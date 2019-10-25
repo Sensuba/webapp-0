@@ -55,23 +55,30 @@ export default class Game extends Component {
     this.manager = new Manager(this.state.model, this.command.bind(this), state => state ? this.setState(state) : this.forceUpdate());
     this.sequencer = new Sequencer(this.state.model, this.store.dispatch);
 
-    this.props.socket.emit("join", props.room);
+    this.props.socket.removeAllListeners();
 
-    this.props.socket.on('joined', role => {
-      if (role.as === 'player') {
+    this.props.socket.emit("join", props.room);
+    this.props.socket.on('joined', role => this.onJoined(role));
+    this.props.socket.on('endgame', data => this.onEndgame(data));
+
+    Library.getCard((myDeck || defaultDeck).hero, hero => this.setState({hero}));
+
+    this.createParticle = () => {};
+  }
+
+  onJoined (role) {
+
+    if (role.as === 'player') {
         this.no = role.no;
         this.props.socket.emit('prepare', User.isConnected() ? User.getData().token : "Anonymous", this.state.deck);
       }
 
       this.props.socket.on('notification',  this.analyse.bind(this));
-    });
+  }
 
-    this.props.socket.on('endgame', data => {
-      this.sequencer.add({type: "end", src: 0, data: [{type: "bool", no: data.win}]});
-    });
-    Library.getCard((myDeck || defaultDeck).hero, hero => this.setState({hero}));
+  onEndgame (data) {
 
-    this.createParticle = () => {};
+    this.sequencer.add({type: "end", src: 0, data: [{type: "bool", no: data.win}]});
   }
 
   componentWillUnmount () {
