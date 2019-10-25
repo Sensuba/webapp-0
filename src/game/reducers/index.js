@@ -17,6 +17,9 @@ export default (state = new GameBoard(), n) => {
     case "identify":
       state.find(n.data[0].id).identify(n.data[0]);
       break;
+    case "transform":
+      state.find(n.src).become(n.data[0].data);
+      break;
     case "cardmove": {
       let card = state.find(n.src),
           loc = state.find(n.data[0]);

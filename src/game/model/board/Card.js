@@ -85,9 +85,18 @@ export default class Card {
 
 	resetBody () {
 
-		for (var k in this.model)
+		for (var k in this.model) {
 			this[k] = this.model[k];
+			if (!isNaN(this[k]))
+				this[k] = parseInt(this[k], 10);
+		}
 		delete this.supercode;
+		this.faculties = [];
+		this.mutations = [];
+		this.cmutations = [];
+		this.passives = [];
+		this.events = [];
+		this.states = {};
 		this.clearBoardInstance();
 		if (this.blueprint)
 			Reader.read(this.blueprint, this);
@@ -233,13 +242,17 @@ export default class Card {
 
 		if (this.nameCard)
 			return;
+		this.become(data);
+	}
+
+	become (data) {
+
 		for (var k in data) {
 			this[k] = data[k];
 			if (!isNaN(this[k]))
 				this[k] = parseInt(this[k], 10);
 		}
 		if (this.idCardmodel)
-			//this.model = JSON.parse(localStorage.getItem("cardlist")).find(c => c.idCardmodel === this.idCardmodel);
 			Library.getCard(this.idCardmodel, card => this.model = card);
 		this.targets = [];
 		this.faculties = [];
@@ -256,44 +269,15 @@ export default class Card {
 			this.activated = true;
 			this.faculties.push({no: 0, desc: "Create a mana receptacle.", cost: "!"});
 		}
-		/*if (this.blueprint && this.blueprint.triggers && this.blueprint.triggers.some(trigger => trigger.target && trigger.type === "play")) {
-			var filter = this.blueprint.triggers.find(trigger => trigger.target).in[0];
-			this.targets.push((src, target) => (!filter || typeof filter === 'object') || (target.occupied && target.card.isType(filter) && !target.card.hasState("exaltation")));
-		}*/
 		if (this.blueprint)
 			Reader.read(this.blueprint, this);
 		if (this.isType("artifact"))
 			this.faculties.push({no: this.faculties.length, desc: "Explode.", cost: "0"});
 		this.update();
-		/*if (this.blueprint && this.blueprint.basis) {
-
-			this.blueprint.basis.forEach (basis => {
-
-				var trigger = this.blueprint[basis.type][basis.index];
-
-				switch (trigger.type) {
-				case "play":
-					if (trigger.target) 
-						this.targets.push(Target.read(trigger, this.blueprint));
-					break;
-				case "action":
-					var action = {no: this.faculties.length, desc: trigger.in[1], cost: "!"};
-					if (trigger.target) 
-						action.target = Target.read(trigger, this.blueprint);
-					this.faculties.push(action);
-					break;
-				case "skill":
-					var skill = {no: this.faculties.length, desc: trigger.in[1], cost: trigger.in[2]};
-					if (trigger.target) 
-						skill.target = Target.read(trigger, this.blueprint);
-					this.faculties.push(skill);
-					break;
-				case "passivemut":
-					break;
-				default:
-				}
-			})
-		}*/
+		if (data && data.chp) {
+			this.chp = data.chp;
+			this.update();
+		}
 	}
 
 	levelUp () {
@@ -438,7 +422,7 @@ export default class Card {
 
 	canMoveOn (tile) {
 
-		if (!this.onBoard || !this.motionPt || this.frozen || tile.occupied)
+		if (!this.onBoard || !this.motionPt || this.frozen || tile.occupied || this.hasState("static"))
 			return false;
 		return this.location.isAdjacentTo(tile);
 	}
@@ -566,7 +550,7 @@ export default class Card {
 			return res;
 		}
 
-		if (this.isEff || this.computing)
+		if (this.isEff || this.computing || !this.gameboard.started)
 			return contacteffect(this);
 		if (!this.nameCard)
 			return contacteffect(this);
@@ -577,6 +561,8 @@ export default class Card {
 
 	update () {
 
+		if (this.gameboard && !this.gameboard.started)
+			return;
 		if (this.isEff)
 			return;
 		if (!this.nameCard)
