@@ -15,7 +15,7 @@ export default class Card {
 
 		this.location = null;
 		if (location) {
-			location.area.gameboard.notify("newcard", this.id, location.id);
+			//location.area.gameboard.notify("newcard", this.id, location.id);
 			this.goto(location);
 		}
 	}
@@ -96,13 +96,16 @@ export default class Card {
 
 	destroy () {
 
-		if (this.area)
-			this.area.gameboard.notify("destroycard", this.id);
+		if (this.destroyed)
+			return;
+		//if (this.area)
+			//this.area.gameboard.notify("destroycard", this.id);
 		this.clearBoardInstance();
 		if (this.area)
 			this.goto(this.area.cemetery)
 		else
 			this.goto(null);
+		this.gameboard.update();
 	}
 
 	freeze () {
@@ -138,7 +141,7 @@ export default class Card {
 
 		this.chp -= dmg;
 		this.update();
-		this.area.gameboard.notify("damagecard", this.id, dmg, src.id);
+		//this.area.gameboard.notify("damagecard", this.id, dmg, src.id);
 	}
 
 	heal (amt, src) {
@@ -151,7 +154,7 @@ export default class Card {
 		else
 			this.chp = Math.min(this.eff.hp, this.chp + amt);
 		this.update();
-		this.gameboard.notify("healcard", this.id, amt, src.id);
+		//this.gameboard.notify("healcard", this.id, amt, src.id);
 	}
 
 	boost (atk, hp, range) {
@@ -165,7 +168,7 @@ export default class Card {
 			this.chp = Math.min(this.chp, this.eff.hp);
 		this.range += range;
 		this.update();
-		this.gameboard.notify("boostcard", this.id, atk, hp, range);
+		//this.gameboard.notify("boostcard", this.id, atk, hp, range);
 	}
 
 	set (cost, atk, hp, range) {
@@ -181,7 +184,7 @@ export default class Card {
 		if (range || range === 0)
 			this.range = range;
 		this.update();
-		this.gameboard.notify("setcard", this.id, cost, atk, hp, range);
+		//this.gameboard.notify("setcard", this.id, cost, atk, hp, range);
 	}
 
 	silence () {
@@ -389,7 +392,7 @@ export default class Card {
 
 	canUse (faculty) {
 
-		return (this.skillPt && !isNaN(faculty.cost) && (this.isType("artifact") ? this.eff.chp >= -faculty.cost : this.area.manapool.usableMana >= faculty.cost)) || (this.actionPt && isNaN(faculty.cost));
+		return (this.skillPt && !isNaN(faculty.cost) && (this.isType("artifact") ? this.eff.chp >= -faculty.cost : this.area.manapool.usableMana >= faculty.cost)) || (this.actionPt && isNaN(faculty.cost) && !this.firstTurn);
 	}
 
 	canAttack (target) {
@@ -495,7 +498,7 @@ export default class Card {
 
 	resetSickness () {
 
-		this.actionPt = 0;
+		this.actionPt = 1;
 		this.skillPt = 1;
 		this.motionPt = 0;
 		this.firstTurn = true;
@@ -525,7 +528,7 @@ export default class Card {
 		var mut = new Mutation(effect);
 		mut.attach(this);
 		if (end)
-			var unsub = end((t,s,d) => {
+			var unsub = end.subscribe((t,s,d) => {
 				mut.detach();
 				this.update();
 				unsub();

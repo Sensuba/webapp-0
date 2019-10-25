@@ -1,4 +1,5 @@
 import Area from './Area';
+import Log from './Log';
 
 export default class GameBoard {
 
@@ -12,6 +13,7 @@ export default class GameBoard {
 		this.gamestate = 0; // 0: ongoing ; 1: win ; 2: lose
 		this.subscriptions = {};
 		this.indexSubscription = 0;
+		this.log = new Log();
 
 		this.areas = [
 			new Area(0, this),

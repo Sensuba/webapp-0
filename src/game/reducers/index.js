@@ -3,6 +3,7 @@ import Card from '../model/board/Card';
 
 export default (state = new GameBoard(), n) => {
 
+  state.log.add({type:n.type, src:n.src, data:n.data});
   switch(n.type) {
     case "start":
       state.start();
