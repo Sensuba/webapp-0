@@ -84,6 +84,7 @@ export default class Game extends Component {
   componentWillUnmount () {
 
     this.props.socket.emit('quit');
+    this.props.socket.removeAllListeners();
   }
 
   analyse (n) {
