@@ -131,7 +131,7 @@ export default class Card {
 
 	get targetable () {
 
-		return !this.exalted && (!this.concealed || (this.area && this.area.isPlaying));
+		return !this.exalted && !this.concealed;
 	}
 
 	damage (dmg, src) {
@@ -399,7 +399,7 @@ export default class Card {
 
 		var eff = this.eff;
 
-		if (!this.isType("character") || !this.onBoard || !target.onBoard || this.area === target.area || eff.frozen || eff.atk <= 0 || eff.range <= 0 || target.concealed)
+		if (!this.isType("character") || !this.onBoard || !target.onBoard || this.area === target.area || eff.frozen || eff.atk <= 0 || eff.range <= 0 || target.concealed || this.hasState("static"))
 			return false;
 		if (eff.firstTurn && !this.hasState("rush"))
 			return false;
