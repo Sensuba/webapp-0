@@ -133,6 +133,9 @@ export default (state = new GameBoard(), n) => {
     case "refillmana":
       state.areas[n.src.no].manapool.refill(n.data[0].value);
       break;
+    case "extramana":
+      state.areas[n.src.no].manapool.addExtraMana(n.data[0].value);
+      break;
     case "creategem":
       state.areas[n.src.no].manapool.createGem();
       break;

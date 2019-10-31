@@ -12,6 +12,7 @@ export default class ManaPool {
 
 		this.receptacles = [];
 		this.gems = 0;
+		this.extramana = 0;
 	}
 
 	createReceptacle (filled = true) {
@@ -38,6 +39,11 @@ export default class ManaPool {
 			this.gems--;
 	}
 
+	addExtraMana (value) {
+
+		this.extramana += value;
+	}
+
 	get mana () {
 
 		return this.receptacles.filter(r => r).length;
@@ -45,7 +51,7 @@ export default class ManaPool {
 
 	get usableMana () {
 
-		return this.mana + this.gems;
+		return this.mana + this.gems + this.extramana;
 	}
 
 	get maxMana() {
@@ -56,6 +62,9 @@ export default class ManaPool {
 	use (value) {
 
 		if (value <= this.usableMana) {
+			let usedextramana = Math.min(value, this.extramana)
+			value -= usedextramana;
+			this.extramana -= usedextramana;
 			for (var i = this.receptacles.length - 1; i >= 0 && value > 0; i--) {
 				if (this.receptacles[i]) {
 					this.receptacles[i] = false;
@@ -69,5 +78,11 @@ export default class ManaPool {
 
 		nb = nb || MAX_MANA;
 		this.receptacles = this.receptacles.map(r => r || nb-- > 0);
+	}
+
+	reload () {
+
+		this.receptacles = this.receptacles.map(r => true);
+		this.extramana = 0;
 	}
 }

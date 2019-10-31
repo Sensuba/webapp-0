@@ -47,8 +47,8 @@ export default class GameBoard extends Component {
 	    	<div className="sensuba-gauge-wrapper">
 	    		<Gauge color="red" value={(model.areas[no].hero ? model.areas[no].hero.chp : 0) || 0} max={model.areas[no].hero ? model.areas[no].hero.hp : 0}/>
 	    		<Gauge inverted color="red" value={(model.areas[1-no].hero ? model.areas[1-no].hero.chp : 0) || 0} max={model.areas[1-no].hero ? model.areas[1-no].hero.hp : 0}/>
-	    		<Gauge color="dodgerblue" value={model.areas[no].manapool.mana} max={model.areas[no].manapool.maxMana}/>
-	    		<Gauge inverted color="dodgerblue" value={model.areas[1-no].manapool.mana} max={model.areas[1-no].manapool.maxMana}/>
+	    		<Gauge color="dodgerblue" value={model.areas[no].manapool.mana + model.areas[no].manapool.extramana} max={model.areas[no].manapool.maxMana}/>
+	    		<Gauge inverted color="dodgerblue" value={model.areas[1-no].manapool.mana + model.areas[1-no].manapool.extramana} max={model.areas[1-no].manapool.maxMana}/>
 	    	</div>
 	    	<div className="sensuba-end-turn-wrapper">
 	    		<EndTurn locked={!this.props.master.isPlaying} endTurn={() => this.props.master.manager.endTurn()}/>

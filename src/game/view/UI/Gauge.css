@@ -26,6 +26,7 @@
 	margin-top: -11px;
 	background-color: #50505030;
 	transform: skew(15deg, 0deg);
+	overflow: hidden;
 }
 
 .gauge-progress-bar.inverted-gauge {
