@@ -22,7 +22,10 @@ class Skill extends Bloc {
 				this.chosen = target;
 			this.execute(image);
 		}, req), ins[2]));*/
-		var skill = {no: owner.faculties.length, desc: cpt[1], cost: cpt[2]};
+		var costText = cpt[2];
+		if (owner.isType("artifact") && costText > 0)
+			costText = "+" + costText;
+		var skill = {no: owner.faculties.length, desc: cpt[1], cost: costText};
 		if (this.target) 
 			skill.target = tar;
 		owner.faculties.push(skill);

@@ -125,6 +125,9 @@ export default class Game extends Component {
       <div id="faculty-tooltip" data-toggle="tooltip" data-placement="right" data-animation="false" data-trigger="manual">
         { this.state.faculties && this.state.faculties.length > 0 ? <FacultyBox faculties={ this.state.faculties } select={m => this.manager.select(m)}/> : <span/> }
       </div>
+      <div id="deck-count-tooltip" data-toggle="tooltip" data-placement="left" data-animation="false" data-trigger="manual">
+        { this.state.deckcount ? ("You" + (this.state.deckcount.you ? "" : "r opponent") + " have " + this.state.deckcount.count + " card" + (this.state.deckcount.count > 1 ? "s" : "") + " left.") : "" }
+      </div>
       {
         this.waiting
         ? 

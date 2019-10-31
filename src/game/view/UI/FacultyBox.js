@@ -7,7 +7,7 @@ export default class FacultyBox extends Component {
   render () {
 
     return (
-    	<div className="faculty-box">
+    	<div className={"faculty-box faculty-box-" + this.props.faculties.length}>
       {
         this.props.faculties.map((f, i) => <Faculty key={i} src={f} select={this.props.select}/>)
       }

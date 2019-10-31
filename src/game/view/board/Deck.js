@@ -3,10 +3,26 @@ import Card from './Card';
 
 export default class Deck extends Component {
 
+  showTooltip(e) {
+
+    var tooltip = document.getElementById("deck-count-tooltip");
+    tooltip.setAttribute("style", `display: block; top: ${e.pageY}px; left: ${e.pageX}px; margin-left: -18em`);
+    this.props.master.setState({deckcount: {you: this.props.model.id.no === this.props.master.no, count:this.props.model.count}});
+  }
+
+  hideTooltip() {
+
+    var tooltip = document.getElementById("deck-count-tooltip");
+    tooltip.setAttribute("style", `display: none`);
+  }
+
   render () {
 
     return (
-      <div className={"sensuba-deck sensuba-deck-size" + this.deckSizeToCssNo()}>
+      <div className={"sensuba-deck sensuba-deck-size" + this.deckSizeToCssNo()}
+        onMouseMove={this.props.model ? e => this.showTooltip(e) : e => {}}
+        onMouseLeave={this.props.model ? e => this.hideTooltip() : e => {}}
+      >
       {
       	this.props.model.cards.map(model => <Card hidden key={model.id.no} model={model} master={this.props.master}/>)
       }

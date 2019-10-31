@@ -130,6 +130,7 @@
 	width: 8.135vw;
 	background: url("/game/back.png");
 	background-size: 100%;
+  pointer-events: all;
 }
 
 .sensuba-deck-size1 { box-shadow: -3px 5px 0px 0px #282a2d }
@@ -139,6 +140,17 @@
 .sensuba-deck-size5 { box-shadow: -1px 1px 0px 0px #282a2d }
 .sensuba-deck-size6 { box-shadow: 0px 0px 0px 0px #282a2d }
 .sensuba-deck-size7 { background: none }
+
+#deck-count-tooltip {
+    position: absolute;
+    z-index: 10;
+    margin-top: -5em;
+    display: none;
+    min-height: 1em;
+    padding: 0.4em 1em;
+    background: white;
+    filter: drop-shadow(2px 3px 2px #202020A0);
+}
 
 .fatigue-mark {
 

@@ -2,7 +2,6 @@
 
     position: absolute;
     z-index: 10;
-    margin-top: -6em;
 }
 
 .faculty-box {
@@ -13,6 +12,13 @@
     background: white;
     filter: drop-shadow(2px 3px 2px #202020A0);
 }
+
+.faculty-box-1 { margin-top: -5em }
+.faculty-box-2 { margin-top: -6em }
+.faculty-box-3 { margin-top: -7em }
+.faculty-box-4 { margin-top: -8em }
+.faculty-box-5 { margin-top: -9em }
+.faculty-box-6 { margin-top: -10em }
 
 .faculty {
 
