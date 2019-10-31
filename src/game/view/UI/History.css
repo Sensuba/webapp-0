@@ -1,0 +1,32 @@
+.history {
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1.3vw;
+}
+
+.history .history-entry {
+
+    display: inline-block;
+    height: 3vw;
+    width: 3vw;
+    margin: 0.4vw;
+    border-radius: 4px;
+    border-width: 3px;
+    border-style: solid;
+    overflow: hidden;
+}
+
+.history-entry.history-play { border-color: black }
+.history-entry.history-action { border-color: #d6cc3a }
+.history-entry.history-skill { border-color: #00d1a4 }
+.history-entry.history-attack { border-color: #c71606 }
+
+.history .history-entry .history-entry-bg {
+
+    height: 200%;
+    width: 150%;
+    margin-top: -27.5%;
+    margin-left: -27.5%;
+}

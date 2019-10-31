@@ -12,6 +12,7 @@ import CardPreview from '../components/cards/Card';
 //import PlayingState from './controller/state/PlayingState';
 import Loader from '../components/utility/Loader';
 import FacultyBox from './view/UI/FacultyBox';
+import History from './view/UI/History';
 import Lightbox from '../components/utility/Lightbox';
 import { Button } from 'reactstrap';
 import Library from '../services/Library';
@@ -128,6 +129,7 @@ export default class Game extends Component {
       <div id="deck-count-tooltip" data-toggle="tooltip" data-placement="left" data-animation="false" data-trigger="manual">
         { this.state.deckcount ? ("You" + (this.state.deckcount.you ? "" : "r opponent") + " have " + this.state.deckcount.count + " card" + (this.state.deckcount.count > 1 ? "s" : "") + " left.") : "" }
       </div>
+      <History entries={this.state.model.log.history}/>
       {
         this.waiting
         ? 

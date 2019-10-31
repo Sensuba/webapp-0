@@ -13,7 +13,7 @@ export default class GameBoard {
 		this.gamestate = 0; // 0: ongoing ; 1: win ; 2: lose
 		this.subscriptions = {};
 		this.indexSubscription = 0;
-		this.log = new Log();
+		this.log = new Log(this);
 
 		this.areas = [
 			new Area(0, this),
