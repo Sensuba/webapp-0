@@ -66,6 +66,11 @@ export default (state = new GameBoard(), n) => {
       if (card)
         card.set(n.data[0], n.data[1], n.data[2], n.data[3]);
       break; }
+    case "overloadcard": {
+      let card = state.find(n.src);
+      if (card)
+        card.boostoverload(n.data[0]);
+      break; }
     case "charfreeze": {
       let card = state.find(n.src);
       if (card)

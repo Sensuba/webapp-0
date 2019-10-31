@@ -47,6 +47,11 @@ export default class Card {
 		return this.location === null;
 	}
 
+	get isGhost() {
+
+		return this.onBoard && this.chp <= 0;
+	}
+
 	get damaged() {
 
 		return this.hp && this.chp && this.chp < this.eff.hp;
@@ -194,6 +199,15 @@ export default class Card {
 			this.range = range;
 		this.update();
 		//this.gameboard.notify("setcard", this.id, cost, atk, hp, range);
+	}
+
+	boostoverload (value) {
+
+		if (!value)
+			return;
+
+		this.ol += value;
+		//this.gameboard.notify("overloadcard", this, value);
 	}
 
 	silence () {
