@@ -374,6 +374,8 @@ export default class Card {
 
 		var eff = this.eff;
 
+		if (!this.area.isPlaying)
+			return false;
 		if (!this.onBoard)
 			return false;
 		if (eff.frozen)
@@ -390,6 +392,8 @@ export default class Card {
 
 	canUse (faculty) {
 
+		if (!this.area.isPlaying)
+			return false;
 		return (this.skillPt && !isNaN(faculty.cost) && (this.isType("artifact") ? this.eff.chp >= -faculty.cost : this.area.manapool.usableMana >= faculty.cost)) || (this.actionPt && isNaN(faculty.cost) && !this.firstTurn);
 	}
 
