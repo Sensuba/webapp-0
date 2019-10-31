@@ -569,9 +569,9 @@ export default class Card {
 		}
 
 		if (this.isEff || this.computing || !this.gameboard.started)
-			return contacteffect(this);
+			return contacteffect(this.mutatedState || this);
 		if (!this.nameCard)
-			return contacteffect(this);
+			return contacteffect(this.mutatedState || this);
 		if (!this.mutatedState)
 			this.update();
 		return contacteffect(this.mutatedState);
