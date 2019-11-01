@@ -186,6 +186,16 @@ export default class Card {
 		//this.gameboard.notify("boostcard", this.id, atk, hp, range);
 	}
 
+	changeCost (value) {
+
+		if (value === 0)
+			return;
+
+		this.mana += value;
+		this.update();
+		//this.gameboard.notify("changecost", this, value);
+	}
+
 	set (cost, atk, hp, range) {
 
 		if (cost || cost === 0)

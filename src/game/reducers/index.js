@@ -61,6 +61,11 @@ export default (state = new GameBoard(), n) => {
       if (card)
         card.boost(n.data[0], n.data[1], n.data[2]);
       break; }
+    case "changecost": {
+      let card = state.find(n.src);
+      if (card)
+        card.changeCost(n.data[0]);
+      break; }
     case "setcard": {
       let card = state.find(n.src);
       if (card)
