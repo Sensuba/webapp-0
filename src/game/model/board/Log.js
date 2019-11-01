@@ -17,6 +17,9 @@ class Log {
 		case "playcard":
 			this.history.push({type:"play", src:this.gameboard.find(log.src)});
 			break;
+		case "trap":
+			this.history.push({type:"trap", src:this.gameboard.find(log.src)});
+			break;
 		case "cardfaculty":
 			this.history.push({type: log.data[0].value ? "action" : "skill", src:this.gameboard.find(log.src)});
 			break;

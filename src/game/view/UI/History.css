@@ -19,6 +19,7 @@
 }
 
 .history-entry.history-play { border-color: black }
+.history-entry.history-trap { border-color: darkgray }
 .history-entry.history-action { border-color: #d6cc3a }
 .history-entry.history-skill { border-color: #00d1a4 }
 .history-entry.history-attack { border-color: #c71606 }

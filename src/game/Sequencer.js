@@ -85,6 +85,9 @@ export default class Sequencer {
 		    }
 		    break;
 		}
+	    case "trap": 
+	  		return new Spell();
+	  		break;
 	    case "cardmove": 
 	  		if (this.model.started && n.data[0].type === "deck")
 	  			return new Shuffle(n.src.no);
