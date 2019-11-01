@@ -20,17 +20,37 @@ import Library from '../services/Library';
 import { createStore } from 'redux';
 import reducers from './reducers';
 
-const defaultDeck = {
+const defaultDecks = [{
   hero: 1,
   body: [
-    168, 168, 168, 168, 168,
-    109, 109, 109, 109, 109,
-    159, 159, 159, 159, 159,
-    132, 132, 132, 132, 132,
-    173, 173, 173, 173, 173,
-    124, 124, 124, 124, 124
+    103, 103, 105, 105, 117,
+    117, 126, 126, 130, 130,
+    132, 132, 150, 150, 156,
+    156, 157, 157, 160, 160,
+    177, 177, 291, 291, 302,
+    302, 328, 328, 336, 336
   ]
-};
+}, {
+  hero: 2,
+  body: [
+    101, 101, 103, 103, 105,
+    105, 115, 115, 122, 122,
+    137, 137, 165, 165, 167,
+    167, 169, 169, 185, 185,
+    212, 212, 231, 231, 232,
+    232, 233, 233, 318, 318
+  ]
+}, {
+  hero: 3,
+  body: [
+    103, 103, 105, 105, 122,
+    122, 132, 131, 133, 133,
+    136, 136, 139, 139, 144,
+    144, 145, 145, 151, 151,
+    153, 153, 191, 191, 192,
+    192, 224, 224, 320, 320
+  ]
+}];
 
 export default class Game extends Component {
 
@@ -46,11 +66,12 @@ export default class Game extends Component {
     var myDeck = User.getDeck();
     if (myDeck)
       myDeck = JSON.parse(myDeck);
+    var d = (User.isConnected() && myDeck) ? myDeck : this.getDefaultDeck();
 
     this.state = {
 
       model: this.store.getState(),
-      deck: (User.isConnected() && myDeck) ? myDeck : defaultDeck
+      deck: d
     }
 
     this.manager = new Manager(this.state.model, this.command.bind(this), state => state ? this.setState(state) : this.forceUpdate());
@@ -62,7 +83,7 @@ export default class Game extends Component {
     this.props.socket.on('joined', role => this.onJoined(role));
     this.props.socket.on('endgame', data => this.onEndgame(data));
 
-    Library.getCard((myDeck || defaultDeck).hero, hero => this.setState({hero}));
+    Library.getCard(d.hero, hero => this.setState({hero}));
 
     this.createParticle = () => {};
   }
@@ -86,6 +107,11 @@ export default class Game extends Component {
 
     this.props.socket.emit('quit');
     this.props.socket.removeAllListeners();
+  }
+
+  getDefaultDeck () {
+
+    return defaultDecks[Math.floor(Math.random()*defaultDecks.length)];
   }
 
   analyse (n) {

@@ -17,7 +17,7 @@ import User from '../services/User';
 import Library from '../services/Library';
 import openSocket from 'socket.io-client';
 
-const serverURL = /*process.env.SERVER_URL || 'http://localhost:8080' ||*/ 'https://sensuba-server.herokuapp.com/';
+const serverURL = /*process.env.SERVER_URL ||*/ 'http://localhost:8080' || 'https://sensuba-server.herokuapp.com/';
 
 export default class App extends Component {
 

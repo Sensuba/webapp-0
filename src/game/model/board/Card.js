@@ -102,6 +102,7 @@ export default class Card {
 		this.passives = [];
 		this.events = [];
 		this.states = {};
+		this.shield = false;
 		this.clearBoardInstance();
 		if (this.blueprint)
 			Reader.read(this.blueprint, this);
