@@ -101,6 +101,7 @@ export default class Card {
 		this.cmutations = [];
 		this.passives = [];
 		this.events = [];
+		this.targets = [];
 		this.states = {};
 		this.shield = false;
 		this.clearBoardInstance();
