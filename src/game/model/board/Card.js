@@ -101,9 +101,11 @@ export default class Card {
 		this.cmutations = [];
 		this.passives = [];
 		this.events = [];
-		this.targets = [];
 		this.states = {};
 		this.shield = false;
+		this.targets = [];
+		if (this.isType("entity"))
+			this.targets.push(Event.targets.friendlyEmpty);
 		this.clearBoardInstance();
 		if (this.blueprint)
 			Reader.read(this.blueprint, this);
