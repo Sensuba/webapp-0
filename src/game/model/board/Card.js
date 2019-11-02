@@ -78,7 +78,7 @@ export default class Card {
 		this.location = loc;
 		if (former && former.hasCard (this))
 			former.removeCard (this);
-		if (former && (loc === null || former.locationOrder > loc.locationOrder || loc.locationOrder === 0))
+		if (former && (loc === null || former.locationOrder > loc.locationOrder || loc.locationOrder === 4))
 			this.resetBody ();
 		if (loc && !loc.hasCard (this))
 			loc.addCard (this);
@@ -90,6 +90,9 @@ export default class Card {
 
 	resetBody () {
 
+		let wasActivated = this.activated;
+		if (this.activated)
+			this.deactivate();
 		for (var k in this.model) {
 			this[k] = this.model[k];
 			if (!isNaN(this[k]))
@@ -103,10 +106,13 @@ export default class Card {
 		this.events = [];
 		this.states = {};
 		this.shield = false;
+		this.silenced = false;
 		this.targets = [];
 		if (this.isType("entity"))
 			this.targets.push(Event.targets.friendlyEmpty);
 		this.clearBoardInstance();
+		if (wasActivated)
+			this.activate();
 		if (this.blueprint)
 			Reader.read(this.blueprint, this);
 		this.update();
@@ -226,13 +232,13 @@ export default class Card {
 
 	silence () {
 
+		this.deactivate();
 		this.faculties = [];
 		this.mutations = [];
 		this.cmutations = [];
 		this.passives = [];
 		this.events = [];
 		this.states = {};
-		this.deactivate();
 		delete this.blueprint;
 		this.mana = parseInt(this.model.mana, 10);
 		this.atk = parseInt(this.model.atk, 10);

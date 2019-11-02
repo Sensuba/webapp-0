@@ -5,7 +5,7 @@ export default class cemetery {
 		this.id = { type: "cemetery", no: area.id.no };
 		area.gameboard.register(this);
 
-		this.locationOrder = 0;
+		this.locationOrder = 4;
 
 		this.area = area;
 
