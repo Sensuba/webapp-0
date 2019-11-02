@@ -78,7 +78,7 @@ export default class Card {
 		this.location = loc;
 		if (former && former.hasCard (this))
 			former.removeCard (this);
-		if (former && (loc === null || former.locationOrder > loc.locationOrder || loc.locationOrder === 4))
+		if (former && (loc === null || former.locationOrder > loc.locationOrder || loc.locationOrder === 0))
 			this.resetBody ();
 		if (loc && !loc.hasCard (this))
 			loc.addCard (this);
