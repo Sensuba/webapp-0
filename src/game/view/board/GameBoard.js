@@ -14,35 +14,36 @@ export default class GameBoard extends Component {
 
   render () {
 
-  	var no = this.props.master.no || 0;
+  	var master = this.props.master;
+  	var no = master.no || 0;
 
   	var model = this.props.model;
 
     return (
-    	<div className="sensuba-gameboard" onClick={() => this.props.master.manager.unselect()}>
+    	<div className="sensuba-gameboard" onClick={master.manager ? () => master.manager.unselect() : () => {}}>
     	<div className="sensuba-board">
-    	<Hand model={model.areas[1-no].hand} master={this.props.master}/>
-	    	<Area model={model.areas[1-no]} master={this.props.master}>
-		    	<Field model={model.areas[1-no].field} master={this.props.master}>
+    	<Hand model={model.areas[1-no].hand} master={master}/>
+	    	<Area model={model.areas[1-no]} master={master}>
+		    	<Field model={model.areas[1-no].field} master={master}>
 		    		<Row>
-		    			<Tile model={model.areas[1-no].field.tiles[4]} master={this.props.master}/>
-		    			<Tile model={model.areas[1-no].field.tiles[5]} master={this.props.master}/>
-		    			<Tile model={model.areas[1-no].field.tiles[6]} master={this.props.master}/>
-		    			<Tile model={model.areas[1-no].field.tiles[7]} master={this.props.master}/>
-		    			<Tile model={model.areas[1-no].field.tiles[8]} master={this.props.master}/>
+		    			<Tile model={model.areas[1-no].field.tiles[4]} master={master}/>
+		    			<Tile model={model.areas[1-no].field.tiles[5]} master={master}/>
+		    			<Tile model={model.areas[1-no].field.tiles[6]} master={master}/>
+		    			<Tile model={model.areas[1-no].field.tiles[7]} master={master}/>
+		    			<Tile model={model.areas[1-no].field.tiles[8]} master={master}/>
 		    		</Row>
 		    		<Row>
-		    			<Tile model={model.areas[1-no].field.tiles[0]} master={this.props.master}/>
-		    			<Tile model={model.areas[1-no].field.tiles[1]} master={this.props.master}/>
-		    			<Tile model={model.areas[1-no].field.tiles[2]} master={this.props.master}/>
-		    			<Tile model={model.areas[1-no].field.tiles[3]} master={this.props.master}/>
+		    			<Tile model={model.areas[1-no].field.tiles[0]} master={master}/>
+		    			<Tile model={model.areas[1-no].field.tiles[1]} master={master}/>
+		    			<Tile model={model.areas[1-no].field.tiles[2]} master={master}/>
+		    			<Tile model={model.areas[1-no].field.tiles[3]} master={master}/>
 		    		</Row>
 		    	</Field>
 		    	<div className="sensuba-deck-wrapper">
-	    			<Deck model={model.areas[1-no].deck} master={this.props.master}/>
+	    			<Deck model={model.areas[1-no].deck} master={master}/>
 	    		</div>
-	    		<GemPool model={model.areas[1-no].manapool} master={this.props.master}/>
-		    	<Court model={model.areas[1-no].court} master={this.props.master}/>
+	    		<GemPool model={model.areas[1-no].manapool} master={master}/>
+		    	<Court model={model.areas[1-no].court} master={master}/>
 	    	</Area>
 	    	<div className="sensuba-gauge-wrapper">
 	    		<Gauge color="red" value={(model.areas[no].hero ? model.areas[no].hero.chp : 0) || 0} max={model.areas[no].hero ? model.areas[no].hero.hp : 0}/>
@@ -50,32 +51,32 @@ export default class GameBoard extends Component {
 	    		<Gauge color="dodgerblue" value={model.areas[no].manapool.mana + model.areas[no].manapool.extramana} max={model.areas[no].manapool.maxMana}/>
 	    		<Gauge inverted color="dodgerblue" value={model.areas[1-no].manapool.mana + model.areas[1-no].manapool.extramana} max={model.areas[1-no].manapool.maxMana}/>
 	    	</div>
-	    	<div className="sensuba-end-turn-wrapper">
-	    		<EndTurn locked={!this.props.master.isPlaying} endTurn={() => this.props.master.manager.endTurn()}/>
+	    	<div className={"sensuba-end-turn-wrapper " + (master.manager ? "" : "hidden")}>
+	    		<EndTurn locked={!master.isPlaying} endTurn={() => master.manager.endTurn()}/>
 	    	</div>
-	    	<Area model={model.areas[no]} master={this.props.master}>
-		    	<Court model={model.areas[no].court} master={this.props.master}/>
-		    	<Field model={model.areas[no].field} master={this.props.master}>
+	    	<Area model={model.areas[no]} master={master}>
+		    	<Court model={model.areas[no].court} master={master}/>
+		    	<Field model={model.areas[no].field} master={master}>
 		    		<Row>
-		    			<Tile model={model.areas[no].field.tiles[0]} master={this.props.master}/>
-		    			<Tile model={model.areas[no].field.tiles[1]} master={this.props.master}/>
-		    			<Tile model={model.areas[no].field.tiles[2]} master={this.props.master}/>
-		    			<Tile model={model.areas[no].field.tiles[3]} master={this.props.master}/>
+		    			<Tile model={model.areas[no].field.tiles[0]} master={master}/>
+		    			<Tile model={model.areas[no].field.tiles[1]} master={master}/>
+		    			<Tile model={model.areas[no].field.tiles[2]} master={master}/>
+		    			<Tile model={model.areas[no].field.tiles[3]} master={master}/>
 		    		</Row>
 		    		<Row>
-		    			<Tile model={model.areas[no].field.tiles[4]} master={this.props.master}/>
-		    			<Tile model={model.areas[no].field.tiles[5]} master={this.props.master}/>
-		    			<Tile model={model.areas[no].field.tiles[6]} master={this.props.master}/>
-		    			<Tile model={model.areas[no].field.tiles[7]} master={this.props.master}/>
-		    			<Tile model={model.areas[no].field.tiles[8]} master={this.props.master}/>
+		    			<Tile model={model.areas[no].field.tiles[4]} master={master}/>
+		    			<Tile model={model.areas[no].field.tiles[5]} master={master}/>
+		    			<Tile model={model.areas[no].field.tiles[6]} master={master}/>
+		    			<Tile model={model.areas[no].field.tiles[7]} master={master}/>
+		    			<Tile model={model.areas[no].field.tiles[8]} master={master}/>
 		    		</Row>
 		    	</Field>
 		    	<div className="sensuba-deck-wrapper">
-	    			<Deck model={model.areas[no].deck} master={this.props.master}/>
+	    			<Deck model={model.areas[no].deck} master={master}/>
 	    		</div>
-	    		<GemPool model={model.areas[no].manapool} master={this.props.master}/>
+	    		<GemPool model={model.areas[no].manapool} master={master}/>
 	    	</Area>
-    	<Hand model={model.areas[no].hand} master={this.props.master}/>
+    	<Hand model={model.areas[no].hand} master={master}/>
     	</div>
       </div>
     )

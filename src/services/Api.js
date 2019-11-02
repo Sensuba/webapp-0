@@ -108,6 +108,24 @@ export default class Api {
     });
   }
 
+  saveReplay (params, callback, error) {
+
+    this.client.post("/tmp/replay", params)
+    .then(response => callback(response))
+    .catch(err => {
+      this.error(error)(err);
+    });
+  }
+
+  getReplay (id, callback, error) {
+
+    this.client.get("/tmp/replay?idRoom=" + id)
+    .then(response => callback(response))
+    .catch(err => {
+      this.error(error)(err);
+    });
+  }
+
   login (username, password, callback, error) {
 
   	this.client.post("/auth", {username, password})

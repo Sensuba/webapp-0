@@ -26,26 +26,29 @@ export default class Card extends Component {
 
   render () {
 
+    var model = this.props.model;
+    var master = this.props.master;
+
     return (
       <div
-        id={"sensuba-card-" + this.props.model.id.no}
+        id={"sensuba-card-" + model.id.no}
         style={this.props.style}
-        onMouseMove={this.props.model.nameCard ? e => this.showTooltip(e, this.props.model, true) : e => {}}
-        onMouseLeave={this.props.model.nameCard ? e => this.hideTooltip() : e => {}}
-        className={"sensuba-card-view" + (this.props.model.hasState("flying") ? " flying" : "") + (this.props.model.concealed ? " concealed" : "") + (this.props.hidden ? " invisible" : "")}
+        onMouseMove={model.nameCard ? e => this.showTooltip(e, model, true) : e => {}}
+        onMouseLeave={model.nameCard ? e => this.hideTooltip() : e => {}}
+        className={"sensuba-card-view" + (model.hasState("flying") ? " flying" : "") + (model.concealed ? " concealed" : "") + (this.props.hidden ? " invisible" : "")}
         onClick={e => {
           if (this.props.select) {
-            this.props.select(this.props.model);
+            this.props.select(model);
             document.getElementById("faculty-tooltip").setAttribute("style", `top: ${e.pageY}px; left: ${e.pageX}px; margin-left: 4em`);
           }
           e.stopPropagation();
         }}>
-      	<View model={this.props.model.model} level={this.props.model.level} src={this.props.model.nameCard ? this.props.model.eff : null} className={this.props.master.manager.controller.haloFor(this.props.model)}/>
-        { this.props.model.hasShield ? <div className="sensuba-card-shield"/> : <span/> }
-        { this.props.model.frozen ? <div className="sensuba-card-freeze"/> : <span/> }
-        { this.props.model.concealed ? <div className="sensuba-card-conceal"/> : <span/> }
-        { this.props.model.exalted && this.props.model.onBoard ? <div className="sensuba-card-exalt"/> : <span/> }
-        { this.props.model.silenced ? <div className="sensuba-card-silence"/> : <span/> }
+      	<View model={model.model} level={model.level} src={model.nameCard ? model.eff : null} className={master.manager ? master.manager.controller.haloFor(model) : ""}/>
+        { model.hasShield ? <div className="sensuba-card-shield"/> : <span/> }
+        { model.frozen ? <div className="sensuba-card-freeze"/> : <span/> }
+        { model.concealed ? <div className="sensuba-card-conceal"/> : <span/> }
+        { model.exalted && model.onBoard ? <div className="sensuba-card-exalt"/> : <span/> }
+        { model.silenced ? <div className="sensuba-card-silence"/> : <span/> }
       </div>
     )
   }

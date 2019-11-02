@@ -7,6 +7,7 @@ import Cards from './cards/CardsPage';
 import Editor from './cards/Editor/EditorPage';
 import Play from './play/PlayPage';
 import Room from './play/room/RoomPage';
+import Replay from './play/room/ReplayPage';
 import Loading from './loading/LoadingPage';
 import Rules from './rules/RulesPage';
 import Profile from './profile/ProfilePage';
@@ -154,6 +155,7 @@ export default class App extends Component {
             <Route path="/cards/editor/:card" component={({ match, history }) => (User.isConnected() ? <Editor updateCustoms={this.updateCustoms.bind(this)} card={this.state.customCards.find(card => card.idCardmodel.toString() === match.params.card)} history={history} api={this.props.options.api}/> : <Redirect to="/cards"/>)}/>
             <Route exact path="/play" component={({ match, history }) => (<Play cards={this.state.cards} decks={this.state.decks} socket={this.state.socket} history={history} api={this.props.options.api}/>)}/>
             <Route path="/play/:room" component={({ match, history }) => (<Room socket={this.state.socket} room={match.params.room} history={history} api={this.props.options.api}/>)}/>
+            <Route path="/replay/:room" component={({ match, history }) => (<Replay socket={this.state.socket} room={match.params.room} history={history} api={this.props.options.api}/>)}/>
             <Route exact path="/profile" component={({ match, history }) => (<Profile history={history} api={this.props.options.api}/>)}/>
             <Route exact path="/decks" component={({ match, history }) => (<Decks cards={this.state.cards} history={history} decks={this.state.decks} api={this.props.options.api}/>)}/>
             <Route exact path="/decks/builder" component={({ match, history }) => (<Deckbuilder cards={this.state.cards} updateDecks={this.updateDecks.bind(this)} history={history} api={this.props.options.api}/>)}/>

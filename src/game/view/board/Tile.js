@@ -5,13 +5,16 @@ export default class Tile extends Component {
 
   render () {
 
+    var master = this.props.master;
+    var model = this.props.model;
+
     return (
       <div
-      id={"sensuba-tile-" + this.props.model.id.no}
-      className={"sensuba-tile " + this.props.master.manager.controller.targetable(this.props.model)}
-      onClick={e => { this.props.master.manager.select(this.props.model); e.stopPropagation(); } }>
+      id={"sensuba-tile-" + model.id.no}
+      className={"sensuba-tile " + (master.manager ? master.manager.controller.targetable(model) : "")}
+      onClick={e => { master.select(model); e.stopPropagation(); } }>
       {
-        this.props.model.card !== null ? <Card model={this.props.model.card} master={this.props.master} select={m => this.props.master.manager.select(m)}/> : <span/>
+        model.card !== null ? <Card model={model.card} master={master} select={m => master.select(m)}/> : <span/>
       }
       </div>
     )

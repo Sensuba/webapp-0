@@ -37,7 +37,7 @@ export default class GameBoard {
 	}
 
 	newTurn (noArea) {
-
+		
 		this.currentArea = this.areas[noArea];
 		this.currentArea.newTurn();
 	}

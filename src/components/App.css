@@ -32,7 +32,12 @@ main.dark-page {
 
 .invisible {
 
-	display: none !important;
+  display: none !important;
+} 
+
+.hidden {
+
+  visibility: hidden !important;
 } 
 
 .editable {

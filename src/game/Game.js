@@ -16,6 +16,7 @@ import History from './view/UI/History';
 import Lightbox from '../components/utility/Lightbox';
 import { Button } from 'reactstrap';
 import Library from '../services/Library';
+//import files from '../utility/FileManager';
 
 import { createStore } from 'redux';
 import reducers from './reducers';
@@ -124,6 +125,39 @@ export default class Game extends Component {
     this.props.socket.emit('command', command);
   }
 
+  select (e) {
+
+    this.manager.select(e);
+  }
+
+  saveReplay () {
+
+    /*var generateName = () => {
+
+      let name = "replay-";
+      let today = new Date();
+      name += today.getDate() + "-" + (today.getMonth()+1) + "-" + today.getFullYear();
+      name += "#" + Math.floor(Math.random() * 100000);
+      return name;
+    }
+
+    files.download(JSON.stringify(this.state.model.log.logs), generateName(), "application/json");*/
+    var replayUrl = "https://sensuba.com/replay/" + this.props.room /*response.data.idRoom*/;
+    this.copyToClipboard(replayUrl);
+    this.props.api.saveReplay({idRoom: this.props.room, log: JSON.stringify(this.state.model.log.logs)}, response => {
+      //this.props.quitRoom();
+    });
+  }
+
+  copyToClipboard (str) {
+    var el = document.createElement('textarea');
+    el.value = str;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+  };
+
   get waiting () {
 
     return !this.state.model.started;
@@ -142,7 +176,7 @@ export default class Game extends Component {
         <div id="endgame-window">
           <h2>{ this.state.model.gamestate === 1 ? "Victory !" : "Defeat..." }</h2>
           <CardPreview src={this.state.hero} level={1} model={this.state.hero}/>
-          <Button className="replay-button">Save replay</Button>
+          <Button onClick={() => this.saveReplay()} className="replay-button">Save replay</Button>
           <Button onClick={this.props.quitRoom} className="proceed-button">Proceed</Button>
         </div>
       </Lightbox>
