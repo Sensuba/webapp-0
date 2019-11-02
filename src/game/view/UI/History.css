@@ -16,6 +16,7 @@
     border-width: 3px;
     border-style: solid;
     overflow: hidden;
+    pointer-events: all;
 }
 
 .history-entry.history-play { border-color: black }

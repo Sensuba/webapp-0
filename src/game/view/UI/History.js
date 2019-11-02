@@ -9,7 +9,7 @@ export default class History extends Component {
     return (
     	<div className="history">
       {
-        this.props.entries.map((f, i) => <Entry key={i} value={f} select={this.props.select}/>)
+        this.props.entries.map((f, i) => <Entry key={i} value={f} select={this.props.select} master={this.props.master}/>)
       }
 		</div>
     )

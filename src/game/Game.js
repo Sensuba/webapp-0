@@ -189,7 +189,6 @@ export default class Game extends Component {
       <div id="deck-count-tooltip" data-toggle="tooltip" data-placement="left" data-animation="false" data-trigger="manual">
         { this.state.deckcount ? ("You" + (this.state.deckcount.you ? " have " : "r opponent has ") + this.state.deckcount.count + " card" + (this.state.deckcount.count > 1 ? "s" : "") + " left.") : "" }
       </div>
-      <History entries={this.state.model.log.history}/>
       {
         this.waiting
         ? 
@@ -205,6 +204,7 @@ export default class Game extends Component {
       <div style={{ display: this.waiting ? "none" : "block" }}>
         <View model={this.state.model} master={this}/>
       </div>
+      <History entries={this.state.model.log.history} master={this}/>
       </div>
     );
   }
