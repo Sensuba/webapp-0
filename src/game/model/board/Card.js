@@ -612,11 +612,12 @@ export default class Card {
 		res = Object.assign({}, this);
 		res.isEff = true;
 		res.states = Object.assign({}, this.states);
-		res = this.mutations.reduce((card, mut) => mut.apply(card), res);
 		this.gameboard.auras.forEach(aura => {
 			if (aura.applicable(this))
 				res = aura.apply(res);
 		});
+		this.mutatedState = res;
+		res = this.mutations.reduce((card, mut) => mut.apply(card), res);
 		if (this.isType("character")) {
 			this.php = this.php || { hp: this.hp, chp: this.chp };
 			var plushp = Math.max (0, res.hp - this.php.hp);
