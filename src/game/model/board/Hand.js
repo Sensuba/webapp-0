@@ -37,6 +37,11 @@ export default class Hand {
 		return this.area.opposite.hand;
 	}
 
+	get public () {
+
+		return false;
+	}
+
 	addCard (card) {
 
 		card.identify();

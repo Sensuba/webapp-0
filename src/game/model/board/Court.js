@@ -23,6 +23,11 @@ export default class Court {
 		return !this.isEmpty;
 	}
 
+	get public () {
+
+		return false;
+	}
+
 	place (card) {
 
 		if (this.card !== null)

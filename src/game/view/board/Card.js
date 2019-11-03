@@ -43,7 +43,7 @@ export default class Card extends Component {
           }
           e.stopPropagation();
         }}>
-      	<View model={model.model} level={model.level} src={model.nameCard ? model.eff : null} className={master.manager ? master.manager.controller.haloFor(model) : ""}/>
+      	<View model={model.model} level={model.level} src={model.nameCard && (model.location.public || model.area === master.state.model.areas[master.no]) ? model.eff : null} className={master.manager ? master.manager.controller.haloFor(model) : ""}/>
         { model.hasShield ? <div className="sensuba-card-shield"/> : <span/> }
         { model.frozen ? <div className="sensuba-card-freeze"/> : <span/> }
         { model.concealed ? <div className="sensuba-card-conceal"/> : <span/> }

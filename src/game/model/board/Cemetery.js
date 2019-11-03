@@ -27,6 +27,11 @@ export default class cemetery {
 		return this.area.opposite.cemetery;
 	}
 
+	get public () {
+
+		return true;
+	}
+
 	addCard (card) {
 
 		this.cards.push(card);

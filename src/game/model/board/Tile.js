@@ -72,6 +72,11 @@ export default class Tile {
 		return this.field.back.includes(this);
 	}
 
+	get public () {
+
+		return true;
+	}
+
 	get neighbors () {
 
 		var n = [], i;
