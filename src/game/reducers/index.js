@@ -129,6 +129,12 @@ export default (state = new GameBoard(), n) => {
         card.mutate(mut.effect, mut.end);
       }
       break; }
+    case "nextcard": {
+      let player = state.find(n.src);
+      let mutsrc = state.find(n.data[0]);
+      let mut = mutsrc.mutdata[n.data[1].value].getMutation();
+      player.addAspect(mut.effect, mut.targets, mut.end);
+      break; }
     case "createmana":
       state.areas[n.src.no].manapool.createReceptacle(n.data[0].value);
       break;
