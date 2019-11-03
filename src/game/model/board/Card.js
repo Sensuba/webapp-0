@@ -227,6 +227,7 @@ export default class Card {
 			return;
 
 		this.ol += value;
+		this.update();
 		//this.gameboard.notify("overloadcard", this, value);
 	}
 
