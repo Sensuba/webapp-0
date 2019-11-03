@@ -147,6 +147,20 @@ class Types {
 		}
 	}
 
+	static modelfilter (value, src) {
+
+		if (!(typeof value === 'string'))
+			return value;
+		switch (value) {
+		case 'hero':
+		case 'figure':
+		case 'spell':
+		case 'artifact':
+			return target => target.cardType === value;
+		default: return target => true;
+		}
+	}
+
 	static state (value, src) {
 
 		return value;
@@ -157,18 +171,23 @@ class Types {
 		return typeof value === 'string' ? () => {} : value;
 	}
 
+	static innereffect (value, src) {
+
+		return value;
+	}
+
 	static timestamp (value, src) {
 
 		if (!(typeof value === 'string'))
 			return value;
 		switch (value) {
-		case 'end of turn': 
-		case 'start of turn': return null;
-		case 'end of opponent\'s turn':
-		case 'start of your turn': return src.area;
-		case 'start of opponent\'s turn':
-		case 'end of your turn': return src.area.opposite;
-		default: return null;
+		case 'end of turn': return { player: null, time: 1 };
+		case 'start of turn': return { player: null, time: 0 };
+		case 'end of opponent\'s turn': return { player: src.area.opposite, time: 1 };
+		case 'start of your turn': return { player: src.area, time: 0 };
+		case 'start of opponent\'s turn': return { player: src.area.opposite, time: 0 };
+		case 'end of your turn': return { player: src.area, time: 1 };
+		default: return { player: null, time: 1 };
 		}
 	}
 
@@ -183,6 +202,16 @@ class Types {
 		case 'previous turn': return 4;
 		case 'all game': return 0;
 		default: return 0;
+		}
+	}
+
+	static effecttype (value, src) {
+
+		if (!(typeof value === 'string'))
+			return value;
+		switch (value) {
+		case 'last will': return target => target.effecttype === "last will";
+		default: return target => true;
 		}
 	}
 
