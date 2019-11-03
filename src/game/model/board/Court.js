@@ -25,7 +25,7 @@ export default class Court {
 
 	get public () {
 
-		return false;
+		return true;
 	}
 
 	place (card) {
