@@ -387,6 +387,11 @@
 }
 
 
+.sensuba-card-view.firstturn {
+
+  filter: brightness(0.85);
+}
+
 .sensuba-card-view.concealed {
 
   filter: grayscale(1);

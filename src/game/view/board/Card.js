@@ -35,7 +35,7 @@ export default class Card extends Component {
         style={this.props.style}
         onMouseMove={model.nameCard ? e => this.showTooltip(e, model, true) : e => {}}
         onMouseLeave={model.nameCard ? e => this.hideTooltip() : e => {}}
-        className={"sensuba-card-view" + (model.hasState("flying") ? " flying" : "") + (model.concealed ? " concealed" : "") + (this.props.hidden ? " invisible" : "")}
+        className={"sensuba-card-view" + (model.hasState("flying") ? " flying" : "") + (model.concealed ? " concealed" : "") + (model.firstTurn && !model.hasState("rush") && model.area.isPlaying ? " firstturn" : "") + (this.props.hidden ? " invisible" : "")}
         onClick={e => {
           if (this.props.select) {
             this.props.select(model);
@@ -49,8 +49,8 @@ export default class Card extends Component {
         { model.concealed ? <div className="sensuba-card-conceal"/> : <span/> }
         { model.exalted && model.onBoard ? <div className="sensuba-card-exalt"/> : <span/> }
         { model.silenced ? <div className="sensuba-card-silence"/> : <span/> }
-        { model.hasState("initiative") ? <div className="sensuba-card-initiative"/> : <span/> }
-        { model.hasState("fury") ? <div className="sensuba-card-fury"/> : <span/> }
+        { model.hasState("initiative") && model.onBoard ? <div className="sensuba-card-initiative"/> : <span/> }
+        { model.hasState("fury") && model.onBoard ? <div className="sensuba-card-fury"/> : <span/> }
       </div>
     )
   }
