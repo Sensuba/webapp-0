@@ -141,7 +141,7 @@ export default class Sequencer {
 	    case "fatigue":
 	    	return new Fatigue(n.src.no);
 	    case "newturn": {
-	    	if (!this.master.isPlaying && !this.master.isReplay)
+	    	if (this.master.no === n.src.no)
 	    		return new NewTurn();
 	    	break;
 	    }

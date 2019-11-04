@@ -4,7 +4,7 @@ export default class Draw extends Animation {
 
 	constructor () {
 
-		super(0);
+		super(300);
 		this.loadAudio("card");
 	}
 }

@@ -83,18 +83,6 @@ export default class Replay extends Component {
         a();
       }
     }
-    /*else {
-      n = this.replayData[this.index];
-      if (!n) {
-        this.end();
-        return;
-      }
-      //let tf = this.timeFor(n.type);
-      //if (!tf)
-        this.next();
-      //else
-      //  setTimeout(() => this.next(), tf);
-    }*/
   }
 
   timeFor (type) {
