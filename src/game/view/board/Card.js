@@ -29,12 +29,14 @@ export default class Card extends Component {
     var model = this.props.model;
     var master = this.props.master;
 
+    var visible = model.nameCard && (model.location.public || model.area === master.state.model.areas[master.no]);
+
     return (
       <div
         id={"sensuba-card-" + model.id.no}
         style={this.props.style}
-        onMouseMove={model.nameCard ? e => this.showTooltip(e, model, true) : e => {}}
-        onMouseLeave={model.nameCard ? e => this.hideTooltip() : e => {}}
+        onMouseMove={visible ? e => this.showTooltip(e, model, true) : e => {}}
+        onMouseLeave={visible ? e => this.hideTooltip() : e => {}}
         className={"sensuba-card-view" + (model.hasState("flying") ? " flying" : "") + (model.concealed ? " concealed" : "") + (model.firstTurn && !model.hasState("rush") && model.area.isPlaying ? " firstturn" : "") + (this.props.hidden ? " invisible" : "")}
         onClick={e => {
           if (this.props.select) {
@@ -43,7 +45,7 @@ export default class Card extends Component {
           }
           e.stopPropagation();
         }}>
-      	<View model={model.model} level={model.level} src={model.nameCard && (model.location.public || model.area === master.state.model.areas[master.no]) ? model.eff : null} className={master.manager ? master.manager.controller.haloFor(model) : ""}/>
+      	<View model={model.model} level={model.level} src={visible ? model.eff : null} className={master.manager ? master.manager.controller.haloFor(model) : ""}/>
         { model.hasShield ? <div className="sensuba-card-shield"/> : <span/> }
         { model.frozen ? <div className="sensuba-card-freeze"/> : <span/> }
         { model.concealed ? <div className="sensuba-card-conceal"/> : <span/> }

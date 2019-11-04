@@ -65,22 +65,36 @@ export default class Replay extends Component {
       this.end();
       return;
     }
-    this.analyse(n);
-    this.index++;
-    if (!this.state.model.started)
+    let a = () => {
+      this.analyse(n);
+      this.index++;
       this.next();
+    }
+    var tf = this.timeFor(n.type);
+    if (!tf)
+      a();
     else {
+      if (this.towait){
+        setTimeout(a.bind(this), this.towait);
+        this.towait = tf;
+      }
+      else {
+        this.towait = tf;
+        a();
+      }
+    }
+    /*else {
       n = this.replayData[this.index];
       if (!n) {
         this.end();
         return;
       }
-      let tf = this.timeFor(n.type);
-      if (!tf)
+      //let tf = this.timeFor(n.type);
+      //if (!tf)
         this.next();
-      else
-        setTimeout(() => this.next(), tf);
-    }
+      //else
+      //  setTimeout(() => this.next(), tf);
+    }*/
   }
 
   timeFor (type) {
@@ -90,9 +104,11 @@ export default class Replay extends Component {
     return 2500;
     case "cardfaculty":
     case "playcard":
+    return 2500;
     case "charattack":
-    case "charmove":
     return 1500;
+    case "charmove":
+    return 1000;
     default: return 0;
     }
   }
@@ -105,6 +121,11 @@ export default class Replay extends Component {
   get isPlaying () {
 
     return false;
+  }
+
+  get isReplay () {
+
+    return true;
   }
 
   select (e) {
@@ -120,7 +141,6 @@ export default class Replay extends Component {
       <div id="deck-count-tooltip" data-toggle="tooltip" data-placement="left" data-animation="false" data-trigger="manual">
         { this.state.deckcount ? ("You" + (this.state.deckcount.you ? " have " : "r opponent has ") + this.state.deckcount.count + " card" + (this.state.deckcount.count > 1 ? "s" : "") + " left.") : "" }
       </div>
-      <History entries={this.state.model.log.history}/>
       {
         this.waiting
         ? 
@@ -134,6 +154,10 @@ export default class Replay extends Component {
       }
       <div style={{ display: this.waiting ? "none" : "block" }}>
         <View model={this.state.model} master={this}/>
+      </div>
+      <History entries={this.state.model.log.history}/>
+      <div id="newturn-frame">
+        <h1 className="big-text">Your Turn</h1>
       </div>
       </div>
     );

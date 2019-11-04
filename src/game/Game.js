@@ -169,6 +169,11 @@ export default class Game extends Component {
     return ca ? ca.id.no === this.no : false;
   }
 
+  get isReplay () {
+
+    return false;
+  }
+
   render() {
     return (
       <div>
