@@ -45,7 +45,7 @@ export default class Replay extends Component {
 
       model: this.store.getState()
     }
-    this.sequencer = new Sequencer(this.state.model, this.store.dispatch);
+    this.sequencer = new Sequencer(this, this.state.model, this.store.dispatch);
   }
 
   analyse (n) {

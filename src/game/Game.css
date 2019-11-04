@@ -51,6 +51,50 @@
   border: solid #3e1919 2px !important;
 }
 
+#newturn-frame {
+
+  display: none;
+  position: fixed;
+  width: 100vw;
+  height: 20em;
+  top: calc(50vh - 10em);
+  left: 0;
+  background: linear-gradient(90deg,transparent,#C0A0A0C0 20%,#C0A0A0C0 80%,transparent);
+}
+
+#newturn-frame.newturn-anim {
+
+  display: block;
+  left: 100vw;
+  animation: newturn 2s 1 linear;
+}
+
+@keyframes newturn {
+  0% { left: 100vw  }
+  5% { left: 65vw  }
+  10% { left: 40vw  }
+  15% { left: 25vw  }
+  20% { left: 15vw  }
+  25% { left: 8vw  }
+  30% { left: 4.5vw  }
+  40% { left: 1.5vw  }
+  60% { left: -1.5vw  }
+  70% { left: -4.5vw  }
+  75% { left: -8vw  }
+  80% { left: -15vw  }
+  85% { left: -25vw  }
+  90% { left: -40vw  }
+  95% { left: -65vw  }
+  100% { left: -100vw  }
+}
+
+#newturn-frame .big-text {
+
+  color: whitesmoke;
+  font-size: 6.66em;
+  margin-top: 1em;
+}
+
 .sensuba-gameboard {
 
 	margin-top: -15vw;

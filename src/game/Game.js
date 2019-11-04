@@ -76,7 +76,7 @@ export default class Game extends Component {
     }
 
     this.manager = new Manager(this.state.model, this.command.bind(this), state => state ? this.setState(state) : this.forceUpdate());
-    this.sequencer = new Sequencer(this.state.model, this.store.dispatch);
+    this.sequencer = new Sequencer(this, this.state.model, this.store.dispatch);
 
     this.props.socket.removeAllListeners();
 
@@ -205,6 +205,9 @@ export default class Game extends Component {
         <View model={this.state.model} master={this}/>
       </div>
       <History entries={this.state.model.log.history} master={this}/>
+      <div id="newturn-frame">
+        <h1 className="big-text">Your Turn</h1>
+      </div>
       </div>
     );
   }

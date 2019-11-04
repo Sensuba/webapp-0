@@ -12,11 +12,13 @@ import Shuffle from './view/animation/Shuffle';
 import Boost from './view/animation/Boost';
 import Heal from './view/animation/Heal';
 import Trigger from './view/animation/Trigger';
+import NewTurn from './view/animation/NewTurn';
 
 export default class Sequencer {
 
-	constructor (model, dispatch) {
+	constructor (master, model, dispatch) {
 
+		this.master = master;
 		this.model = model;
 		this.queue = [];
 		this.current = null;
@@ -138,6 +140,11 @@ export default class Sequencer {
 	    	break; }
 	    case "fatigue":
 	    	return new Fatigue(n.src.no);
+	    case "newturn": {
+	    	if (!this.master.isPlaying)
+	    		return new NewTurn();
+	    	break;
+	    }
 	    default: return null;
 	    }
 	}
