@@ -430,6 +430,74 @@
   to {filter: contrast(2.5);}
 }
 
+.sensuba-card-view .sensuba-card-initiative {
+
+    animation: initiativetranslate 3s infinite alternate, initiativeopacity 2s infinite alternate;
+    position: absolute;
+    top: 0em;
+    left: 0em;
+}
+
+.sensuba-card-view .sensuba-card-initiative::before {
+
+  content: "";
+  width: 20em;
+    height: 20em;
+    overflow: hidden;
+    margin: 0.4em;
+    position: absolute;
+    top: 0em;
+    left: -2.5em;
+    background: url('./images/initiative.png');
+    background-size: 100%;
+    animation: initiativerotate 10s infinite linear;
+}
+
+@keyframes initiativerotate {
+  from {transform: rotateZ(0deg);}
+  to {transform: rotateZ(360deg);}
+}
+
+@keyframes initiativetranslate {
+  from {transform: translateZ(0);}
+  to {transform: translateZ(1em);}
+}
+
+@keyframes initiativeopacity {
+  from {opacity: 0.2;}
+  to {opacity: 0.35;}
+}
+
+
+.sensuba-card-view .sensuba-card-fury {
+
+    position: absolute;
+    top: 0em;
+    left: 0em;
+    width: 15em;
+    height: 20em;
+    overflow: hidden;
+    margin: 0.4em;
+}
+
+.sensuba-card-view .sensuba-card-fury::before {
+
+    content: "";
+    position: absolute;
+    top: 0em;
+    left: 0em;
+    width: 15em;
+    height: 40em;
+    background: linear-gradient(transparent, rgba(220, 0, 0, 0.3), transparent);
+    background-size: 100%;
+    animation: furytranslate 6s infinite alternate ease-in-out;
+}
+
+@keyframes furytranslate {
+  from {top: -38em;}
+  to {top: 18em;}
+}
+
 .sensuba-card-view .sensuba-card-silence {
 
 	animation: silencetranslate 3s infinite alternate;

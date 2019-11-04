@@ -9,6 +9,7 @@ import Destroy from './view/animation/Destroy';
 import Summon from './view/animation/Summon';
 import Fatigue from './view/animation/Fatigue';
 import Shuffle from './view/animation/Shuffle';
+import Boost from './view/animation/Boost';
 
 export default class Sequencer {
 
@@ -103,6 +104,10 @@ export default class Sequencer {
 	    case "destroycard":
 	    	if (this.model.find(n.src).onBoard)
 	    		return new Destroy(n.src.no);
+	    	break;
+	    case "boostcard":
+	    	if (this.model.find(n.src).onBoard)
+	    		return new Boost(n.src.no);
 	    	break;
 	    case "fatigue":
 	    	return new Fatigue(n.src.no);
