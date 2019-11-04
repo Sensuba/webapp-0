@@ -19,6 +19,8 @@ export default class Entry extends Component {
 
   componentWillUnmount() {
 
+    if (!this.props.master || !this.props.master.state)
+      return;
     if (this.props.master.state.preview === this.props.value.src)
       this.hideTooltip();
   }

@@ -59,7 +59,7 @@ export default class Card {
 
 	summon (tile) {
 
-		if (this.onBoard && this.chp !== undefined && this.chp <= 0)
+		if (this.dying)
 			this.resetBody();
 		this.skillPt = 1;
 		this.chp = this.eff.hp;
