@@ -7,7 +7,7 @@ export default class Boost extends Animation {
 
 		super(0);
 		this.card = card;
-		this.loadAudio("heal");
+		//this.loadAudio("trigger");
 	}
 
 	run () {

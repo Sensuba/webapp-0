@@ -1,0 +1,10 @@
+.sensuba-card.sensuba-card-trigger {
+
+	animation: card-trigger 0.8s 1;
+}
+
+@keyframes card-trigger {
+  0%   { box-shadow: 0 0 0 0 rgba(214, 213, 0, 0.5) }
+  50% { box-shadow: 0 0 0.5em 0.6em rgba(214, 213, 0, 0.5) }
+  100%   { box-shadow: 0 0 0 0 rgba(214, 213, 0, 0.5) }
+}

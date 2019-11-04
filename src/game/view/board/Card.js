@@ -51,6 +51,7 @@ export default class Card extends Component {
         { model.silenced ? <div className="sensuba-card-silence"/> : <span/> }
         { model.hasState("initiative") && model.onBoard ? <div className="sensuba-card-initiative"/> : <span/> }
         { model.hasState("fury") && model.onBoard ? <div className="sensuba-card-fury"/> : <span/> }
+        <div className="sensuba-card-animmask"/>
       </div>
     )
   }

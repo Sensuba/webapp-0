@@ -551,3 +551,8 @@
   from {transform: translateZ(0);}
   to {transform: translateZ(1em);}
 }
+
+.sensuba-card-animmask {
+
+  display: none;
+}

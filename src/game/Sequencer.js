@@ -10,6 +10,8 @@ import Summon from './view/animation/Summon';
 import Fatigue from './view/animation/Fatigue';
 import Shuffle from './view/animation/Shuffle';
 import Boost from './view/animation/Boost';
+import Heal from './view/animation/Heal';
+import Trigger from './view/animation/Trigger';
 
 export default class Sequencer {
 
@@ -71,7 +73,16 @@ export default class Sequencer {
 	  	case "draw": return new Draw();
 	  	case "summon": return new Summon(n.src.no);
 	    case "charattack": return new Attack(n.src.no);
-	    case "damagecard": return new Damage(n.src.no);
+	    case "damagecard": {
+	    	let card = this.model.find(n.src);
+	    	if (!card) break;
+	    	if (card.isType("artifact")) {
+	    		if (this.model.find(n.data[1]) !== card)
+	    			return new Damage(n.src.no);
+	    	}
+	    	else if (card.onBoard)
+	    		return new Damage(n.src.no);
+	    	break; }
 	    case "playcard": {
 	    	let card = this.model.find(n.src);
 		    if (card.cardType === "spell") {
@@ -105,10 +116,26 @@ export default class Sequencer {
 	    	if (this.model.find(n.src).onBoard)
 	    		return new Destroy(n.src.no);
 	    	break;
-	    case "boostcard":
-	    	if (this.model.find(n.src).onBoard)
+	    case "boostcard": {
+	    	let card = this.model.find(n.src);
+	    	if (card && card.onBoard)
 	    		return new Boost(n.src.no);
-	    	break;
+	    	break; }
+	    case "healcard": {
+	    	let card = this.model.find(n.src);
+	    	if (!card) break;
+	    	if (card.isType("artifact")) {
+	    		if (this.model.find(n.data[1]) !== card)
+	    			return new Heal(n.src.no);
+	    	}
+	    	else if (card.onBoard)
+	    		return new Heal(n.src.no);
+	    	break; }
+	    case "listener": {
+	    	let card = this.model.find(n.src);
+	    	if (card && card.onBoard)
+	    		return new Trigger(n.src.no);
+	    	break; }
 	    case "fatigue":
 	    	return new Fatigue(n.src.no);
 	    default: return null;
