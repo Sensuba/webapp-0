@@ -626,11 +626,11 @@ export default class Card {
 			if (aura.applicable(this))
 				res = aura.apply(res);
 		});
-		updatephp();
-		this.mutatedState = res;
+		if (!this.mutatedState)
+			this.mutatedState = res;
+		this.mutatedState.states = Object.assign({}, res.states);
 		res = this.mutations.reduce((card, mut) => mut.apply(card), res);
 		updatephp();
-		
 		this.computing = false;
 
 		this.mutatedState = res;
