@@ -13,6 +13,7 @@ import Boost from './view/animation/Boost';
 import Heal from './view/animation/Heal';
 import Trigger from './view/animation/Trigger';
 import NewTurn from './view/animation/NewTurn';
+import Psychic from './view/animation/Psychic';
 
 export default class Sequencer {
 
@@ -118,6 +119,7 @@ export default class Sequencer {
 	    	if (this.model.find(n.src).onBoard)
 	    		return new Destroy(n.src.no);
 	    	break;
+	    case "silence": return new Psychic(n.src.no);
 	    case "boostcard": {
 	    	let card = this.model.find(n.src);
 	    	if (card && card.onBoard)

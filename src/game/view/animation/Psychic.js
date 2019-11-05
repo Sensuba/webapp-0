@@ -7,6 +7,7 @@ export default class Psychic extends Animation {
 
 		super(0);
 		this.card = card;
+		this.loadAudio("silence");
 	}
 
 	run () {

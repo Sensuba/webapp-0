@@ -8,7 +8,7 @@ class ForEachEffect extends Bloc {
 		super("foreffect", src, ctx, true);
 		this.f = (src, ins, image) => {
 			var card = ins[0], targets = ins[1];
-			card.getInnerEffects().forEach (eff => {
+			card.getEffects().forEach (eff => {
 				if (targets === null || targets(eff)) {
 					this.out = [eff];
 					if (this["for each"])

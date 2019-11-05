@@ -54,7 +54,7 @@ export default class PortModel extends SuperPortModel {
 
 		switch (this.type) {
 		case "effect":
-		case "innereffect": this.color ="#871212"; break;
+		case "event": this.color ="#871212"; break;
 		case "exe": this.color = "#F0F0F0"; break;
 		case "int": this.color = "#35e8b8"; break;
 		case "bool": this.color ="#3d49a5"; break;
@@ -68,7 +68,6 @@ export default class PortModel extends SuperPortModel {
 		case "location": this.color = "#ffa126"; break;
 		case "locations": this.color = "#b77012"; break;
 		case "mutation": this.color = "#12d22c"; break;
-		case "event": this.color = "#de1818"; break;
 		case "area": this.color = "#19601c"; break;
 		case "data": this.color ="#7b7b7b"; break;
 		default: this.color = "#404040"; break;

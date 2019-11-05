@@ -575,6 +575,11 @@ export default class Card {
 		this.gameboard.update();
 	}
 
+	getEffects () {
+
+		return this.blueprint.triggers.map(t => t.getBloc());
+	}
+
 	get eff () {
 
 		var contacteffect = (eff) => {

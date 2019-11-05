@@ -171,11 +171,6 @@ class Types {
 		return typeof value === 'string' ? () => {} : value;
 	}
 
-	static innereffect (value, src) {
-
-		return value;
-	}
-
 	static timestamp (value, src) {
 
 		if (!(typeof value === 'string'))
@@ -210,7 +205,7 @@ class Types {
 		if (!(typeof value === 'string'))
 			return value;
 		switch (value) {
-		case 'last will': return target => target.effecttype === "last will";
+		case 'last will': return target => target.type === "lw";
 		default: return target => true;
 		}
 	}
