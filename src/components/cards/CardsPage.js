@@ -58,9 +58,23 @@ export default class CardsPage extends Component {
 
   search (filter) {
 
-    var colors = filter.colors.length > 0 ? filter.colors.reduce((acc, color) => acc + "," + color) : "";
+    filter.colors = filter.colors.length > 0 ? filter.colors.reduce((acc, color) => acc + "," + color) : "";
 
-    this.props.history.push(`/cards?search=${filter.search}&archetype=${filter.archetype}&colors=${colors}&edition=${filter.edition}&type=${filter.type}&orderBy=${filter.orderBy}`);
+    var suf = "";
+
+    var addFilter = param => {
+
+      if (param === "orderBy" && filter[param] === "type")
+        return;
+      if (filter[param] && filter[param].length !== 0) {
+        suf += suf.length === 0 ? "?" : "&";
+        suf += param + "=" + filter[param];
+      }
+    }
+    ["search", "archetype", "colors", "edition", "type", "orderBy"].forEach(param => addFilter(param));
+    
+
+    this.props.history.push(`/cards${suf}`);
   }
   
   render() {
