@@ -1,4 +1,5 @@
 var Bloc = require('./Bloc');
+//var Listener = require('../Listener');
 
 class Contact extends Bloc {
 
@@ -12,12 +13,13 @@ class Contact extends Bloc {
 
 	setup (owner, image) {
 
-		/*this.src.gameboard.subscribe("charcontact", (t,s,d) => {
+		/*var that = this;
+		owner.passives.push(new Listener(owner, () => that.src.gameboard.subscribe("charcontact", (t,s,d) => {
 			if (s === owner || d[0] === owner) {
 				this.other = s === owner ? d[0] : s;
-				this.execute(image);
+				this.execute({src: owner, image: image});
 			}
-		});*/
+		})));*/
 	}
 }
 

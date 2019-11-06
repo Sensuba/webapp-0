@@ -1,4 +1,6 @@
 var Bloc = require('./Bloc');
+//var Types = require('./Types');
+//var Listener = require('../Listener');
 
 class Frenzy extends Bloc {
 
@@ -12,12 +14,18 @@ class Frenzy extends Bloc {
 
 	setup (owner, image) {
 
-		/*this.src.gameboard.subscribe("charattack", (t,s,d) => {
-			if (s === owner && owner.onBoard && d[0].chp !== undefined && d[0].chp <= 0) {
-				this.victim = d[0];
-				this.execute(image);
+		/*var that = this;
+		owner.passives.push(new Listener(owner, () => that.src.gameboard.subscribe("damagecard", (t,s,d) => {
+			if (d[1] === owner && owner.onBoard && s.chp !== undefined && s.chp <= 0) {
+				that.victim = s;
+				that.unsubVictim = that.src.gameboard.subscribe("destroycard", (t2,s2,d2) => {
+					if (that.victim === s2) {
+						that.execute({src: owner, image: image});
+						that.unsubVictim();
+					}
+				});
 			}
-		});*/
+		})));*/
 	}
 }
 

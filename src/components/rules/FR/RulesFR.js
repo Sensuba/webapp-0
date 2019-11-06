@@ -43,7 +43,7 @@ export default class RulesFR extends Component {
           </div>
           <div className="rule-title">Mettre son jeu en place</div>
           <div className="explanation">
-            <p>Le tour d'un joueur commence toujours par la pioche d'une carte. Une nouvelle carte permet d'affiner son jeu durant la partie, et d'offrir de nouvelles options au joueur. Prenez cependant garde : si votre deck est vide, piocher une carte vous conduira à une défaite imminente ! De plus, vous ne pouvez pas avoir plus de 10 cartes en main, les cartes piochées supplémentaires seront perdues.</p>
+            <p>Le tour d'un joueur commence toujours par la pioche d'une carte. Une nouvelle carte permet d'affiner son jeu durant la partie, et d'offrir de nouvelles options au joueur. Prenez cependant garde : si votre deck est vide, chaque carte à piocher infligera à la place 500 dégâts à votre héros ! De plus, vous ne pouvez pas avoir plus de 10 cartes en main, les cartes piochées supplémentaires seront perdues.</p>
             <p>Durant un tour de jeu, vous pouvez effectuez de nombreuses actions. Vous pouvez utiliser votre mana pour jouer des cartes qui influenceront directement le jeu, déplacer vos personnages sur des cases adjacentes, attaquer avec, ou encore déclencher leurs effets, de manière à mettre en place votre stratégie, en enrayant celle de l'adversaire.</p>
           </div>
           <img className="img-exp" src="/rules/mettre-son-jeu-en-place.png" alt="img"/>

@@ -9,7 +9,7 @@ class AddMutation extends Bloc {
 		this.f = (src, ins) => {
 
 			ins[0].mutate(ins[1], ins[2]);
-			src.gameboard.notify("addmut", ins[0], src, {type: "int", value: this.mutno});
+			//src.gameboard.notify("addmut", ins[0], src, {type: "int", value: this.mutno});
 
 			return [];
 		};
@@ -23,7 +23,7 @@ class AddMutation extends Bloc {
 
 	getMutation () {
 
-		return {effect: this.in[1](this.src), end: this.in[2](this.src)};
+		return {effect: this.in[1](), end: this.in[2]()};
 	}
 }
 

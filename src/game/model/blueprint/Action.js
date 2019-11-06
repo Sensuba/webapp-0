@@ -1,5 +1,7 @@
 var Bloc = require('./Bloc');
 var Types = require('./Types');
+//var EAction = require('../Action');
+//var Event = require('../Event');
 
 class Action extends Bloc {
 
@@ -17,11 +19,6 @@ class Action extends Bloc {
 		var cpt = this.computeIn();
 		var req = cpt[0];
 		var tar = this.target ? (req ? (src, target) => (req(src, target) && (!target.card || target.card.targetable)) : (src, target) => true) : null;
-		/*owner.faculties.push(new EAction(new Event(target => {
-			if (target)
-				this.chosen = target;
-			this.execute(image);
-		}, req)));*/
 		var action = {no: owner.faculties.length, desc: cpt[1], cost: "!"};
 		if (this.target) 
 			action.target = tar;

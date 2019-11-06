@@ -1,5 +1,8 @@
 var Bloc = require('./Bloc');
 var Types = require('./Types');
+//var ESkill = require('../Skill');
+//var ASkill = require('../ArtifactSkill');
+//var Event = require('../Event');
 
 class Skill extends Bloc {
 
@@ -17,11 +20,6 @@ class Skill extends Bloc {
 		var cpt = this.computeIn();
 		var req = cpt[0];
 		var tar = this.target ? (req ? (src, target) => (req(src, target) && (!target.card || target.card.targetable)) : (src, target) => true) : null;
-		/*owner.faculties.push(new ESkill(new Event(target => {
-			if (target)
-				this.chosen = target;
-			this.execute(image);
-		}, req), ins[2]));*/
 		var costText = cpt[2];
 		if (owner.isType("artifact") && costText > 0)
 			costText = "+" + costText;

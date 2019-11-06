@@ -14,7 +14,9 @@ class Trap extends Bloc {
 
 		/*this.src.gameboard.subscribe("draw", (t,s,d) => {
 			if (d[0] === owner) {
-				this.execute(image);
+				owner.goto(owner.area.court);
+				owner.gameboard.notify("trap", owner);
+				this.execute({src: owner, image: image});
 				owner.destroy();
 				owner.gameboard.update();
 			}

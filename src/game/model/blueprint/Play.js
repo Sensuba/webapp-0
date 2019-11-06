@@ -1,5 +1,6 @@
 var Bloc = require('./Bloc');
 var Types = require('./Types');
+//var Event = require('../Event');
 
 class Play extends Bloc {
 
@@ -16,11 +17,6 @@ class Play extends Bloc {
 
 		var req = this.computeIn()[0];
 		var tar = this.target ? (req ? (src, target) => (req(src, target) && (!target.card || target.card.targetable)) : (src, target) => true) : null;
-		/*owner.events.push(new Event(target => {
-			if (target)
-				this.chosen = target;
-			this.execute(image);
-		}, req));*/
 		if (this.target && !(typeof tar === "string")) 
 			owner.targets.push(tar);
 	}

@@ -1,5 +1,6 @@
 var Bloc = require('./Bloc');
 var Types = require('./Types');
+//var Bank = require("../../Bank");
 
 class Token extends Bloc {
 
@@ -10,6 +11,13 @@ class Token extends Bloc {
 			return [];
 		};
 		this.types = [Types.int];
+	}
+
+	genParent (src) {
+
+		if (src.idCardmodel)
+			return src.idCardmodel;
+		return { parent: this.genParent(src.parent), token: src.parent.tokens.findIndex((token, i) => i === src.notoken) };
 	}
 }
 

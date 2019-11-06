@@ -282,6 +282,9 @@ export default class Card {
 
 	become (data) {
 
+		let wasActivated = this.activated;
+		if (this.activated)
+			this.deactivate();
 		for (var k in data) {
 			this[k] = data[k];
 			if (!isNaN(this[k]))
@@ -294,6 +297,8 @@ export default class Card {
 		this.passives = [];
 		this.mutations = [];
 		this.cmutations = [];
+		if (wasActivated)
+			this.activate();
 		if (this.isType("entity"))
 			this.targets.push(Event.targets.friendlyEmpty);
 		if (this.isType("hero")) {
@@ -308,6 +313,8 @@ export default class Card {
 			Reader.read(this.blueprint, this);
 		if (this.isType("artifact"))
 			this.faculties.push({no: this.faculties.length, desc: "Explode.", cost: "0"});
+		if (this.onBoard)
+			this.resetSickness();
 		this.update();
 		if (data && data.chp) {
 			this.chp = data.chp;
