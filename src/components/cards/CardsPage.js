@@ -58,7 +58,7 @@ export default class CardsPage extends Component {
 
   search (filter) {
 
-    filter.colors = filter.colors.length > 0 ? filter.colors.reduce((acc, color) => acc + "," + color) : "";
+    filter.colors = filter.colors.length > 0 ? filter.colors.reduce((acc, color) => acc + "," + color) : "";console.log(filter.colors);
 
     var suf = "";
 
@@ -66,7 +66,7 @@ export default class CardsPage extends Component {
 
       if (param === "orderBy" && filter[param] === "type")
         return;
-      if (filter[param] && filter[param].length !== 0) {
+      if (filter[param] !== undefined && filter[param].length !== 0) {
         suf += suf.length === 0 ? "?" : "&";
         suf += param + "=" + filter[param];
       }
