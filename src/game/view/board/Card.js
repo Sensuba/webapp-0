@@ -47,13 +47,14 @@ export default class Card extends Component {
         }}>
           <div className="sensuba-card-container">
       	   <View model={model.model} level={model.level} src={visible ? model.eff : null} className={master.manager ? master.manager.controller.haloFor(model) : ""}/>
-          { model.hasShield ? <div className="sensuba-card-shield"/> : <span/> }
-          { model.frozen ? <div className="sensuba-card-freeze"/> : <span/> }
           { model.concealed ? <div className="sensuba-card-conceal"/> : <span/> }
-          { model.exalted && model.onBoard ? <div className="sensuba-card-exalt"/> : <span/> }
-          { model.silenced ? <div className="sensuba-card-silence"/> : <span/> }
-          { model.hasState("initiative") && model.onBoard ? <div className="sensuba-card-initiative"/> : <span/> }
+          { model.frozen ? <div className="sensuba-card-freeze"/> : <span/> }
           { model.hasState("fury") && model.onBoard ? <div className="sensuba-card-fury"/> : <span/> }
+          { model.exalted && model.onBoard ? <div className="sensuba-card-exalt"/> : <span/> }
+          { model.hasState("glazed") ? <div className="sensuba-card-glaze"/> : <span/> }
+          { model.hasShield ? <div className="sensuba-card-shield"/> : <span/> }
+          { model.hasState("initiative") && model.onBoard ? <div className="sensuba-card-initiative"/> : <span/> }
+          { model.silenced ? <div className="sensuba-card-silence"/> : <span/> }
           <div className="sensuba-card-covers">{ model.covered ? <div className="sensuba-card-cover"/> : <span/> }{ model.isCovered(true) ? <div className="sensuba-card-cover sensuba-card-cover-air"/> : <span/> }</div>
           </div>
         <div className="sensuba-card-animmask"/>
