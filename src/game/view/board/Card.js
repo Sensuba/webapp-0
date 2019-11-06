@@ -37,7 +37,7 @@ export default class Card extends Component {
         style={this.props.style}
         onMouseMove={visible ? e => this.showTooltip(e, model, true) : e => {}}
         onMouseLeave={visible ? e => this.hideTooltip() : e => {}}
-        className={"sensuba-card-view" + (model.hasState("flying") ? " flying" : "") + (model.concealed ? " concealed" : "") + (model.firstTurn && !model.hasState("rush") && model.area.isPlaying ? " firstturn" : "") + (this.props.hidden ? " invisible" : "")}
+        className={"sensuba-card-view" + (model.hasState("flying") ? " flying" : "") + (model.concealed ? " concealed" : "") /*+ (model.firstTurn && !model.hasState("rush") && model.area.isPlaying ? " firstturn" : "")*/ + (this.props.hidden ? " invisible" : "")}
         onClick={e => {
           if (this.props.select) {
             this.props.select(model);
