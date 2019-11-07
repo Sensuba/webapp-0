@@ -19,7 +19,7 @@ export default class Figure extends Component {
       <div id={this.props.id} className={"sensuba-card sensuba-figure " + this.props.classColor + " " + this.props.className}>
 		<img crossOrigin="Anonymous" className="sensuba-card-bg" src={src.imgLink} alt={src.nameCard}/>
 	    <div className="sensuba-card-header">
-	    	<div className={"sensuba-card-mana" + (src.mana < src.OriginalMana ? " sensuba-card-param-bonus" : (src.mana > src.OriginalMana ? " sensuba-card-param-malus" : ""))}>{src.mana}</div>
+	    	<div className={"sensuba-card-mana" + (src.mana < src.originalMana ? " sensuba-card-param-bonus" : (src.mana > src.originalMana ? " sensuba-card-param-malus" : ""))}>{src.mana}</div>
 	        <div className={"sensuba-card-title" +
 	        	(src.nameCard.length >= 25 ?
 	        		(src.nameCard.length >= 30 ? " sensuba-card-very-long-title" : " sensuba-card-long-title")
