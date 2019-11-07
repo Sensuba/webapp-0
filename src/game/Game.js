@@ -193,7 +193,7 @@ export default class Game extends Component {
       <div>
       <Lightbox open={this.state.model.gamestate > 0} onClose={this.props.quitRoom}>
         <div id="endgame-window">
-          <h2>{ (["", "Victory !", "Defeat...", "Connexion lost :/", "Internal error *-*"])[this.state.model.gamestate] }</h2>
+          <h2>{ (["", "Victory !", "Defeat...", "Connection lost :/", "Internal error *-*"])[this.state.model.gamestate] }</h2>
           <CardPreview src={this.state.hero} level={1} model={this.state.hero}/>
           <Button onClick={() => this.saveReplay()} className="replay-button">Save replay</Button>
           <Button onClick={this.props.quitRoom} className="proceed-button">Proceed</Button>
