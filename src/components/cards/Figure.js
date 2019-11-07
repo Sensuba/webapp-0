@@ -19,7 +19,7 @@ export default class Figure extends Component {
       <div id={this.props.id} className={"sensuba-card sensuba-figure " + this.props.classColor + " " + this.props.className}>
 		<img crossOrigin="Anonymous" className="sensuba-card-bg" src={src.imgLink} alt={src.nameCard}/>
 	    <div className="sensuba-card-header">
-	    	<div className={"sensuba-card-mana" + (this.props.model ? (src.mana < this.props.model.mana ? " sensuba-card-param-bonus" : (src.mana > this.props.model.mana ? " sensuba-card-param-malus" : "")) : "")}>{src.mana}</div>
+	    	<div className={"sensuba-card-mana" + (src.mana < src.OriginalMana ? " sensuba-card-param-bonus" : (src.mana > src.OriginalMana ? " sensuba-card-param-malus" : ""))}>{src.mana}</div>
 	        <div className={"sensuba-card-title" +
 	        	(src.nameCard.length >= 25 ?
 	        		(src.nameCard.length >= 30 ? " sensuba-card-very-long-title" : " sensuba-card-long-title")
@@ -41,15 +41,15 @@ export default class Figure extends Component {
 		<div className="sensuba-card-footer">
 		  <div className="sensuba-card-param sensuba-card-param-atk">
 		  	<div className="sensuba-card-param-name">ATK</div>
-		   	<div className={"sensuba-card-param-value" + (this.props.model ? (src.atk < this.props.model.atk ? " sensuba-card-param-malus" : (src.atk > this.props.model.atk ? " sensuba-card-param-bonus" : "")) : "")}>{src.atk}</div>
+		   	<div className={"sensuba-card-param-value" + (src.atk < src.originalAtk ? " sensuba-card-param-malus" : (src.atk > src.originalAtk ? " sensuba-card-param-bonus" : ""))}>{src.atk}</div>
 		  </div>
 		  <span className="sensuba-card-param-separator">/</span>
 		  <div className="sensuba-card-param sensuba-card-param-hp">
 		    <div className="sensuba-card-param-name">HP</div>
-	   	    <div className={"sensuba-card-param-value" + (src.hasOwnProperty('chp') ? (src.chp < src.hp ? " sensuba-card-param-malus" : (this.props.model && src.hp > this.props.model.hp ? " sensuba-card-param-bonus" : "")) : "")}>{src.chp || src.hp}</div>
+	   	    <div className={"sensuba-card-param-value" + (src.hasOwnProperty('chp') ? (src.chp < src.hp ? " sensuba-card-param-malus" : (src.hp > src.originalHp ? " sensuba-card-param-bonus" : "")) : "")}>{src.chp || src.hp}</div>
 		  </div>
 		</div>
-		<div className={"sensuba-card-range" + (this.props.model ? (src.range < this.props.model.range ? " sensuba-card-param-malus" : (src.range > this.props.model.range ? " sensuba-card-param-bonus" : "")) : "")}>
+		<div className={"sensuba-card-range" + (src.range < src.originalRange ? " sensuba-card-param-malus" : (src.range > src.originalRange ? " sensuba-card-param-bonus" : ""))}>
 		  <div className="sensuba-card-range-arrow"/>
 		  { src.range > 1 ? <div className="sensuba-card-range-arrow sensuba-card-range-arrow-2"/> : <span/> }
 		  { src.range > 2 ? <div className="sensuba-card-range-arrow sensuba-card-range-arrow-3"/> : <span/> }
