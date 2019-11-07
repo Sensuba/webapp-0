@@ -1,0 +1,22 @@
+.sensuba-card-burn {
+
+	visibility: visible !important;
+    display: inline-block !important;
+    margin-left: -4.0675vw;
+}
+
+.invisible.sensuba-card-burn {
+
+	visibility: visible !important;
+}
+
+.sensuba-card-burn .sensuba-card {
+
+	animation: card-burn 0.8s 1 ease-in-out;
+}
+
+@keyframes card-burn {
+
+  from {transform: translateZ(0em)}
+  to {transform: translateZ(3em)}
+}

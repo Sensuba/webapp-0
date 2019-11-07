@@ -14,6 +14,7 @@ import Heal from './view/animation/Heal';
 import Trigger from './view/animation/Trigger';
 import NewTurn from './view/animation/NewTurn';
 import Psychic from './view/animation/Psychic';
+import Burn from './view/animation/Burn';
 
 export default class Sequencer {
 
@@ -140,8 +141,8 @@ export default class Sequencer {
 	    	if (card && card.onBoard)
 	    		return new Trigger(n.src.no);
 	    	break; }
-	    case "fatigue":
-	    	return new Fatigue(n.src.no);
+	    case "fatigue": return new Fatigue(n.src.no);
+	    case "burncard": return new Burn(n.data[0].no);
 	    case "newturn": {
 	    	if (this.master.no === n.src.no)
 	    		return new NewTurn();
