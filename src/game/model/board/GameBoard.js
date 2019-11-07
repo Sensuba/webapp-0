@@ -31,9 +31,9 @@ export default class GameBoard {
 		this.started = true;
 	}
 
-	end (win) {
+	end (state) {
 
-		this.gamestate = win ? 1 : 2;
+		this.gamestate = state;
 	}
 
 	newTurn (noArea) {

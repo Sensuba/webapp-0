@@ -83,6 +83,7 @@ export default class Game extends Component {
     this.props.socket.emit("join", props.room);
     this.props.socket.on('joined', role => this.onJoined(role));
     this.props.socket.on('endgame', data => this.onEndgame(data));
+    ['error', 'connect_failed', 'reconnect_failed', 'connect_error', 'reconnect_error'].forEach(trigger => this.props.socket.on(trigger, () => this.onError()));
 
     Library.getCard(d.hero, hero => this.setState({hero}));
 
@@ -101,7 +102,15 @@ export default class Game extends Component {
 
   onEndgame (data) {
 
-    this.sequencer.add({type: "end", src: 0, data: [{type: "bool", no: data.win}]});
+    this.sequencer.add({type: "end", src: 0, data: [{type: "int", no: data.state}]});
+  }
+
+  onError () {
+
+    if (this.state.model.started)
+      this.sequencer.add({type: "end", src: 0, data: [{type: "int", no: 4}]});
+    else
+      this.props.quitRoom();
   }
 
   componentWillUnmount () {
@@ -179,7 +188,7 @@ export default class Game extends Component {
       <div>
       <Lightbox open={this.state.model.gamestate > 0} onClose={this.props.quitRoom}>
         <div id="endgame-window">
-          <h2>{ this.state.model.gamestate === 1 ? "Victory !" : "Defeat..." }</h2>
+          <h2>{ (["", "Victory !", "Defeat...", "Connexion lost :/", "Internal error *-*"])[this.state.model.gamestate] }</h2>
           <CardPreview src={this.state.hero} level={1} model={this.state.hero}/>
           <Button onClick={() => this.saveReplay()} className="replay-button">Save replay</Button>
           <Button onClick={this.props.quitRoom} className="proceed-button">Proceed</Button>
