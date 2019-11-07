@@ -151,8 +151,13 @@ export default class Game extends Component {
     }
 
     files.download(JSON.stringify(this.state.model.log.logs), generateName(), "application/json");*/
+
+    if (this.replaySaved)
+      return;
+
     var replayUrl = "https://sensuba.com/replay/" + this.props.room /*response.data.idRoom*/;
     this.copyToClipboard(replayUrl);
+    this.replaySaved = true;
     this.props.api.saveReplay({idRoom: this.props.room, log: JSON.stringify(this.state.model.log.logs)}, response => {
       //this.props.quitRoom();
     });

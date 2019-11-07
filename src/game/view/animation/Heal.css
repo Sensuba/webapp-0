@@ -13,14 +13,8 @@
 .sensuba-card-heal .sensuba-card-animmask {
 
 	display: block;
-	position: absolute;
-    top: 0em;
-    left: 0em;
-    width: 15em;
-    height: 20em;
-    overflow: hidden;
-    margin: 0.4em;
-    animation: card-heal-mask 1s 1;
+  overflow: hidden;
+  animation: card-heal-mask 1s 1;
 }
 
 @keyframes card-heal-mask {

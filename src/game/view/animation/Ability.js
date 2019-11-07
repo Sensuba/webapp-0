@@ -1,7 +1,7 @@
 import Animation from './Animation';
 import './Ability.css';
 
-export default class Action extends Animation {
+export default class Ability extends Animation {
 
 	constructor (card) {
 

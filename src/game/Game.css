@@ -443,6 +443,18 @@
   opacity: 0.5;
 }
 
+.sensuba-card-animmask {
+
+  display: none;
+  position: absolute;
+  top: 0em;
+  left: 0em;
+  width: 15em;
+  height: 20em;
+  margin: 0.4em;
+  transform: translateY(1px);
+}
+
 /*
 .sensuba-card-view .sensuba-card-exapart {
 
@@ -663,9 +675,4 @@
 @keyframes silencetranslate {
   from {transform: translateZ(0);}
   to {transform: translateZ(1em);}
-}
-
-.sensuba-card-animmask {
-
-  display: none;
 }

@@ -15,6 +15,7 @@ import Trigger from './view/animation/Trigger';
 import NewTurn from './view/animation/NewTurn';
 import Psychic from './view/animation/Psychic';
 import Burn from './view/animation/Burn';
+import LevelUp from './view/animation/LevelUp';
 
 export default class Sequencer {
 
@@ -77,6 +78,7 @@ export default class Sequencer {
 	  	case "draw": return new Draw();
 	  	case "summon": return new Summon(n.src.no);
 	    case "charattack": return new Attack(n.src.no);
+	    case "levelup": return new LevelUp(n.src.no);
 	    case "damagecard": {
 	    	let card = this.model.find(n.src);
 	    	if (!card) break;

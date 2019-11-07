@@ -1,0 +1,38 @@
+.sensuba-card-view.sensuba-card-levelup .sensuba-card-animmask {
+
+	display: block;
+	background-color: cyan;
+	animation: card-levelup-mask 1s 1;
+}
+
+@keyframes card-levelup-mask {
+  0% { opacity: 0; }
+  50% { opacity: 0.5; }
+  100% { opacity: 0; }
+}
+
+.sensuba-card-view.sensuba-card-levelup::after {
+
+	content: "";
+	position: absolute;
+	top: 4em;
+	left: 1.5em;
+	width: 12em;
+	height: 12em;
+	background-image: url('../../images/levelup.png');
+	filter: hue-rotate(-30deg);
+	background-size: 100%;
+	animation: card-levelup-opacity 1s 1, card-levelup-transform 1s 1;
+}
+
+@keyframes card-levelup-opacity {
+  0% { opacity: 0; }
+  50% { opacity: 0.5; }
+  100% { opacity: 0; }
+}
+
+@keyframes card-levelup-transform {
+
+  from { transform: rotateX(-45deg) translateZ(6em) translateY(0em); }
+  to { transform: rotateX(-45deg) translateZ(6em) translateY(-7em); }
+}
