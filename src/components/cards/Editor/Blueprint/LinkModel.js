@@ -12,7 +12,7 @@ export default class LinkModel extends SuperLinkModel {
 		this.curvyness = 50;
 	}
 
-	serialize() {console.log("serialize")
+	serialize() {
 		return _.merge(super.serialize(), {
 			width: this.width,
 			color: this.color,
