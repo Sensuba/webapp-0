@@ -18,11 +18,16 @@ export default class PlayingState {
 					this.manager.controller = new WaitForConfirmState(this.manager, target, this);
 				else
 					this.manager.controller = new SelectTargetState(this.manager, target, [], this);
+				return;
 			}
 		} else if (target.onBoard) {
-			if (target.canAct)
+			if (target.canAct) {
 				this.manager.controller = new AttackOrMoveState(this.manager, target, this);
+				return;
+			}
 		}
+		
+		this.manager.controller = this;
 	}
 
 	haloFor (card) {
