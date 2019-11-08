@@ -56,10 +56,10 @@ export default class GameBoard extends Component {
 		    	<Court model={model.areas[1-no].court} master={master}/>
 	    	</Area>
 	    	<div className="sensuba-gauge-wrapper">
-	    		<Gauge color="red" value={(model.areas[no].hero ? model.areas[no].hero.chp : 0) || 0} max={model.areas[no].hero ? model.areas[no].hero.hp : 0}/>
-	    		<Gauge inverted color="red" value={(model.areas[1-no].hero ? model.areas[1-no].hero.chp : 0) || 0} max={model.areas[1-no].hero ? model.areas[1-no].hero.hp : 0}/>
-	    		<Gauge color="dodgerblue" value={model.areas[no].manapool.mana + model.areas[no].manapool.extramana} max={model.areas[no].manapool.maxMana}/>
-	    		<Gauge inverted color="dodgerblue" value={model.areas[1-no].manapool.mana + model.areas[1-no].manapool.extramana} max={model.areas[1-no].manapool.maxMana}/>
+	    		<Gauge color="#e0000080" value={(model.areas[no].hero ? model.areas[no].hero.chp : 0) || 0} max={model.areas[no].hero ? model.areas[no].hero.hp : 0}/>
+	    		<Gauge inverted color="#e00000A0" value={(model.areas[1-no].hero ? model.areas[1-no].hero.chp : 0) || 0} max={model.areas[1-no].hero ? model.areas[1-no].hero.hp : 0}/>
+	    		<Gauge color="#1e90ff80" value={model.areas[no].manapool.mana + model.areas[no].manapool.extramana} max={model.areas[no].manapool.maxMana}/>
+	    		<Gauge inverted color="#1e90ff80" value={model.areas[1-no].manapool.mana + model.areas[1-no].manapool.extramana} max={model.areas[1-no].manapool.maxMana}/>
 	    	</div>
 	    	<div className={"sensuba-end-turn-wrapper " + (master.manager ? "" : "hidden")}>
 	    		<EndTurn locked={!master.isPlaying} endTurn={() => master.manager.endTurn()}/>
