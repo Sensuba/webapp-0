@@ -32,6 +32,8 @@ export default class EditorPage extends Component {
     var card = this.props.card || Object.assign({}, this.defaultCard);
 
     this.state = { card, token: [], tab: "design" };
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
 	}
 
   get currentCard() {

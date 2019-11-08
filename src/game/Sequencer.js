@@ -16,6 +16,7 @@ import NewTurn from './view/animation/NewTurn';
 import Psychic from './view/animation/Psychic';
 import Burn from './view/animation/Burn';
 import LevelUp from './view/animation/LevelUp';
+import BreakShield from './view/animation/BreakShield';
 
 export default class Sequencer {
 
@@ -143,6 +144,7 @@ export default class Sequencer {
 	    	if (card && card.onBoard)
 	    		return new Trigger(this.master, n.src.no);
 	    	break; }
+	    case "breakshield": return new BreakShield(this.master, n.src.no);
 	    case "fatigue": return new Fatigue(this.master, n.src.no);
 	    case "burncard": return new Burn(this.master, n.data[0].no);
 	    case "newturn": {

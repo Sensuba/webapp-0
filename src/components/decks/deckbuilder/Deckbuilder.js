@@ -29,6 +29,8 @@ export default class Deckbuilder extends Component {
     }
 
 		this.state = { deck: deck, filter: "", list, preview: null, miracle: this.props.miracle, choices };
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
 	}
 
   generateMiracleChoice (cards) {
