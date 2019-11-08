@@ -159,6 +159,7 @@ export default class Game extends Component {
     var replayUrl = "https://sensuba.com/replay/" + this.props.room /*response.data.idRoom*/;
     this.copyToClipboard(replayUrl);
     this.replaySaved = true;
+    document.getElementById("replay-button").classList.add("replay-copied");
     this.props.api.saveReplay({idRoom: this.props.room, log: JSON.stringify(this.state.model.log.logs)}, response => {
       //this.props.quitRoom();
     });
@@ -201,7 +202,7 @@ export default class Game extends Component {
         <div id="endgame-window">
           <h2>{ (["", "Victory !", "Defeat...", "Connection lost :/", "Internal error *-*"])[this.state.model.gamestate] }</h2>
           <CardPreview src={this.state.hero} level={1} model={this.state.hero}/>
-          <Button onClick={() => this.saveReplay()} className="replay-button">Save replay</Button>
+          <Button onClick={() => this.saveReplay()} id="replay-button" className="replay-button">Save replay</Button>
           <Button onClick={this.props.quitRoom} className="proceed-button">Proceed</Button>
         </div>
       </Lightbox>

@@ -29,12 +29,39 @@
   background-color: white !important;
   color: black !important;
   border: solid black 2px !important;
+  position: relative;
 }
 
 .replay-button:hover {
 
   background-color: black !important;
   color: white !important;
+}
+
+.replay-button::before {
+
+  content: "Copied !";
+  position: absolute;
+  background-color: black;
+  color: white;
+  font-size: 0.7em;
+  width: 7em;
+  top: -1em;
+  left: 1.15em;
+  padding: 0.2em;
+  border-radius: 2px;
+  opacity: 0;
+}
+
+.replay-button.replay-copied::before {
+
+  animation: replay-copied 1s 1;
+}
+
+@keyframes replay-copied {
+
+  from { top: -1em; opacity: 1 }
+  to { top: -3em; opacity: 0 }
 }
 
 .proceed-button {
