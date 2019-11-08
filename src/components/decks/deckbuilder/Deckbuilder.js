@@ -13,12 +13,42 @@ export default class Deckbuilder extends Component {
 
 		super(props);
 
-		var deck = { hero: this.props.deck.hero, cards: {}, name: "Custom Deck", background: this.props.cards.find(c => c.idCardmodel === this.props.deck.hero).imgLink };
+		var deck = { hero: this.props.deck.hero, cards: {}, name: this.props.miracle ? "Miracle Deck" : "Custom Deck", background: this.props.cards.find(c => c.idCardmodel === this.props.deck.hero).imgLink, miracle: this.props.miracle };
 
 		deck = Object.assign(deck, this.props.deck);
 
-		this.state = { deck: deck, filter: "", preview: null };
+    var choices;
+    if (this.props.miracle)
+      choices = this.generateMiracleChoice(props.list.cards);
+
+    var list = this.props.list;
+    if (!list) {
+      var chero = this.props.cards.find(c => c.idCardmodel === deck.hero);
+      var cards = this.props.cards.filter(c => c.idEdition === 1 && c.cardType !== "hero" && (c.idColor === 0 || c.idColor === chero.idColor || c.idColor === chero.idColor2))
+      list = { hero: chero, cards };
+    }
+
+		this.state = { deck: deck, filter: "", list, preview: null, miracle: this.props.miracle, choices };
 	}
+
+  generateMiracleChoice (cards) {
+
+    var pickRandomCard = list => list[Math.floor(Math.random()*list.length)];
+
+      var miraclelist = [];
+      for (let i = 0; i < 3;) {
+        let miraclenew = pickRandomCard(cards);
+
+        if (miraclelist.some(card => card === miraclenew))
+          continue;
+        if (miraclenew.idColor === 0 && Math.random() < 0.5)
+          continue;
+
+        miraclelist.push(miraclenew);
+        i++;
+      }
+      return miraclelist;
+  }
 
 	get count () {
 
@@ -32,6 +62,14 @@ export default class Deckbuilder extends Component {
   	var c = this.state.deck.cards;
   	c[id] = Math.min(2, (c[id] || 0) + 1);
   	this.setState({deck: this.state.deck});
+  }
+
+  addMiracleCard (id) {
+
+    var end = this.count >= 29;
+    var c = this.state.deck.cards;
+    c[id] = (c[id] || 0) + 1;
+    this.setState({deck: this.state.deck, choices: this.generateMiracleChoice(this.props.list.cards), miracle: !end});
   }
 
   removeCard(id) {
@@ -108,9 +146,8 @@ export default class Deckbuilder extends Component {
 
 	render () {
 
-		var hero = this.props.cards.find(c => c.idCardmodel === this.state.deck.hero);
-		var cards = this.props.cards.filter(c => c.idEdition === 1 && c.cardType !== "hero" && (c.idColor === 0 || c.idColor === hero.idColor || c.idColor === hero.idColor2))
-		sorter.sort(cards, "name");
+		var hero = this.state.list.hero;
+		var cards = this.state.list.cards;
 
 		var listCards = Object.keys(this.state.deck.cards).map(g => this.props.cards.find(c => c.idCardmodel.toString() === g)).filter(c => c !== undefined);
 		sorter.sort(listCards, "type");
@@ -150,26 +187,44 @@ export default class Deckbuilder extends Component {
 			<div id="img-preview-tooltip" data-toggle="tooltip" data-placement="right" src="" alt="preview" data-animation="false" data-trigger="manual">
 				{ this.state.preview ? <Card src={this.state.preview}/> : <span/> }
 			</div>
-      		<div className="half-section deck-image-preview">
-      			<Deck src={{name: this.state.deck.name, background: this.state.deck.background, idColor: hero.idColor, idColor2: hero.idColor2 }}/>
-      			<button className="menu-button" onClick={this.saveDeck.bind(this)}>{ !this.props.new ? "Edit" : "Save" }</button>
-            { !this.props.new ? <button className="red menu-button" onClick={this.deleteDeck.bind(this)}>Delete</button> : <span/> }
-      		</div>
-      		<div className="half-section">
-      			<div className="editor-box">
-      				<Label for="deck-name-form">Deck name</Label>
-      				<Input type="text" id="deck-name-form" value={this.state.deck.name} onChange={e => { var d = Object.assign(this.state.deck, {name: e.target.value}); this.setState({deck: d}); }}/>
-      				<Label for="deck-background-form">Image link</Label>
-      				<Input type="text" id="deck-background-form" value={this.state.deck.background} onChange={e => { var d = Object.assign(this.state.deck, {background: e.target.value}); this.setState({deck: d}); }}/>
-      				<Label for="deck-supercode-form">Supercode</Label>
-	                <Input id="deck-supercode-form" type="textarea" rows="6" value={superCode} onChange={ e => {
-	                    try {
-	                        var d = JSON.parse(window.atob(e.target.value));
-	                        this.setState({deck: d});
-	                    } catch (e) { }
-	                } }/>
-      			</div>
-      		</div>
+        {
+          this.state.miracle ?
+          <div>
+          <h1 className="big-text">Pick a card</h1>
+            <div className="hero-selector">
+              <div className="hero-list">
+              {
+                this.state.choices.map((h, i) => <div key={i} className="select-hero-card main-hero-card" onClick={() => {
+                  this.addMiracleCard(h.idCardmodel);
+                }}><Card src={h}/></div>)
+              }
+              </div>
+            </div>
+          </div>
+          :
+          <div>
+        		<div className="half-section deck-image-preview">
+        			<Deck src={{name: this.state.deck.name, background: this.state.deck.background, idColor: hero.idColor, idColor2: hero.idColor2 }}/>
+        			<button className="menu-button" onClick={this.saveDeck.bind(this)}>{ !this.props.new ? "Edit" : "Save" }</button>
+              { !this.props.new ? <button className="red menu-button" onClick={this.deleteDeck.bind(this)}>Delete</button> : <span/> }
+        		</div>
+        		<div className="half-section">
+        			<div className="editor-box">
+        				<Label for="deck-name-form">Deck name</Label>
+        				<Input type="text" id="deck-name-form" value={this.state.deck.name} onChange={e => { var d = Object.assign(this.state.deck, {name: e.target.value}); this.setState({deck: d}); }}/>
+        				<Label for="deck-background-form">Image link</Label>
+        				<Input type="text" id="deck-background-form" value={this.state.deck.background} onChange={e => { var d = Object.assign(this.state.deck, {background: e.target.value}); this.setState({deck: d}); }}/>
+        				<Label for="deck-supercode-form">Supercode</Label>
+  	                <Input id="deck-supercode-form" type="textarea" rows="6" value={superCode} onChange={ e => {
+  	                    try {
+  	                        var d = JSON.parse(window.atob(e.target.value));
+  	                        this.setState({deck: d});
+  	                    } catch (e) { }
+  	                } }/>
+        			</div>
+        		</div>
+          </div>
+        }
       		<div className="sensuba-deckbuilder">
       			<div className="sensuba-deckbuilder-list">
       				<div className="sensuba-deckbuilder-list-cards">
@@ -181,12 +236,16 @@ export default class Deckbuilder extends Component {
       							while (j++ < this.state.deck.cards[model.idCardmodel])
       								arr.push(j);
 
-      							return <div key={i} className="sensuba-deckbuilder-list-group" onClick={() => this.removeCard(model.idCardmodel)}>{arr.map(i => <Card key={i} src={model}/>)}</div>;
+      							return <div key={i} className="sensuba-deckbuilder-list-group" onClick={this.state.miracle ? () => {} : () => this.removeCard(model.idCardmodel)}>{arr.map(i => <Card key={i} src={model}/>)}</div>;
       						})
       					}
       				</div>
       				<div className="sensuba-deckbuilder-list-count">{this.count}</div>
       			</div>
+            {
+            this.state.miracle ?
+            <span/>
+            :
       			<div className="sensuba-deckbuilder-search">
       				<Input type="text" placeholder="Search" className="sensuba-deckbuilder-search-input" value={this.state.filter} onChange={e => this.setState({filter: e.target.value})}/>
       				<div className="sensuba-deckbuilder-search-list">
@@ -199,6 +258,7 @@ export default class Deckbuilder extends Component {
       				}
       				</div>
       			</div>
+            }
       		</div>
       		<div>
       			<div className="half-section">

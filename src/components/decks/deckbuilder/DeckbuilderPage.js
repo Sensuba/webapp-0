@@ -4,6 +4,7 @@ import Nav from '../../Nav';
 import Deckbuilder from './Deckbuilder';
 import Selector from './HeroSelector';
 import User from '../../../services/User';
+import sorter from '../../../utility/CollectionSorter';
 
 export default class DeckbuilderPage extends Component {
 
@@ -18,7 +19,8 @@ export default class DeckbuilderPage extends Component {
 		  	deck = {
 		  		hero: null,
 		  		cards: {},
-		  		name: "Custom Deck"
+		  		name: this.props.miracle ? "Miracle Deck" : "Custom Deck",
+		  		list: { hero: null, cards: [] }
 		  	}
 
 	  	this.state = { deck, new: deck.hero === null || deck.hero === undefined };
@@ -51,11 +53,16 @@ export default class DeckbuilderPage extends Component {
 	      		{
 	      			this.state.deck.hero ?
 	      			(this.props.cards && this.props.cards.length > 0 ?
-		      			<Deckbuilder new={this.state.new} onSave={this.onSave.bind(this)} onDelete={this.onDelete.bind(this)} deck={this.state.deck} cards={this.props.cards}/>
+		      			<Deckbuilder ref={this.builder} list={this.state.list} new={this.state.new} onSave={this.onSave.bind(this)} onDelete={this.onDelete.bind(this)} deck={this.state.deck} cards={this.props.cards} miracle={this.props.miracle}/>
 		      			: <span/>
 	      			)
 	      			:
-	      			<Selector onSelect={hero => this.setState({deck: Object.assign(this.state.deck, { hero })})} cards={this.props.cards}/>
+	      			<Selector onSelect={hero => {
+	      				var chero = this.props.cards.find(c => c.idCardmodel === hero);
+					    var cards = this.props.cards.filter(c => c.idEdition === 1 && c.cardType !== "hero" && (c.idColor === 0 || c.idColor === chero.idColor || c.idColor === chero.idColor2))
+					    sorter.sort(cards, "name");
+	      				this.setState({deck: Object.assign(this.state.deck, { hero }), list: {hero: chero, cards}});
+	      			}} cards={this.props.cards} miracle={this.props.miracle}/>
 	      		}
 	      	</main>
 	    </div>

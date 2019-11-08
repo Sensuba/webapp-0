@@ -26,8 +26,12 @@ export default class DecksPage extends Component {
           		}
 	      		</div>
 	            <button className="editor-button" onClick={() => this.props.history.push('/decks/builder')}>
-	              <img className="editor-button-img" src="/deckbuilder.jpg" alt="editor-kun"/>
+	              <img className="editor-button-img" src="/deckbuilder.png" alt="deckbuilder-chan"/>
 	              <div className="editor-button-text">Create a deck</div>
+	            </button>
+	            <button className="editor-button reverse-editor-button" onClick={() => this.props.history.push('/decks/miracle')}>
+	              <img className="editor-button-img editor-button-miracle" src="/deckbuilder.png" alt="miracle-chan"/>
+	              <div className="editor-button-text">Create a miracle</div>
 	            </button>
 	      	</main>
 	    </div>

@@ -13,6 +13,7 @@ import CardPreview from '../components/cards/Card';
 import Loader from '../components/utility/Loader';
 //import FacultyBox from './view/UI/FacultyBox';
 import History from './view/UI/History';
+import MuteButton from './view/UI/MuteButton';
 //import Lightbox from '../components/utility/Lightbox';import
 //import { Button } from 'reactstrap';
 //import files from '../utility/FileManager';
@@ -116,6 +117,11 @@ export default class Replay extends Component {
     return true;
   }
 
+  switchMute () {
+
+    this.mute = !this.mute;
+  }
+
   select (e) {
 
   }
@@ -143,6 +149,7 @@ export default class Replay extends Component {
       <div style={{ display: this.waiting ? "none" : "block" }}>
         <View model={this.state.model} master={this}/>
       </div>
+      <MuteButton switch={() => this.switchMute()} master={this}/>
       <History entries={this.state.model.log.history}/>
       <div id="newturn-frame">
         <h1 className="big-text">Your Turn</h1>

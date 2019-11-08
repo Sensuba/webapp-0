@@ -11,13 +11,37 @@ export default class HeroSelector extends Component {
 
     var heroes = sorter.filter(this.props.cards, { type: "hero", orderBy: "name" });
 
+    if (this.props.miracle) 
+      heroes = this.generateMiracleChoice(heroes);
+
     this.state = { heroes: heroes }
 	}
 
+  generateMiracleChoice (heroes) {
+
+    var pickRandomHero = list => list[Math.floor(Math.random()*list.length)];
+
+      var miraclelist = [];
+      for (let i = 0; i < 3;) {
+        let miraclenew = pickRandomHero(heroes);
+
+        if (miraclelist.some(other => (other.idColor === miraclenew.idColor || other.idColor === miraclenew.idColor2) && (other.idColor2 === miraclenew.idColor || other.idColor2 === miraclenew.idColor2)))
+          continue;
+
+        miraclelist.push(miraclenew);
+        i++;
+      }
+      return miraclelist;
+  }
+
   componentDidMount () {
 
-    if (this.state.heroes.length > 0)
-     this.setFocus(Math.floor(Math.random() * Math.floor(this.state.heroes.length)));
+    if (this.state.heroes.length > 0) {
+      if (this.props.miracle)
+        this.setFocus(1)
+      else
+        this.setFocus(Math.floor(Math.random() * Math.floor(this.state.heroes.length)));
+    }
   }
 
   setFocus (i) {
@@ -80,9 +104,14 @@ export default class HeroSelector extends Component {
           }}><Card switch="timer" src={h}/></div>)
         }
         </div>
-        <div className="search-hero-wrapper">
-          <Input onChange={e => this.searchFor(e.target.value)} type="text"/>
-        </div>
+        {
+          this.props.miracle ?
+          <span/>
+          :
+          <div className="search-hero-wrapper">
+            <Input onChange={e => this.searchFor(e.target.value)} type="text"/>
+          </div>
+        }
       </div>
 	  </div>
 		)

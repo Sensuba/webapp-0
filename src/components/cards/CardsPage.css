@@ -27,18 +27,44 @@
   height: 20em;
 }
 
+.editor-button.reverse-editor-button {
+    background: transparent;
+    border: none;
+    border-top: 1px solid black;
+    border-bottom: none;
+    position: relative;
+    cursor: pointer;
+    width: 100%;
+    overflow: hidden;
+    height: 20em;
+}
+
 .editor-button-img {
 
 	width: 60%;
 	margin: 0 auto -30% auto;
 	opacity: 0.4;
-	transition: opacity 0.5s ease-in-out, margin-bottom 0.5s ease-in-out;
+	transition: opacity 0.5s ease-in-out, margin-top 0.5s ease-in-out, margin-bottom 0.5s ease-in-out;
+}
+
+.editor-button.reverse-editor-button .editor-button-img {
+
+  margin: -30% auto 0 auto;
+  transition: opacity 0.5s ease-in-out, margin-top 0.5s ease-in-out, margin-bottom 0.5s ease-in-out;
+  filter: sepia(1) hue-rotate(90deg);
+  transform: scaleY(-1) scaleX(-1);
 }
 
 .editor-button:hover .editor-button-img {
 
 	opacity: 1;
 	margin-bottom: -10%;
+}
+
+.editor-button.reverse-editor-button:hover .editor-button-img {
+
+  margin-bottom: 0;
+  margin-top: -10%;
 }
 
 .editor-button-text {
@@ -54,6 +80,12 @@
   bottom: 0;
   left: 0;
   transition: text-shadow 0.5s ease-in-out, font-size 0.5s ease-in-out, padding 0.5s ease-in-out;
+}
+
+.editor-button.reverse-editor-button .editor-button-text {
+
+  bottom: initial;
+  top: 0;
 }
 
 .editor-button:hover .editor-button-text {
