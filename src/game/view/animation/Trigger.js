@@ -3,9 +3,9 @@ import './Trigger.css';
 
 export default class Trigger extends Animation {
 
-	constructor (card) {
+	constructor (master, card) {
 
-		super(0);
+		super(master, 0);
 		this.card = card;
 		//this.loadAudio("blessing");
 	}

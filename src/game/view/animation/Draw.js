@@ -2,9 +2,9 @@ import Animation from './Animation';
 
 export default class Draw extends Animation {
 
-	constructor () {
+	constructor (master) {
 
-		super(200);
+		super(master, 200);
 		this.loadAudio("card");
 	}
 }

@@ -3,9 +3,9 @@ import './Attack.css';
 
 export default class Attack extends Animation {
 
-	constructor (card) {
+	constructor (master, card) {
 
-		super(300);
+		super(master, 300);
 		this.card = card;
 	}
 

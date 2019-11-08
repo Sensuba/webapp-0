@@ -3,9 +3,9 @@ import './Destroy.css';
 
 export default class Destroy extends Animation {
 
-	constructor (card) {
+	constructor (master, card) {
 
-		super(400, true);
+		super(master, 400, true);
 		this.card = card;
 		this.loadAudio("vanish");
 	}

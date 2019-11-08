@@ -3,9 +3,9 @@ import './Psychic.css';
 
 export default class Psychic extends Animation {
 
-	constructor (card) {
+	constructor (master, card) {
 
-		super(0);
+		super(master, 0);
 		this.card = card;
 		this.loadAudio("silence");
 	}

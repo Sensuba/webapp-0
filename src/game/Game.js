@@ -13,6 +13,7 @@ import CardPreview from '../components/cards/Card';
 import Loader from '../components/utility/Loader';
 import FacultyBox from './view/UI/FacultyBox';
 import History from './view/UI/History';
+import MuteButton from './view/UI/MuteButton';
 import Lightbox from '../components/utility/Lightbox';
 import { Button } from 'reactstrap';
 import Library from '../services/Library';
@@ -188,6 +189,11 @@ export default class Game extends Component {
     return false;
   }
 
+  switchMute () {
+
+    this.mute = !this.mute;
+  }
+
   render() {
     return (
       <div>
@@ -223,6 +229,7 @@ export default class Game extends Component {
       <div style={{ display: this.waiting ? "none" : "block" }}>
         <View model={this.state.model} master={this}/>
       </div>
+      <MuteButton switch={() => this.switchMute()} master={this}/>
       <History entries={this.state.model.log.history} master={this}/>
       <div id="newturn-frame">
         <h1 className="big-text">Your Turn</h1>

@@ -1,0 +1,19 @@
+.mute-button {
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 1.3vw;
+    border-radius: 50%;
+    height: 2.4vw;
+    width: 2.4vw;
+    border: 0.2vw solid black;
+    background: url('/game/sound.png');
+    background-size: 100%;
+}
+
+.mute-button.muted {
+
+    background: url('/game/mute.png');
+    background-size: 100%;
+}

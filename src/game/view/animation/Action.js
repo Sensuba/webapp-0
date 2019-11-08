@@ -3,9 +3,9 @@ import './Action.css';
 
 export default class Action extends Animation {
 
-	constructor (card) {
+	constructor (master, card) {
 
-		super(1000);
+		super(master, 1000);
 		this.card = card;
 		this.loadAudio("action");
 	}

@@ -73,81 +73,81 @@ export default class Sequencer {
 	  switch(n.type) {
 	  	case "newcard":
 	  		if (this.model.started && n.data[0].type === "deck")
-	  			return new Shuffle(n.src.no);
+	  			return new Shuffle(this.master, n.src.no);
 	  		break;
-	  	case "draw": return new Draw();
-	  	case "summon": return new Summon(n.src.no);
-	    case "charattack": return new Attack(n.src.no);
-	    case "levelup": return new LevelUp(n.src.no);
+	  	case "draw": return new Draw(this.master);
+	  	case "summon": return new Summon(this.master, n.src.no);
+	    case "charattack": return new Attack(this.master, n.src.no);
+	    case "levelup": return new LevelUp(this.master, n.src.no);
 	    case "damagecard": {
 	    	let card = this.model.find(n.src);
 	    	if (!card) break;
 	    	if (card.isType("artifact")) {
 	    		if (this.model.find(n.data[1]) !== card)
-	    			return new Damage(n.src.no);
+	    			return new Damage(this.master, n.src.no);
 	    	}
 	    	else if (card.onBoard)
-	    		return new Damage(n.src.no);
+	    		return new Damage(this.master, n.src.no);
 	    	break; }
 	    case "playcard": {
 	    	let card = this.model.find(n.src);
 		    if (card.cardType === "spell") {
 		    	if (n.data[0])
-		    		new Target(n.data[0].no).start();
-		    	return new Spell();
+		    		new Target(this.master, n.data[0].no).start();
+		    	return new Spell(this.master);
 		    } else if (card.cardType === "figure") {
 		    	if (n.data[1]) {
-		    		new Target(n.data[1].no).start();
-		    		return new Spell();
+		    		new Target(this.master, n.data[1].no).start();
+		    		return new Spell(this.master);
 		    	}
 		    }
 		    break;
 		}
 	    case "trap": 
-	  		return new Spell();
+	  		return new Spell(this.master);
 	    case "cardmove": 
 	  		if (this.model.started && n.data[0].type === "deck")
-	  			return new Shuffle(n.src.no);
+	  			return new Shuffle(this.master, n.src.no);
 	  		break;
 		case "cardfaculty": {
-			let anim = n.data[0].value ? new Action(n.src.no) : new Ability(n.src.no);
+			let anim = n.data[0].value ? new Action(this.master, n.src.no) : new Ability(this.master, n.src.no);
 			let target = n.data[1];
 			if (target) {
-				new Target(target.no).start();
+				new Target(this.master, target.no).start();
 				anim.time = 2000;
 			}
 			return anim;
 		}
 	    case "destroycard":
 	    	if (this.model.find(n.src).onBoard)
-	    		return new Destroy(n.src.no);
+	    		return new Destroy(this.master, n.src.no);
 	    	break;
-	    case "silence": return new Psychic(n.src.no);
+	    case "silence": return new Psychic(this.master, n.src.no);
 	    case "boostcard": {
 	    	let card = this.model.find(n.src);
 	    	if (card && card.onBoard)
-	    		return new Boost(n.src.no);
+	    		return new Boost(this.master, n.src.no);
 	    	break; }
 	    case "healcard": {
 	    	let card = this.model.find(n.src);
 	    	if (!card) break;
 	    	if (card.isType("artifact")) {
 	    		if (this.model.find(n.data[1]) !== card)
-	    			return new Heal(n.src.no);
+	    			return new Heal(this.master, n.src.no);
 	    	}
 	    	else if (card.onBoard)
-	    		return new Heal(n.src.no);
+	    		return new Heal(this.master, n.src.no);
 	    	break; }
 	    case "listener": {
 	    	let card = this.model.find(n.src);
 	    	if (card && card.onBoard)
-	    		return new Trigger(n.src.no);
+	    		return new Trigger(this.master, n.src.no);
 	    	break; }
-	    case "fatigue": return new Fatigue(n.src.no);
-	    case "burncard": return new Burn(n.data[0].no);
+	    case "fatigue": return new Fatigue(this.master, n.src.no);
+	    case "burncard": return new Burn(this.master, n.data[0].no);
 	    case "newturn": {
 	    	if (this.master.no === n.src.no)
-	    		return new NewTurn();
+	    		return new NewTurn(this.master);
 	    	break;
 	    }
 	    default: return null;

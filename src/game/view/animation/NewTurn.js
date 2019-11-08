@@ -2,9 +2,9 @@ import Animation from './Animation';
 
 export default class NewTurn extends Animation {
 
-	constructor () {
+	constructor (master) {
 
-		super(1000);
+		super(master, 1000);
 		this.loadAudio("gong");
 	}
 

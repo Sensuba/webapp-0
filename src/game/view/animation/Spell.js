@@ -2,9 +2,9 @@ import Animation from './Animation';
 
 export default class Spell extends Animation {
 
-	constructor () {
+	constructor (master) {
 
-		super(2000);
+		super(master, 2000);
 	}
 
 	run () {

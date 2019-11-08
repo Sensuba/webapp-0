@@ -3,9 +3,9 @@ import './Summon.css';
 
 export default class Summon extends Animation {
 
-	constructor (card) {
+	constructor (master, card) {
 
-		super(0);
+		super(master, 0);
 		this.card = card;
 		this.loadAudio("summon");
 	}

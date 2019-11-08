@@ -3,9 +3,9 @@ import './Ability.css';
 
 export default class Ability extends Animation {
 
-	constructor (card) {
+	constructor (master, card) {
 
-		super(800);
+		super(master, 800);
 		this.card = card;
 		this.loadAudio("ability");
 	}

@@ -3,9 +3,9 @@ import './Fatigue.css';
 
 export default class Fatigue extends Animation {
 
-	constructor (area) {
+	constructor (master, area) {
 
-		super(0);
+		super(master, 0);
 		this.area = area;
 		//this.loadAudio("fatigue");
 	}

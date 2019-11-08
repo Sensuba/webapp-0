@@ -3,9 +3,9 @@ import './Target.css';
 
 export default class Target extends Animation {
 
-	constructor (tile) {
+	constructor (master, tile) {
 
-		super(0);
+		super(master, 0);
 		this.tile = tile;
 	}
 

@@ -1,7 +1,8 @@
 export default class Animation {
 
-	constructor (time, before) {
+	constructor (master, time, before) {
 
+		this.master = master;
 		this.time = time;
 		this.before = before;
 	}
@@ -14,7 +15,7 @@ export default class Animation {
 
 	start (update) {
 		
-		if (this.audio)
+		if (!this.master.mute && this.audio)
 			this.audio.play();
 		this.run();
 

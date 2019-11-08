@@ -3,9 +3,9 @@ import './Shuffle.css';
 
 export default class Shuffle extends Animation {
 
-	constructor (card) {
+	constructor (master, card) {
 
-		super(0);
+		super(master, 0);
 		this.card = card;
 	}
 

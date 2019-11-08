@@ -3,9 +3,9 @@ import './Boost.css';
 
 export default class Boost extends Animation {
 
-	constructor (card) {
+	constructor (master, card) {
 
-		super(0);
+		super(master, 0);
 		this.card = card;
 		//this.loadAudio("trigger");
 	}
