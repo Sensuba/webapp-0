@@ -115,7 +115,7 @@ export default class Deckbuilder extends Component {
       }
     }
     
-    var supercode = window.btoa(JSON.stringify(this.state.deck));
+    var supercode = window.btoa(JSON.stringify(this.state.deck).replace(/[^\x00-\x7F]/g, ""));
 
     var params = { supercode };
 
@@ -165,7 +165,7 @@ export default class Deckbuilder extends Component {
 	  		}
 	  	}
 
-    	var superCode = window.btoa(JSON.stringify(this.state.deck));
+    	var superCode = window.btoa(JSON.stringify(this.state.deck).replace(/[^\x00-\x7F]/g, ""));
 
     	var nbFigures = listCards.filter(c => c.cardType === "figure").map(c => this.state.deck.cards[c.idCardmodel]).reduce((acc, val) => acc + val, 0);
     	var nbSpells = listCards.filter(c => c.cardType === "spell").map(c => this.state.deck.cards[c.idCardmodel]).reduce((acc, val) => acc + val, 0);

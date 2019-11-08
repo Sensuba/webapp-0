@@ -124,7 +124,7 @@ export default class EditorPage extends Component {
         delete shadow.lvmax.htmlDescription;
     }
 
-    var superCode = window.btoa(JSON.stringify(shadow));
+    var superCode = window.btoa(JSON.stringify(shadow).replace(/[^\x00-\x7F]/g, ""));
 
     var currentLevel = this.currentCard.cardType !== "hero" ? null : (this.state.level === 1 ? this.currentCard : (this.state.level === 2 ? this.currentCard.lv2 : this.currentCard.lvmax));
 
