@@ -1,12 +1,12 @@
-import PlayingState from './PlayingState';
 import SelectFacultyTargetState from './SelectFacultyTargetState';
 
 export default class AttackOrMoveState {
 
-	constructor (manager, card) {
+	constructor (manager, card, def) {
 
 		this.manager = manager;
 		this.card = card;
+		this.def = def;
 		this.manager.update({faculties: card.faculties.map(f => Object.assign({}, f, {usable: this.card.canUse(f)}))});
 	}
 
@@ -15,29 +15,33 @@ export default class AttackOrMoveState {
 		if (target.id.type === "faculty") {
 			var faculty = this.card.faculties[target.id.no];
 			if (faculty.target) {
-				this.manager.controller = new SelectFacultyTargetState(this.manager, this.card, faculty);
+				this.manager.controller = new SelectFacultyTargetState(this.manager, this.card, faculty, this.def);
 			}
 			else {
 				this.manager.command({ type: "faculty", id: this.card.id, faculty: target.id.no });
-				this.manager.controller = new PlayingState(this.manager);
+				this.manager.controller = this.def;
 			}
 			return;
 		}
 
-		if (target.id.type === "card")
-			target = target.location;
+		var ltarget = target.id.type === "card" ? target.location : target;
 
-		if (target.area.isPlaying) {
-			if (this.card.canMoveOn(target)) {
-				this.manager.command({ type: "move", id: this.card.id, to: target.id });
-				this.manager.controller = new PlayingState(this.manager);
+		if (ltarget.id.type === "tile" && ltarget.area.isPlaying) {
+			if (this.card.canMoveOn(ltarget)) {
+				this.manager.command({ type: "move", id: this.card.id, to: ltarget.id });
+				this.manager.controller = this.def;
+				return;
 			}
 		} else {
-			if (target.occupied && this.card.canAttack(target.card)) {
-				this.manager.command({ type: "attack", id: this.card.id, target: target.card.id });
-				this.manager.controller = new PlayingState(this.manager);
+			if (ltarget.occupied && this.card.canAttack(ltarget.card)) {
+				this.manager.command({ type: "attack", id: this.card.id, target: ltarget.card.id });
+				this.manager.controller = this.def;
+				return;
 			}
 		}
+
+		if (this.def)
+			this.def.select(target);
 	}
 
 	haloFor (card) {

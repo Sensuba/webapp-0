@@ -12,6 +12,16 @@ import EndTurn from '../UI/EndTurn';
 
 export default class GameBoard extends Component {
 
+	unselect (e) {
+
+		if (this.props.master.manager)
+			this.props.master.manager.unselect();
+		e.stopPropagation();
+        e.cancelBubble = true;
+        e.preventDefault();
+		return false;
+	}
+
   render () {
 
   	var master = this.props.master;
@@ -20,7 +30,7 @@ export default class GameBoard extends Component {
   	var model = this.props.model;
 
     return (
-    	<div className="sensuba-gameboard" onClick={master.manager ? () => master.manager.unselect() : () => {}}>
+    	<div className="sensuba-gameboard" onClick={e => this.unselect(e)} onContextMenu={e => this.unselect(e)}>
     	<div className="sensuba-board">
     	<Hand model={model.areas[1-no].hand} master={master}/>
 	    	<Area model={model.areas[1-no]} master={master}>

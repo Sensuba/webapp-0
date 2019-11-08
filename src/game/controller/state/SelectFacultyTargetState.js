@@ -1,24 +1,27 @@
-import PlayingState from './PlayingState';
 
 export default class SelectFacultyTargetState {
 
-	constructor (manager, card, faculty) {
+	constructor (manager, card, faculty, def) {
 
 		this.manager = manager;
 		this.card = card;
 		this.faculty = faculty;
+		this.def = def;
 		this.manager.update({faculties: undefined});
 	}
 
 	select (target) {
 
-		if (target.id.type === "card")
-			target = target.location;
+		var ltarget = target.id.type === "card" ? target.location : target;
 
-		if (this.faculty.target(this.card, target)) {
-			this.manager.command({ type: "faculty", id: this.card.id, faculty: this.faculty.no, target: target.id });
-			this.manager.controller = new PlayingState(this.manager);
+		if (ltarget.id.type === "tile" && this.faculty.target(this.card, ltarget)) {
+			this.manager.command({ type: "faculty", id: this.card.id, faculty: this.faculty.no, target: ltarget.id });
+			this.manager.controller = this.def;
+			return;
 		}
+
+		if (this.def)
+			this.def.select(target);
 	}
 
 	haloFor (card) {

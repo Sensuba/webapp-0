@@ -1,5 +1,6 @@
 import SelectTargetState from './SelectTargetState';
 import AttackOrMoveState from './AttackOrMoveState';
+import WaitForConfirmState from './WaitForConfirmState';
 
 export default class PlayingState {
 
@@ -14,13 +15,13 @@ export default class PlayingState {
 		if (target.inHand) {
 			if (target.canBePlayed) {
 				if (target.targets.length === 0)
-					this.manager.command({ type: "play", id: target.id });
+					this.manager.controller = new WaitForConfirmState(this.manager, target, this);
 				else
-					this.manager.controller = new SelectTargetState(this.manager, target);
+					this.manager.controller = new SelectTargetState(this.manager, target, [], this);
 			}
 		} else if (target.onBoard) {
 			if (target.canAct)
-				this.manager.controller = new AttackOrMoveState(this.manager, target);
+				this.manager.controller = new AttackOrMoveState(this.manager, target, this);
 		}
 	}
 

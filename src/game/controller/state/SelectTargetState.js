@@ -1,29 +1,34 @@
-import PlayingState from './PlayingState';
 
 export default class SelectTargetState {
 
-	constructor (manager, card, targets) {
+	constructor (manager, card, targets, def) {
 
 		this.manager = manager;
 		this.card = card;
 		this.targets = targets || [];
+		this.def = def;
 		this.manager.update({faculties: undefined});
 	}
 
 	select (target) {
 
-		if (target.id.type === "card")
-			target = target.location;
+		var ltarget = target.id.type === "card" ? target.location : target;
 
-		var targets = this.targets.slice(0);
-		targets.push(target);
-		if (this.card.canBePlayedOn(targets)) {
-			if (targets.length >= this.card.targets.length || this.card.possibleTargets(this.card.targets[targets.length]).length === 0) {
-				this.manager.command({ type: "play", targets: targets.map(t => t.id), id: this.card.id });
-				this.manager.controller = new PlayingState(this.manager);
-			} else
-				this.manager.controller = new SelectTargetState(this.manager, this.card, targets);
+		if (ltarget.id.type === "tile") {
+			var targets = this.targets.slice(0);
+			targets.push(ltarget);
+			if (this.card.canBePlayedOn(targets)) {
+				if (targets.length >= this.card.targets.length || this.card.possibleTargets(this.card.targets[targets.length]).length === 0) {
+					this.manager.command({ type: "play", targets: targets.map(t => t.id), id: this.card.id });
+					this.manager.controller = this.def;
+				} else
+					this.manager.controller = new SelectTargetState(this.manager, this.card, targets, this.def);
+				return;
+			}
 		}
+
+		if (this.def)
+			this.def.select(target);
 	}
 
 	haloFor (card) {
