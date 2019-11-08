@@ -178,6 +178,7 @@
     background-image: url('/game/gem.png');
     background-size: calc(1vw + 4px);
     animation: gemrotate 4s infinite alternate;
+    filter: drop-shadow(2px 2px 2px #404040);
 }
 
 @keyframes gemrotate {

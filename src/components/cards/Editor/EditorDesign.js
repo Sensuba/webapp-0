@@ -315,6 +315,10 @@ export default class EditorPage extends Component {
                 <Input id="form-card-img" type="url" value={this.currentCard.imgLink} onChange={editAttribute("imgLink").bind(this)}/>
               </FormGroup>
               <FormGroup>
+                <Label for="form-card-highres">High resolution image</Label>
+                <Input id="form-card-highres" type="url" value={this.currentCard.highRes} onChange={editAttribute("highRes").bind(this)}/>
+              </FormGroup>
+              <FormGroup>
                 <Label for="form-card-illustrator">Illustrator</Label>
                 <Input id="form-card-illustrator" type="text" value={this.currentCard.illustrator || ""} onChange={editAttribute("illustrator").bind(this)}/>
               </FormGroup>
