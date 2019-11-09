@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 export default class Entry extends Component {
 
-  showTooltip(e, card, left) {
+  showTooltip(e, card, left) {console.log(card);
 
   	var tooltip = document.getElementById("img-preview-tooltip");
     if (e.pageX < 300)
