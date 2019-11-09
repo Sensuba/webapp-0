@@ -51,6 +51,8 @@ export default class Replay extends Component {
 
   analyse (n) {
 
+    if (n.type === "init")
+      this.props.updateHeroes(n.data[0].no, n.data[1].no);
     this.sequencer.add(n);
   }
 
