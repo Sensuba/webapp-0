@@ -74,7 +74,7 @@ export default class CardsPage extends Component {
     ["search", "archetype", "colors", "edition", "type", "orderBy"].forEach(param => addFilter(param));
     
 
-    this.props.history.push(`/cards${suf}`);
+    this.props.history.push(`/cards${suf}${suf[suf.length-1] === ' ' ? "&" : ""}`);
   }
   
   render() {

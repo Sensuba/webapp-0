@@ -19,7 +19,7 @@ export default class Animation {
 			this.audio.play();
 		this.run();
 
-		if (this.sync)
+		if (this.sync && update)
 			setTimeout(update, this.time);
 		else if (update)
 			update();

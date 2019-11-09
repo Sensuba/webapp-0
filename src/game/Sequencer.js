@@ -111,10 +111,10 @@ export default class Sequencer {
 	  			return new Shuffle(this.master, n.src.no);
 	  		break;
 		case "cardfaculty": {
-			let anim = n.data[0].value ? new Action(this.master, n.src.no) : new Ability(this.master, n.src.no);
+			let anim = n.data[0].value ? new Action(this.master, n.src.no, n.data[1]) : new Ability(this.master, n.src.no, n.data[1]);
 			let target = n.data[1];
 			if (target) {
-				new Target(this.master, target.no).start();
+				//new Target(this.master, target.no).start();
 				anim.time = 2000;
 			}
 			return anim;
