@@ -2,6 +2,8 @@ import Event from "./Event";
 import Hand from './Hand';
 import Tile from './Tile';
 import Deck from './Deck';
+import Cemetery from './Cemetery';
+import Discard from './Discard';
 import Mutation from './Mutation';
 import Reader from '../blueprint/Reader';
 import Library from '../../../services/Library';
@@ -44,7 +46,7 @@ export default class Card {
 
 	get destroyed() {
 
-		return this.location === null;
+		return this.location === null || this.location instanceof Cemetery || this.location instanceof Discard;
 	}
 
 	get isGhost() {
@@ -126,11 +128,12 @@ export default class Card {
 
 		if (this.destroyed)
 			return;
+		var onBoard = this.onBoard;
 		//if (this.area)
 			//this.area.gameboard.notify("destroycard", this.id);
 		this.clearBoardInstance();
 		if (this.area)
-			this.goto(this.area.cemetery)
+			this.goto(onBoard ? this.area.cemetery : this.area.discard)
 		else
 			this.goto(null);
 		this.gameboard.update();
