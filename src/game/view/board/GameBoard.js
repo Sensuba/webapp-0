@@ -30,7 +30,7 @@ export default class GameBoard extends Component {
   	var model = this.props.model;
 
     return (
-    	<div className="sensuba-gameboard" onClick={e => this.unselect(e)} onContextMenu={e => this.unselect(e)}>
+    	<div className="sensuba-gameboard" onClick={e => this.unselect(e)} onTouchEnd={e => document.getElementById("img-preview-tooltip").setAttribute("style", `display: none`)} onContextMenu={e => this.unselect(e)}>
     	<div className="sensuba-board">
     	<Hand model={model.areas[1-no].hand} master={master}/>
 	    	<Area model={model.areas[1-no]} master={master}>

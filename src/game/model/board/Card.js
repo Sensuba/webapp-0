@@ -100,7 +100,7 @@ export default class Card {
 		for (var k in this.model) {
 			this[k] = this.model[k];
 			if (!isNaN(this[k]))
-				this[k] = parseInt(this[k], 10);
+				this[k] = parseFloat(this[k], 10);
 		}
 		delete this.supercode;
 		this.faculties = [];
@@ -299,7 +299,7 @@ export default class Card {
 		for (var k in data) {
 			this[k] = data[k];
 			if (!isNaN(this[k]))
-				this[k] = parseInt(this[k], 10);
+				this[k] = parseFloat(this[k], 10);
 		}
 		if (this.idCardmodel)
 			Library.getCard(this.idCardmodel, card => this.model = card);

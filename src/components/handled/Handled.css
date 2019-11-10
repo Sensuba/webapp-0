@@ -186,7 +186,13 @@ nav .breadcrumb {
 	top: calc(29.5em - 10px) !important;
 }
 
-#img-preview-tooltip { display: none !important; }
+#img-preview-tooltip {
+
+	position: fixed !important;
+	top: 12em !important;
+	left: 0 !important;
+	font-size: 0.8em;
+}
 
 .deckbuilder-hero-preview .sensuba-card {
 
@@ -234,6 +240,12 @@ nav .breadcrumb {
 .editor-menu .editor-menu-tabs label[for=blueprint-tab] {
 
 	display: none !important;
+}
+
+#newturn-frame {
+
+  height: 100vh;
+  top: 0;
 }
 
 }

@@ -10,10 +10,23 @@
     border: 0.2vw solid black;
     background: url('/game/sound.png');
     background-size: 100%;
+    cursor: pointer;
 }
 
 .mute-button.muted {
 
     background: url('/game/mute.png');
     background-size: 100%;
+}
+
+
+@media only screen and (max-width: 768px) {
+
+    .mute-button {
+
+        height: 4.8vw;
+        width: 4.8vw;
+        border-width: 0.4vw;
+        margin: 2.6vw;
+    }
 }
