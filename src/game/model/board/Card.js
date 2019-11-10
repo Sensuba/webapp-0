@@ -257,6 +257,7 @@ export default class Card {
 		this.hp = parseInt(this.model.hp, 10);
 		this.chp = Math.min(this.eff.hp, this.chp);
 		this.silenced = true;
+		this.activate();
 		this.update();
 	}
 
