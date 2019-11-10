@@ -255,9 +255,10 @@ export default class Card {
 		this.events = [];
 		this.states = {};
 		delete this.blueprint;
-		this.mana = parseInt(this.model.mana, 10);
-		this.atk = parseInt(this.model.atk, 10);
-		this.hp = parseInt(this.model.hp, 10);
+		this.mana = this.originalMana;
+		this.atk = this.originalAtk;
+		this.hp = this.originalHp;
+		this.range = this.originalRange;
 		this.chp = Math.min(this.eff.hp, this.chp);
 		this.silenced = true;
 		this.activate();
