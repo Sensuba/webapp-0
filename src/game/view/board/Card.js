@@ -12,6 +12,7 @@ export default class Card extends Component {
     	tooltip.setAttribute("style", `display: block; top: ${e.pageY > window.innerHeight - 200 + window.scrollY ? window.innerHeight - 200 + window.scrollY : e.pageY}px; left: ${e.pageX}px; margin-left: ${left ? -18 : 4}em`);
   	}
     else tooltip.setAttribute("style", `display: block`);
+    this.show = true;
     this.props.master.setState({preview: card.eff});
   }
 
@@ -19,11 +20,12 @@ export default class Card extends Component {
 
   	var tooltip = document.getElementById("img-preview-tooltip");
   	tooltip.setAttribute("style", `display: none`);
+    this.show = false;
   }
 
   componentWillUnmount() {
 
-    if (this.props.master.state.preview && this.props.model && this.props.master.state.preview.id === this.props.model.id)
+    if (this.props.master.state.preview && this.props.model && this.props.master.state.preview.id === this.props.model.id) 
       this.hideTooltip();
   }
 
@@ -41,7 +43,7 @@ export default class Card extends Component {
         onMouseMove={visible ? e => this.showTooltip(e, model, true) : e => {}}
         onMouseLeave={visible ? e => this.hideTooltip() : e => {}}
         className={"sensuba-card-view" + (model.hasState("flying") ? " flying" : "") + (model.concealed ? " concealed" : "") /*+ (model.firstTurn && !model.hasState("rush") && model.area.isPlaying ? " firstturn" : "")*/ + (this.props.hidden ? " invisible" : "")}
-        onTouchEnd={e => this.touched = this.props.master.state.preview.id !== this.props.model.id }
+        onTouchEnd={e => this.touched = !this.show || !this.props.master.state.preview || this.props.master.state.preview.id !== this.props.model.id }
         onClick={e => {
           if (this.touched) {
             this.showTooltip(null, model, true);

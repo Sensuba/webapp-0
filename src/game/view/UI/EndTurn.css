@@ -179,43 +179,58 @@
 
 @media only screen and (max-width: 768px) {
 
-    .sensuba-end-turn { width: 80px }
+    .sensuba-end-turn { width: 60px }
 
     .sensuba-end-turn-circle {
 
-        padding: 0.5em 10px;
-        width: 80px;
-        height: 80px;
-        top: calc(50% - 40px);
+        padding: 0.5em 0px;
+        width: 60px;
+        height: 60px;
+        top: calc(50% - 30px);
     }
 
     .sensuba-end-turn-text {
 
-        padding: 0.5em 10px;
-        width: 80px;
+        padding: 0.5em 5px;
+        width: 60px;
         margin-top: -2em;
+        display: none;
     }
 
-    #sensuba-end-turn-dot-0 { top: 0; left: 40px; }
-    #sensuba-end-turn-dot-1 { top: 5px; left: 60px; }
-    #sensuba-end-turn-dot-2 { top: 20px; left: 75px; }
-    #sensuba-end-turn-dot-3 { top: 40px; left: 80px; }
-    #sensuba-end-turn-dot-4 { top: 60px; left: 75px; }
-    #sensuba-end-turn-dot-5 { top: 75px; left: 60px; }
-    #sensuba-end-turn-dot-6 { top: 80px; left: 40px; }
-    #sensuba-end-turn-dot-7 { top: 75px; left: 20px; }
-    #sensuba-end-turn-dot-8 { top: 60px; left: 5px; }
-    #sensuba-end-turn-dot-9 { top: 40px; left: 0; }
-    #sensuba-end-turn-dot-10 { top: 20px; left: 5px; }
-    #sensuba-end-turn-dot-11 { top: 5px; left: 20px; }
+    .sensuba-end-turn.sensuba-end-turn-active .sensuba-end-turn-text {
+
+        display: block;
+    }
+
+    #sensuba-end-turn-dot-0 { top: 0; left: 30px; }
+    #sensuba-end-turn-dot-1 { top: 4px; left: 45px; }
+    #sensuba-end-turn-dot-2 { top: 15px; left: 56px; }
+    #sensuba-end-turn-dot-3 { top: 30px; left: 60px; }
+    #sensuba-end-turn-dot-4 { top: 45px; left: 56px; }
+    #sensuba-end-turn-dot-5 { top: 56px; left: 45px; }
+    #sensuba-end-turn-dot-6 { top: 60px; left: 30px; }
+    #sensuba-end-turn-dot-7 { top: 56px; left: 15px; }
+    #sensuba-end-turn-dot-8 { top: 45px; left: 4px; }
+    #sensuba-end-turn-dot-9 { top: 30px; left: 0; }
+    #sensuba-end-turn-dot-10 { top: 15px; left: 4px; }
+    #sensuba-end-turn-dot-11 { top: 4px; left: 15px; }
+
+    .sensuba-end-turn-dot {
+
+        width: 4px;
+        height: 4px;
+        border-radius: 2px;
+        margin-left: -2px;
+        margin-top: -2px;
+    }
 
     .sensuba-end-turn.sensuba-end-turn-active .sensuba-end-turn-circle:active .sensuba-end-turn-dot {
 
-        top: 40px !important;
-        left: 40px !important;
-        width: 24px;
-        height: 24px;
-        margin-top: -12px;
-        margin-left: -12px;
+        top: 30px !important;
+        left: 30px !important;
+        width: 20px;
+        height: 20px;
+        margin-top: -10px;
+        margin-left: -10px;
     }
 }

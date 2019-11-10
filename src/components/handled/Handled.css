@@ -242,10 +242,48 @@ nav .breadcrumb {
 	display: none !important;
 }
 
+.deck-selection-area {
+
+	height: 26em !important;
+}
+
+.deck-selection-area .sensuba-deck-case {
+
+	height: 16em !important;
+	width: 12em !important;
+}
+
+.deck-selection-area .sensuba-deckbuilder-search {
+
+	height: 8.1rem !important;	
+}
+
+.deck-selection-area .sensuba-deckbuilder-search .sensuba-deckbuilder-search-list {
+
+	height: 6.1rem !important;
+}
+
+.play-panel {
+
+	display: block !important;
+	width: 100% !important;
+	height: 9em !important;
+}
+
 #newturn-frame {
 
-  height: 100vh;
-  top: 0;
+  height: 100vh !important;
+  top: 0 !important;
+}
+
+#endgame-window {
+
+	min-width: 0 !important;
+}
+
+#endgame-window .sensuba-card {
+
+	display: none !important;
 }
 
 }

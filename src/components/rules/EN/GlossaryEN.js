@@ -56,16 +56,6 @@ export default class GlossaryEN extends Component {
                 </div>
           </div>
         </div>
-        <div className="half-section">
-          <div className="glossary-panel">
-              <img className="glossary-panel-background" src="/glossary/shield.png" alt="bg"/>
-              <div className="glossary-panel-filter"/>
-              <div className="glossary-panel-text">
-                <h3>Shield</h3>
-                <p>Whenever a character with a <i>Shield</i> receives damage, their <i>Shield</i> breaks but no damage is taken.<br/>One character can have one <i>Shield</i> at a time.</p>
-                </div>
-          </div>
-        </div>
         <div className="quarter-section">
           <div className="glossary-panel">
               <img className="glossary-panel-background" src="/glossary/silence.jpg" alt="bg"/>
@@ -73,6 +63,16 @@ export default class GlossaryEN extends Component {
               <div className="glossary-panel-text">
                 <h3>Silence</h3>
                 <p>Cancel every effect or statistic modifier on a character, excepting damage.</p>
+                </div>
+          </div>
+        </div>
+        <div className="half-section">
+          <div className="glossary-panel">
+              <img className="glossary-panel-background" src="/glossary/shield.png" alt="bg"/>
+              <div className="glossary-panel-filter"/>
+              <div className="glossary-panel-text">
+                <h3>Shield</h3>
+                <p>Whenever a character with a <i>Shield</i> receives damage, their <i>Shield</i> breaks but no damage is taken.<br/>One character can have one <i>Shield</i> at a time.</p>
                 </div>
           </div>
         </div>
