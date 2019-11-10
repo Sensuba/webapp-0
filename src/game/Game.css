@@ -166,7 +166,9 @@
     width: 8.135vw;
     margin-left: -8.135vw;
     margin-top: calc(13.4vw + 28px);
-    transform: rotateX(310deg);
+    -moz-transform: rotateX(0deg) skewX(-13deg) !important;
+    -webkit-transform: rotateX(310deg);
+    -ms-transform: rotateX(310deg);
 }
 
 .sensuba-gem {
@@ -267,6 +269,7 @@
     margin-bottom: 6vw;
     height: 10vw;
     position: relative;
+    -moz-transform: rotateX(315deg) translateZ(2.5em);
 }
 
 .sensuba-area + .sensuba-hand {
@@ -303,7 +306,9 @@
 
 .sensuba-hand .sensuba-card-view {
 
-	transform: rotateX(310deg);
+  -moz-transform: rotateX(0deg) !important;
+  -webkit-transform: rotateX(310deg);
+  -ms-transform: rotateX(310deg);
 	top: 0;
 	left: calc(50% - 4.1vw);
 }
@@ -321,7 +326,9 @@
     position: relative;
     top: 0;
     z-index: 1000;
-    transform: rotateX(310deg) translateX(-8vw) translateY(-4vw) translateZ(30em);
+    -moz-transform: translateX(-18vw) rotateX(0deg) rotateZ(26deg) skewX(32deg) skewY(-20deg) scale(1.8) translateY(0.5vw) !important;
+    -webkit-transform: rotateX(310deg) translateX(-8vw) translateY(-4vw) translateZ(30em);
+    -ms-transform: rotateX(310deg) translateX(-8vw) translateY(-4vw) translateZ(30em);
     transform-style: preserve-3d;
 }
 
@@ -707,4 +714,9 @@
 @keyframes silencetranslate {
   from {transform: translateZ(0);}
   to {transform: translateZ(1em);}
+}
+
+#room-page #img-preview-tooltip, #replay-page #img-preview-tooltip {
+
+  font-size: 3vh;
 }
