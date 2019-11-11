@@ -34,7 +34,7 @@ export default class Card extends Component {
     var model = this.props.model;
     var master = this.props.master;
 
-    var visible = model.nameCard && (model.location.public || model.area === master.state.model.areas[master.no]);
+    var visible = model.nameCard && (model.location.public || model.area === master.state.model.areas[master.no] || model.location.id.type === "deck");
 
     return (
       <div
@@ -42,7 +42,7 @@ export default class Card extends Component {
         style={this.props.style}
         onMouseMove={visible ? e => this.showTooltip(e, model, true, model && model.inHand) : e => {}}
         onMouseLeave={visible ? e => this.hideTooltip() : e => {}}
-        className={"sensuba-card-view" + (model.hasState("flying") ? " flying" : "") + (model.hasState("glazed") ? " glazed" : "") + (model.concealed ? " concealed" : "") /*+ (model.firstTurn && !model.hasState("rush") && model.area.isPlaying ? " firstturn" : "")*/ + (this.props.hidden ? " invisible" : "")}
+        className={"sensuba-card-view" + (model.hasState("flying") ? " flying" : "") + (visible && model.hasState("glazed") ? " glazed" : "") + (model.concealed ? " concealed" : "") /*+ (model.firstTurn && !model.hasState("rush") && model.area.isPlaying ? " firstturn" : "")*/ + (this.props.hidden ? " invisible" : "")}
         onTouchEnd={e => this.touched = !this.show || !this.props.master.state.preview || this.props.master.state.preview.id !== this.props.model.id }
         onClick={e => {
           if (this.touched) {
@@ -61,7 +61,7 @@ export default class Card extends Component {
           { model.frozen ? <div className="sensuba-card-freeze"/> : <span/> }
           { model.hasState("fury") && model.onBoard ? <div className="sensuba-card-fury"/> : <span/> }
           { model.exalted && model.onBoard ? <div className="sensuba-card-exalt"/> : <span/> }
-          { model.hasState("glazed") ? <div className="sensuba-card-glaze"/> : <span/> }
+          { visible && model.hasState("glazed") ? <div className="sensuba-card-glaze"/> : <span/> }
           { model.hasShield ? <div className="sensuba-card-shield"/> : <span/> }
           { model.hasState("initiative") && model.onBoard ? <div className="sensuba-card-initiative"/> : <span/> }
           { model.hasState("lethal") && model.onBoard ? <div className="sensuba-card-lethal"/> : <span/> }

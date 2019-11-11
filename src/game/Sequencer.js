@@ -73,10 +73,10 @@ export default class Sequencer {
 	notifToAnim (n) {
 
 	  switch(n.type) {
-	  	case "newcard":
+	  	/*case "newcard":
 	  		if (this.model.started && n.data[0].type === "deck")
 	  			return new Shuffle(this.master, n.src.no);
-	  		break;
+	  		break;*/
 	  	case "draw": return new Draw(this.master);
 	  	case "summon": return new Summon(this.master, n.src.no);
 	    case "charattack": return new Attack(this.master, n.src.no);

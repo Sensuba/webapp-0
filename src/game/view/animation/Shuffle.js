@@ -5,7 +5,7 @@ export default class Shuffle extends Animation {
 
 	constructor (master, card) {
 
-		super(master, 0);
+		super(master, 400);
 		this.card = card;
 	}
 
