@@ -469,11 +469,16 @@ export default class Card {
 		return eff.range >= needed;
 	}
 
-	cover (other, flying = false) {
+	tryToCover (other, flying = false) {
 
 		if (!this.isType("character") || !this.onBoard || !other.onBoard || this.concealed)
 			return false;
 		return (other.location.isBehind(this.location) || (this.hasState("cover neighbors") && other.location.isNeighborTo(this.location))) && flying === this.hasState("flying");
+	}
+
+	cover (other, flying = false) {
+
+		return this.tryToCover(other, flying) && !other.tryToCover(this, flying);
 	}
 
 	get covered () {

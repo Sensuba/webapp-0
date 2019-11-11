@@ -532,6 +532,51 @@
   to {filter: contrast(2.5);}
 }
 
+
+.sensuba-card-view .sensuba-card-lethal {
+
+    position: absolute;
+    top: 0em;
+    left: 0em;
+}
+
+.sensuba-card-view .sensuba-card-lethal::before {
+
+  content: "";
+  width: 20em;
+    height: 20em;
+    overflow: hidden;
+    margin: 0.4em;
+    position: absolute;
+    top: 0em;
+    left: -2.5em;
+    background: url('./images/lethal.png');
+    background-size: 100%;
+    animation: lethalopacity 4s infinite, lethalsize 2s infinite alternate, lethalcolor 2s infinite alternate;
+}
+
+@keyframes lethalopacity {
+  0% {opacity: 0;}
+  16.6% {opacity: 0;}
+  33.3% {opacity: 0.3;}
+  50% {opacity: 0;}
+  100% {opacity: 0;}
+}
+
+@keyframes lethalsize {
+  0% {width: 10em; height: 10em; top: 5em; left: 2.5em;}
+  33.3% {width: 10em; height: 10em; top: 5em; left: 2.5em;}
+  100% {width: 20em; height: 20em; top: 0em; left: -2.5em;}
+}
+
+@keyframes lethalcolor {
+  0% {transform: grayscale(1)}
+  33.3% {transform: grayscale(1)}
+  100% {transform: grayscale(0)}
+}
+
+
+
 .sensuba-card-view .sensuba-card-initiative {
 
     animation: initiativetranslate 3s infinite alternate, initiativeopacity 2s infinite alternate;
