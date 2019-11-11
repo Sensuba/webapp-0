@@ -558,7 +558,7 @@
 @keyframes lethalopacity {
   0% {opacity: 0;}
   16.6% {opacity: 0;}
-  33.3% {opacity: 0.3;}
+  33.3% {opacity: 0.2;}
   50% {opacity: 0;}
   100% {opacity: 0;}
 }

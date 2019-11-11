@@ -17,6 +17,7 @@ import Psychic from './view/animation/Psychic';
 import Burn from './view/animation/Burn';
 import LevelUp from './view/animation/LevelUp';
 import BreakShield from './view/animation/BreakShield';
+import GainEffect from './view/animation/GainEffect';
 
 export default class Sequencer {
 
@@ -147,6 +148,19 @@ export default class Sequencer {
 	    case "breakshield": return new BreakShield(this.master, n.src.no);
 	    case "fatigue": return new Fatigue(this.master, n.src.no);
 	    case "burncard": return new Burn(this.master, n.data[0].no);
+	    case "addmut":
+	    case "addeffect": {
+	    	let card = this.model.find(n.src);
+	    	if (card && card.onBoard)
+	    		return new GainEffect(this.master, n.src.no);
+	    	break; }
+	    case "setstate": {
+	    	if (n.data[1].value) {
+		    	let card = this.model.find(n.src);
+		    	if (card && card.onBoard)
+		    		return new GainEffect(this.master, n.src.no);
+	    	}
+	    	break ; }
 	    case "newturn": {
 	    	if (this.master.no === n.src.no)
 	    		return new NewTurn(this.master);
