@@ -17,6 +17,7 @@ import Home from './home/HomePage';
 import User from '../services/User';
 import Library from '../services/Library';
 import openSocket from 'socket.io-client';
+import sorter from '../utility/CollectionSorter';
 
 const serverURL = /*process.env.SERVER_URL || 'http://localhost:8080' ||*/ 'https://sensuba-server.herokuapp.com/';
 
@@ -36,11 +37,14 @@ export default class App extends Component {
       var f = () => {
         Library.getCardList(list => {
 
-          if (list && list.length)
+          if (list && list.length) {
+            sorter.sort(list, "type");
             this.setState({cards: list});
+          }
           else
             this.props.options.api.getCards(cards => {
               var c = cards.map(card => this.readObject(card));
+              sorter.sort(c, "type");
               this.setState({cards: c});
               Library.update(c);
             });
@@ -134,7 +138,8 @@ export default class App extends Component {
 
     this.props.options.api.getMyDecks(decks => {
       var d = decks.map(deck => this.readObject(deck));
-      this.setState({decks: d});
+      let sortDecks = (a, b) => a.name < b.name ? -1 : (a.name > b.name ? 1 : 0);
+      this.setState({decks: d.sort(sortDecks)});
       Library.updateDecks(d);
     }, err => this.setState({decks: []}));
   }
