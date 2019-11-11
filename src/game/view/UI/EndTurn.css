@@ -120,6 +120,11 @@
     animation: none;
 }
 
+.sensuba-end-turn.sensuba-end-turn-active.sensuba-end-turn-extra .sensuba-end-turn-circle .sensuba-end-turn-dot {
+
+    background-color: #0060A080;
+}
+
 /*.sensuba-end-turn.sensuba-end-turn-active .sensuba-end-turn-circle:hover .sensuba-end-turn-dot {
 
     margin-left: 0;

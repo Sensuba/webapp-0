@@ -231,6 +231,7 @@ export default class Game extends Component {
       }
       <div style={{ display: this.waiting ? "none" : "block" }}>
         <View model={this.state.model} master={this}/>
+        <div id="screen-anim" className="screen-anim"><div className="screen-anim-inner"/></div>
       </div>
       <MuteButton switch={() => this.switchMute()} master={this}/>
       <History entries={this.state.model.log.history} master={this}/>

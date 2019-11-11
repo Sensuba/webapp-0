@@ -769,3 +769,23 @@
 
   font-size: 3vh;
 }
+
+#screen-anim {
+
+  position: fixed;
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  z-index: 200;
+  top: 0;
+  left: 0;
+}
+
+#screen-anim .screen-anim-inner {
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}

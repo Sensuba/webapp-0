@@ -42,6 +42,8 @@ export default class Area {
 
 	newTurn () {
 
+		if (this.extraTurns)
+			this.extraTurns--;
 		this.manapool.reload();
 		this.field.entities.forEach(e => e.refresh());
 		this.gameboard.update();
@@ -51,6 +53,12 @@ export default class Area {
 
 		if (this.isPlaying)
 			this.gameboard.newTurn();
+	}
+
+	extraTurn () {
+
+		this.extraTurns = (this.extraTurns || 0) + 1;
+		this.gameboard.notify("extraturn", this);
 	}
 
 	addAspect (effect, targets, end) {

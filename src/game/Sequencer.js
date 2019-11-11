@@ -18,6 +18,7 @@ import Burn from './view/animation/Burn';
 import LevelUp from './view/animation/LevelUp';
 import BreakShield from './view/animation/BreakShield';
 import GainEffect from './view/animation/GainEffect';
+import ExtraTurn from './view/animation/ExtraTurn';
 
 export default class Sequencer {
 
@@ -162,10 +163,18 @@ export default class Sequencer {
 	    	}
 	    	break ; }
 	    case "newturn": {
-	    	if (this.master.no === n.src.no)
+    		if (this.extraturns) {
+    			this.extraturns--;
+    			return new ExtraTurn(this.master);
+    		}
+	    	if (this.master.no === n.src.no) {
 	    		return new NewTurn(this.master);
+	    	}
 	    	break;
 	    }
+	    case "extraturn":
+	    	this.extraturns = (this.extraturns || 0) + 1;
+	    	return null;
 	    default: return null;
 	    }
 	}
