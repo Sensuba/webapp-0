@@ -5,6 +5,7 @@ import Hand from "./Hand";
 import Court from "./Court";
 import Cemetery from "./Cemetery";
 import Discard from "./Discard";
+import Capsule from "./Capsule";
 import ManaPool from "./ManaPool";
 import Aspect from './Aspect';
 
@@ -23,6 +24,7 @@ export default class Area {
 		this.court = new Court(this);
 		this.cemetery = new Cemetery(this);
 		this.discard = new Discard(this);
+		this.capsule = new Capsule(this);
 	}
 
 	get opposite () {
