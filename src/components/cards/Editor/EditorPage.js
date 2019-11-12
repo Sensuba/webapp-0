@@ -93,7 +93,7 @@ export default class EditorPage extends Component {
 
     this.props.api.saveCustomCards(params, () => {
 
-      this.props.history.push('/cards');
+      this.props.history.push('/cards?customs=1');
       this.props.updateCustoms();
     })
 

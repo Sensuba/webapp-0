@@ -14,11 +14,11 @@ export default class CardsPage extends Component {
 
 		super(props);
 
-    this.state = {
+    /*this.state = {
       customs: false
-    };
+    };*/
 
-    window.search = name => sorter.filter(this.state.customs ? this.props.customs : this.props.cards, {orderBy: "name", search: name});
+    window.search = name => sorter.filter(this.isCustoms ? this.props.customs : this.props.cards, {orderBy: "name", search: name});
     window.update = () => Library.clear();
 	}
 
@@ -39,9 +39,19 @@ export default class CardsPage extends Component {
     };
   }
 
+  get isCustoms () {
+
+    var url = new URL(window.location.href);
+    return url.searchParams.get("customs");
+  }
+
   displayCustoms (customs) {
 
-    this.setState({customs: customs});
+    //var s = new URL(window.location.href).search;
+    //this.props.history.push(`/cards${s ? (s + (customs ? "&customs=1") : "") : (customs ? "&customs" : )}`)
+    this.search(this.filter, customs);
+
+    //this.setState({customs: customs});
   }
 
   filterCards (cards) {
@@ -56,7 +66,7 @@ export default class CardsPage extends Component {
     this.props.history.push(`/cards${card ? "/focus/" + card : ""}${new URL(window.location.href).search}`);
   }
 
-  search (filter) {
+  search (filter, customs) {
 
     filter.colors = filter.colors.length > 0 ? filter.colors.reduce((acc, color) => acc + "," + color) : "";
 
@@ -72,6 +82,10 @@ export default class CardsPage extends Component {
       }
     }
     ["search", "archetype", "colors", "edition", "type", "orderBy"].forEach(param => addFilter(param));
+    if (customs) {
+        suf += suf.length === 0 ? "?" : "&";
+        suf += "customs=1";
+    }
     
 
     this.props.history.push(`/cards${suf}${suf[suf.length-1] === ' ' ? "&" : ""}`);
@@ -79,14 +93,15 @@ export default class CardsPage extends Component {
   
   render() {
 
-    var cards = this.state.customs ? this.props.customs : this.props.cards;
+    var isCustoms = this.isCustoms;
+    var cards = isCustoms ? this.props.customs : this.props.cards;
     cards = this.filterCards(cards);
     window.result = cards;
 
     var editFilter = attr => (e => {
       var plus = {};
       plus[attr] = e.target.value;
-      this.search(Object.assign({}, this.filter, plus));
+      this.search(Object.assign({}, this.filter, plus), isCustoms);
     });
 
     var colorFilter = color => (e => {
@@ -95,7 +110,7 @@ export default class CardsPage extends Component {
         colors.push(color);
       else
         colors = colors.filter(c => c !== color);
-      this.search(Object.assign(this.filter, {colors: colors}));
+      this.search(Object.assign(this.filter, {colors: colors}), isCustoms);
     });
 
     return (
@@ -128,9 +143,9 @@ export default class CardsPage extends Component {
             User.isConnected() ?
             <div className="card-collection-choicer">
               <div className="vintage-radio">
-                <Input id="official-card-collection" type="radio" name="card-collection" onChange={() => this.displayCustoms(false)} defaultChecked/>
+                <Input id="official-card-collection" type="radio" name="card-collection" onChange={() => this.displayCustoms(false)} defaultChecked value={!isCustoms}/>
                 <Label for="official-card-collection">Official</Label>
-                <Input id="custom-card-collection" type="radio" name="card-collection" onChange={() => this.displayCustoms(true)}/>
+                <Input id="custom-card-collection" type="radio" name="card-collection" onChange={() => this.displayCustoms(true)} value={isCustoms}/>
                 <Label for="custom-card-collection">Customs</Label>
               </div>
             </div>
@@ -187,14 +202,14 @@ export default class CardsPage extends Component {
           </div>
           <div className="sensuba-card-container">
       		  {
-              this.state.customs ?
+              isCustoms ?
                 cards.map(card => <a className="sensuba-card-link" onClick={() => this.props.history.push(`/cards/editor/${card.idCardmodel}`)} key={card.idCardmodel}><Card switch="timer" key={card.idCardmodel} src={card}/></a>)
                 :
                 cards.map((card, i) => <a className="sensuba-card-link" key={card.idCardmodel} onClick={() => this.focus(card.idCardmodel)}><Card switch="timer" src={card}/></a>)
             }
           </div>
           {
-            this.state.customs ?
+            isCustoms ?
             <button className="editor-button" onClick={() => this.props.history.push('/cards/editor')}>
               <img className="editor-button-img" src="/editor.png" alt="editor-chan"/>
               <div className="editor-button-text">Open the editor</div>
