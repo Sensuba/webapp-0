@@ -128,7 +128,7 @@ export default class Game extends Component {
   analyse (n) {
 
     if (n.type === "init")
-      this.props.updateHeroes(n.data[this.no].no, n.data[1-this.no].no);
+      this.props.updateHeroes(n.data[(this.no || 0)].no, n.data[1-(this.no || 0)].no);
     this.sequencer.add(n);
   }
 
