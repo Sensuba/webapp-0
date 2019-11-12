@@ -227,6 +227,7 @@ export default class Card {
 			this.hp = hp;
 			this.chp = hp;
 			this.originalHp = this.hp;
+			delete this.php;
 		}
 		if (range || range === 0) {
 			this.range = range;
@@ -732,6 +733,7 @@ export default class Card {
 	clearBoardInstance () {
 
 		delete this.chp;
+		delete this.php;
 		delete this.actionPt;
 		delete this.skillPt;
 		delete this.motionPt;
