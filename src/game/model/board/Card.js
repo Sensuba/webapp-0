@@ -114,6 +114,7 @@ export default class Card {
 		this.shield = false;
 		this.silenced = false;
 		this.targets = [];
+		delete this.variables;
 		if (this.isType("entity"))
 			this.targets.push(Event.targets.friendlyEmpty);
 		this.clearBoardInstance();
@@ -602,6 +603,27 @@ export default class Card {
 				unsub();
 			});
 		this.update();
+	}
+
+	setVariable (name, value) {
+
+		this.variables = this.variables || {};
+		if (value === null || value === undefined) {
+			delete this.variables[name];
+			return;
+		}
+		switch (value.type) {
+		case "int":
+			value = value.value;
+			break;
+		default: break;
+		}
+		this.variables[name] = value;
+	}
+
+	getVariable (name) {
+
+		return this.variables ? this.variables[name] : undefined;
 	}
 
 	activate () {
