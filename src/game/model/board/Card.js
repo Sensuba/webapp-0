@@ -111,6 +111,10 @@ export default class Card {
 		this.passives = [];
 		this.events = [];
 		this.states = {};
+		this.originalMana = this.mana;
+		this.originalAtk = this.atk;
+		this.originalHp = this.hp;
+		this.originalRange = this.range;
 		this.shield = false;
 		this.silenced = false;
 		this.targets = [];

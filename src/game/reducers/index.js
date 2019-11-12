@@ -49,7 +49,7 @@ export default (state = new GameBoard(), n) => {
     case "damagecard": {
       let card = state.find(n.src);
       if (card)
-        card.damage(n.data[0], state.find(n.data[1]));
+        card.damage(n.data[0], n.data[1] ? state.find(n.data[1]) : null);
       break; }
     case "healcard": {
       let card = state.find(n.src);
