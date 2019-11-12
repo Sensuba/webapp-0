@@ -331,6 +331,11 @@ export default class Card {
 		}
 		if (this.blueprint)
 			Reader.read(this.blueprint, this);
+		if (this.isType("hero")) {
+			let lvupf = this.faculties.find(f => f.desc.includes("Level Up"));
+			if (lvupf)
+				lvupf.show = Object.assign({}, this, { level: this.level === 1 ? 2 : 3 });
+		}
 		if (this.isType("artifact"))
 			this.faculties.push({no: this.faculties.length, desc: "Explode.", cost: "0"});
 		if (this.onBoard)
@@ -365,6 +370,11 @@ export default class Card {
 
 		if (this.blueprint)
 			Reader.read(this.blueprint, this);
+		if (this.isType("hero")) {
+			let lvupf = this.faculties.find(f => f.desc.includes("Level Up"));
+			if (lvupf)
+				lvupf.show = Object.assign({}, this, { level: this.level === 1 ? 2 : 3 });
+		}
 		this.gameboard.update();
 	}
 
