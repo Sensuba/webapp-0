@@ -41,6 +41,7 @@ export default class Replay extends Component {
         this.next();
       }
     });
+    this.mute = true;
 
     this.state = {
 
@@ -56,24 +57,34 @@ export default class Replay extends Component {
     this.sequencer.add(n);
   }
 
+  quit () {
+
+    this.stopped = true;
+    this.props.quitReplay();
+  }
+
   end () {
 
-    setTimeout(() => this.props.quitReplay(), 5000);
+    setTimeout(() => this.quit(), 5000);
   }
 
   next () {
 
+    if (this.stopped)
+      return;
     let n = this.replayData[this.index];
     if (!n) {
       this.end();
       return;
     }
     let a = () => {
+      if (this.stopped)
+        return;
       this.analyse(n);
       this.index++;
       this.next();
     }
-    var tf = this.timeFor(n.type);
+    var tf = this.timeFor(n);
     if (!tf)
       a();
     else {
@@ -83,25 +94,34 @@ export default class Replay extends Component {
       }
       else {
         this.towait = tf;
-        a();
+        setTimeout(a.bind(this), 2000);
       }
     }
   }
 
-  timeFor (type) {
+  timeFor (n) {
 
-    switch (type) {
+    switch (n.type) {
     case "newturn":
     return 2500;
     case "cardfaculty":
-    case "playcard":
     return 2500;
+    case "cardmove":
+    if (n.data[1] && n.data[1].type === "hand" && (n.data[0].type === "tile" || n.data[0].type === "court"))
+      return 2500;
+    return 0;
     case "charattack":
     return 1500;
     case "charmove":
     return 1000;
     default: return 0;
     }
+  }
+
+  componentWillUnmount() {
+
+    if (!this.stopped)
+      this.quit();
   }
 
   get waiting () {
@@ -151,8 +171,8 @@ export default class Replay extends Component {
       <div style={{ display: this.waiting ? "none" : "block" }}>
         <View model={this.state.model} master={this}/>
       </div>
-      <MuteButton switch={() => this.switchMute()} master={this}/>
-      <History entries={this.state.model.log.history}/>
+      <MuteButton switch={() => this.switchMute()} defaultMute={true} master={this}/>
+      <History entries={this.state.model.log.history} master={this}/>
       <div id="newturn-frame">
         <h1 className="big-text">Your Turn</h1>
       </div>
