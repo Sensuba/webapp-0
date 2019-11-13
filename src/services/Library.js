@@ -68,7 +68,7 @@ var Library = (() => {
 		let f = db => db.openDatabase(1, evt => {}).then(() => {
 			db.clear('decks');
             let sortDecks = (a, b) => a.name < b.name ? -1 : (a.name > b.name ? 1 : 0);
-            data = data.sort(sortDecks);
+            data = data.sort(sortDecks);console.log(data);
 			data.forEach(deck => db.add('decks', deck));
 			if (then)
 				then();
