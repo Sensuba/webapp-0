@@ -584,6 +584,7 @@ export default class Card {
 		this.actionPt = action;
 		this.skillPt = skill;
 		this.motionPt = motion;
+		this.update();
 	}
 
 	refresh () {

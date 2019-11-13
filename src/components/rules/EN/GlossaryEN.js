@@ -12,7 +12,7 @@ export default class GlossaryEN extends Component {
               <div className="glossary-panel-filter"/>
               <div className="glossary-panel-text">
                 <h3>Initiative</h3>
-                <p>Does not receives counterattacks when attacking.</p>
+                <p>Does not receive counterattacks when attacking.</p>
                 </div>
           </div>
         </div>
