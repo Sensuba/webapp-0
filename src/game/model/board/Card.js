@@ -316,10 +316,14 @@ export default class Card {
 			Library.getCard(this.idCardmodel, card => this.model = card);
 		else
 			this.model = data;
-		this.originalMana = this.mana;
-		this.originalAtk = this.atk;
-		this.originalHp = this.hp;
-		this.originalRange = this.range;
+		if (!data.originalMana)
+			this.originalMana = this.mana;
+		if (!data.originalAtk)
+			this.originalAtk = this.atk;
+		if (!data.originalHp)
+			this.originalHp = this.hp;
+		if (!data.originalRange)
+			this.originalRange = this.range;
 		this.targets = [];
 		this.faculties = [];
 		this.passives = [];
