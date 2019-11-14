@@ -2,6 +2,7 @@
 
     position: absolute;
     z-index: 10;
+    margin-top: -2em;
 }
 
 .faculty-box {

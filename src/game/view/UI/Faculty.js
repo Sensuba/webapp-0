@@ -8,8 +8,8 @@ export default class Faculty extends Component {
     if (e) {
       if (e.pageX < 300)
         left = false;
-    	tooltip.setAttribute("style", `display: block; ${bottom ? "bottom: 0" :  ("top: calc(" + e.pageY + "px - 18vh)")}; left: ${e.pageX}px; margin-left: ${left ? -18 : 4}em; opacity: 0.9; filter: grayscale(0.5) sepia(0.5) hue-rotate(120deg);`);
-  	}
+    	tooltip.setAttribute("style", `display: block; top: ${e.pageY > window.innerHeight * 0.74 - 60 + window.scrollY ? window.innerHeight * 0.74 - 60 + window.scrollY : e.pageY}px; left: ${e.pageX}px; margin-left: ${left ? -18 : 4}em; opacity: 0.9; filter: grayscale(0.5) sepia(0.5) hue-rotate(120deg);`);
+    }
     else tooltip.setAttribute("style", `display: block`);
     this.show = true;
     this.props.master.setState({preview: card});

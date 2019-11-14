@@ -11,7 +11,7 @@ export default class Hand extends Component {
       <div className="sensuba-hand">
       {
       	this.props.model.cards.map((model, i) => {
-      		var shift = -4.1 - (count-1) * (5 - count/5) + i * (10 - count/2.5);
+      		var shift = -4.1 - (count-1) * (5 - count/7) + i * (10 - count/3.5);
       		return <Card style={{left: "calc(50% " + (shift > 0 ? "+" : "-") + " " + Math.abs(shift) + "vw)"}} key={model.id.no} model={model} master={this.props.master} select={m => this.props.master.manager.select(m)}/>
       	})
       }

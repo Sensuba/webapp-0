@@ -9,8 +9,8 @@ export default class Card extends Component {
     if (e) {
       if (e.pageX < 300)
         left = false;
-    	tooltip.setAttribute("style", `display: block; ${bottom ? "bottom: 0" : ("top: " + e.pageY)}px; left: ${e.pageX}px; margin-left: ${left ? -18 : 4}em`);
-  	}
+      tooltip.setAttribute("style", `display: block; top: ${e.pageY > window.innerHeight * 0.74 - 60 + window.scrollY ? window.innerHeight * 0.74 - 60 + window.scrollY : e.pageY}px; left: ${e.pageX}px; margin-left: ${left ? -18 : 4}em`);
+    }
     else tooltip.setAttribute("style", `display: block`);
     this.show = true;
     this.props.master.setState({preview: card.eff});
@@ -40,7 +40,7 @@ export default class Card extends Component {
       <div
         id={"sensuba-card-" + model.id.no}
         style={this.props.style}
-        onMouseMove={visible ? e => this.showTooltip(e, model, true, model && model.inHand) : e => {}}
+        onMouseMove={visible ? e => this.showTooltip(e, model, true, false/*model && model.inHand*/) : e => {}}
         onMouseLeave={visible ? e => this.hideTooltip() : e => {}}
         className={"sensuba-card-view" + (model.hasState("flying") ? " flying" : "") + (visible && model.hasState("glazed") ? " glazed" : "") + (model.concealed ? " concealed" : "") /*+ (model.firstTurn && !model.hasState("rush") && model.area.isPlaying ? " firstturn" : "")*/ + (this.props.hidden ? " invisible" : "")}
         onTouchEnd={e => this.touched = !this.show || !this.props.master.state.preview || this.props.master.state.preview.id !== this.props.model.id }

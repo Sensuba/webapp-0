@@ -125,9 +125,9 @@
 
 .sensuba-gameboard {
 
-	margin-top: -15vw;
+	margin-top: calc(-10vw - 1em);
 	width: 100%;
-	perspective: 80vw;
+	perspective: 100vw;
 }
 
 .sensuba-gameboard .sensuba-board {
@@ -159,6 +159,11 @@
 	padding-left: 150px;
 }
 
+.sensuba-end-turn-wrapper + .sensuba-area .sensuba-deck-wrapper {
+
+  margin-top: calc(-2vw - 30px);
+}
+
 .sensuba-gems {
 
     display: inline-block;
@@ -169,6 +174,11 @@
     -moz-transform: rotateX(0deg) skewX(-13deg) !important;
     -webkit-transform: rotateX(310deg);
     -ms-transform: rotateX(310deg);
+}
+
+.sensuba-end-turn-wrapper + .sensuba-area .sensuba-gems {
+
+    margin-top: calc(11.4vw - 14px);
 }
 
 .sensuba-gem {
@@ -201,8 +211,8 @@
 .sensuba-deck {
 
   position: relative;
-	height: 10.75vw;
-	width: 8.135vw;
+	height: 9.675vw;
+	width: 7.3215vw;
 	background: url("/game/back.png");
 	background-size: 100%;
   pointer-events: all;
@@ -265,8 +275,7 @@
 	display: flex;
     justify-content: center;
     flex-wrap: nowrap;
-    margin-top: 3vw;
-    margin-bottom: 6vw;
+    margin-bottom: 0vw;
     height: 10vw;
     position: relative;
     -moz-transform: rotateX(315deg) translateZ(2.5em);
@@ -282,10 +291,10 @@
 .sensuba-tile {
 
 	display: inline-block;
-	height: 10.75vw;
-	width: 8.135vw;
+	height: 9.675vw;
+	width: 7.3215vw;
 	background-color: rgba(100, 100, 100, 0.1);
-	margin: 0.4vw;
+	margin: 0.36vw;
 	position: relative;
 }
 
@@ -298,7 +307,7 @@
 .sensuba-card-view {
 
 	display: inline-block;
-	font-size: 0.5vw;
+	font-size: 0.45vw;
 	position: absolute;
 	pointer-events: all;
 	z-index: 100;
@@ -310,7 +319,15 @@
   -webkit-transform: rotateX(310deg);
   -ms-transform: rotateX(310deg);
 	top: 0;
-	left: calc(50% - 4.1vw);
+	left: calc(50% - 3.7vw);
+  opacity: 0.5;
+}
+
+.sensuba-area + .sensuba-hand .sensuba-card-view {
+
+  opacity: initial;
+  font-size: 0.5vw;
+  left: calc(50% - 4.1vw);
 }
 
 .sensuba-tile .sensuba-card-view {

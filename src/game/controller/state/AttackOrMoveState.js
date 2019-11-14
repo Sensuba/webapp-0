@@ -12,6 +12,9 @@ export default class AttackOrMoveState {
 
 	select (target) {
 
+		if (target === this.card) 
+			return;
+		
 		if (target.id.type === "faculty") {
 			var faculty = this.card.faculties[target.id.no];
 			if (faculty.target) {
