@@ -314,6 +314,8 @@ export default class Card {
 		}
 		if (this.idCardmodel)
 			Library.getCard(this.idCardmodel, card => this.model = card);
+		else
+			this.model = data;
 		this.originalMana = this.mana;
 		this.originalAtk = this.atk;
 		this.originalHp = this.hp;
