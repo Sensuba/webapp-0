@@ -189,7 +189,7 @@ export default class Card {
 			this.chp += amt;
 		else
 			this.chp = Math.min(this.eff.hp, this.chp + amt);
-		this.update();
+		this.gameboard.update();
 		//this.gameboard.notify("healcard", this.id, amt, src.id);
 	}
 
