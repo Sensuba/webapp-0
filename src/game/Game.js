@@ -204,7 +204,7 @@ export default class Game extends Component {
         <div id="endgame-window">
           <h2>{ (["", "Draw !", "Victory !", "Defeat...", "Connection lost :/", "Internal error *-*"])[this.state.model.gamestate] }</h2>
           { this.state.model.gamestate > 1 ? <CardPreview src={this.state.hero} level={1} model={this.state.hero}/> : <span/> }
-          <Button onClick={() => this.saveReplay()} id="replay-button" className="replay-button">Save replay</Button>
+          <Button onClick={() => this.saveReplay()} id="replay-button" className="modern-sensuba-button replay-button">Save replay</Button>
           <Button onClick={this.props.quitRoom} className="proceed-button">Proceed</Button>
         </div>
       </Lightbox>
