@@ -170,6 +170,7 @@ export default class Replay extends Component {
       }
       <div style={{ display: this.waiting ? "none" : "block" }}>
         <View model={this.state.model} master={this}/>
+        <div id="screen-anim" className="screen-anim"><div className="screen-anim-inner"/></div>
       </div>
       <MuteButton switch={() => this.switchMute()} defaultMute={true} master={this}/>
       <History entries={this.state.model.log.history} master={this}/>
