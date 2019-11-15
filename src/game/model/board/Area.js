@@ -65,7 +65,7 @@ export default class Area {
 
 	addAspect (effect, targets, end) {
 
-		var aspect = new Aspect(this, effect, [this.hand], targets);
+		var aspect = new Aspect(this, effect, [this.hand, this.court], targets);
 		var unsub1, unsub2;
 		unsub1 = end.subscribe((t,s,d) => {
 			aspect.deactivate();
