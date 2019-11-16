@@ -51,6 +51,9 @@ export default class GameBoard extends Component {
 		    	</Field>
 		    	<div className="sensuba-deck-wrapper">
 	    			<Deck model={model.areas[1-no].deck} master={master}/>
+	    			<div className="sensuba-username-wrapper">
+	    				<div className={"sensuba-username" + (model.areas[1-no].name && model.areas[1-no].name.length > 7 ? (model.areas[1-no].name.length > 10 ? " sensuba-username-extra-small" : " sensuba-username-small") : "")}>{model.areas[1-no].name || ""}</div>
+	    			</div>
 	    		</div>
 	    		<GemPool model={model.areas[1-no].manapool} master={master}/>
 		    	<Court model={model.areas[1-no].court} master={master}/>
@@ -83,6 +86,9 @@ export default class GameBoard extends Component {
 		    	</Field>
 		    	<div className="sensuba-deck-wrapper">
 	    			<Deck model={model.areas[no].deck} master={master}/>
+	    			<div className="sensuba-username-wrapper">
+	    				<div className={"sensuba-username" + (model.areas[no].name && model.areas[no].name.length > 7 ? (model.areas[no].name.length > 10 ? " sensuba-username-extra-small" : " sensuba-username-small") : "")}>{model.areas[no].name || ""}</div>
+	    			</div>
 	    		</div>
 	    		<GemPool model={model.areas[no].manapool} master={master}/>
 	    	</Area>

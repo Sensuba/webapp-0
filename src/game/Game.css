@@ -159,6 +159,40 @@
 	padding-left: 150px;
 }
 
+.sensuba-deck-wrapper .sensuba-username-wrapper {
+
+  position: relative;
+  height: 0;
+  margin-top: -2.5vw;
+  font-weight: bold;
+  font-size: 1.5vw;
+  transform: translateZ(1px);
+  color: white;
+  max-width: 5em;
+}
+
+.sensuba-deck-wrapper .sensuba-username {
+
+  text-shadow: 2px 2px 1px rgba(80, 80, 80, 0.8);
+  max-width: 5em;
+  overflow: hidden;
+}
+
+.sensuba-deck-wrapper .sensuba-username.sensuba-username-small {
+
+  font-size: 1.2vw;
+  max-width: 6.25em;
+  margin-top: 0.2em;
+}
+
+.sensuba-deck-wrapper .sensuba-username.sensuba-username-extra-small {
+
+  font-size: 1vw;
+  max-width: 7.5em;
+  margin-top: 0.4em;
+  text-shadow: 1px 1px 1px rgba(80, 80, 80, 0.8);
+}
+
 .sensuba-end-turn-wrapper + .sensuba-area .sensuba-deck-wrapper {
 
   margin-top: calc(-2vw - 30px);

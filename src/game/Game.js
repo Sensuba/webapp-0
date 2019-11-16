@@ -81,7 +81,9 @@ export default class Game extends Component {
 
     this.props.socket.removeAllListeners();
 
-    this.props.socket.emit("join", props.room);
+    var name = User.isConnected() ? User.getData().username : "";
+
+    this.props.socket.emit("join", name, props.room);
     this.props.socket.on('joined', role => this.onJoined(role));
     this.props.socket.on('endgame', data => this.onEndgame(data));
     ['error', 'connect_failed', 'reconnect_failed', 'connect_error', 'reconnect_error'].forEach(trigger => this.props.socket.on(trigger, () => this.onError()));
@@ -127,8 +129,12 @@ export default class Game extends Component {
 
   analyse (n) {
 
-    if (n.type === "init")
-      this.props.updateHeroes(n.data[(this.no || 0)].no, n.data[1-(this.no || 0)].no);
+    if (n.type === "init") {
+      this.props.updateHeroes(n.data[(this.no || 0)*2+1].no, n.data[(1-(this.no || 0))*2+1].no);
+      var model = this.state.model;
+      model.areas[0].name = n.data[0].value;
+      model.areas[1].name = n.data[2].value;
+    }
     this.sequencer.add(n);
   }
 

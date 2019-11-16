@@ -150,3 +150,105 @@
 .editor-box ::-webkit-scrollbar-thumb:hover {
     background: #555; 
 }*/
+
+.animation-box {
+
+  position: relative;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  min-height: 2em;
+  width: 100%;
+  margin-bottom: 1em;
+  padding: 0.5em 1em;
+}
+
+.animation-box .form-group {
+
+    width: 100%;
+    margin: 0;
+    margin-bottom: 0.4em;
+}
+
+.animation-box-title {
+
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+  font-size: 1.25rem;
+}
+
+.animation-box-delete {
+
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}
+
+.animation-box .half-section label, .animation-box .third-section label {
+
+  margin: 0;
+  line-height: 2;
+  color: darkgray;
+}
+
+.animation-preview {
+
+  position: relative;
+  width: 100%;
+  height: 20em;
+  background-color: whitesmoke;
+  border-left: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  overflow: hidden;
+  perspective: 100vw;
+}
+
+.animation-grid {
+
+  position: absolute;
+  width: 100%;
+  height: 30em;
+  top: 0;
+  left: 0;
+  transform: rotateX(50deg);
+  transform-style: preserve-3d;
+  font-size: 0.6em;
+}
+
+.animation-grid .animation-grid-line {
+
+  position: absolute;
+}
+
+.animation-grid .animation-grid-1 {
+
+  height: 100%;
+  width: 10em;
+  left: calc(50% - 5em);
+  border-left: 1px solid #00000080;
+  border-right: 1px solid #00000080;
+}
+
+.animation-grid .animation-grid-2 {
+
+  height: 10em;
+  width: 70%;
+  top: 11em;
+  left: 15%;
+  border-top: 1px solid #00000080;
+  border-bottom: 1px solid #00000080;
+}
+
+.animation-grid .sensuba-card-view {
+
+  position: absolute;
+  top: 6em;
+  left: calc(50% - 7.85em);
+  font-size: 0.9em;
+}
+
+.animation-grid .sensuba-card-view .sensuba-card {
+
+  animation-iteration-count: infinite !important;
+}
