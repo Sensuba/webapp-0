@@ -85,6 +85,25 @@
     /*background-color: #A00000E0;*/
 }
 
+.sensuba-end-turn-timer {
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 0;
+    line-height: 1.5;
+    padding: 0.5em 0;
+    font-size: 1.5rem;
+    text-align: center;
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+    font-weight: bold;
+    width: 120px;
+    margin: auto;
+    margin-top: calc(-60px - 1.2em);
+    pointer-events: none;
+}
+
 .sensuba-end-turn-text {
 
     position: absolute;
@@ -200,6 +219,13 @@
         width: 60px;
         margin-top: -2em;
         display: none;
+    }
+
+    .sensuba-end-turn-timer {
+
+        font-size: 1.25em;
+        margin-top: calc(-30px - 1.35em);
+        width: 60px;
     }
 
     .sensuba-end-turn.sensuba-end-turn-active .sensuba-end-turn-text {

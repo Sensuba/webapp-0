@@ -10,6 +10,8 @@ export default (state = new GameBoard(), n) => {
       break;
     case "newturn":
       state.newTurn(n.src.no);
+      if (window.resetTimer)
+        window.resetTimer();
       break;
     case "newcard":
       new Card(n.src.no, state.find(n.data[0]));

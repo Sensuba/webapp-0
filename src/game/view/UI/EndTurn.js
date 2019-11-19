@@ -3,6 +3,36 @@ import "./EndTurn.css";
 
 export default class EndTurn extends Component {
 
+  constructor (props) {
+
+    super(props);
+    this.state = {timer: null};
+    window.resetTimer = this.resetTimer.bind(this);
+  }
+
+  componentWillUnmount () {
+
+    delete window.resetTimer;
+  }
+
+  resetTimer (timer = 250) {
+
+    if (this.interval)
+      clearInterval(this.interval);
+    this.setState({timer});
+    this.interval = setInterval(() => this.decrement(), 1000);
+  }
+
+  decrement () {
+
+    if (!this.state.timer) {
+      if (this.interval)
+        clearInterval(this.interval);
+      return;
+    }
+    this.setState({timer: this.state.timer-1});
+  }
+
   render () {
 
     return (
@@ -14,6 +44,7 @@ export default class EndTurn extends Component {
       			}
       		</div>
       		<div className="sensuba-end-turn-text">{this.props.locked ? "" : (this.props.extra ? "Extra turn" : "End turn")}</div>
+          <div className="sensuba-end-turn-timer">{this.state.timer !== undefined && this.state.timer <= 60 ? this.state.timer : ""}</div>
       	</div>
     )
   }
