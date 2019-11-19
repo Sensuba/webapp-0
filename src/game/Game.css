@@ -465,7 +465,7 @@
   from {top: -1em; left: -1em; width: 17em; height: 22em; }
   to {top: -1.5em; left: -1.5em; width: 18em; height: 23em; }
 }
-
+/*
 .sensuba-card-view .sensuba-card-freeze {
 
 	position: absolute;
@@ -479,6 +479,26 @@
     position: absolute;
     background: rgba(147, 242, 255,0.34);
     box-shadow: inset 0px 0px 2em 0px rgba(180,235,255,0.4), 0px 0px 2em 0px rgba(180,235,255,0.4);
+}*/
+
+.sensuba-card-view .sensuba-card-freeze {
+
+  width: 16em;
+    height: 21em;
+    overflow: hidden;
+    margin: 0.4em;
+    position: absolute;
+    top: -0.5em;
+    left: -0.5em;
+    border-radius: 1em;
+    background: rgba(255,255,255,0.34);
+    box-shadow: inset 0px 0px 5em 0px rgba(224, 228, 11, 0.5), 0px 0px 2em 0px rgba(255,235,180,0.8);
+  animation: freezecolor 6s infinite alternate;
+}
+
+@keyframes freezecolor {
+  from {background: rgba(255,255,255,0.3); box-shadow: inset 0px 0px 3em 3em rgba(220, 248, 255, 0.95), 0px 0px 1em 0px rgba(220,248,255,0.95); border: 1em solid rgba(220, 248, 255, 0.95); }
+  to {background: rgba(180, 215, 240, 0.3); box-shadow: inset 0px 0px 3em 3em rgba(170, 240, 255, 0.95), 0px 0px 1em 0px rgba(170,240,255,0.95); border: 1em solid rgba(170, 240, 255, 0.95); }
 }
 
 .sensuba-card-view .sensuba-card-freeze::before { animation: freeze1 3.5s infinite linear }
@@ -704,6 +724,7 @@
 
 .sensuba-card-view.glazed {
 
+  filter: contrast(1.1);
 }
 
 .sensuba-card-view .sensuba-card-glaze {
@@ -715,7 +736,7 @@
     height: 20em;
     overflow: hidden;
     margin: 0.4em;
-    opacity: 0.3;
+    opacity: 0.4;
 }
 
 .sensuba-card-view .sensuba-card-glaze::before {
@@ -726,8 +747,8 @@
     left: 0em;
     width: 30em;
     height: 20em;
-    background: linear-gradient(145deg, #b1c7c7, #d8f2f2 35%, #d8f2f2 60%, #a6b9ba);
-    filter: sepia(0.2);
+    background: linear-gradient(145deg, #000000, #ffffff 35%, #ffffff 60%, #000000);
+    filter: sepia(0.2) contrast(1.5);
     background-size: 100%;
     animation: glazetranslate 6s infinite alternate ease-in-out;
 }
