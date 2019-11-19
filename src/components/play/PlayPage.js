@@ -14,8 +14,13 @@ export default class PlayPage extends Component {
     var deck = User.getDeck();
     if (!User.isConnected())
       deck = null;
-    else if (deck) 
+    else if (deck) {
       deck = JSON.parse(deck);
+      if (deck.id === undefined) {
+        if (this.props.decks && this.props.decks.length > 0)
+          deck.id = this.props.decks.reduce((max, el) => Math.max(max, el.idDeck), null);
+      }
+    }
     else if (this.props.decks && this.props.decks.length > 0) {
       this.setDeck(this.props.decks[0], false);
       deck = this.props.decks[0];

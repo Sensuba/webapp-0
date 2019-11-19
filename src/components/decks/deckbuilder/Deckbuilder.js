@@ -101,11 +101,11 @@ export default class Deckbuilder extends Component {
     if (this.state.saved)
       return;
 
-    var currentDeck = User.getDeck();
+    /*var currentDeck = User.getDeck();
     if (currentDeck) {
       currentDeck = JSON.parse(currentDeck);
 
-      if (currentDeck.id === this.state.deck.idDeck) {
+      if (currentDeck.id === this.state.deck.idDeck) {*/
 
         var deck = this.state.deck;
         var res = { id: deck.idDeck, hero: deck.hero, body: [] };
@@ -114,8 +114,8 @@ export default class Deckbuilder extends Component {
             res.body.push(parseInt(c, 10));
         })
         User.updateDeck(res);
-      }
-    }
+    //  }
+    //}
     
     var copycode = Object.assign({}, this.state.deck);
     delete copycode.idDeck;
