@@ -15,7 +15,7 @@ export default class EndTurn extends Component {
     delete window.resetTimer;
   }
 
-  resetTimer (timer = 250) {
+  resetTimer (timer = 150) {
 
     if (this.interval)
       clearInterval(this.interval);

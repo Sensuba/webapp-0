@@ -111,7 +111,7 @@ export default class Game extends Component {
   onError () {
 
     if (this.state.model.started)
-      this.sequencer.add({type: "end", src: 0, data: [{type: "int", no: 5}]});
+      this.sequencer.add({type: "end", src: 0, data: [{type: "int", no: 6}]});
     else
       this.props.quitRoom();
   }
@@ -208,7 +208,7 @@ export default class Game extends Component {
       <div>
       <Lightbox open={this.state.model.gamestate > 0} onClose={this.props.quitRoom}>
         <div id="endgame-window">
-          <h2>{ (["", "Draw !", "Victory !", "Defeat...", "Connection lost :/", "Internal error *-*"])[this.state.model.gamestate] }</h2>
+          <h2>{ (["", "", "Draw !", "Victory !", "Defeat...", "Connection lost :/", "Internal error *-*"])[this.state.model.gamestate] }</h2>
           { this.state.model.gamestate > 1 ? <CardPreview src={this.state.hero} level={1} model={this.state.hero}/> : <span/> }
           <Button onClick={() => this.saveReplay()} id="replay-button" className="modern-sensuba-button replay-button">Save replay</Button>
           <Button onClick={this.props.quitRoom} className="proceed-button">Proceed</Button>
