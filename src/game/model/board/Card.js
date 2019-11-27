@@ -65,6 +65,7 @@ export default class Card {
 			this.resetBody();
 		this.skillPt = 1;
 		this.chp = this.eff.hp;
+		this.php = { hp: this.hp, chp: this.chp }
 		this.goto(tile);
 		if (this.isType("character"))
 			this.resetSickness();
