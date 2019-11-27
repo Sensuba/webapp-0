@@ -13,7 +13,7 @@ export default class Deckbuilder extends Component {
 
 		super(props);
 
-		var deck = { hero: this.props.deck.hero, cards: {}, name: this.props.miracle ? "Miracle Deck" : "Custom Deck", background: this.props.cards.find(c => c.idCardmodel === this.props.deck.hero).imgLink, miracle: this.props.miracle };
+		var deck = { hero: this.props.deck.hero, cards: {}, name: this.miracle ? "Miracle Deck" : "Custom Deck", background: this.props.deck.hero.imgLink ? this.props.deck.hero.imgLink : this.props.cards.find(c => c.idCardmodel === this.props.deck.hero).imgLink, type: this.props.type };
 
 		deck = Object.assign(deck, this.props.deck);
 
@@ -23,15 +23,20 @@ export default class Deckbuilder extends Component {
 
     var list = this.props.list;
     if (!list) {
-      var chero = this.props.cards.find(c => c.idCardmodel === deck.hero);
-      var cards = this.props.cards.filter(c => c.idEdition === 1 && c.cardType !== "hero" && (c.idColor === 0 || c.idColor === chero.idColor || c.idColor === chero.idColor2))
-      list = { hero: chero, cards };
+        var chero = this.props.cards.find(c => c.idCardmodel === (deck.hero.idCardmodel || deck.hero));
+        var cards = this.props.cards.filter(c => c.cardType !== "hero" && (c.idColor === 0 || c.idColor === chero.idColor || c.idColor === chero.idColor2))
+        list = { hero: chero, cards };
     }
 
-		this.state = { deck: deck, filter: "", list, preview: null, miracle: this.props.miracle, choices };
+		this.state = { deck: deck, filter: "", list, preview: null, miracle: this.miracle, choices };
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
 	}
+
+  get miracle () {
+
+    return this.props.type === "miracle";
+  }
 
   generateMiracleChoice (cards) {
 
@@ -110,8 +115,15 @@ export default class Deckbuilder extends Component {
         var deck = this.state.deck;
         var res = { id: deck.idDeck, hero: deck.hero, body: [] };
         Object.keys(deck.cards).forEach(c => {
-          for (let i = 0; i < deck.cards[c]; i++)
-            res.body.push(parseInt(c, 10));
+          for (let i = 0; i < deck.cards[c]; i++) {
+            var cc = this.props.cards.find(el => el.idCardmodel === parseInt(c, 10));
+            if (cc) {
+              if (cc.idEdition)
+                res.body.push(parseInt(c, 10));
+              else
+                res.body.push(cc);
+            }
+          }
         })
         User.updateDeck(res);
     //  }

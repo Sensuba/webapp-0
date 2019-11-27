@@ -9,17 +9,17 @@ export default class RoomPage extends Component {
   constructor (props) {
 
     super(props);
-    this.state = {};
+    this.state = { heroes: {} };
   }
 
   changeBackground(you, opponent) {
 
     Library.getCard(you, hero => this.setState({heroes: Object.assign(this.state.heroes, {you: hero.highRes || hero.imgLink})}));
     Library.getCard(opponent, hero => this.setState({heroes: Object.assign(this.state.heroes, {opponent: hero.highRes || hero.imgLink})}));
-    this.setState({heroes: {you, opponent}});
+    //this.setState({heroes: {you, opponent}});
   }
   
-  render() {
+  render() {console.log(this.state);
     return (
       <div>
         <Nav api={this.props.api} history={this.props.history}/>

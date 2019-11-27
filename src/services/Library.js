@@ -88,6 +88,12 @@ var Library = (() => {
 
 	var getCard = (no, then) => {
 
+		if (no.idCardmodel) {
+
+			then(no);
+			return;
+		}
+
 		let f = db => db.openDatabase(1, evt => {}).then(() => {
 			db.getByKey('cards', no).then(then);
 		});

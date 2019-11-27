@@ -11,11 +11,16 @@ export default class HeroSelector extends Component {
 
     var heroes = sorter.filter(this.props.cards, { type: "hero", orderBy: "name" });
 
-    if (this.props.miracle) 
+    if (this.miracle) 
       heroes = this.generateMiracleChoice(heroes);
 
     this.state = { heroes: heroes }
 	}
+
+  get miracle () {
+
+    return this.props.miracle;
+  }
 
   generateMiracleChoice (heroes) {
 
@@ -37,7 +42,7 @@ export default class HeroSelector extends Component {
   componentDidMount () {
 
     if (this.state.heroes.length > 0) {
-      if (this.props.miracle)
+      if (this.miracle)
         this.setFocus(1)
       else
         this.setFocus(Math.floor(Math.random() * Math.floor(this.state.heroes.length)));
@@ -105,7 +110,7 @@ export default class HeroSelector extends Component {
         }
         </div>
         {
-          this.props.miracle ?
+          this.miracle ?
           <span/>
           :
           <div className="search-hero-wrapper">

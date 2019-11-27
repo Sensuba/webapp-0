@@ -102,8 +102,13 @@ export default class PlayPage extends Component {
                     <div className="sensuba-deckbuilder-search-list">
                     {
                       (this.props.decks || []).filter(c => c.name.toLowerCase().includes(this.state.filter.toLowerCase())).map((c, i) => {
-                        var idHero = c.hero.idCardmodel || c.hero;
-                        var hero = this.props.cards.find(s => s.idCardmodel === idHero);
+                        var hero;
+                        if (c.hero.idCardmodel && !c.hero.idEdition)
+                          hero = c;
+                        else {
+                          var idHero = c.hero.idCardmodel || c.hero;
+                          hero = this.props.cards.find(s => s.idCardmodel === idHero);
+                        }
                         return (
                           <div key={i} className={"sensuba-deckbuilder-tag " + colorIdToClassName(hero.idColor) + " " + colorIdToClassName(hero.idColor2)} onClick={() => this.choice(c.idDeck)}>
                             <div className="sensuba-deckbuilder-tag-name">{c.name}</div>

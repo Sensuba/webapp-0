@@ -19,12 +19,22 @@ export default class DeckbuilderPage extends Component {
 		  	deck = {
 		  		hero: null,
 		  		cards: {},
-		  		name: this.props.miracle ? "Miracle Deck" : "Custom Deck",
+		  		name: this.miracle ? "Miracle Deck" : "Custom Deck",
 		  		list: { hero: null, cards: [] }
 		  	}
 
-	  	this.state = { deck, new: deck.hero === null || deck.hero === undefined };
+	  	this.state = { cardlist: this.custom || deck.type === "custom" ? this.props.cards.concat(this.props.customs) : this.props.cards, deck, new: deck.hero === null || deck.hero === undefined };
 	}
+
+  get miracle () {
+
+    return this.props.type === "miracle";
+  }
+
+  get custom () {
+
+    return this.props.type === "custom";
+  }
 
   onSave (params) {
 
@@ -53,16 +63,16 @@ export default class DeckbuilderPage extends Component {
 	      		{
 	      			this.state.deck.hero ?
 	      			(this.props.cards && this.props.cards.length > 0 ?
-		      			<Deckbuilder ref={this.builder} list={this.state.list} new={this.state.new} onSave={this.onSave.bind(this)} onDelete={this.onDelete.bind(this)} deck={this.state.deck} cards={this.props.cards} miracle={this.props.miracle}/>
+		      			<Deckbuilder ref={this.builder} list={this.state.list} new={this.state.new} onSave={this.onSave.bind(this)} onDelete={this.onDelete.bind(this)} deck={this.state.deck} cards={this.state.cardlist} type={this.props.type}/>
 		      			: <span/>
 	      			)
 	      			:
 	      			<Selector onSelect={hero => {
-	      				var chero = this.props.cards.find(c => c.idCardmodel === hero);
-					    var cards = this.props.cards.filter(c => c.idEdition === 1 && c.cardType !== "hero" && (c.idColor === 0 || c.idColor === chero.idColor || c.idColor === chero.idColor2))
+	      				var chero = this.state.cardlist.find(c => c.idCardmodel === hero);
+					    var cards = this.state.cardlist.filter(c => c.cardType !== "hero" && (c.idColor === 0 || c.idColor === chero.idColor || c.idColor === chero.idColor2))
 					    sorter.sort(cards, "name");
-	      				this.setState({deck: Object.assign(this.state.deck, { hero }), list: {hero: chero, cards}});
-	      			}} cards={this.props.cards} miracle={this.props.miracle}/>
+	      				this.setState({deck: Object.assign(this.state.deck, { hero: hero > 10000 ? chero : hero }), list: {hero: chero, cards}});
+	      			}} cards={this.state.cardlist} miracle={this.miracle}/>
 	      		}
 	      	</main>
 	    </div>
