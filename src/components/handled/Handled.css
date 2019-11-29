@@ -286,4 +286,14 @@ nav .breadcrumb {
 	display: none !important;
 }
 
+.sensuba-court {
+
+	transform: rotateX(310deg) translateX(22vw) translateY(-6vw) translateZ(18em) !important;
+}
+
+.sensuba-gems + .sensuba-court {
+
+	transform: rotateX(310deg) translateX(25vw) translateY(-10vw) translateZ(21em) !important;
+}
+
 }

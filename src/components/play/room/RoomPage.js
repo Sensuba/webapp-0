@@ -19,7 +19,7 @@ export default class RoomPage extends Component {
     //this.setState({heroes: {you, opponent}});
   }
   
-  render() {console.log(this.state);
+  render() {
     return (
       <div>
         <Nav api={this.props.api} history={this.props.history}/>
