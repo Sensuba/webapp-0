@@ -641,6 +641,8 @@ export default class Card {
 
 	activate () {
 
+		if (this.activated)
+			return;
 		this.activated = true;
 		if (this.passives)
 			this.passives.forEach(passive => passive.activate());
@@ -649,6 +651,8 @@ export default class Card {
 
 	deactivate () {
 
+		if (!this.activated)
+			return;
 		this.activated = false;
 		if (this.passives)
 			this.passives.forEach(passive => passive.deactivate());
@@ -699,10 +703,10 @@ export default class Card {
 		res.isEff = true;
 		res.states = Object.assign({}, this.states);
 		let updatephp = () => {
-			if (this.isType("character")) {
+			if (this.isType("character") && this.onBoard) {
 				this.php = this.php || { hp: this.hp, chp: this.chp };
 				var plushp = Math.max (0, res.hp - this.php.hp);
-				this.chp = Math.min(res.hp, this.chp + plushp);
+				this.chp = Math.min(res.hp, (this.chp || this.hp) + plushp);
 				res.chp = this.chp;
 				this.php = { hp: res.hp, chp: res.chp };
 			}
