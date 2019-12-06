@@ -115,7 +115,6 @@ export default class EditorPage extends Component {
     };
 
     var shadow = this.currentCard;
-    delete shadow.idCardmodel;
     delete shadow.htmlDescription;
     if (shadow.cardType === "hero") {
       if (shadow.lv2)
