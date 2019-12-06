@@ -29,7 +29,7 @@ export default class PlayPage extends Component {
       deck = null;
 
     this.state = {
-      cards: this.props.cards.concat(this.props.customs)
+      cards: this.props.cards.concat(this.props.customs),
       seeking: false,
       deck: deck,
       filter: ""
