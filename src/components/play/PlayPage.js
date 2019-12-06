@@ -63,7 +63,7 @@ export default class PlayPage extends Component {
     var res = { id: deck.idDeck, hero: deck.hero, body: [] };
     Object.keys(deck.cards).forEach(c => {
         for (let i = 0; i < deck.cards[c]; i++) {
-          var cc = this.state.cards.find(el => el.idCardmodel === parseInt(c, 10));
+          var cc = (setState ? this.state.cards : this.props.cards.concat(this.props.customs)).find(el => el.idCardmodel === parseInt(c, 10));
           if (cc) {
             if (cc.idEdition)
               res.body.push(parseInt(c, 10));
