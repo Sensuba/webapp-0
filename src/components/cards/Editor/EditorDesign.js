@@ -80,7 +80,7 @@ export default class EditorPage extends Component {
     this.currentCard = n;
   }
   
-  render() {
+  render() {console.log(btoa(JSON.stringify(this.props.card)));
 
     var editAttribute = attr => (e => {
       this.currentCard[attr] = e.target.value;
@@ -116,9 +116,9 @@ export default class EditorPage extends Component {
 
     var shadow = this.currentCard;
     delete shadow.htmlDescription;
-    if (this.props.idmodel)
+    /*if (this.props.idmodel)
       shadow.idCardmodel = this.props.idmodel;
-    else delete shadow.idCardmodel;
+    else delete shadow.idCardmodel;*/
     if (shadow.cardType === "hero") {
       if (shadow.lv2)
         delete shadow.lv2.htmlDescription;
