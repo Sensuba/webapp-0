@@ -15,6 +15,7 @@ import Trigger from './view/animation/Trigger';
 import NewTurn from './view/animation/NewTurn';
 import Psychic from './view/animation/Psychic';
 import Burn from './view/animation/Burn';
+import Poison from './view/animation/Poison';
 import LevelUp from './view/animation/LevelUp';
 import BreakShield from './view/animation/BreakShield';
 import GainEffect from './view/animation/GainEffect';
@@ -124,6 +125,11 @@ export default class Sequencer {
 	    case "destroycard":
 	    	if (this.model.find(n.src).onBoard)
 	    		return new Destroy(this.master, n.src.no);
+	    	break;
+	    case "poisoncard":
+	    case "poisontrigger":
+	    	if (this.model.find(n.src).onBoard)
+	    		return new Poison(this.master, n.src.no);
 	    	break;
 	    case "silence": return new Psychic(this.master, n.src.no);
 	    case "boostcard": {

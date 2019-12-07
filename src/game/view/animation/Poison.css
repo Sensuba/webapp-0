@@ -1,0 +1,13 @@
+.sensuba-card-poison .sensuba-card-animmask {
+
+	display: block;
+	background-color: green;
+	opacity: 0;
+	animation: card-poison 0.5s 1;
+}
+
+@keyframes card-poison {
+  0% {opacity: 0}
+  50% {opacity: 0.5}
+  100% {opacity: 0}
+}
