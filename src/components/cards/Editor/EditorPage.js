@@ -192,6 +192,7 @@ export default class EditorPage extends Component {
     var design =
     <Design
       ref="design"
+      idmodel={this.props.idmodel}
       card={this.state.card}
       token={this.state.token}
       update={card => this.setState({card})}

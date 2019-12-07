@@ -116,6 +116,9 @@ export default class EditorPage extends Component {
 
     var shadow = this.currentCard;
     delete shadow.htmlDescription;
+    if (this.props.idmodel)
+      shadow.idCardmodel = this.props.idmodel;
+    else delete shadow.idCardmodel;
     if (shadow.cardType === "hero") {
       if (shadow.lv2)
         delete shadow.lv2.htmlDescription;
