@@ -18,7 +18,7 @@ export default class Deckbuilder extends Component {
 		deck = Object.assign(deck, this.props.deck);
 
     var choices;
-    if (this.props.miracle)
+    if (this.miracle)
       choices = this.generateMiracleChoice(props.list.cards);
 
     var list = this.props.list;

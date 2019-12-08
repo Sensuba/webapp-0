@@ -80,7 +80,7 @@ export default class EditorPage extends Component {
     this.currentCard = n;
   }
   
-  render() {console.log(btoa(JSON.stringify(this.props.card)));
+  render() {
 
     var editAttribute = attr => (e => {
       this.currentCard[attr] = e.target.value;
