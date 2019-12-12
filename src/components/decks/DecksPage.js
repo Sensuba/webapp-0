@@ -3,6 +3,7 @@ import './DecksPage.css';
 import Deck from './Deck.js';
 import Nav from '../Nav';
 import User from '../../services/User';
+import { Input, FormGroup } from 'reactstrap';
 
 export default class DecksPage extends Component {
 
@@ -12,6 +13,8 @@ export default class DecksPage extends Component {
 
 		if (!User.isConnected())
 			this.props.history.push('/home');
+
+		this.deckbuilderType = "builder";
 	}
 
 	render () {
@@ -25,14 +28,19 @@ export default class DecksPage extends Component {
           			(this.props.decks || []).map((deck, i) => <a className="sensuba-card-link" onClick={() => this.props.history.push(`/decks/builder/${deck.idDeck}`)} key={deck.idDeck}><Deck src={deck}/></a>)
           		}
 	      		</div>
-	            <button className="editor-button" onClick={() => this.props.history.push('/decks/builder')}>
+	            <button className="editor-button" onClick={() => this.props.history.push('/decks/' + this.deckbuilderType)}>
 	              <img className="editor-button-img" src="/deckbuilder.png" alt="deckbuilder-chan"/>
 	              <div className="editor-button-text">Create a deck</div>
 	            </button>
-	            <button className="editor-button reverse-editor-button" onClick={() => this.props.history.push('/decks/miracle')}>
-	              <img className="editor-button-img editor-button-miracle" src="/deckbuilder.png" alt="miracle-chan"/>
-	              <div className="editor-button-text">Create a miracle</div>
-	            </button>
+	            <div className="editor-select">
+	            	<FormGroup row>
+			          <Input type="select" name="select" id="form-deckbuilder-type" defaultValue="builder" onChange={e => this.deckbuilderType = e.target.value}>
+			            <option value="builder">Standard</option>
+			            <option value="miracle">Miracle</option>
+			            <option value="custom">Custom</option>
+			          </Input>
+			        </FormGroup>
+	            </div>
 	      	</main>
 	    </div>
 		)

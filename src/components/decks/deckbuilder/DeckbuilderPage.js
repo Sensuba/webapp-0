@@ -15,11 +15,18 @@ export default class DeckbuilderPage extends Component {
 		if (!User.isConnected()) this.props.history.push('/home');
 
 	  	var deck = this.props.deck;
+	  	var type;
+	  	switch (this.props.type) {
+	  	case "standard": type = "Standard"; break;
+	  	case "miracle": type = "Miracle"; break;
+	  	case "custom": type = "Custom"; break;
+	  	default: type = "New"; break;
+	  	}
 	  	if (!deck)
 		  	deck = {
 		  		hero: null,
 		  		cards: {},
-		  		name: this.miracle ? "Miracle Deck" : "Custom Deck",
+		  		name: type + " Deck",
 		  		list: { hero: null, cards: [] }
 		  	}
 
@@ -71,7 +78,7 @@ export default class DeckbuilderPage extends Component {
 	      				var chero = this.state.cardlist.find(c => c.idCardmodel === hero);
 					    var cards = this.state.cardlist.filter(c => c.cardType !== "hero" && (c.idColor === 0 || c.idColor === chero.idColor || c.idColor === chero.idColor2))
 					    sorter.sort(cards, "name");
-	      				this.setState({deck: Object.assign(this.state.deck, { hero: hero > 10000 ? chero : hero }), list: {hero: chero, cards}});
+	      				this.setState({deck: Object.assign(this.state.deck, { hero: hero }), list: {hero: chero, cards}});
 	      			}} cards={this.state.cardlist} miracle={this.miracle}/>
 	      		}
 	      	</main>

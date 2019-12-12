@@ -4,3 +4,30 @@
 	flex-wrap: wrap;
 	justify-content: center;
 }
+
+.editor-select select {
+
+	margin-top: 1em;
+	border: none;
+	font-size: 1.75em;
+	padding-left: 1em;
+	border-left: solid 1px lightgray;
+	border-right: solid 1px lightgray;
+	-moz-appearance:none; /* Firefox */
+    -webkit-appearance:none; /* Safari and Chrome */
+    appearance:none;
+    transition: all 0.2s;
+}
+
+.editor-select select.form-control:not([size]):not([multiple]) {
+
+	height: calc(3rem + 2px);
+}
+
+.editor-select select:focus {
+
+	box-shadow: none;
+	border-color: #007bff80;
+	background-color: #007bff80;
+	color: white;
+}

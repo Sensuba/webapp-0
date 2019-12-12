@@ -60,10 +60,14 @@ export default class PlayPage extends Component {
 
   setDeck (deck, setState = true) {
 
+    var listsrc = setState ? this.state.cards : this.props.cards.concat(this.props.customs);
     var res = { id: deck.idDeck, hero: deck.hero, body: [] };
+    var cc = listsrc.find(el => el.idCardmodel === parseInt(deck.hero, 10));
+    if (cc && !cc.idEdition)
+      res.hero = cc;
     Object.keys(deck.cards).forEach(c => {
         for (let i = 0; i < deck.cards[c]; i++) {
-          var cc = (setState ? this.state.cards : this.props.cards.concat(this.props.customs)).find(el => el.idCardmodel === parseInt(c, 10));
+          cc = listsrc.find(el => el.idCardmodel === parseInt(c, 10));
           if (cc) {
             if (cc.idEdition)
               res.body.push(parseInt(c, 10));
@@ -111,12 +115,8 @@ export default class PlayPage extends Component {
                     {
                       (this.props.decks || []).filter(c => c.name.toLowerCase().includes(this.state.filter.toLowerCase())).map((c, i) => {
                         var hero;
-                        if (c.hero.idCardmodel && !c.hero.idEdition)
-                          hero = c;
-                        else {
-                          var idHero = c.hero.idCardmodel || c.hero;
-                          hero = this.props.cards.find(s => s.idCardmodel === idHero);
-                        }
+                        var idHero = c.hero.idCardmodel || c.hero;
+                        hero = this.state.cards.find(s => s.idCardmodel === idHero);
                         return (
                           <div key={i} className={"sensuba-deckbuilder-tag " + colorIdToClassName(hero.idColor) + " " + colorIdToClassName(hero.idColor2)} onClick={() => this.choice(c.idDeck)}>
                             <div className="sensuba-deckbuilder-tag-name">{c.name}</div>
