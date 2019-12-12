@@ -205,10 +205,12 @@ export default class CardsPage extends Component {
               <Label for="sensuba-search-orderby" className="sensuba-search-select-label">Order by</Label>
               <select value={this.filter.orderBy} id="sensuba-search-orderby" onChange={editFilter("orderBy").bind(this)}>
                 <option value="type">Type</option>
+                <option value="name">Name</option>
                 <option value="mana">Mana</option>
                 <option value="atk">ATK</option>
                 <option value="hp">HP</option>
                 <option value="range">Range</option>
+                <option value="anime">Anime</option>
               </select>
               <div className="sensuba-search-interact" onClick={e => this.setState({advsearch: !this.state.advsearch})}>More filters &#10148;</div>
             </div>

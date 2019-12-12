@@ -23,6 +23,8 @@ export default (() => {
 
 	var rangeSort = valueSort("range");
 
+	var animeSort = valueSort("anime", true);
+
 	var typeSort = (a, b) => {
 
 		var typeToPrio = type => {
@@ -44,10 +46,12 @@ export default (() => {
 		var func = nameSort;
 		switch (sf) {
 		case "type": func = typeSort; break;
+		case "name": func = nameSort; break;
 		case "mana": func = manaSort; break;
 		case "atk": func = atkSort; break;
 		case "hp": func = hpSort; break;
 		case "range": func = rangeSort; break;
+		case "anime": func = animeSort; break;
 		default: break;
 		}
 
