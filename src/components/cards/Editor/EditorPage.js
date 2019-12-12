@@ -3,7 +3,7 @@ import Nav from '../../Nav';
 import { Input, Label } from 'reactstrap';
 import Design from './EditorDesign';
 import Blueprint from './Blueprint/EditorBlueprint';
-//import Animation from './Animation/EditorAnimation';
+import Animation from './Animation/EditorAnimation';
 import './EditorPage.css';
 
 export default class EditorPage extends Component {
@@ -222,12 +222,12 @@ export default class EditorPage extends Component {
       className={this.state.tab === "blueprint" ? "" : "invisible"}
     />
 
-    /*var animation =
+    var animation =
     <Animation
       card={this.state.card}
       update={anim => this.setState({card: Object.assign(this.state.card, {animations: anim})})}
       className={this.state.tab === "animation" ? "" : "invisible"} model={this.state.card}
-    />*/
+    />
 
     //var superCode = window.btoa(JSON.stringify(shadow));
 
@@ -241,9 +241,12 @@ export default class EditorPage extends Component {
               <Label for="design-tab">Design</Label>
               <Input id="blueprint-tab" type="radio" onChange={() => this.setState({tab: "blueprint"})} checked={this.state.tab === "blueprint"}/>
               <Label for="blueprint-tab">Blueprint</Label>
+              <Input id="animation-tab" type="radio" onChange={() => this.setState({tab: "animation"})} checked={this.state.tab === "animation"}/>
+              <Label for="animation-tab">Animation</Label>
             </div>
             { design }
             { blueprint }
+            { animation }
           </div>
       	</main>
       </div>

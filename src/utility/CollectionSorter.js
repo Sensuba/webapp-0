@@ -58,6 +58,19 @@ export default (() => {
 		})
 	}
 
+	var opFilter = (attr, value, op) => {
+
+		switch (op) {
+		case "1": return card => card[attr] && parseInt(card[attr], 10) > value;
+		case "2": return card => card[attr] && parseInt(card[attr], 10) >= value;
+		case "3": return card => card[attr] && parseInt(card[attr], 10) === value;
+		case "4": return card => !card[attr] || parseInt(card[attr], 10) !== value;
+		case "5": return card => card[attr] && parseInt(card[attr], 10) <= value;
+		case "6": return card => card[attr] && parseInt(card[attr], 10) < value;
+		default: return card => true;
+		}
+	}
+
 	var filter = (cards, f) => {
 
 		if (f.search && f.search !== "") {
@@ -81,6 +94,22 @@ export default (() => {
 			cards = cards.filter(card => f.colors.includes(card.idColor) && (!card.idColor2 || f.colors.includes(card.idColor2)));
 		if (f.archetype && f.archetype !== "")
 			cards = cards.filter(card => card.archetypes && card.archetypes.filter(arc => arc.toLowerCase().includes(f.archetype.toLowerCase())).length > 0);
+		if (f.name && f.name !== "")
+			cards = cards.filter(card => card.nameCard.toLowerCase().includes(f.name.toLowerCase()));
+		if (f.description && f.description !== "")
+			cards = cards.filter(card => card.description.toLowerCase().includes(f.description.toLowerCase()));
+		if (f.anime && f.anime !== "")
+			cards = cards.filter(card => card.anime.toLowerCase().includes(f.anime.toLowerCase()));
+		if (f.flavour && f.flavour !== "")
+			cards = cards.filter(card => card.flavourText.toLowerCase().includes(f.flavour.toLowerCase()));
+		if (f.cost && !isNaN(f.cost) && f.costop && f.costop !== "")
+			cards = cards.filter(opFilter("mana", parseInt(f.cost, 10), f.costop));
+		if (f.atk && !isNaN(f.atk) && f.atkop && f.atkop !== "")
+			cards = cards.filter(opFilter("atk", parseInt(f.atk, 10), f.atkop));
+		if (f.hp && !isNaN(f.hp) && f.hpop && f.hpop !== "")
+			cards = cards.filter(opFilter("hp", parseInt(f.hp, 10), f.hpop));
+		if (f.range && !isNaN(f.range) && f.rangeop && f.rangeop !== "")
+			cards = cards.filter(opFilter("range", parseInt(f.range, 10), f.rangeop));
 		if (f.orderBy)
 			sort(cards, f.orderBy);
 		return cards;

@@ -14,9 +14,9 @@ export default class CardsPage extends Component {
 
 		super(props);
 
-    /*this.state = {
-      customs: false
-    };*/
+    this.state = {
+      advsearch: false
+    };
 
     window.search = name => sorter.filter(this.isCustoms ? this.props.customs : this.props.cards, {orderBy: "name", search: name});
     window.update = () => Library.clear();
@@ -35,7 +35,19 @@ export default class CardsPage extends Component {
       search: url.searchParams.get("search") || "",
       archetype: url.searchParams.get("archetype") || "",
       type: url.searchParams.get("type") || "",
-      edition: url.searchParams.get("edition") || ""
+      edition: url.searchParams.get("edition") || "",
+      name: url.searchParams.get("name") || "",
+      description: url.searchParams.get("description") || "",
+      anime: url.searchParams.get("anime") || "",
+      flavour: url.searchParams.get("flavour") || "",
+      cost: url.searchParams.get("cost") || "",
+      costop: url.searchParams.get("costop") || "",
+      atk: url.searchParams.get("atk") || "",
+      atkop: url.searchParams.get("atkop") || "",
+      hp: url.searchParams.get("hp") || "",
+      hpop: url.searchParams.get("hpop") || "",
+      range: url.searchParams.get("range") || "",
+      rangeop: url.searchParams.get("rangeop") || "",
     };
   }
 
@@ -81,7 +93,7 @@ export default class CardsPage extends Component {
         suf += param + "=" + filter[param];
       }
     }
-    ["search", "archetype", "colors", "edition", "type", "orderBy"].forEach(param => addFilter(param));
+    ["search", "archetype", "colors", "edition", "type", "name", "description", "anime", "flavour", "cost", "costop", "atk", "atkop", "hp", "hpop", "range", "rangeop", "orderBy"].forEach(param => addFilter(param));
     if (customs) {
         suf += suf.length === 0 ? "?" : "&";
         suf += "customs=1";
@@ -198,8 +210,73 @@ export default class CardsPage extends Component {
                 <option value="hp">HP</option>
                 <option value="range">Range</option>
               </select>
+              <div className="sensuba-search-interact" onClick={e => this.setState({advsearch: !this.state.advsearch})}>More filters &#10148;</div>
             </div>
           </div>
+          {
+            this.state.advsearch ?
+            <div className="sensuba-card-search">
+              <div className="third-section">
+                <Input id="sensuba-search-name" value={this.filter.name} type="text" placeholder="Name" onChange={editFilter("name").bind(this)}/>
+                <Input id="sensuba-search-description" value={this.filter.description} type="text" placeholder="Description" onChange={editFilter("description").bind(this)}/>
+                <Input id="sensuba-search-anime" value={this.filter.anime} type="text" placeholder="Anime" onChange={editFilter("anime").bind(this)}/>
+                <Input id="sensuba-search-flavour" value={this.filter.flavour} type="text" placeholder="Flavour text" onChange={editFilter("flavour").bind(this)}/>
+              </div>
+              <div className="two-thirds-section">
+                <div className="third-section">
+                  <div className="sensuba-search-label-section"><div className="sensuba-search-select-label">Cost</div></div>
+                  <div className="sensuba-search-label-section"><div className="sensuba-search-select-label">ATK</div></div>
+                  <div className="sensuba-search-label-section"><div className="sensuba-search-select-label">HP</div></div>
+                  <div className="sensuba-search-label-section"><div className="sensuba-search-select-label">Range</div></div>
+                </div>
+                <div className="third-section">
+                  <select value={this.filter.costop} id="sensuba-search-cost-op" onChange={editFilter("costop").bind(this)}>
+                    <option value=""></option>
+                    <option value="1">&gt;</option>
+                    <option value="2">&ge;</option>
+                    <option value="3">&#61;</option>
+                    <option value="4">&ne;</option>
+                    <option value="5">&le;</option>
+                    <option value="6">&lt;</option>
+                  </select>
+                  <select value={this.filter.atkop} id="sensuba-search-atk-op" onChange={editFilter("atkop").bind(this)}>
+                    <option value=""></option>
+                    <option value="1">&gt;</option>
+                    <option value="2">&ge;</option>
+                    <option value="3">&#61;</option>
+                    <option value="4">&ne;</option>
+                    <option value="5">&le;</option>
+                    <option value="6">&lt;</option>
+                  </select>
+                  <select value={this.filter.hpop} id="sensuba-search-hp-op" onChange={editFilter("hpop").bind(this)}>
+                    <option value=""></option>
+                    <option value="1">&gt;</option>
+                    <option value="2">&ge;</option>
+                    <option value="3">&#61;</option>
+                    <option value="4">&ne;</option>
+                    <option value="5">&le;</option>
+                    <option value="6">&lt;</option>
+                  </select>
+                  <select value={this.filter.rangeop} id="sensuba-search-range-op" onChange={editFilter("rangeop").bind(this)}>
+                    <option value=""></option>
+                    <option value="1">&gt;</option>
+                    <option value="2">&ge;</option>
+                    <option value="3">&#61;</option>
+                    <option value="4">&ne;</option>
+                    <option value="5">&le;</option>
+                    <option value="6">&lt;</option>
+                  </select>
+                </div>
+                <div className="third-section">
+                  <Input id="sensuba-search-cost" value={this.filter.cost} type="text" onChange={editFilter("cost").bind(this)}/>
+                  <Input id="sensuba-search-atk" value={this.filter.atk} type="text" onChange={editFilter("atk").bind(this)}/>
+                  <Input id="sensuba-search-hp" value={this.filter.hp} type="text" onChange={editFilter("hp").bind(this)}/>
+                  <Input id="sensuba-search-range" value={this.filter.range} type="text" onChange={editFilter("range").bind(this)}/>
+                </div>
+              </div>
+            </div>
+            : <span/>
+          }
           <div className="sensuba-card-container">
       		  {
               isCustoms ?
