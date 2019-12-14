@@ -155,9 +155,9 @@ export default class CardsPage extends Component {
             User.isConnected() ?
             <div className="card-collection-choicer">
               <div className="vintage-radio">
-                <Input id="official-card-collection" type="radio" name="card-collection" onChange={() => this.displayCustoms(false)} defaultChecked={!isCustoms} value={!isCustoms}/>
+                <Input id="official-card-collection" type="radio" name="card-collection" onChange={() => this.displayCustoms(false)} defaultChecked={!isCustoms || false} value={!isCustoms || false}/>
                 <Label for="official-card-collection">Official</Label>
-                <Input id="custom-card-collection" type="radio" name="card-collection" onChange={() => this.displayCustoms(true)} defaultChecked={isCustoms} value={isCustoms}/>
+                <Input id="custom-card-collection" type="radio" name="card-collection" onChange={() => this.displayCustoms(true)} defaultChecked={isCustoms || false} value={isCustoms || false}/>
                 <Label for="custom-card-collection">Customs</Label>
               </div>
             </div>

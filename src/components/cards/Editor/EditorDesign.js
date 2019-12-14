@@ -44,20 +44,20 @@ export default class EditorPage extends Component {
     var filter = [];
     var basis = {
         archetypes: [],
-        mana: 0,
-        atk: 200,
-        hp: 200,
-        range: 1,
+        mana: "0",
+        atk: "200",
+        hp: "200",
+        range: "1",
         lv2: {
-          atk: 200,
-          range: 1,
+          atk: "200",
+          range: "1",
           description: "",
           fontSize: 1.3,
           overload: 0
         },
         lvmax: {
-          atk: 200,
-          range: 1,
+          atk: "200",
+          range: "1",
           description: "",
           fontSize: 1.3,
           overload: 0
@@ -114,11 +114,9 @@ export default class EditorPage extends Component {
       this.props.update(this.props.card);
     };
 
-    var shadow = this.currentCard;
+    var shadow = Object.assign({}, this.currentCard);
+    delete shadow.idCardmodel;
     delete shadow.htmlDescription;
-    /*if (this.props.idmodel)
-      shadow.idCardmodel = this.props.idmodel;
-    else delete shadow.idCardmodel;*/
     if (shadow.cardType === "hero") {
       if (shadow.lv2)
         delete shadow.lv2.htmlDescription;
