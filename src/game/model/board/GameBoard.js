@@ -38,6 +38,8 @@ export default class GameBoard {
 
 	newTurn (noArea) {
 		
+		if (this.currentArea && this.currentArea.choosebox.opened)
+			this.currentArea.choosebox.close();
 		this.currentArea = this.areas[noArea];
 		this.currentArea.newTurn();
 	}

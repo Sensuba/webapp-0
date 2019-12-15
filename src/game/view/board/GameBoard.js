@@ -7,6 +7,7 @@ import GemPool from './GemPool';
 import Row from './Row';
 import Tile from './Tile';
 import Court from './Court';
+import Choosebox from './Choosebox';
 import Gauge from '../UI/Gauge';
 import EndTurn from '../UI/EndTurn';
 
@@ -94,6 +95,7 @@ export default class GameBoard extends Component {
 	    	</Area>
     	<Hand model={model.areas[no].hand} master={master}/>
     	</div>
+		<Choosebox model={model.areas[no].choosebox} master={master}/>
       </div>
     )
   }

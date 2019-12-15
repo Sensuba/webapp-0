@@ -1,6 +1,7 @@
 //import Chain from './vue/sequence/Chain';
 import WaitingState from './controller/state/WaitingState';
 import PlayingState from './controller/state/PlayingState';
+import ChooseboxState from './controller/state/ChooseboxState';
 
 export default class Manager {
 
@@ -33,9 +34,19 @@ export default class Manager {
 		this.sequencer.add(seq);
 	}*/
 
-	control (playing) {
+	control (playing, state) {
 
-		this.controller = playing ? new PlayingState(this) : this.states.waiting;
+		if (playing && state.model.currentArea.choosebox.opened) {
+			this.controller = new ChooseboxState(this, state.model.currentArea.choosebox);
+			return;
+		}
+		if (this.controller === this.states.waiting) {
+			if (playing)
+				this.controller = new PlayingState(this);
+		} else {
+			if (!playing)
+				this.controller = this.states.waiting;
+		}
 	}
 
 	select (target) {
@@ -45,7 +56,8 @@ export default class Manager {
 
 	unselect () {
 
-		this.control(this.isPlaying);
+		if (this.isPlaying)
+			this.controller = new PlayingState(this);
 		this.update();
 	}
 

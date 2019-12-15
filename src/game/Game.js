@@ -62,7 +62,7 @@ export default class Game extends Component {
 
     this.store = createStore(reducers);
     this.store.subscribe(() => {
-      this.setState({model: this.store.getState()}, () => this.manager.control(this.isPlaying));
+      this.setState({model: this.store.getState()}, () => this.manager.control(this.isPlaying, this.state));
     });
 
     var myDeck = User.getDeck();

@@ -160,6 +160,9 @@ export default (state = new GameBoard(), n) => {
     case "usegem":
       state.areas[n.src.no].manapool.useGem();
       break;
+    case "openchoosebox":
+      state.areas[n.src.no].choosebox.open();
+      break;
     case "extraturn":
       state.areas[n.src.no].extraTurn();
       break;
