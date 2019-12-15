@@ -35,8 +35,6 @@ export default class Faculty extends Component {
     		className={"faculty" + (this.props.src.usable ? "" : " locked-faculty")}
     		onClick={e => {
           this.props.select({ id: { type: "faculty", no: this.props.src.no } });
-          if (this.props.src.usable && this.props.master.manager)
-            this.props.master.manager.unselect();
         }}
 	        onMouseMove={this.props.src.show ? e => this.showTooltip(e, this.props.src.show, true, false) : e => {}}
 	        onMouseLeave={this.props.src.show ? e => this.hideTooltip() : e => {}}>

@@ -17,6 +17,7 @@ export default class SelectFacultyTargetState {
 		if (ltarget.id.type === "tile" && this.faculty.target(this.card, ltarget)) {
 			this.manager.command({ type: "faculty", id: this.card.id, faculty: this.faculty.no, target: ltarget.id });
 			this.manager.controller = this.def;
+	        this.manager.unselect();
 			return;
 		}
 

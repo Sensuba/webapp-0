@@ -23,6 +23,7 @@ export default class AttackOrMoveState {
 			else {
 				this.manager.command({ type: "faculty", id: this.card.id, faculty: target.id.no });
 				this.manager.controller = this.def;
+	          	this.manager.unselect();
 			}
 			return;
 		}
@@ -33,12 +34,14 @@ export default class AttackOrMoveState {
 			if (this.card.canMoveOn(ltarget)) {
 				this.manager.command({ type: "move", id: this.card.id, to: ltarget.id });
 				this.manager.controller = this.def;
+	          	this.manager.unselect();
 				return;
 			}
 		} else {
 			if (ltarget.occupied && this.card.canAttack(ltarget.card)) {
 				this.manager.command({ type: "attack", id: this.card.id, target: ltarget.card.id });
 				this.manager.controller = this.def;
+	          	this.manager.unselect();
 				return;
 			}
 		}
