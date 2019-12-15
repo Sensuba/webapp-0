@@ -108,6 +108,7 @@ const blocks = [
 	{ type: "brkplayer", name: "Break player", model: [ {inout: "in", type: "area", name: "player"}, {inout: "out", type: "locations", name: "field"}, {inout: "out", type: "location", name: "hand"}, {inout: "out", type: "location", name: "deck"}, {inout: "out", type: "area", name: "opponent"}, {inout: "out", type: "bool", name: "playing"} ], tooltip: "Get a player's data", color: "#FFA126" },
 	
 	{ type: "archetype", name: "Archetype", model: [ {inout: "in", type: "string", name: "name"}, {inout: "out", type: "cardfilter", name: "filter"}, {inout: "out", type: "modelfilter", name: "filter"} ], tooltip: "Filter on a card archetype", color: "#670e6b" },
+	{ type: "color", name: "Color", model: [ {inout: "in", type: "color", name: "color"}, {inout: "out", type: "cardfilter", name: "filter"}, {inout: "out", type: "modelfilter", name: "filter"} ], tooltip: "Filter on a card color", color: "#670e6b" },
 	{ type: "token", name: "Token", model: [ {inout: "in", type: "int", name: "no"}, {inout: "out", type: "model", name: "model"} ], tooltip: "Get the model of a token", color: "#670e6b" },
 	{ type: "limitbrk", name: "Limit break", model: [ {inout: "out", type: "int", name: "bonus"} ], tooltip: "Card effect bonus due to overload", color: "#670e6b" },
 	{ type: "manapool", name: "Mana pool", model: [ {inout: "in", type: "area", name: "player"}, {inout: "out", type: "int", name: "mana"}, {inout: "out", type: "int", name: "receptacles"}, {inout: "out", type: "int", name: "gems"} ], tooltip: "Data on a player's mana pool", color: "#670e6b" },
