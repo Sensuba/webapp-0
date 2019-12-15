@@ -145,6 +145,9 @@ export default (state = new GameBoard(), n) => {
     case "createmana":
       state.areas[n.src.no].manapool.createReceptacle(n.data[0].value);
       break;
+    case "destroymana":
+      state.areas[n.src.no].manapool.destroyReceptacle(n.data[0].value);
+      break;
     case "usemana":
       state.areas[n.src.no].manapool.use(n.data[0].value);
       break;
