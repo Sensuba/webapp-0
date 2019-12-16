@@ -10,7 +10,7 @@ require("storm-react-diagrams/dist/style.min.css");
 
 const blocks = [
 
-	{ type: "state", name: "State", model: [ {inout: "in", type: "state", name: " "}, {inout: "out", type: "effect", name: " "}, {inout: "out", type: "mutation", name: "mutation"}, {inout: "out", type: "cardfilter", name: "filter"} ], tooltip: "Use a state as an effect or a mutation", color: "#ffe521" },
+	{ type: "state", name: "State", model: [ {inout: "in", type: "state", name: " "}, {inout: "in", type: "bool", name: "value"}, {inout: "out", type: "effect", name: " "}, {inout: "out", type: "mutation", name: "mutation"}, {inout: "out", type: "cardfilter", name: "filter"} ], tooltip: "Use a state as an effect or a mutation", color: "#ffe521" },
 	{ type: "variation", name: "Variation", model: [ {inout: "in", type: "int", name: "mana"}, {inout: "in", type: "int", name: "atk"}, {inout: "in", type: "int", name: "hp"}, {inout: "in", type: "int", name: "range"}, {inout: "in", type: "int", name: "overload"}, {inout: "out", type: "mutation", name: "mutation"} ], tooltip: "Use statistics variations as a mutation", color: "#ffe521" },
 	{ type: "lockstats", name: "Lock stats", model: [ {inout: "in", type: "int", name: "mana"}, {inout: "in", type: "int", name: "atk"}, {inout: "in", type: "int", name: "hp"}, {inout: "in", type: "int", name: "range"}, {inout: "in", type: "int", name: "overload"}, {inout: "out", type: "mutation", name: "mutation"} ], tooltip: "Lock statistics to a value in a mutation", color: "#ffe521" },
 	
