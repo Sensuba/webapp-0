@@ -60,7 +60,7 @@ export default class Card extends Component {
           emph += x.charAt(i);
         return `<span class="sensuba-card-effect-show">${emph}</span>`
       });
-      if (this.props.src.ol && this.props.src.overload && this.props.src.ol >= this.props.src.overload)
+      if (this.props.src.lb || (this.props.src.ol && this.props.src.overload && this.props.src.ol >= this.props.src.overload))
         desc = desc.replace(/[^>]\d+[^<]/g, x => {
           let before = "", number = "", after = "";
           let state = 0;
@@ -82,7 +82,7 @@ export default class Card extends Component {
               default: break;
             }
           }
-          number = parseInt(number, 10) + Math.floor(this.props.src.ol / this.props.src.overload);
+          number = parseInt(number, 10) + Math.floor(this.props.src.lb || (this.props.src.ol / this.props.src.overload));
           return `${before}<span class="sensuba-card-effect-limit-break">${number}</span>${after}`
         });
 

@@ -46,7 +46,7 @@ export default class Hero extends Component {
 	        	<div className={"sensuba-card-effect" + (level !== 1 ? " sensuba-card-invisible" : "")} style={{fontSize: (src.fontSize || 1.3)/2 + 'em'}} dangerouslySetInnerHTML={{__html: src.htmlDescription}}/>
 	        	<div className={"sensuba-card-effect" + (level !== 2 ? " sensuba-card-invisible" : "")} style={{fontSize: (src.lv2.fontSize || 1.3)/2 + 'em'}} dangerouslySetInnerHTML={{__html: src.lv2.htmlDescription}}/>
 	        	<div className={"sensuba-card-effect" + (level !== 3 ? " sensuba-card-invisible" : "")} style={{fontSize: (src.lvmax.fontSize || 1.3)/2 + 'em'}} dangerouslySetInnerHTML={{__html: src.lvmax.htmlDescription}}/>
-	        	<div className="sensuba-card-flavour">{src.flavourText}</div>
+	        	<div className="sensuba-card-flavour">{src.flavourText || ""}</div>
 	        </div>
 	    </div>
 		<div className={"sensuba-card-level" + (level !== 1 ? " sensuba-card-invisible" : "")}>Lv 1</div>

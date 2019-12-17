@@ -28,7 +28,7 @@ export default class Spell extends Component {
 	        </div>
 	        <div className="sensuba-card-body-main">
 	        	<div className="sensuba-card-effect" style={{fontSize: (src.fontSize || 1.3)/2 + 'em'}} dangerouslySetInnerHTML={{__html: src.htmlDescription}}/>
-	        	<div className="sensuba-card-flavour">{src.flavourText}</div>
+	        	<div className="sensuba-card-flavour">{src.flavourText || ""}</div>
 	        </div>
 	    </div>
 	    { src.overload && src.overload > 0 ? <div className={"sensuba-card-overload" + (src.ol && src.ol > src.overload ? " sensuba-card-overload-limit-break" : "")}>{src.overload}</div> : <span/> }

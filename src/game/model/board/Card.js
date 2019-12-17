@@ -2,6 +2,7 @@ import Event from "./Event";
 import Hand from './Hand';
 import Tile from './Tile';
 import Deck from './Deck';
+import Court from './Court';
 import Cemetery from './Cemetery';
 import Discard from './Discard';
 import Mutation from './Mutation';
@@ -13,6 +14,7 @@ export default class Card {
 	constructor (noId, location) {
 
 		this.id = { type: "card", no: noId };
+		this.equals = other => other.id && this.id.type === other.id.type && this.id.no === other.id.no;
 		location.area.gameboard.register(this);
 
 		this.location = null;
@@ -77,6 +79,9 @@ export default class Card {
 		if (this.location === loc)
 			return;
 
+		if (loc instanceof Court && this.overload)
+			this.lb = this.eff.overload && this.eff.ol && this.eff.ol > this.eff.overload ? Math.floor(this.eff.ol/this.eff.overload) : 0;
+
 		var former = this.location;
 		this.location = loc;
 		if (former instanceof Tile && !(loc instanceof Tile) && this.activated)
@@ -89,6 +94,11 @@ export default class Card {
 			this.resetBody ();
 		if (loc && !loc.hasCard (this))
 			loc.addCard (this);
+		if (this.onBoard && former && former.area === this.area.opposite) {
+			this.skillPt = 1;
+			if (this.isType("character"))
+				this.resetSickness();
+		}
 		/*if (former != null && !destroyed)
 			Notify ("card.move", former, value);
 		if (location is Tile)
@@ -420,7 +430,7 @@ export default class Card {
 
 	play (targets) {
 
-		this.area.manapool.use(this.mana);
+		this.area.manapool.use(this.mana);console.log(this.overload);
 		switch(this.cardType) {
 		case "figure":
 			this.summon(targets[0]);
@@ -626,6 +636,9 @@ export default class Card {
 			return;
 		}
 		switch (value.type) {
+		case "card":
+			value = this.area.gameboard.find(value);
+			break;
 		case "int":
 			value = value.value;
 			break;
