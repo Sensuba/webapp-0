@@ -31,7 +31,6 @@ export default class Card extends Component {
 
       desc = escapeHtml(desc);
 
-      desc = `<div class="sensuba-card-effect-p">${desc}</div>`;
       desc = desc.replace(/\n/g, '</div><div class="sensuba-card-effect-p">');
 
       desc = desc.replace(/initiative|fury|rush|exaltation|level up|lethal|conceal(ed)?|poison(ed)?|immune|frenzy:?|last will(s|:)?|silence|shield|flying|freeze|frozen|overload|trap:/gi, x => `<b>${x}</b>`);
@@ -100,6 +99,8 @@ export default class Card extends Component {
             </g>
           </svg>
         </div>`);
+      
+      desc = `<div class="sensuba-card-effect-p">${desc} ${(this.props.src.ol && this.props.src.overload) ? `<span class="sensuba-card-effect-overload">[${this.props.src.ol}]</span>` : ""}</div>`;
 
       return desc;
     }
