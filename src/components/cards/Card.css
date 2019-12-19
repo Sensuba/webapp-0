@@ -501,6 +501,11 @@
     opacity: 1;
 }
 
+.sensuba-hero .sensuba-card-overload  {
+
+    top: 15.6em;
+}
+
 .sensuba-card .sensuba-card-overload-limit-break  {
 
     text-shadow: 1px 1px 1px blue;

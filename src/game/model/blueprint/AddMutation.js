@@ -21,9 +21,9 @@ class AddMutation extends Bloc {
 		this.mutno = src.mutdata.length-1;
 	}
 
-	getMutation () {
+	getMutation (src) {
 
-		return {effect: this.in[1](), end: this.in[2]()};
+		return {effect: x => this.in[1]({src: src, data: x})(x), end: this.in[2]()};
 	}
 }
 
