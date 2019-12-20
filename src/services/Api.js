@@ -13,6 +13,8 @@ export default class Api {
 
   getCards (callback, error) {
 
+    if (User.isConnected())
+      this.addAuthorizationHeader();
   	this.client.get("/vault/cardmodels")
   	.then(response => callback(response.data))
   	.catch(this.error(error));
