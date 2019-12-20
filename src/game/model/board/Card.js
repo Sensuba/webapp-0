@@ -403,7 +403,7 @@ export default class Card {
 
 	get canBePaid () {
 
-		return (this.mana || this.eff.mana === 0) && this.area && this.eff.mana <= this.area.manapool.usableMana;
+		return (!isNaN(this.mana) || this.eff.mana === 0) && this.area && this.eff.mana <= this.area.manapool.usableMana;
 	}
 
 	get canBePlayed () {
@@ -430,7 +430,7 @@ export default class Card {
 
 	play (targets) {
 
-		this.area.manapool.use(this.mana);console.log(this.overload);
+		/*this.area.manapool.use(this.mana);console.log(this.overload);
 		switch(this.cardType) {
 		case "figure":
 			this.summon(targets[0]);
@@ -444,7 +444,7 @@ export default class Card {
 			this.destroy();
 			break;
 		default: break;
-		}
+		}*/
 		this.gameboard.update();
 	}
 

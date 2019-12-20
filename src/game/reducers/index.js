@@ -32,6 +32,10 @@ export default (state = new GameBoard(), n) => {
       state.find(n.src).draw()
       break;
     }
+    case "playcard": {
+      state.update();
+      break;
+    }
     case "summon": {
       let card = state.find(n.src),
           loc = state.find(n.data[0]);
