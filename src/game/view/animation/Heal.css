@@ -17,6 +17,18 @@
   animation: card-heal-mask 1s 1;
 }
 
+.sensuba-card-heal .sensuba-card-digitanim {
+
+  display: block;
+  animation: card-heal-digit 1s 1;
+}
+
+@keyframes card-heal-digit {
+  0% { font-size: 6em; line-height: 3.5em; opacity: 1; color: rgb(153, 255, 214);}
+  50% { font-size: 8em; line-height: 2.625em; opacity: 1; color: rgb(153, 255, 214);}
+  100% { font-size: 10em; line-height: 2.1em; opacity: 0; color: white;}
+}
+
 @keyframes card-heal-mask {
   0%   { background: radial-gradient(rgba(255, 255, 255, 0.7) 0%, transparent 1%); }
   3%   { background: radial-gradient(rgba(255, 255, 255, 0.7) 0%, transparent 10%); }

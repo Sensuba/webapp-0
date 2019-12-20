@@ -88,10 +88,10 @@ export default class Sequencer {
 	    	if (!card) break;
 	    	if (card.isType("artifact")) {
 	    		if (this.model.find(n.data[1]) !== card)
-	    			return new Damage(this.master, n.src.no);
+	    			return new Damage(this.master, n.src.no, n.data[0]);
 	    	}
 	    	else if (card.onBoard)
-	    		return new Damage(this.master, n.src.no);
+	    		return new Damage(this.master, n.src.no, n.data[0]);
 	    	break; }
 	    case "playcard": {
 	    	let card = this.model.find(n.src);
@@ -142,10 +142,10 @@ export default class Sequencer {
 	    	if (!card) break;
 	    	if (card.isType("artifact")) {
 	    		if (this.model.find(n.data[1]) !== card)
-	    			return new Heal(this.master, n.src.no);
+	    			return new Heal(this.master, n.src.no, n.data[0]);
 	    	}
 	    	else if (card.onBoard)
-	    		return new Heal(this.master, n.src.no);
+	    		return new Heal(this.master, n.src.no, n.data[0]);
 	    	break; }
 	    case "listener": {
 	    	let card = this.model.find(n.src);

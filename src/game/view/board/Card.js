@@ -68,7 +68,7 @@ export default class Card extends Component {
           { model.silenced ? <div className="sensuba-card-silence"/> : <span/> }
           <div className="sensuba-card-covers">{ model.covered ? <div className="sensuba-card-cover"/> : <span/> }{ model.isCovered(true) ? <div className="sensuba-card-cover sensuba-card-cover-air"/> : <span/> }</div>
           </div>
-        <div className="sensuba-card-animmask"/>
+        <div className="sensuba-card-animmask"/><div className="sensuba-card-digitanim"/>
       </div>
     )
   }
