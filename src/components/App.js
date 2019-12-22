@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import './App.css';
-import './handled/Handled.css';
+import './style/Handled.css';
+import './style/DarkTheme.css';
 import Cards from './cards/CardsPage';
 import Editor from './cards/Editor/EditorPage';
 import Play from './play/PlayPage';
 import Room from './play/room/RoomPage';
+import Solo from './solo/SoloPage';
+import Mission from './solo/mission/MissionPage';
 import Replay from './play/room/ReplayPage';
 import Loading from './loading/LoadingPage';
 import Rules from './rules/RulesPage';
@@ -31,6 +34,14 @@ export default class App extends Component {
     this.state.socket = openSocket(serverURL);
 
     this.readObject = obj => Object.assign(obj, JSON.parse(window.atob(obj.supercode)));
+    this.filterCardData = obj => {
+      delete obj.supercode;
+      delete obj.blueprint;
+      delete obj.author;
+      if (obj.tokens)
+        obj.tokens = obj.tokens.map(token => this.filterCardData(token));
+      return obj;
+    }
 
     Library.instantiate(() => {
 
@@ -43,7 +54,7 @@ export default class App extends Component {
           }
           else
             this.props.options.api.getCards(cards => {
-              var c = cards.map(card => this.readObject(card));
+              var c = cards.map(card => this.filterCardData(this.readObject(card)));
               sorter.sort(c, "type");
               this.setState({cards: c});
               Library.update(c);
@@ -51,6 +62,14 @@ export default class App extends Component {
         })
 
         if (User.isConnected()) {
+
+          Library.getCollection(list => {
+
+            if (list && list.length)
+              this.setState({collection: list});
+            else
+              this.updateCollection();
+          })
 
           Library.getCustomCardList(list => {
 
@@ -134,6 +153,14 @@ export default class App extends Component {
     }, err => this.setState({customCards: []}));
   }
 
+  updateCollection () {
+
+    this.props.options.api.getCollection(cards => {
+      this.setState({collection: cards});
+      Library.updateCollection(cards);
+    }, err => this.setState({collection: []}));
+  }
+
   updateDecks () {
 
     this.props.options.api.getMyDecks(decks => {
@@ -146,7 +173,7 @@ export default class App extends Component {
 
   render() {
 
-    if (!this.state.cards || (User.isConnected() && (!this.state.decks || !this.state.customCards)))
+    if (!this.state.cards || (User.isConnected() && (!this.state.decks || !this.state.customCards || !this.state.collection)))
       return <Loading/>;
 
     return (
@@ -154,10 +181,12 @@ export default class App extends Component {
           <Switch>
             <Route exact path="/" component={({ match, history }) => (<Redirect to="/home"/>)}/>
             <Route exact path="/home" component={({ match, history }) => (<Home history={history} api={this.props.options.api}/>)}/>
-            <Route exact path="/cards" component={({ match, history }) => (<Cards cards={this.state.cards} customs={this.state.customCards} history={history} api={this.props.options.api}/>)}/>
-            <Route path="/cards/focus/:focus" component={({ match, history }) => (<Cards focus={match.params.focus} cards={this.state.cards} customs={this.state.customCards} history={history} api={this.props.options.api}/>)}/>
+            <Route exact path="/cards" component={({ match, history }) => (<Cards cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} history={history} api={this.props.options.api}/>)}/>
+            <Route path="/cards/focus/:focus" component={({ match, history }) => (<Cards focus={match.params.focus} cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} history={history} api={this.props.options.api}/>)}/>
             <Route exact path="/cards/editor" component={({ match, history }) => <Editor history={history} updateCustoms={this.updateCustoms.bind(this)} api={this.props.options.api}/>}/>
             <Route path="/cards/editor/:card" component={({ match, history }) => (User.isConnected() ? <Editor updateCustoms={this.updateCustoms.bind(this)} idmodel={match.params.card} card={this.state.customCards.find(card => card.idCardmodel.toString() === match.params.card)} history={history} api={this.props.options.api}/> : <Redirect to="/cards"/>)}/>
+            <Route exact path="/solo" component={({ match, history }) => (<Solo socket={this.state.socket} history={history} api={this.props.options.api}/>)}/>
+            <Route exact path="/solo/mission/:mission/:chapter" component={({ match, history }) => (<Mission mission={{mission: match.params.mission, chapter: match.params.chapter}} socket={this.state.socket} history={history} api={this.props.options.api}/>)}/>
             <Route exact path="/play" component={({ match, history }) => (<Play cards={this.state.cards} customs={this.state.customCards} decks={this.state.decks} socket={this.state.socket} history={history} api={this.props.options.api}/>)}/>
             <Route path="/play/:room" component={({ match, history }) => (<Room socket={this.state.socket} room={match.params.room} history={history} api={this.props.options.api}/>)}/>
             <Route path="/replay/:room" component={({ match, history }) => (<Replay socket={this.state.socket} room={match.params.room} history={history} api={this.props.options.api}/>)}/>

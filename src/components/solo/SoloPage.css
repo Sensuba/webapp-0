@@ -1,0 +1,105 @@
+.solo-panel {
+
+    width: 100%;
+    position: relative;
+    height: 15em;
+    transition: filter 0.5s;
+    overflow: hidden;
+    margin: 2em 0;
+}
+
+.solo-panel .solo-panel-background {
+
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    position: absolute;
+    transition: height 0.5s, width 0.5s, top 0.5s, left 0.5s;
+}
+
+.solo-panel .solo-panel-filter {
+
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to right, transparent, transparent 40%, #0008 60%, #000A);
+    pointer-events: none;
+}
+
+.solo-panel.panel-right .solo-panel-filter { background: linear-gradient(to left, transparent, transparent 40%, #0008 60%, #000A) }
+
+.solo-panel .solo-panel-text {
+
+    position: absolute;
+    z-index: 2;
+    top: 15%;
+    left: 55%;
+    width: 40%;
+    color: white;
+    text-align: left;
+}
+
+.solo-panel .solo-panel-text h3 {
+
+    font-family: Constantia;
+    font-variant: small-caps;
+}
+
+.solo-panel.panel-right .solo-panel-text { left: 5%; }
+
+.solo-panel .solo-panel-chapters {
+
+    position: absolute;
+    height: 100%;
+    top: 0;
+    right: 0;
+}
+
+.solo-panel .solo-panel-chapters .solo-panel-chapter, .solo-panel .solo-panel-chapters .solo-panel-chapters-end {
+
+    display: inline-block;
+    height: 120%;
+    width: 2em;
+    line-height: 2em;
+    font-size: 2em;
+    margin-top: -0.5em;
+    padding-top: 1.5em;
+    transform: rotateZ(190deg);
+}
+
+.solo-panel .solo-panel-chapters .solo-panel-chapters-end {
+
+    margin-right: -2em;
+    background-color: white;
+}
+
+.solo-panel .solo-panel-chapters .solo-panel-chapter {
+    
+    color: white;
+    text-align: start;
+    font-family: Constantia;
+    border-right: dotted 1px #FFFFFFA0;
+    writing-mode: vertical-rl;
+    background-color: #00000060;
+    transition: all 0.4s;
+    white-space: nowrap;
+    pointer-events: all;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.solo-panel .solo-panel-chapters .solo-panel-chapter:hover {
+
+    padding-top: 2em;
+    background-color: #00000098;
+}
+
+.solo-panel .solo-panel-chapters .solo-panel-chapter .small-text-chapter-1 { font-size: 0.75em }
+.solo-panel .solo-panel-chapters .solo-panel-chapter .small-text-chapter-2 { font-size: 0.6em }
+.solo-panel .solo-panel-chapters .solo-panel-chapter .small-text-chapter-3 { font-size: 0.5em }

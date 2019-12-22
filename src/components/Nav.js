@@ -16,6 +16,7 @@ export default class Nav extends Component {
 	guest_links = [
 		{ name: "Home", path: "/home" },
 		{ name: "Cards", path: "/cards" },
+		{ name: "Solo", path: "/solo" },
 		{ name: "Play", path: "/play" },
 		{ name: "Rules", path: "/rules" },
 		{ name: "Login", action: () => this.setState({ lightbox: true, signup: false }) },
@@ -24,10 +25,11 @@ export default class Nav extends Component {
 	member_links = [
 		{ name: "Home", path: "/home" },
 		{ name: "Cards", path: "/cards" },
+		//{ name: "Solo", path: "/solo" },
 		{ name: "Play", path: "/play" },
 		{ name: "Rules", path: "/rules" },
 		{ name: "My decks", path: "/decks" },
-		/*{ name: "Profile", path: "/profile" },*/
+		//{ name: "Profile", path: "/profile" },
 		{ name: "Logout", action: () => this.logout() },
 	];
 

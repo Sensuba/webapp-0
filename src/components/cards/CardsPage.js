@@ -18,9 +18,20 @@ export default class CardsPage extends Component {
       advsearch: false
     };
 
-    window.search = name => sorter.filter(this.isCustoms ? this.props.customs : this.props.cards, {orderBy: "name", search: name});
+    window.search = name => sorter.filter(this.cardlist, {orderBy: "name", search: name});
     window.update = () => Library.clear();
 	}
+
+  get cardlist () {
+
+    var url = new URL(window.location.href);
+    var mode = url.searchParams.get("mode");
+    switch (mode) {
+      case "custom": return this.props.customs;
+      case "collection": return this.props.cards.filter(card => card.idEdition === 1).concat(this.props.collection.map(el => this.props.cards.find(card => card.idCardmodel === el.idCardmodel)));
+      default: return this.props.cards;
+    }
+  }
 
   get filter () {
 
@@ -30,6 +41,7 @@ export default class CardsPage extends Component {
     colors = colors ? colors.split(",").filter(color => !isNaN(color)).map(color => parseInt(color, 10)) : [];
 
     return {
+      mode: url.searchParams.get("mode") || "",
       orderBy: url.searchParams.get("orderBy") || "type",
       colors: colors,
       search: url.searchParams.get("search") || "",
@@ -54,14 +66,15 @@ export default class CardsPage extends Component {
   get isCustoms () {
 
     var url = new URL(window.location.href);
-    return url.searchParams.get("customs");
+    var mode = url.searchParams.get("mode");
+    return mode && mode === "custom";
   }
 
-  displayCustoms (customs) {
+  changeMode (mode) {
 
     //var s = new URL(window.location.href).search;
     //this.props.history.push(`/cards${s ? (s + (customs ? "&customs=1") : "") : (customs ? "&customs" : )}`)
-    this.search(this.filter, customs);
+    this.search(this.filter, mode);
 
     //this.setState({customs: customs});
   }
@@ -78,9 +91,10 @@ export default class CardsPage extends Component {
     this.props.history.push(`/cards${card ? "/focus/" + card : ""}${new URL(window.location.href).search}`);
   }
 
-  search (filter, customs, page) {
+  search (filter, mode, page) {
 
     filter.colors = filter.colors.length > 0 ? filter.colors.reduce((acc, color) => acc + "," + color) : "";
+    filter.mode = mode;
     filter.page = page;
 
     var suf = "";
@@ -89,16 +103,16 @@ export default class CardsPage extends Component {
 
       if (param === "orderBy" && filter[param] === "type")
         return;
-      if (filter[param] !== undefined && filter[param].length !== 0) {
+      if (filter[param] !== undefined && filter[param] !== null && filter[param].length !== 0) {
         suf += suf.length === 0 ? "?" : "&";
         suf += param + "=" + filter[param];
       }
     }
-    ["search", "archetype", "colors", "edition", "type", "name", "description", "anime", "flavour", "cost", "costop", "atk", "atkop", "hp", "hpop", "range", "rangeop", "orderBy", "page"].forEach(param => addFilter(param));
-    if (customs) {
+    ["mode", "search", "archetype", "colors", "edition", "type", "name", "description", "anime", "flavour", "cost", "costop", "atk", "atkop", "hp", "hpop", "range", "rangeop", "orderBy", "page"].forEach(param => addFilter(param));
+    /*if (customs) {
         suf += suf.length === 0 ? "?" : "&";
         suf += "customs=1";
-    }
+    }*/
     
 
     this.props.history.push(`/cards${suf}${suf[suf.length-1] === ' ' ? "&" : ""}`);
@@ -107,25 +121,28 @@ export default class CardsPage extends Component {
   render() {
 
     var isCustoms = this.isCustoms;
-    var cards = isCustoms ? this.props.customs : this.props.cards;
+    var cards = this.cardlist;
     cards = this.filterCards(cards);
     window.result = cards;
     var nocards = cards.length;
 
+    var url = new URL(window.location.href);
+    var mode = url.searchParams.get("mode");
+
     var page = 0;
     if (nocards > 100) {
-      var fpage = new URL(window.location.href).searchParams.get("page") || "";
+      var fpage = url.searchParams.get("page") || "";
       if (fpage && !isNaN(fpage))
         page = parseInt(fpage, 10);
       cards = cards.slice(100*page, 100*(page+1));
     }
 
-    var goPage = p => this.search(this.filter, isCustoms, p);
+    var goPage = p => this.search(this.filter, mode, p);
 
     var editFilter = attr => (e => {
       var plus = {};
       plus[attr] = e.target.value;
-      this.search(Object.assign({}, this.filter, plus), isCustoms);
+      this.search(Object.assign({}, this.filter, plus), mode);
     });
 
     var colorFilter = color => (e => {
@@ -134,7 +151,7 @@ export default class CardsPage extends Component {
         colors.push(color);
       else
         colors = colors.filter(c => c !== color);
-      this.search(Object.assign(this.filter, {colors: colors}), isCustoms);
+      this.search(Object.assign(this.filter, {colors: colors}), mode);
     });
 
     return (
@@ -167,9 +184,9 @@ export default class CardsPage extends Component {
             User.isConnected() ?
             <div className="card-collection-choicer">
               <div className="vintage-radio">
-                <Input id="official-card-collection" type="radio" name="card-collection" onChange={() => this.displayCustoms(false)} defaultChecked={!isCustoms || false} value={!isCustoms || false}/>
+                <Input id="official-card-collection" type="radio" name="card-collection" onChange={() => this.changeMode()} defaultChecked={mode === undefined || mode === null} value={mode === undefined || mode === null}/>
                 <Label for="official-card-collection">Official</Label>
-                <Input id="custom-card-collection" type="radio" name="card-collection" onChange={() => this.displayCustoms(true)} defaultChecked={isCustoms || false} value={isCustoms || false}/>
+                <Input id="custom-card-collection" type="radio" name="card-collection" onChange={() => this.changeMode("custom")} defaultChecked={mode === "custom"} value={mode === "custom"}/>
                 <Label for="custom-card-collection">Customs</Label>
               </div>
             </div>
@@ -181,8 +198,9 @@ export default class CardsPage extends Component {
               <Label for="sensuba-search-edition" className="sensuba-search-select-label">Edition</Label>
               <select value={this.filter.edition} id="sensuba-search-edition" onChange={editFilter("edition").bind(this)}>
                 <option value="">---</option>
-                <option value="1">1st edition</option>
-                <option value="2">Next to come</option>
+                <option value="1">Basic</option>
+                <option value="2">Classic</option>
+                <option value="3">Next to come</option>
               </select>
               <div>
                 { (nocards > 0 ? <b>{ nocards }</b> : "No")}{ " card" + (nocards > 1 ? "s" : "") + " found" }

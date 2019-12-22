@@ -50,6 +50,21 @@ export default class Api {
     });
   }
 
+  getCollection (callback, error) {
+
+    if (!User.isConnected()) {
+      this.error(error)("Not connected");
+      return;
+    }
+    this.addAuthorizationHeader();
+    this.client.get("/user/collection")
+    .then(response => callback(response.data))
+    .catch(err => {
+      this.error(error)(err);
+      User.disconnect();
+    });
+  }
+
   getCustomCards (callback, error) {
 
     if (!User.isConnected()) {
