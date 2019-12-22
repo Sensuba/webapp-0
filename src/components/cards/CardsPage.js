@@ -47,7 +47,7 @@ export default class CardsPage extends Component {
       hp: url.searchParams.get("hp") || "",
       hpop: url.searchParams.get("hpop") || "",
       range: url.searchParams.get("range") || "",
-      rangeop: url.searchParams.get("rangeop") || "",
+      rangeop: url.searchParams.get("rangeop") || ""
     };
   }
 
@@ -78,9 +78,10 @@ export default class CardsPage extends Component {
     this.props.history.push(`/cards${card ? "/focus/" + card : ""}${new URL(window.location.href).search}`);
   }
 
-  search (filter, customs) {
+  search (filter, customs, page) {
 
     filter.colors = filter.colors.length > 0 ? filter.colors.reduce((acc, color) => acc + "," + color) : "";
+    filter.page = page;
 
     var suf = "";
 
@@ -93,7 +94,7 @@ export default class CardsPage extends Component {
         suf += param + "=" + filter[param];
       }
     }
-    ["search", "archetype", "colors", "edition", "type", "name", "description", "anime", "flavour", "cost", "costop", "atk", "atkop", "hp", "hpop", "range", "rangeop", "orderBy"].forEach(param => addFilter(param));
+    ["search", "archetype", "colors", "edition", "type", "name", "description", "anime", "flavour", "cost", "costop", "atk", "atkop", "hp", "hpop", "range", "rangeop", "orderBy", "page"].forEach(param => addFilter(param));
     if (customs) {
         suf += suf.length === 0 ? "?" : "&";
         suf += "customs=1";
@@ -109,6 +110,17 @@ export default class CardsPage extends Component {
     var cards = isCustoms ? this.props.customs : this.props.cards;
     cards = this.filterCards(cards);
     window.result = cards;
+    var nocards = cards.length;
+
+    var page = 0;
+    if (nocards > 100) {
+      var fpage = new URL(window.location.href).searchParams.get("page") || "";
+      if (fpage && !isNaN(fpage))
+        page = parseInt(fpage, 10);
+      cards = cards.slice(100*page, 100*(page+1));
+    }
+
+    var goPage = p => this.search(this.filter, isCustoms, p);
 
     var editFilter = attr => (e => {
       var plus = {};
@@ -173,7 +185,7 @@ export default class CardsPage extends Component {
                 <option value="2">Next to come</option>
               </select>
               <div>
-                { (cards.length > 0 ? <b>{ cards.length }</b> : "No")}{ " card" + (cards.length > 1 ? "s" : "") + " found" }
+                { (nocards > 0 ? <b>{ nocards }</b> : "No")}{ " card" + (nocards > 1 ? "s" : "") + " found" }
               </div>
             </div>
             <div className="third-section">
@@ -186,6 +198,17 @@ export default class CardsPage extends Component {
                 <option value="spell">Spell</option>
                 <option value="artifact">Artifact</option>
               </select>
+              <div className="sensuba-search-page">
+               {
+                nocards > 100 ?
+                <div>
+                  <span className={"sensuba-search-page-button" + (page > 0 ? "" : " sensuba-search-page-locked-button")} onClick={page > 0 ? () => goPage(page-1) : () => {}}>&#11164;</span>
+                  <span className="sensuba-search-page-text">{ (page + 1) + " / " + (Math.floor((nocards-1) / 100 + 1)) }</span>
+                  <span className={"sensuba-search-page-button" + (page < Math.floor((nocards-1) / 100) ? "" : " sensuba-search-page-locked-button")} onClick={page < Math.floor((nocards-1) / 100) ? () => goPage(page+1) : () => {}}>&#11166;</span> 
+                </div>
+                : <span/>
+               }
+              </div>
             </div>
             <div className="third-section">
               <div className="colors-group">

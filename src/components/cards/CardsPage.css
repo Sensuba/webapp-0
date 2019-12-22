@@ -215,6 +215,36 @@
   padding-right: calc(4px + 0.4em);
 }
 
+.sensuba-search-page-text {
+
+  margin: 0 0.2em;
+}
+
+.sensuba-search-page-button {
+
+  cursor: pointer;
+  transition: margin 0.3s;
+}
+
+.sensuba-search-page-locked-button {
+
+  margin: 0 !important;
+  color: darkgray;
+  cursor: default;
+}
+
+.sensuba-search-page-button:hover {
+
+  margin-right: calc(2px + 0.2em);
+  margin-left: calc(-2px - 0.2em);
+}
+
+.sensuba-search-page-text + .sensuba-search-page-button:hover {
+
+  margin-right: calc(-2px - 0.2em);
+  margin-left: calc(2px + 0.2em);
+}
+
 .sensuba-search-label-section {
 
   padding: 0.375rem;
