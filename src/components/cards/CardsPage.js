@@ -186,8 +186,6 @@ export default class CardsPage extends Component {
               <div className="vintage-radio">
                 <Input id="official-card-collection" type="radio" name="card-collection" onChange={() => this.changeMode()} defaultChecked={mode === undefined || mode === null} value={mode === undefined || mode === null}/>
                 <Label for="official-card-collection">Official</Label>
-                <Input id="collection-card-collection" type="radio" name="card-collection" onChange={() => this.changeMode("collection")} defaultChecked={mode === "collection"} value={mode === "collection"}/>
-                <Label for="collection-card-collection">Collection</Label>
                 <Input id="custom-card-collection" type="radio" name="card-collection" onChange={() => this.changeMode("custom")} defaultChecked={mode === "custom"} value={mode === "custom"}/>
                 <Label for="custom-card-collection">Customs</Label>
               </div>
