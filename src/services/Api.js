@@ -134,9 +134,10 @@ export default class Api {
     });
   }
 
-  getReplay (id, callback, error) {
+  editProfile (profile, callback, error) {
 
-    this.client.get("/tmp/replay?idRoom=" + id)
+    this.addAuthorizationHeader();
+    this.client.post("/user/profile", profile)
     .then(response => callback(response))
     .catch(err => {
       this.error(error)(err);
@@ -148,9 +149,8 @@ export default class Api {
   	this.client.post("/auth", {username, password})
   	.then(response => {
   		console.log("logged in !");
-      var token = response.data.token;
-      User.connect({ username, token });
-  		callback(response.data);
+      User.connect(response.data);
+      callback(response.data);
   	})
   	.catch(this.error(error));
   	console.log("logging in...");
@@ -166,8 +166,7 @@ export default class Api {
   			return;
   		}
   		console.log("Signed up !");
-      var token = response.data.token;
-  		User.connect({ username, token });
+  		User.connect(response.data);
   		callback(response.data);
   	})
   	.catch(this.error(error));

@@ -105,6 +105,8 @@ export default class Game extends Component {
 
   onEndgame (data) {
 
+    if (User.isConnected() && data.credit)
+      User.updateCredit(User.getData().credit + data.credit);
     this.sequencer.add({type: "end", src: 0, data: [{type: "int", no: data.state}]});
   }
 

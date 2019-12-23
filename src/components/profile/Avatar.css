@@ -1,0 +1,16 @@
+.profile-avatar {
+
+	height: 18em;
+	width: 15em;
+	border: 3px solid #EEE;
+    border-style: outset;
+	border-radius: 4px;
+	overflow: hidden;
+}
+
+.profile-avatar img {
+
+	object-fit: cover;
+	height: 100%;
+	width: 100%;
+}

@@ -1,0 +1,71 @@
+.sensuba-profile-label {
+
+	text-align: left;
+	height: 100%;
+	width: 100%;
+	line-height: 2.5rem;
+}
+
+.sensuba-credits:before {
+
+	content: "💮 ";
+}
+
+.profile-part {
+
+	margin-top: -2em;
+}
+
+.profile-part .profile-form {
+
+	text-align: left;
+}
+
+.profile-part .profile-avatar {
+
+	font-size: 0.8em;
+	margin: auto;
+	margin-bottom: 1em;
+}
+
+.profile-part .profile-status {
+
+	margin: auto;
+}
+
+.profile-status {
+
+	display: inline-block;
+	padding: 0.1em 0.4em;
+	border-radius: 4px;
+	border: solid 2px #EEE;
+	border-style: outset;
+	cursor: default;
+	font-weight: bold;
+	color: white;
+}
+
+.profile-status.profile-status-platinum {
+
+	background: linear-gradient(50deg, rgba(233, 240, 240, 0.7), rgba(216, 230, 230, 0.7));
+	border-color: rgb(248, 255, 255);
+	color: #DAD5D0;
+}
+
+.profile-status.profile-status-platinum:before { content: "⚬ Platinum" }
+
+.profile-status.profile-status-vip {
+
+	background: linear-gradient(50deg, rgba(250, 207, 80, 0.7), rgba(212, 170, 49, 0.7));
+	border-color: rgb(240, 222, 170);
+}
+
+.profile-status.profile-status-vip:before { content: "🏵️ VIP" }
+
+.profile-status.profile-status-admin {
+
+	background: linear-gradient(50deg, rgba(79, 216, 247, 0.7), rgba(44, 189, 222, 0.7));
+	border-color: rgb(184, 231, 242);
+}
+
+.profile-status.profile-status-admin:before { content: "💎 Admin" }

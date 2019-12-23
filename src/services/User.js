@@ -14,6 +14,18 @@ var User = (() => {
 		Library.clearDecks();
 	}
 
+	var updateProfile = profile => {
+
+		var data = getData();
+		Object.assign(data, profile);
+		localStorage.setItem("user.shadow", JSON.stringify(data));
+	}
+
+	var updateCredit = (value) => {
+
+		updateProfile({credit: value});
+	}
+
 	var getData = () => {
 
 		return JSON.parse(localStorage.getItem("user.shadow"));
@@ -37,7 +49,7 @@ var User = (() => {
 		return localStorage.getItem("playdeck");
 	}
 
-	return { connect, disconnect, getData, isConnected, updateDeck, getDeck }
+	return { connect, disconnect, getData, isConnected, updateDeck, getDeck, updateProfile, updateCredit }
 })();
 
 export default User;
