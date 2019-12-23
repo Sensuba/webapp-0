@@ -44,6 +44,24 @@ export default class ProfilePage extends Component {
       });
   }
 
+  saveOptions () {
+
+    if (this.waiting)
+      return;
+
+    var theme = document.getElementById("sensuba-profile-theme").value;
+
+    this.waiting = true;
+    this.props.api.editProfile({theme},
+      () => {
+        User.updateProfile({theme});
+        window.location.reload();
+      },
+      () => {
+        this.waiting = false;
+      });
+  }
+
   render() {
     return (
       <div>
@@ -109,6 +127,24 @@ export default class ProfilePage extends Component {
                 })()
               }
             </div>
+          </div>
+          <div className="options-part">
+            <div className="rule-part">Options</div>
+            <div className="two-thirds-section profile-form">
+              <FormGroup>
+                <div className="third-section">
+                  <Label for="sensuba-profile-theme" className="sensuba-profile-label">Display theme</Label>
+                </div>
+                <div className="two-thirds-section">
+                  <Input id="sensuba-profile-theme" defaultValue={this.props.theme} type="select">
+                    <option value="">Light</option>
+                    <option value="dark">Dark</option>
+                  </Input>
+                </div>
+              </FormGroup>
+              <button className="menu-button" onClick={() => this.saveOptions()}>Save</button>
+            </div>
+            <div className="third-section"/>
           </div>
       	</main>
       </div>

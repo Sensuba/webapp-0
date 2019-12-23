@@ -7,7 +7,7 @@ export default class LoadingPage extends Component {
   render() {
 
     return (
-      <div className="page-wrapper">
+      <div className={"page-wrapper " + this.props.className}>
         <div className="vertical-middle">
           <Loader/>
         </div>

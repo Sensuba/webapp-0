@@ -4,6 +4,21 @@
 	color: #d7dadd;
 }
 
+.dark-theme .loader .lds-ripple div {
+
+	border-color: #c4e2ff;
+}
+
+.dark-theme .loader .lds-ring div {
+
+	border-color: #989ca0;
+}
+
+.dark-theme .lightbox-container .lightbox-inner .lightbox {
+
+	background-color: #36393F;
+}
+
 .dark-theme .sensuba-card {
 
 	color: initial;
@@ -138,4 +153,29 @@
 .dark-theme .ant-progress .ant-progress-circle-trail {
 
 	stroke: rgba(20, 20, 20, 0.5) !important;
+}
+
+.dark-theme .sensuba-end-turn.sensuba-end-turn-active .sensuba-end-turn-circle .sensuba-end-turn-dot {
+
+	background-color: #ffffff80;
+}
+
+.dark-theme #newturn-frame {
+
+	background: linear-gradient(90deg,transparent,#817575c0 20%,#817575c0 80%,transparent)
+}
+
+.dark-theme .faculty-box {
+
+	background: #717377;
+}
+
+.dark-theme .locked-faculty, .dark-theme .locked-faculty:hover {
+
+	background: #979ba2;
+}
+
+.dark-theme .sensuba-tile-targetable {
+
+    background-color: rgba(255, 55, 55, 0.2);
 }
