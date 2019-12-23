@@ -190,7 +190,7 @@ export default class App extends Component {
             <Route exact path="/play" component={({ match, history }) => (<Play cards={this.state.cards} customs={this.state.customCards} decks={this.state.decks} socket={this.state.socket} history={history} api={this.props.options.api}/>)}/>
             <Route path="/play/:room" component={({ match, history }) => (<Room socket={this.state.socket} room={match.params.room} history={history} api={this.props.options.api}/>)}/>
             <Route path="/replay/:room" component={({ match, history }) => (<Replay socket={this.state.socket} room={match.params.room} history={history} api={this.props.options.api}/>)}/>
-            <Route exact path="/profile" component={({ match, history }) => (<Profile history={history} api={this.props.options.api}/>)}/>
+            <Route exact path="/profile" component={({ match, history }) => ( (User.isConnected() ? <Profile history={history} api={this.props.options.api}/> : <Redirect to="/home"/>)  )}/>
             <Route exact path="/decks" component={({ match, history }) => (<Decks cards={this.state.cards} history={history} decks={this.state.decks} api={this.props.options.api}/>)}/>
             <Route exact path="/decks/builder" component={({ match, history }) => (<Deckbuilder cards={this.state.cards} customs={this.state.customCards} updateDecks={this.updateDecks.bind(this)} history={history} api={this.props.options.api}/>)}/>
             <Route exact path="/decks/miracle" component={({ match, history }) => (<Deckbuilder cards={this.state.cards} customs={this.state.customCards} updateDecks={this.updateDecks.bind(this)} history={history} api={this.props.options.api} type="miracle"/>)}/>

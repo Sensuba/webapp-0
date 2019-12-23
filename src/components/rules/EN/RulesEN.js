@@ -169,7 +169,7 @@ export default class RulesEN extends Component {
           </div>
           <img className="img-exp" src="/rules/declencher-une-competence.png" alt="img"/>
         </div>
-        <div className="rule-part">Arteficts</div>
+        <div className="rule-part">Artifacts</div>
         <div className="rule-extender">
           <div className="rule-title">Powerful items</div>
           <img className="img-exp" src="/rules/des-objets-puissants.png" alt="img"/>

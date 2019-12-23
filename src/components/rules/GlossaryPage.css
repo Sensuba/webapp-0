@@ -14,7 +14,6 @@
     width: 100%;
     top: 0;
     left: 0;
-    z-index: -1;
     position: absolute;
     transition: height 0.5s, width 0.5s, top 0.5s, left 0.5s;
 }
