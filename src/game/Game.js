@@ -81,9 +81,14 @@ export default class Game extends Component {
 
     this.props.socket.removeAllListeners();
 
-    var name = User.isConnected() ? User.getData().username : "";
+    var name = "", avatar = "";
+    if (User.isConnected()) {
+      var user = User.getData();
+      name = user.username;
+      avatar = user.avatarUrl;
+    }
 
-    this.props.socket.emit("join", name, props.room);
+    this.props.socket.emit("join", name, avatar, props.room);
     this.props.socket.on('joined', role => this.onJoined(role));
     this.props.socket.on('endgame', data => this.onEndgame(data));
     ['error', 'connect_failed', 'reconnect_failed', 'connect_error', 'reconnect_error'].forEach(trigger => this.props.socket.on(trigger, () => this.onError()));
@@ -132,10 +137,12 @@ export default class Game extends Component {
   analyse (n) {
 
     if (n.type === "init") {
-      this.props.updateHeroes(n.data[(this.no || 0)*2+1].no, n.data[(1-(this.no || 0))*2+1].no);
+      this.props.updateHeroes(n.data[(this.no || 0)*3+2].no, n.data[(1-(this.no || 0))*3+2].no);
       var model = this.state.model;
       model.areas[0].name = n.data[0].value;
-      model.areas[1].name = n.data[2].value;
+      model.areas[0].avatar = n.data[1].value;
+      model.areas[1].name = n.data[3].value;
+      model.areas[1].avatar = n.data[4].value;
     }
     this.sequencer.add(n);
   }
@@ -216,6 +223,12 @@ export default class Game extends Component {
           <Button onClick={this.props.quitRoom} className="proceed-button">Proceed</Button>
         </div>
       </Lightbox>
+      <Lightbox open={this.state.concedeWindow} onClose={() => this.setState({concedeWindow: false})}>
+        <div id="concede-window">
+          <h2>Concede ?</h2>
+          <Button onClick={() => { this.command({ type: "concede" }); this.setState({concedeWindow: false}); }} className="proceed-button">Concede</Button>
+        </div>
+      </Lightbox>
       <div id="faculty-tooltip" data-toggle="tooltip" data-placement="right" data-animation="false" data-trigger="manual" /*style={{marginTop: "-" + (this.state.faculties ? this.state.faculties.length-1 : 0) + "em"}}*/>
         { this.state.faculties && this.state.faculties.length > 0 ? <FacultyBox faculties={ this.state.faculties } select={m => this.manager.select(m)} master={this}/> : <span/> }
       </div>
@@ -238,7 +251,7 @@ export default class Game extends Component {
         : <span/>
       }
       <div style={{ display: this.waiting ? "none" : "block" }}>
-        <View model={this.state.model} master={this}/>
+        <View model={this.state.model} master={this} openConcedeWindow={() => this.setState({concedeWindow: true})}/>
         <div id="screen-anim" className="screen-anim"><div className="screen-anim-inner"/></div>
       </div>
       <MuteButton switch={() => this.switchMute()} master={this}/>

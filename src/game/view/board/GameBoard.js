@@ -10,6 +10,7 @@ import Court from './Court';
 import Choosebox from './Choosebox';
 import Gauge from '../UI/Gauge';
 import EndTurn from '../UI/EndTurn';
+import Avatar from '../../../components/profile/Avatar';
 
 export default class GameBoard extends Component {
 
@@ -35,6 +36,7 @@ export default class GameBoard extends Component {
     	<div className="sensuba-board">
     	<Hand model={model.areas[1-no].hand} master={master}/>
 	    	<Area model={model.areas[1-no]} master={master}>
+		    	{ model.areas[1-no].avatar ? <div className="sensuba-avatar-wrapper"><Avatar src={model.areas[1-no].avatar}/></div> : <span/> }
 		    	<Field model={model.areas[1-no].field} master={master}>
 		    		<Row>
 		    			<Tile model={model.areas[1-no].field.tiles[4]} master={master}/>
@@ -70,6 +72,7 @@ export default class GameBoard extends Component {
 	    	</div>
 	    	<Area model={model.areas[no]} master={master}>
 		    	<Court model={model.areas[no].court} master={master}/>
+		    	{ model.areas[no].avatar ? <div className="sensuba-avatar-wrapper" onClick={this.props.openConcedeWindow}><Avatar src={model.areas[no].avatar}/></div> : <span/> }
 		    	<Field model={model.areas[no].field} master={master}>
 		    		<Row>
 		    			<Tile model={model.areas[no].field.tiles[0]} master={master}/>
