@@ -4,6 +4,12 @@
 	color: #d7dadd;
 }
 
+.dark-theme .h1, .dark-theme .h2, .dark-theme .h3, .dark-theme .h4, .dark-theme .h5, .dark-theme .h6,
+.dark-theme h1, .dark-theme h2, .dark-theme h3, .dark-theme h4, .dark-theme h5, .dark-theme h6 {
+
+	color: #d7dadd;
+}
+
 .dark-theme .loader .lds-ripple div {
 
 	border-color: #c4e2ff;
