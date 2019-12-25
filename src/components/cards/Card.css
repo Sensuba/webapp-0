@@ -65,8 +65,8 @@
     font-family: "Lucida Bright";
     font-style: italic;
     font-weight: bold;
-    text-align: left;
-    padding-left: 0.29em;
+    text-align: center;
+    text-indent: -0.1em;
     overflow: hidden;
     line-height: 1.333em;
     background: rgb(133, 167, 193);

@@ -64,6 +64,11 @@
     color: white;
 }
 
+.dark-theme #blueprint-tooltip #blueprint-tooltip-description {
+
+	background: #36393f;
+}
+
 .dark-theme .form-control {
 
 	background-color: #36383a;
@@ -75,6 +80,17 @@
 
 	background-color: #36383a;
 	color: white;
+}
+
+.dark-theme .sensuba-deckbuilder-search .sensuba-deckbuilder-search-input, .dark-theme .sensuba-deckbuilder-search .sensuba-deckbuilder-search-input:focus {
+
+	background: #36383a;
+}
+
+.dark-theme .sensuba-deckbuilder {
+
+	background: linear-gradient(150deg,#07214020,#350b0a20);
+    background-size: 400% 400%;
 }
 
 .dark-theme .blueprint-menu .blueprint-nav {

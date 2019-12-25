@@ -13,22 +13,13 @@ export default class Deckbuilder extends Component {
 
 		super(props);
 
-		var deck = { hero: this.props.deck.hero, cards: {}, name: this.miracle ? "Miracle Deck" : "Custom Deck", background: this.props.cards.find(c => c.idCardmodel === this.props.deck.hero).imgLink, type: this.props.type };
-
-		deck = Object.assign(deck, this.props.deck);
-
     var choices;
-    if (this.miracle)
-      choices = this.generateMiracleChoice(props.list.cards);
-
-    var list = this.props.list;
-    if (!list) {
-        var chero = this.props.cards.find(c => c.idCardmodel === (deck.hero.idCardmodel || deck.hero));
-        var cards = this.props.cards.filter(c => c.cardType !== "hero" && (c.idColor === 0 || c.idColor === chero.idColor || c.idColor === chero.idColor2))
-        list = { hero: chero, cards };
+    if (this.miracle) {
+      this.miracleColorList = this.getColorList();
+      choices = this.generateMiracleChoice(this.miracleColorList.cards);
     }
 
-		this.state = { deck: deck, filter: "", list, preview: null, miracle: this.miracle, choices };
+		this.state = { filter: "", preview: null, miracle: this.miracle, choices };
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
 	}
@@ -59,33 +50,34 @@ export default class Deckbuilder extends Component {
 
 	get count () {
 
-		return Object.values(this.state.deck.cards).reduce((acc, val) => acc + val, 0)
+		return Object.values(this.props.deck.cards).reduce((acc, val) => acc + val, 0)
 	}
 
   addCard (id) {
 
   	if (this.count >= 30)
   		return;
-  	var c = this.state.deck.cards;
+  	var c = this.props.deck.cards;
   	c[id] = Math.min(2, (c[id] || 0) + 1);
-  	this.setState({deck: this.state.deck});
+  	this.props.updateDeck();
   }
 
   addMiracleCard (id) {
 
     var end = this.count >= 29;
-    var c = this.state.deck.cards;
+    var c = this.props.deck.cards;
     c[id] = (c[id] || 0) + 1;
-    this.setState({deck: this.state.deck, choices: this.generateMiracleChoice(this.props.list.cards), miracle: !end});
+    this.props.updateDeck();
+    this.setState({choices: this.generateMiracleChoice(this.miracleColorList.cards), miracle: !end});
   }
 
   removeCard(id) {
 
-  	var c = this.state.deck.cards;
+  	var c = this.props.deck.cards;
   	c[id] = Math.max(0, (c[id] || 0) - 1);
   	if (c[id] === 0)
   		delete c[id];
-  	this.setState({deck: this.state.deck});
+  	this.props.updateDeck();
   }
 
   showTooltip(e, card, left) {
@@ -112,7 +104,7 @@ export default class Deckbuilder extends Component {
 
       if (currentDeck.id === this.state.deck.idDeck) {*/
 
-        var deck = this.state.deck;
+        var deck = this.props.deck;
         var res = { id: deck.idDeck, hero: deck.hero, body: [] };
         var cc = this.props.cards.find(el => el.idCardmodel === parseInt(deck.hero, 10));
         if (cc && !cc.idEdition)
@@ -132,7 +124,7 @@ export default class Deckbuilder extends Component {
     //  }
     //}
     
-    var copycode = Object.assign({}, this.state.deck);
+    var copycode = Object.assign({}, this.props.deck);
     delete copycode.idDeck;
     var supercode = window.btoa(JSON.stringify(copycode).replace(/[^\x00-\x7F]/g, ""));
 
@@ -154,21 +146,31 @@ export default class Deckbuilder extends Component {
     var currentDeck = User.getDeck();
     if (currentDeck) {
       currentDeck = JSON.parse(currentDeck);
-      if (currentDeck.id === this.state.deck.idDeck)
+      if (currentDeck.id === this.props.deck.idDeck)
         User.updateDeck(null);
     }
 
-    this.props.onDelete(this.state.deck.idDeck);
+    this.props.onDelete(this.props.deck.idDeck);
 
     this.setState({saved: true});
   }
 
+  getColorList () {
+
+    var clist = {};
+    clist.hero = this.props.cards.find(c => c.idCardmodel === (this.props.deck.hero.idCardmodel || this.props.deck.hero));
+    clist.cards = this.props.cards.filter(c => c.cardType !== "hero" && (c.idColor === 0 || c.idColor === clist.hero.idColor || c.idColor === clist.hero.idColor2));
+    return clist;
+  }
+
 	render () {
 
-		var hero = this.state.list.hero;
-		var cards = this.state.list.cards;
+    var clist = this.getColorList();
 
-		var listCards = Object.keys(this.state.deck.cards).map(g => this.props.cards.find(c => c.idCardmodel.toString() === g)).filter(c => c !== undefined);
+		var hero = clist.hero;
+		var cards = clist.cards;
+
+		var listCards = Object.keys(this.props.deck.cards).map(g => this.props.cards.find(c => c.idCardmodel.toString() === g)).filter(c => c !== undefined);
 		sorter.sort(listCards, "type");
 
 		var colorIdToClassName = colorId => {
@@ -184,14 +186,17 @@ export default class Deckbuilder extends Component {
 	  		}
 	  	}
 
-      var copycode = Object.assign({}, this.state.deck);
+      var copycode = Object.assign({}, this.props.deck);
       delete copycode.idDeck;
+      delete copycode.author;
+      delete copycode.list;
+      delete copycode.supercode;
       var superCode = window.btoa(JSON.stringify(copycode).replace(/[^\x00-\x7F]/g, ""));
 
-    	var nbFigures = listCards.filter(c => c.cardType === "figure").map(c => this.state.deck.cards[c.idCardmodel]).reduce((acc, val) => acc + val, 0);
-    	var nbSpells = listCards.filter(c => c.cardType === "spell").map(c => this.state.deck.cards[c.idCardmodel]).reduce((acc, val) => acc + val, 0);
+    	var nbFigures = listCards.filter(c => c.cardType === "figure").map(c => this.props.deck.cards[c.idCardmodel]).reduce((acc, val) => acc + val, 0);
+    	var nbSpells = listCards.filter(c => c.cardType === "spell").map(c => this.props.deck.cards[c.idCardmodel]).reduce((acc, val) => acc + val, 0);
 
-    	var chartFilter = (type, mana, plus = false) => listCards.filter(c => c.cardType === type && (plus ? c.mana >= mana : c.mana === mana.toString())).map(c => this.state.deck.cards[c.idCardmodel]).reduce((acc, val) => acc + val, 0);
+    	var chartFilter = (type, mana, plus = false) => listCards.filter(c => c.cardType === type && (plus ? c.mana >= mana : c.mana === mana.toString())).map(c => this.props.deck.cards[c.idCardmodel]).reduce((acc, val) => acc + val, 0);
 
     	var chart = [
     		{name: "0", figures: chartFilter("figure", 0), spells: chartFilter("spell", 0), artifacts: chartFilter("artifact", 0)},
@@ -225,21 +230,26 @@ export default class Deckbuilder extends Component {
           :
           <div>
         		<div className="half-section deck-image-preview">
-        			<Deck src={{name: this.state.deck.name, background: this.state.deck.background, idColor: hero.idColor, idColor2: hero.idColor2 }}/>
+        			<Deck src={{name: this.props.deck.name, background: this.props.deck.background, idColor: hero.idColor, idColor2: hero.idColor2 }}/>
         			<button className="menu-button" onClick={this.saveDeck.bind(this)}>{ !this.props.new ? "Edit" : "Save" }</button>
               { !this.props.new ? <button className="red menu-button" onClick={this.deleteDeck.bind(this)}>Delete</button> : <span/> }
         		</div>
         		<div className="half-section">
         			<div className="editor-box">
         				<Label for="deck-name-form">Deck name</Label>
-        				<Input type="text" id="deck-name-form" value={this.state.deck.name} onChange={e => { var d = Object.assign(this.state.deck, {name: e.target.value}); this.setState({deck: d}); }}/>
+        				<Input type="text" id="deck-name-form" value={this.props.deck.name} onChange={e => { var d = Object.assign(this.props.deck, {name: e.target.value}); this.setState({deck: d}); }}/>
         				<Label for="deck-background-form">Image link</Label>
-        				<Input type="text" id="deck-background-form" value={this.state.deck.background} onChange={e => { var d = Object.assign(this.state.deck, {background: e.target.value}); this.setState({deck: d}); }}/>
-        				<Label for="deck-supercode-form">Supercode</Label>
-  	                <Input id="deck-supercode-form" type="textarea" rows="6" value={superCode} onChange={ e => {
+                <Input type="text" id="deck-background-form" value={this.props.deck.background} onChange={e => { var d = Object.assign(this.props.deck, {background: e.target.value}); this.setState({deck: d}); }}/>
+                <Label for="deck-format-form">Format</Label>
+                <Input type="select" id="deck-format-form" value={this.props.deck.format} onChange={e => this.props.updateFormat(e.target.value)}>
+                  <option value="standard">Standard</option>
+                  <option value="custom">Custom</option>
+                </Input>
+                <Label for="deck-supercode-form">Supercode</Label>
+  	                <Input id="deck-supercode-form" type="textarea" rows="4" value={superCode} onChange={ e => {
   	                    try {
   	                        var d = JSON.parse(window.atob(e.target.value));
-  	                        this.setState({deck: d});
+  	                        this.props.updateDeck(d);
   	                    } catch (e) { }
   	                } }/>
         			</div>
@@ -254,7 +264,7 @@ export default class Deckbuilder extends Component {
 
       							var arr = [];
       							var j = 0;
-      							while (j++ < this.state.deck.cards[model.idCardmodel])
+      							while (j++ < this.props.deck.cards[model.idCardmodel])
       								arr.push(j);
 
       							return <div key={i} className="sensuba-deckbuilder-list-group" onClick={this.state.miracle ? () => {} : () => this.removeCard(model.idCardmodel)}>{arr.map(i => <Card key={i} src={model}/>)}</div>;

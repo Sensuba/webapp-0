@@ -24,6 +24,9 @@ export default class CardsPage extends Component {
 
   get cardlist () {
 
+    if (!User.isConnected())
+      return this.props.cards;
+
     var url = new URL(window.location.href);
     var mode = url.searchParams.get("mode");
     switch (mode) {
