@@ -61,7 +61,7 @@ export default class Api {
     .then(response => callback(response.data))
     .catch(err => {
       this.error(error)(err);
-      User.disconnect();
+      //User.disconnect();
     });
   }
 
