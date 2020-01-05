@@ -8,9 +8,9 @@ import User from '../../../services/User';
 export default class DeckbuilderPage extends Component {
 
   	formats = {
-  		standard: { name: "Standard", cardlist: this.props.cards },
+  		standard: { name: "Standard", cardlist: this.props.cards.filter(card => card.idEdition === 1).concat(this.props.collection.map(el => Object.assign({count: el.number}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel)))) },
   		display: { name: "Display", cardlist: this.props.cards },
-  		custom: { name: "Custom", cardlist: this.props.cards.concat(this.props.customs) }
+  		custom: { name: "Custom", cardlist: this.props.cards.filter(card => card.idEdition === 1).concat(this.props.collection.map(el => Object.assign({count: el.number}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel)))).concat(this.props.customs) }
   	}
 
 	constructor (props) {
@@ -62,7 +62,8 @@ export default class DeckbuilderPage extends Component {
   	c.push(this.state.deck.hero);
   	c.forEach (card => {
   		formats.slice().forEach(f => {
-  			if (!this.formats[f].cardlist.find(l => l.idCardmodel.toString() === card.toString()))
+        var cc = this.formats[f].cardlist.find(l => l.idCardmodel.toString() === card.toString());
+  			if (!cc || (cc.count === 1 && this.state.deck.cards[card] > 1))
   				formats.splice(formats.indexOf(f), 1);
   		})
   	})
@@ -81,8 +82,11 @@ export default class DeckbuilderPage extends Component {
 
   	var cl = this.loadCardlist(format);
   	Object.keys(d.cards).forEach (card => {
-		if (!f.cardlist.find(l => l.idCardmodel.toString() === card.toString()))
-			delete d.cards[card];
+      var cc = f.cardlist.find(l => l.idCardmodel.toString() === card.toString());
+  		if (!cc)
+  			delete d.cards[card];
+      else if (cc.count === 1)
+        d.cards[card] = 1;
   	});
   	d.format = format;
 
@@ -97,7 +101,7 @@ export default class DeckbuilderPage extends Component {
 
   loadCardlist(format) {
 
-  	format = format || this.state.deck.format;
+  	format = format || this.state.deck.format || this.findFormat();
 
   	if (format === "miracle")
   		format = "standard";

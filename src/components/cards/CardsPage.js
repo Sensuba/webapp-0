@@ -7,6 +7,8 @@ import User from '../../services/User';
 import Library from '../../services/Library';
 import sorter from '../../utility/CollectionSorter';
 import Lightbox from '../utility/Lightbox';
+import Loader from '../utility/Loader';
+import Booster from './shop/Booster';
 
 export default class CardsPage extends Component {
 
@@ -31,7 +33,7 @@ export default class CardsPage extends Component {
     var mode = url.searchParams.get("mode");
     switch (mode) {
       case "custom": return this.props.customs;
-      case "collection": return this.props.cards.filter(card => card.idEdition === 1).concat(this.props.collection.map(el => this.props.cards.find(card => card.idCardmodel === el.idCardmodel)));
+      case "collection": return this.props.cards.filter(card => card.idEdition === 1).concat(this.props.collection.map(el => Object.assign({count: el.number}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel))));
       default: return this.props.cards;
     }
   }
@@ -55,6 +57,7 @@ export default class CardsPage extends Component {
       description: url.searchParams.get("description") || "",
       anime: url.searchParams.get("anime") || "",
       flavour: url.searchParams.get("flavour") || "",
+      rarity: url.searchParams.get("rarity") || "",
       cost: url.searchParams.get("cost") || "",
       costop: url.searchParams.get("costop") || "",
       atk: url.searchParams.get("atk") || "",
@@ -94,6 +97,17 @@ export default class CardsPage extends Component {
     this.props.history.push(`/cards${card ? "/focus/" + card : ""}${new URL(window.location.href).search}`);
   }
 
+  shop (value) {
+
+    this.props.history.push(`/cards${value ? "/shop" : ""}${new URL(window.location.href).search}`);
+  }
+
+  reload () {
+
+    window.update();
+    window.location.reload();
+  }
+
   search (filter, mode, page) {
 
     filter.colors = filter.colors.length > 0 ? filter.colors.reduce((acc, color) => acc + "," + color) : "";
@@ -111,7 +125,7 @@ export default class CardsPage extends Component {
         suf += param + "=" + filter[param];
       }
     }
-    ["mode", "search", "archetype", "colors", "edition", "type", "name", "description", "anime", "flavour", "cost", "costop", "atk", "atkop", "hp", "hpop", "range", "rangeop", "orderBy", "page"].forEach(param => addFilter(param));
+    ["mode", "search", "archetype", "colors", "edition", "type", "name", "description", "anime", "flavour", "rarity", "cost", "costop", "atk", "atkop", "hp", "hpop", "range", "rangeop", "orderBy", "page"].forEach(param => addFilter(param));
     /*if (customs) {
         suf += suf.length === 0 ? "?" : "&";
         suf += "customs=1";
@@ -119,6 +133,54 @@ export default class CardsPage extends Component {
     
 
     this.props.history.push(`/cards${suf}${suf[suf.length-1] === ' ' ? "&" : ""}`);
+  }
+
+  buyBooster (edition) {
+
+    if (this.state.waiting || User.getData().credit < 100)
+      return;
+    var props = {
+      type: "booster",
+      edition: edition
+    }
+    this.setState({waiting: true})
+    this.props.api.shop(props, (e) => {
+      var opening = e.map(nc => { return {no:nc, recto: false}; });
+      this.setState({waiting: false, opening});
+      User.updateCredit(User.getData().credit - 100);
+    }, () => this.setState({waiting: false}))
+  }
+
+  buyCard (id, price) {
+
+    if (this.state.waiting || User.getData().credit < price)
+      return;
+    var props = {
+      type: "buycard",
+      cardmodel: id
+    }
+    this.setState({waiting: true})
+    this.props.api.shop(props, (e) => {
+      this.setState({waiting: false});
+      this.props.updateCollection();
+      User.updateCredit(User.getData().credit - price);
+    }, () => this.setState({waiting: false}))
+  }
+
+  sellCard (id, price) {
+
+    if (this.state.waiting)
+      return;
+    var props = {
+      type: "sellcard",
+      cardmodel: id
+    }
+    this.setState({waiting: true})
+    this.props.api.shop(props, (e) => {
+      this.setState({waiting: false});
+      this.props.updateCollection();
+      User.updateCredit(User.getData().credit + price);
+    }, () => this.setState({waiting: false}))
   }
   
   render() {
@@ -177,10 +239,65 @@ export default class CardsPage extends Component {
               }
               addTokens(cf[0]);
 
-              return <div className="sensuba-card-focus">{ cf.map((card, i) => <Card switch="manual" key={i} src={card}/>) }</div>;
+              var pbuy = 0, psell = 0;
+              switch (cf[0].rarity) {
+              case 1: pbuy = 20; psell = 4; break;
+              case 2: pbuy = 40; psell = 8; break;
+              case 3: pbuy = 80; psell = 16; break;
+              case 4: pbuy = 200; psell = 20; break;
+              default: break;
+              }
+
+              return <div>
+                  <div className="sensuba-card-focus">{ cf.map((card, i) => <Card switch="manual" key={i} src={card}/>) }</div>
+                  { User.isConnected() && cf[0].rarity ? <div className="sensuba-focus-shop">
+                    <div onClick={() => this.buyCard(cf[0].idCardmodel, pbuy)} className="shop-button">Buy <span className="sensuba-credits">{ pbuy }</span></div>
+                    { this.props.collection.find(card => card.idCardmodel.toString() === this.props.focus) ? <div onClick={() => this.sellCard(cf[0].idCardmodel, psell)} className="shop-button">Sell <span className="sensuba-credits">{ psell }</span></div> : <span/> }
+                  </div> : <span/> }
+                </div>
             })()
           }
         </Lightbox>
+        {
+          User.isConnected() ?
+          <Lightbox className="sensuba-shop-box" open={this.props.shop === true} onClose={() => this.shop(false)}>
+            <h2>Upgrade your collection !</h2>
+            <h3>10 cards / <span className="sensuba-credits">100</span></h3>
+            <div className="sensuba-shop-credits">
+              <span className="sensuba-credits">{ User.getData().credit }</span>
+            </div>
+            <div onClick={() => this.buyBooster(2)} className="sensuba-shop-booster"><Booster expansion="Classic" theme="lightblue" img="/game/back.png"/></div>
+            {/*<div onClick={() => this.buyBooster(3)} className="sensuba-shop-booster"><Booster expansion="Guardian Star" theme="darksky" img="/guardianstar.jpg"/></div>*/}
+          </Lightbox> : <span/>
+        }
+        {
+          this.state.opening ?
+          <div id="opening-cards-container" className="lightbox-container">
+            <div className="lightbox-inner">
+              <div className="opening-card-list">
+                {
+                  this.state.opening.map((c, i) => <div onClick={() => {
+                    var opening = this.state.opening;
+                    if (opening[i].recto)
+                      return;
+                    opening[i].recto = true;
+                    this.setState({opening});
+                    if (opening.every(c => c.recto))
+                      setTimeout(() => this.props.updateCollection(), 1500);
+                  }} key={i} className="sensuba-opening-card"><Card src={c.recto ? this.props.cards.find(off => off.idCardmodel === c.no) : undefined}/></div>)
+                }
+              </div>
+            </div>
+          </div> : <span/>
+        }
+        {
+          this.state.waiting ?
+          <div className="lightbox-container">
+            <div className="lightbox-inner">
+              <Loader/>
+            </div>
+          </div> : <span/>
+        }
         <Nav api={this.props.api} history={this.props.history}/>
       	<main>
           {
@@ -189,6 +306,8 @@ export default class CardsPage extends Component {
               <div className="vintage-radio">
                 <Input id="official-card-collection" type="radio" name="card-collection" onChange={() => this.changeMode()} defaultChecked={mode === undefined || mode === null} value={mode === undefined || mode === null}/>
                 <Label for="official-card-collection">Official</Label>
+                <Input id="collection-card-collection" type="radio" name="card-collection" onChange={() => this.changeMode("collection")} defaultChecked={mode === "collection"} value={mode === "collection"}/>
+                <Label for="collection-card-collection">Collection</Label>
                 <Input id="custom-card-collection" type="radio" name="card-collection" onChange={() => this.changeMode("custom")} defaultChecked={mode === "custom"} value={mode === "custom"}/>
                 <Label for="custom-card-collection">Customs</Label>
               </div>
@@ -210,7 +329,6 @@ export default class CardsPage extends Component {
               </div>
             </div>
             <div className="third-section">
-              <Input id="sensuba-search-archetype" value={this.filter.archetype} type="text" placeholder="Archetype" onChange={editFilter("archetype").bind(this)}/>
               <Label for="sensuba-search-type" className="sensuba-search-select-label">Type</Label>
               <select value={this.filter.type} id="sensuba-search-type" onChange={editFilter("type").bind(this)}>
                 <option value="">---</option>
@@ -218,6 +336,14 @@ export default class CardsPage extends Component {
                 <option value="figure">Figure</option>
                 <option value="spell">Spell</option>
                 <option value="artifact">Artifact</option>
+              </select>
+              <Label for="sensuba-search-rarity" className="sensuba-search-select-label">Rarity</Label>
+              <select value={this.filter.rarity} id="sensuba-search-rarity" onChange={editFilter("rarity").bind(this)}>
+                <option value="">---</option>
+                <option value="basic">Basic</option>
+                <option value="common">Common</option>
+                <option value="uncommon">Uncommon</option>
+                <option value="rare">Rare</option>
               </select>
               <div className="sensuba-search-page">
                {
@@ -254,6 +380,8 @@ export default class CardsPage extends Component {
                 <option value="atk">ATK</option>
                 <option value="hp">HP</option>
                 <option value="range">Range</option>
+                <option value="color">Color</option>
+                <option value="rarity">Rarity</option>
                 <option value="anime">Anime</option>
               </select>
               <div className="sensuba-search-interact" onClick={e => this.setState({advsearch: !this.state.advsearch})}>More filters &#10148;</div>
@@ -265,8 +393,8 @@ export default class CardsPage extends Component {
               <div className="third-section">
                 <Input id="sensuba-search-name" value={this.filter.name} type="text" placeholder="Name" onChange={editFilter("name").bind(this)}/>
                 <Input id="sensuba-search-description" value={this.filter.description} type="text" placeholder="Description" onChange={editFilter("description").bind(this)}/>
+                <Input id="sensuba-search-archetype" value={this.filter.archetype} type="text" placeholder="Archetype" onChange={editFilter("archetype").bind(this)}/>
                 <Input id="sensuba-search-anime" value={this.filter.anime} type="text" placeholder="Anime" onChange={editFilter("anime").bind(this)}/>
-                <Input id="sensuba-search-flavour" value={this.filter.flavour} type="text" placeholder="Flavour text" onChange={editFilter("flavour").bind(this)}/>
               </div>
               <div className="two-thirds-section">
                 <div className="third-section">
@@ -328,9 +456,20 @@ export default class CardsPage extends Component {
               isCustoms ?
                 cards.map(card => <a className="sensuba-card-link" onClick={() => this.props.history.push(`/cards/editor/${card.idCardmodel}`)} key={card.idCardmodel}><Card switch="timer" key={card.idCardmodel} src={card}/></a>)
                 :
-                cards.map((card, i) => <a className="sensuba-card-link" key={card.idCardmodel} onClick={() => this.focus(card.idCardmodel)}><Card switch="timer" src={card}/></a>)
+                cards.map((card, i) => <a className="sensuba-card-link" key={card.idCardmodel} onClick={() => this.focus(card.idCardmodel)}>
+                  <Card switch="timer" src={card}/>
+                  { mode === "collection" && !(card.count === undefined && card.cardType === "hero") && card.count !== 1 ? <div className="sensuba-card-count">{"x" + (card.count || 2)}</div> : <span/> }
+                  </a>)
             }
           </div>
+          {
+            mode === "collection" ?
+            <button className="editor-button" onClick={() => this.shop(true)}>
+              <img className="editor-button-img" src="/shop.png" alt="shop-chan"/>
+              <div className="editor-button-text">Buy cards</div>
+            </button>
+            : <span/>
+          }
           {
             isCustoms ?
             <button className="editor-button" onClick={() => this.props.history.push('/cards/editor')}>
@@ -339,6 +478,7 @@ export default class CardsPage extends Component {
             </button>
             : <span/>
           }
+          <div className="bottom-info"><span onClick={() => this.reload()}>Reload the cards</span></div>
       	</main>
       </div>
     );

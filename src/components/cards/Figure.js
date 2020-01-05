@@ -8,6 +8,16 @@ export default class Figure extends Component {
 
   	var capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
 
+  	var rarityclass = rarity => {
+
+  		switch (rarity) {
+  		case 1: return "common-card";
+  		case 2: return "uncommon-card";
+  		case 3: return "rare-card";
+  		default: return "";
+  		}
+  	}
+
   	var ct = capitalize(src.cardType);
   	if (src.archetypes && src.archetypes.length > 0) {
   		ct += ": " + capitalize(src.archetypes[0]);
@@ -16,7 +26,7 @@ export default class Figure extends Component {
   	}
   	
     return (
-      <div id={this.props.id} className={"sensuba-card sensuba-figure " + this.props.classColor + " " + this.props.className}>
+      <div id={this.props.id} className={"sensuba-card sensuba-figure " + this.props.classColor + " " + rarityclass(src.rarity) + " " + this.props.className}>
 		<img crossOrigin="Anonymous" className="sensuba-card-bg" src={src.imgLink} alt={src.nameCard}/>
 	    <div className="sensuba-card-header">
 	    	<div className={"sensuba-card-mana" + (src.mana < src.originalMana ? " sensuba-card-param-bonus" : (src.mana > src.originalMana ? " sensuba-card-param-malus" : ""))}>{src.mana}</div>

@@ -650,18 +650,34 @@
     background-repeat: no-repeat;
 }
 
-.sensuba-card.golden-card .sensuba-frame-icon {
+.sensuba-card.golden-card .sensuba-frame-icon, .sensuba-card.sensuba-hero .sensuba-frame-icon, .sensuba-card.rare-card .sensuba-frame-icon, .sensuba-card.uncommon-card .sensuba-frame-icon {
 
     position: absolute;
     z-index: 1;
-    height: 1.5em;
-    width: 1.5em;
+    height: 1.2em;
+    width: 1.2em;
     left: 50%;
-    top: -1.895em;
-    margin-left: -0.35em;
+    top: -1.81em;
+    opacity: 0.9;
+    margin-left: -0.25em;
     background-size: 100%;
     background-repeat: no-repeat;
     background-image: url("lotus.png");
+    filter: drop-shadow(0 0 0.05em #00000080);
+}
+
+.sensuba-card.uncommon-card .sensuba-frame-icon {
+
+    background-image: url("petals.png");
+}
+
+.sensuba-card.golden-card .sensuba-frame-icon {
+
+    height: 1.5em;
+    width: 1.5em;
+    top: -1.895em;
+    opacity: 1;
+    background-image: url("glotus.png");
 }
 
 .sensuba-card .sensuba-card-invisible {

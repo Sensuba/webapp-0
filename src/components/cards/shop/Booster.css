@@ -1,0 +1,189 @@
+.sensuba-booster {
+ 
+  height: 25em;
+  width: 15em;
+  position: relative;
+  margin: 1em;
+  display: inline-block;
+}
+
+.sensuba-booster .sensuba-booster-extremum {
+ 
+  height: 2em;
+  width: 15em;
+  position: relative;
+  background-color: #000000c0;
+}
+
+.sensuba-booster .sensuba-booster-top {
+
+	transition: width 0.4s;
+}
+
+.sensuba-booster:hover .sensuba-booster-top {
+
+	width: 0;
+}
+
+.sensuba-booster .sensuba-booster-tear {
+
+  width: 100%;
+  height: 1.5em;
+  position: absolute;
+  top: -1em;
+  left: 0;
+  background: linear-gradient(transparent, #ffffff80 5%, #ffffff80 60%, transparent);
+}
+
+.sensuba-booster .sensuba-booster-name-emphasis {
+
+  width: 100%;
+  height: 2.5em;
+  position: absolute;
+  top: 2.25em;
+  left: 0;
+  background: linear-gradient(transparent, #ffffff40 40%, #ffffff40 60%, transparent);
+}
+
+.sensuba-booster .sensuba-booster-bottom {
+
+  border-top: dotted 1px #ffffff80;
+}
+
+.sensuba-booster .sensuba-booster-medium {
+ 
+  height: 21em;
+  width: 15em;
+  position: relative;
+}
+
+.sensuba-booster .sensuba-booster-name {
+  
+  position: absolute;
+  max-height: 1em;
+  top: 1.5rem;
+  z-index: 2;
+  height: 100%;
+  width: 100%;
+  font-family: Constantia;
+  color: #fff;
+  text-shadow: 0 0 0.05rem #000;
+  font-size: 2.5em;
+  font-weight: 700;
+  text-align: center;
+  cursor: default;
+}
+
+.sensuba-booster .sensuba-booster-expansion-name {
+  
+  top: 15rem;
+}
+
+.sensuba-booster .sensuba-booster-boosterpack-text {
+  
+  top: 18rem;
+  font-size: 1em;
+  opacity: 0.9;
+}
+
+.sensuba-booster .sensuba-booster-image-wrap {
+
+  position: absolute;
+  width: 100%;
+  height: 18em;
+  top: 3em;
+  left: 0;
+}
+
+.sensuba-booster .sensuba-booster-bg {
+  
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0em;
+  left: 0em;
+  opacity: 1;
+  transition: all 0.3s;
+}
+
+.sensuba-booster:hover .sensuba-booster-bg {
+  
+  filter: grayscale(0);
+}
+
+.sensuba-booster .sensuba-booster-filter {
+
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.sensuba-booster .sensuba-booster-card-preview {
+
+	position: absolute;
+    top: 2.5rem;
+    left: 0rem;
+    width: 15em;
+    height: 20em;
+    font-size: 0.95em;
+    border-radius: 0.4em;
+    transition: top 0.6s ease-in;
+}
+
+.sensuba-booster:hover .sensuba-booster-card-preview {
+
+	top: -1rem;
+}
+
+.sensuba-booster-sky .sensuba-booster-extremum { background: #009FFB }
+.sensuba-booster-sky .sensuba-booster-medium { background: linear-gradient(#009FFB, #9EFCFC) }
+.sensuba-booster-sky .sensuba-booster-expansion-name { color: #dcf7f4; text-shadow: 0 0 0.25rem #004040 }
+.sensuba-booster-sky .sensuba-booster-filter { background: linear-gradient(#009FFB, #009FFB 10%, #009FFB 15%, transparent 30%, transparent 75%, #009FFB) }
+
+.sensuba-booster-flames .sensuba-booster-extremum { background: #FFBD58 }
+.sensuba-booster-flames .sensuba-booster-medium { background: #051433 }
+.sensuba-booster-flames .sensuba-booster-filter { background: linear-gradient(#FFBD58, #051433 10%, #051433 15%, transparent 30%, transparent 75%, #FFBD58) }
+
+.sensuba-booster-metal .sensuba-booster-extremum { background: #0F111A }
+.sensuba-booster-metal .sensuba-booster-medium { background: #6F8396 }
+.sensuba-booster-metal .sensuba-booster-expansion-name { color: #dcf7f4; text-shadow: 0 0 0.25rem #004040 }
+.sensuba-booster-metal .sensuba-booster-filter { background: linear-gradient(#0F111A, #6F8396 10%, #6F8396 15%, transparent 30%, transparent 75%, #0F111A) }
+
+.sensuba-booster-lightblue .sensuba-booster-top { background: #23979c }
+.sensuba-booster-lightblue .sensuba-booster-bottom { background: #1e4b65 }
+.sensuba-booster-lightblue .sensuba-booster-medium { background: #23979c }
+.sensuba-booster-lightblue .sensuba-booster-title { text-shadow: 0 0 0.25rem #000 }
+.sensuba-booster-lightblue .sensuba-booster-filter { background: linear-gradient(#23979c, #64d5da 8%, transparent 15%, transparent 30%, transparent 75%, #1e4b65) }
+.sensuba-booster-lightblue .sensuba-booster-image-wrap { height: 20em; top: 0.5em; }
+
+.sensuba-booster-darksky .sensuba-booster-extremum { background: #d8c32f }/* 111b3e */
+.sensuba-booster-darksky .sensuba-booster-medium { background: #23979c }
+.sensuba-booster-darksky .sensuba-booster-title { text-shadow: 0 0 0.25rem #000 }
+.sensuba-booster-darksky .sensuba-booster-expansion-name { top: 15.5rem; font-size: 1.9em; font-style: italic; color: #d8c32f; text-shadow: 0 0 0.15rem #000 }
+.sensuba-booster-darksky .sensuba-booster-filter { background: linear-gradient(#d8c32f, transparent 15%, transparent 30%, transparent 80%, #d8c32f) }
+.sensuba-booster-darksky .sensuba-booster-image-wrap { height: 21em; top: 0em; }
+
+.sensuba-booster-aquamarine .sensuba-booster-extremum { background: #23674E }
+.sensuba-booster-aquamarine .sensuba-booster-medium { background: white }
+.sensuba-booster-aquamarine .sensuba-booster-name { color: #004040 }
+.sensuba-booster-aquamarine .sensuba-booster-expansion-name { color: white; text-shadow: 0 0 0.25rem #004040 }
+.sensuba-booster-aquamarine .sensuba-booster-filter { background: linear-gradient(#23674E, white 10%, white 15%, transparent 30%, transparent 75%, #23674E) }
+
+.sensuba-booster-lightpink .sensuba-booster-extremum { background: #D14C5E }
+.sensuba-booster-lightpink .sensuba-booster-medium { background: white }
+.sensuba-booster-lightpink .sensuba-booster-name { color: #600000 }
+.sensuba-booster-lightpink .sensuba-booster-expansion-name { color: white; text-shadow: 0 0 0.25rem #600000 }
+.sensuba-booster-lightpink .sensuba-booster-filter { background: linear-gradient(#D14C5E, white 10%, white 15%, transparent 30%, transparent 75%, #D14C5E) }
+
+.sensuba-booster-purple .sensuba-booster-extremum { background: #1C1442 }
+.sensuba-booster-purple .sensuba-booster-medium { background: #86398E }
+.sensuba-booster-purple .sensuba-booster-filter { background: linear-gradient(#1C1442, #86398E 10%, #86398E 15%, transparent 30%, transparent 75%, #1C1442) }
+
+.sensuba-booster-golden .sensuba-booster-extremum { background: darkgoldenrod }
+.sensuba-booster-golden .sensuba-booster-medium { background: lightgoldenrodyellow }
+.sensuba-booster-golden .sensuba-booster-title { color: #886608 }
+.sensuba-booster-golden .sensuba-booster-expansion-name { top: 15.5rem; font-size: 1.7em; font-family: Parkavenue; text-decoration: underline; color: white; text-shadow: 0 0 0.25rem #886608 }
+.sensuba-booster-golden .sensuba-booster-filter { background: linear-gradient(darkgoldenrod, lightgoldenrodyellow 10%, lightgoldenrodyellow 15%, transparent 30%, transparent 75%, darkgoldenrod) }

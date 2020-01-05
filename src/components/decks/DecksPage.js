@@ -38,6 +38,7 @@ export default class DecksPage extends Component {
 			            <option value="builder">Standard</option>
 			            <option value="miracle">Miracle</option>
 			            <option value="custom">Custom</option>
+			            <option value="display">Display</option>
 			          </Input>
 			        </FormGroup>
 	            </div>

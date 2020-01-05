@@ -23,7 +23,23 @@ export default (() => {
 
 	var rangeSort = valueSort("range");
 
+	var raritySort = valueSort("rarity");
+
 	var animeSort = valueSort("anime", true);
+
+	var colorSort = (a, b) => {
+		if (a.cardType === "hero" && b.cardType !== "hero")
+			return -1;
+		if (a.cardType !== "hero" && b.cardType === "hero")
+			return 1;
+		if (a.cardType === "hero" && b.cardType === "hero") {
+			var a1 = parseInt(a.idColor, 10), a2 = parseInt(a.idColor2, 20), b1 = parseInt(b.idColor, 10), b2 = parseInt(b.idColor2, 10);
+			if (Math.min(a1, a2) === Math.min(b1, b2))
+				return Math.max(a1, a2) - Math.max(b1, b2);
+			return Math.min(a1, a2) - Math.min(b1, b2);
+		}
+		return parseInt(a.idColor, 10) - parseInt(b.idColor, 10);
+	}
 
 	var typeSort = (a, b) => {
 
@@ -51,6 +67,8 @@ export default (() => {
 		case "atk": func = atkSort; break;
 		case "hp": func = hpSort; break;
 		case "range": func = rangeSort; break;
+		case "color": func = colorSort; break;
+		case "rarity": func = raritySort; break;
 		case "anime": func = animeSort; break;
 		default: break;
 		}
@@ -84,6 +102,8 @@ export default (() => {
 			 		return true;
 			 	if ((card.lv2 && searchFilter(card.lv2)) || (card.lvmax && searchFilter(card.lvmax)))
 			 		return true;
+			 	if (card.archetypes && card.archetypes.filter(arc => arc.toLowerCase().includes(f.search.toLowerCase())).length > 0)
+			 		return true;
 			 	if (card.tokens && card.tokens.some(token => searchFilter(token)))
 			 		return true;
 			 	return false;
@@ -94,6 +114,16 @@ export default (() => {
 			cards = cards.filter(card => card.idEdition === parseInt(f.edition, 10));
 		if (f.type && f.type !== "")
 			cards = cards.filter(card => card.cardType === f.type);
+		if (f.rarity && f.rarity !== "")
+			cards = cards.filter(card => {
+				switch (f.rarity) {
+				case "basic": return !card.rarity;
+				case "common": return card.rarity === 1;
+				case "uncommon": return card.rarity === 2;
+				case "rare": return card.rarity >= 3;
+				default: return false;
+				}
+			});
 		if (f.colors && f.colors.length > 0)
 			cards = cards.filter(card => f.colors.includes(card.idColor) && (!card.idColor2 || f.colors.includes(card.idColor2)));
 		if (f.archetype && f.archetype !== "")

@@ -32,6 +32,7 @@ export default class Deck extends Component {
 				<div className="sensuba-deck-case-mask"/>
 				<img className="sensuba-deck-case-bg" src={this.props.src.background} alt="Deck case background"/>
 				<div className="sensuba-deck-case-name">{this.props.src.name}</div>
+				{ this.props.src.format ? <div className="sensuba-deck-case-format">{this.props.src.format.charAt(0).toUpperCase() + this.props.src.format.slice(1)}</div> : <span/> }
 			</div>
 		)
 	}

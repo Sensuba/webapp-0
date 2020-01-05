@@ -7,29 +7,37 @@ import User from '../../services/User';
 
 export default class PlayPage extends Component {
 
+  formats = {
+      standard: { name: "Standard", cardlist: this.props.cards.filter(card => card.idEdition === 1).concat(this.props.collection.map(el => Object.assign({count: el.number}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel)))) },
+      display: { name: "Display", cardlist: this.props.cards },
+      custom: { name: "Custom", cardlist: this.props.cards.filter(card => card.idEdition === 1).concat(this.props.collection.map(el => Object.assign({count: el.number}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel)))).concat(this.props.customs) }
+    }
+
 	constructor (props) {
 
 		super(props);
 
     var deck = User.getDeck();
+    var decklist = User.getData().authorization >= 2 ? this.props.decks : this.props.decks.filter(d => this.findFormat(d) !== "display");
     if (!User.isConnected())
       deck = null;
     else if (deck) {
       deck = JSON.parse(deck);
       if (deck.id === undefined) {
-        if (this.props.decks && this.props.decks.length > 0)
-          deck.id = this.props.decks.reduce((max, el) => Math.max(max, el.idDeck), null);
+        if (decklist && decklist.length > 0)
+          deck.id = decklist.reduce((max, el) => Math.max(max, el.idDeck), null);
       }
     }
-    else if (this.props.decks && this.props.decks.length > 0) {
-      this.setDeck(this.props.decks[0], false);
-      deck = this.props.decks[0];
+    else if (decklist && decklist.length > 0) {
+      this.setDeck(decklist[0], false);
+      deck = decklist[0];
     }
     else
       deck = null;
 
     this.state = {
       cards: this.props.cards.concat(this.props.customs),
+      decklist: decklist,
       seeking: false,
       deck: deck,
       filter: ""
@@ -55,7 +63,25 @@ export default class PlayPage extends Component {
       this.setState({deck: null});
     }
     else
-      this.setDeck(this.props.decks.find(deck => deck.idDeck === idDeck));
+      this.setDeck(this.state.decklist.find(deck => deck.idDeck === idDeck));
+  }
+
+  findFormat (deck) {
+
+    var formats = [];
+    Object.keys(this.formats).forEach(k => formats.push(k));
+
+    var c = Object.keys(deck.cards);
+    c.push(deck.hero);
+    c.forEach (card => {
+      formats.slice().forEach(f => {
+        var cc = this.formats[f].cardlist.find(l => l.idCardmodel.toString() === card.toString());
+        if (!cc || (cc.count === 1 && deck.cards[card] > 1))
+          formats.splice(formats.indexOf(f), 1);
+      })
+    })
+
+    return formats[0];
   }
 
   setDeck (deck, setState = true) {
@@ -106,14 +132,14 @@ export default class PlayPage extends Component {
               this.state.deck ?
               <div className="deck-selection-memberlist">
                 <div className="half-section">
-                  <Deck src={this.props.decks ? this.props.decks.find(deck => deck.idDeck === this.state.deck.id) : null}/>
+                  <Deck src={this.state.decklist ? this.state.decklist.find(deck => deck.idDeck === this.state.deck.id) : null}/>
                 </div>
                 <div className="half-section">
                   <div className="sensuba-deckbuilder-search">
                     <Input type="text" placeholder="Search" className="sensuba-deckbuilder-search-input" value={this.state.filter} onChange={e => this.setState({filter: e.target.value})}/>
                     <div className="sensuba-deckbuilder-search-list">
                     {
-                      (this.props.decks || []).filter(c => c.name.toLowerCase().includes(this.state.filter.toLowerCase())).map((c, i) => {
+                      (this.state.decklist || []).filter(c => c.name.toLowerCase().includes(this.state.filter.toLowerCase())).map((c, i) => {
                         var hero;
                         var idHero = c.hero.idCardmodel || c.hero;
                         hero = this.state.cards.find(s => s.idCardmodel === idHero);

@@ -61,7 +61,7 @@ export default class Api {
     .then(response => callback(response.data))
     .catch(err => {
       this.error(error)(err);
-      //User.disconnect();
+      User.disconnect();
     });
   }
 
@@ -142,6 +142,15 @@ export default class Api {
     .catch(err => {
       this.error(error)(err);
     });
+  }
+
+  shop (props, callback, error) {
+
+    if (User.isConnected())
+      this.addAuthorizationHeader();
+  	this.client.post("/user/shop", props)
+  	.then(response => callback(response.data))
+  	.catch(this.error(error));
   }
 
   login (username, password, callback, error) {

@@ -59,6 +59,9 @@ export default class Deckbuilder extends Component {
   		return;
   	var c = this.props.deck.cards;
   	c[id] = Math.min(2, (c[id] || 0) + 1);
+    var cc = this.props.cards.find(card => card.idCardmodel === id);
+    if (cc && cc.count === 1)
+      this.hideTooltip();
   	this.props.updateDeck();
   }
 
@@ -105,7 +108,7 @@ export default class Deckbuilder extends Component {
       if (currentDeck.id === this.state.deck.idDeck) {*/
 
         var deck = this.props.deck;
-        var res = { id: deck.idDeck, hero: deck.hero, body: [] };
+        var res = { id: deck.idDeck, hero: deck.hero, body: [], format: deck.format };
         var cc = this.props.cards.find(el => el.idCardmodel === parseInt(deck.hero, 10));
         if (cc && !cc.idEdition)
           res.hero = cc;
@@ -120,7 +123,8 @@ export default class Deckbuilder extends Component {
             }
           }
         })
-        User.updateDeck(res);
+        if (deck.format !== "display")
+          User.updateDeck(res);
     //  }
     //}
     
@@ -159,7 +163,7 @@ export default class Deckbuilder extends Component {
 
     var clist = {};
     clist.hero = this.props.cards.find(c => c.idCardmodel === (this.props.deck.hero.idCardmodel || this.props.deck.hero));
-    clist.cards = this.props.cards.filter(c => c.cardType !== "hero" && (c.idColor === 0 || c.idColor === clist.hero.idColor || c.idColor === clist.hero.idColor2));
+    clist.cards = this.props.cards.filter(c => c.cardType !== "hero" && (c.idColor === 0 || c.idColor === clist.hero.idColor || c.idColor === clist.hero.idColor2) && (c.count !== 1 || !this.props.deck.cards[c.idCardmodel]));
     return clist;
   }
 
@@ -230,7 +234,7 @@ export default class Deckbuilder extends Component {
           :
           <div>
         		<div className="half-section deck-image-preview">
-        			<Deck src={{name: this.props.deck.name, background: this.props.deck.background, idColor: hero.idColor, idColor2: hero.idColor2 }}/>
+        			<Deck src={{name: this.props.deck.name, background: this.props.deck.background, idColor: hero.idColor, idColor2: hero.idColor2, format: this.props.deck.format }}/>
         			<button className="menu-button" onClick={this.saveDeck.bind(this)}>{ !this.props.new ? "Edit" : "Save" }</button>
               { !this.props.new ? <button className="red menu-button" onClick={this.deleteDeck.bind(this)}>Delete</button> : <span/> }
         		</div>
@@ -244,6 +248,7 @@ export default class Deckbuilder extends Component {
                 <Input type="select" id="deck-format-form" value={this.props.deck.format} onChange={e => this.props.updateFormat(e.target.value)}>
                   <option value="standard">Standard</option>
                   <option value="custom">Custom</option>
+                  <option value="display">Display</option>
                 </Input>
                 <Label for="deck-supercode-form">Supercode</Label>
   	                <Input id="deck-supercode-form" type="textarea" rows="4" value={superCode} onChange={ e => {

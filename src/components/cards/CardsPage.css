@@ -279,5 +279,102 @@
 
 .sensuba-card-focus .sensuba-card {
 
-  font-size: 4vh;
+  font-size: 3.5vh;
+}
+
+.sensuba-shop-box h2 {
+
+  margin-top: 1em;
+}
+
+.sensuba-shop-box h2, h3 {
+
+  text-align: center;
+}
+
+.sensuba-shop-box .sensuba-shop-credits {
+
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}
+
+.sensuba-shop-box .sensuba-shop-booster {
+
+  display: block;
+  margin-left: 5em;
+  margin-right: 5em;
+  margin-top: 2em;
+  cursor: pointer;
+}
+
+.sensuba-shop-box .sensuba-booster .sensuba-booster-name {
+
+  pointer-events: none;
+}
+
+.opening-card-list {
+
+  display: inline-block;
+  max-width: 82em;
+  max-height: 100vh;
+  overflow: auto;
+}
+
+.sensuba-opening-card {
+
+  display: inline-block;
+}
+
+.sensuba-opening-card .sensuba-card {
+
+  display: block;
+}
+
+.sensuba-card-link {
+
+  position: relative;
+}
+
+.sensuba-card-count {
+
+  position: absolute;
+  top: 0.45em;
+  right: 1.5em;
+  width: 2em;
+  height: 3em;
+  background: #C8C8C8C0;
+  border: solid 0.05em #FFFFFFC0;
+  border-top: 0;
+  outline: solid 0.05em #C8C8C8C0;
+  color: white;
+  font-weight: bold;
+  line-height: 4em;
+}
+
+.sensuba-focus-shop {
+
+  text-align: center;
+}
+
+.shop-button {
+
+  display: inline-block;
+  padding: 0.5em;
+  margin: 0.5em;
+  margin-bottom: 0;
+  border: 3px solid #55eaea;
+  background-color: #ffb3c0;
+  color: white;
+  font-weight: bold;
+  border-radius: 2px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+  text-shadow: 0 0 3px #0008;
+  box-shadow: 1px 1px 0.1em 0 #0008;
+}
+
+.shop-button:hover {
+
+  background-color: #55eaea;
 }

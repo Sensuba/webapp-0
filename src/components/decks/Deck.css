@@ -65,6 +65,22 @@
 	font-weight: bold;
 }
 
+.sensuba-deck-case .sensuba-deck-case-format {
+
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    bottom: 15%;
+    left: 0;
+    padding: 0.5em;
+    font-family: "Constantia";
+    color: #FFFFFFA0;
+    background-color: #00000060;
+    text-shadow: 0px 0px 6px rgba(0, 0, 0, 1);
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
 @-webkit-keyframes MaskLighting { 
     0%{background-position:0% 50%}
     50%{background-position:100% 50%}
