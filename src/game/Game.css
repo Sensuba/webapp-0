@@ -379,7 +379,7 @@
   position: absolute;
   font-size: 0.3vw;
   bottom: 2vw;
-  left: calc(50% + 16vw);
+  left: calc(50% + 13vw + 25px);
 }
 
 .sensuba-avatar-wrapper .profile-avatar {

@@ -55,6 +55,7 @@ var DestroyGem = require('./DestroyGem');
 var RefillMana = require('./RefillMana');
 var ExtraMana = require('./ExtraMana');
 var UseMana = require('./UseMana');
+var PutFirstLast = require('./PutFirstLast');
 var OpenChoosebox = require('./OpenChoosebox');
 var SetVisibility = require('./SetVisibility');
 var StoreInteger = require('./StoreInteger');
@@ -64,6 +65,7 @@ var StoreLocation = require('./StoreLocation');
 var ClearVariable = require('./ClearVariable');
 
 var CanPay = require('./CanPay');
+var HasShield = require('./HasShield');
 var FilterCard = require('./FilterCard');
 var FilterStats = require('./FilterStats');
 var FilterVariable = require('./FilterVariable');
@@ -209,6 +211,7 @@ class Reader {
 			case "createmana": bloc = new RefillMana(card, ctx); break;
 			case "extramana": bloc = new ExtraMana(card, ctx); break;
 			case "usemana": bloc = new UseMana(card, ctx); break;
+			case "putfl": bloc = new PutFirstLast(card, ctx); break;
 			case "writeintvar": bloc = new StoreInteger(card, ctx); break;
 			case "writecardvar": bloc = new StoreCard(card, ctx); break;
 			case "writemodelvar": bloc = new StoreModel(card, ctx); break;
@@ -218,6 +221,7 @@ class Reader {
 			case "setvisibility": bloc = new SetVisibility(card, ctx); break;
 			case "clearvar": bloc = new ClearVariable(card, ctx); break;
 			case "canpay": bloc = new CanPay(card, ctx); break;
+			case "hasshield": bloc = new HasShield(card, ctx); break;
 			case "checkcard": bloc = new CheckCard(card, ctx); break;
 			case "checktile": bloc = new CheckTile(card, ctx); break;
 			case "checkmodel": bloc = new CheckModel(card, ctx); break;

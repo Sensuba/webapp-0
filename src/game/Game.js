@@ -88,8 +88,14 @@ export default class Game extends Component {
       avatar = user.avatarUrl;
     }
 
-    this.props.socket.emit("join", name, avatar, props.room);
-    this.props.socket.on('joined', role => this.onJoined(role));
+    if (props.room) {
+      this.props.socket.emit("join", name, avatar, props.room);
+      this.props.socket.on('joined', role => this.onJoined(role));
+    } else if (props.mission) {
+      this.props.socket.emit("mission", name, avatar, props.mission);
+      this.no = 0;
+      this.props.socket.on('notification',  this.analyse.bind(this));
+    }
     this.props.socket.on('endgame', data => this.onEndgame(data));
     ['error', 'connect_failed', 'reconnect_failed', 'connect_error', 'reconnect_error'].forEach(trigger => this.props.socket.on(trigger, () => this.onError()));
 

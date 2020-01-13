@@ -107,7 +107,7 @@ var Library = (() => {
 
 	var getCard = (no, then) => {
 
-		if (no.idCardmodel) {
+		if (no.idCardmodel || no.nameCard) {
 
 			then(no);
 			return;

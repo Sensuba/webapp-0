@@ -202,3 +202,8 @@
 
     background-color: rgba(255, 55, 55, 0.2);
 }
+
+.dark-theme .sensuba-deckbuilder-search {
+
+	background: none repeat scroll 0 0 #1d1d1d80;
+}
