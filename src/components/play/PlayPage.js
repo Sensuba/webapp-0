@@ -8,9 +8,9 @@ import User from '../../services/User';
 export default class PlayPage extends Component {
 
   formats = {
-      standard: { name: "Standard", cardlist: this.props.cards.filter(card => card.idEdition === 1).concat(this.props.collection.map(el => Object.assign({count: el.number}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel)))) },
+      standard: { name: "Standard", cardlist: this.props.cards.filter(card => card.idEdition === 1).concat((this.props.collection || []).map(el => Object.assign({count: el.number}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel)))) },
       display: { name: "Display", cardlist: this.props.cards },
-      custom: { name: "Custom", cardlist: this.props.cards.filter(card => card.idEdition === 1).concat(this.props.collection.map(el => Object.assign({count: el.number}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel)))).concat(this.props.customs) }
+      custom: { name: "Custom", cardlist: this.props.cards.filter(card => card.idEdition === 1).concat((this.props.collection || []).map(el => Object.assign({count: el.number}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel)))).concat(this.props.customs) }
     }
 
 	constructor (props) {
@@ -18,7 +18,7 @@ export default class PlayPage extends Component {
 		super(props);
 
     var deck = User.getDeck();
-    var decklist = User.getData().authorization >= 2 ? this.props.decks : this.props.decks.filter(d => this.findFormat(d) !== "display");
+    var decklist = User.isConnected() ? (User.getData().authorization >= 2 ? this.props.decks : this.props.decks.filter(d => this.findFormat(d) !== "display")) : undefined;
     if (!User.isConnected())
       deck = null;
     else if (deck) {
