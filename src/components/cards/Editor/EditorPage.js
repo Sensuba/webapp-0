@@ -241,8 +241,8 @@ export default class EditorPage extends Component {
               <Label for="design-tab">Design</Label>
               <Input id="blueprint-tab" type="radio" onChange={() => this.setState({tab: "blueprint"})} checked={this.state.tab === "blueprint"}/>
               <Label for="blueprint-tab">Blueprint</Label>
-              <Input id="animation-tab" type="radio" onChange={() => this.setState({tab: "animation"})} checked={this.state.tab === "animation"}/>
-              <Label for="animation-tab">Animation</Label>
+              { /* <Input id="animation-tab" type="radio" onChange={() => this.setState({tab: "animation"})} checked={this.state.tab === "animation"}/>
+              <Label for="animation-tab">Animation</Label> */ }
             </div>
             { design }
             { blueprint }
