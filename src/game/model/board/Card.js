@@ -504,6 +504,8 @@ export default class Card {
 
 	tryToCover (other, flying = false) {
 
+		if (other.isEff)
+			other = other.original;
 		if (!this.isType("character") || !this.onBoard || !other.onBoard || this.concealed)
 			return false;
 		return (other.location.isBehind(this.location) || (this.hasState("cover neighbors") && other.location.isNeighborTo(this.location))) && flying === this.hasState("flying");
@@ -511,6 +513,8 @@ export default class Card {
 
 	cover (other, flying = false) {
 
+		if (other.isEff)
+			other = other.original;
 		return this.tryToCover(other, flying) && !other.tryToCover(this, flying);
 	}
 
@@ -714,6 +718,7 @@ export default class Card {
 		var res;
 		res = Object.assign({}, this);
 		res.isEff = true;
+		res.original = this;
 		res.states = Object.assign({}, this.states);
 		let updatephp = () => {
 			if (this.isType("character") && this.onBoard) {

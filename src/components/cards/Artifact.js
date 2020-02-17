@@ -6,20 +6,20 @@ export default class Artifact extends Component {
 
   	var src = this.props.src;
 
-  	var rarityclass = rarity => {
+  	var rarityclass = (rarity, edition) => {
 
   		switch (rarity) {
   		case 1: return "common-card";
   		case 2: return "uncommon-card";
   		case 3: return "rare-card";
-  		default: return "";
+  		default: return edition === 1 ? "basic-card" : "";
   		}
   	}
 
   	var capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
   	
     return (
-      <div id={this.props.id} className={"sensuba-card sensuba-artifact " + this.props.classColor + " " + rarityclass(src.rarity) + " " + this.props.className}>
+      <div id={this.props.id} className={"sensuba-card sensuba-artifact " + this.props.classColor + " " + rarityclass(src.rarity, src.idEdition) + " " + this.props.className}>
 		<img crossOrigin="Anonymous" className="sensuba-card-bg" src={src.imgLink} alt={src.nameCard}/>
 	    <div className="sensuba-card-header">
 	    	<div className={"sensuba-card-mana" + (src.mana < src.originalMana ? " sensuba-card-param-bonus" : (src.mana > src.originalMana ? " sensuba-card-param-malus" : ""))}>{src.mana}</div>
