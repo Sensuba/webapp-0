@@ -719,6 +719,55 @@
 }
 
 
+.sensuba-card-view .sensuba-card-cover-neighbors {
+
+    position: absolute;
+    top: 0em;
+    left: 0em;
+}
+
+.sensuba-card-view .sensuba-card-cover-neighbors::before, .sensuba-card-view .sensuba-card-cover-neighbors::after {
+
+  content: "";
+  width: 20em;
+    height: 20em;
+    overflow: hidden;
+    margin: 0.4em;
+    position: absolute;
+    top: 0em;
+    left: -2.5em;
+    background: url('./images/arrow.png');
+    background-size: 100%;
+    filter: drop-shadow(0 0 0.4em #efe2a0);
+}
+
+.sensuba-card-view .sensuba-card-cover-neighbors::before {
+
+  animation: cnsize 1s infinite alternate ease-in-out, cnsize-left 1s infinite alternate ease-in-out;
+}
+
+.sensuba-card-view .sensuba-card-cover-neighbors::after {
+
+  animation: cnsize 1s infinite alternate ease-in-out, cnsize-right 1s infinite alternate ease-in-out;
+  transform: scaleX(-1);
+}
+
+@keyframes cnsize {
+  from {width: 2.2em; height: 4.4em; top: 7.8em; opacity: 0.6}
+  to {width: 2.8em; height: 5.6em; top: 7.2em; opacity: 0.8}
+}
+
+@keyframes cnsize-left {
+  from {left: -0.5em;}
+  to {left: -1em;}
+}
+
+@keyframes cnsize-right {
+  from {left: 13.5em;}
+  to {left: 13.5em;}
+}
+
+
 .sensuba-card-view .sensuba-card-lethal {
 
     position: absolute;
