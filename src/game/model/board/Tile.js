@@ -23,6 +23,11 @@ export default class Tile {
 		return !this.isEmpty;
 	}
 
+	get cards () {
+
+		return [this.card];
+	}
+
 	place (card) {
 
 		if (this.card !== null)

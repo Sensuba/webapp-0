@@ -424,6 +424,8 @@ export default class Card {
 			return true;
 		if (targets.length === 0)
 			return false;
+		if (targets.length > 1 && targets.some((t, i) => targets.indexOf(t) !== i))
+			return false;
 
 		return targets.every((t, i) => this.targets[i](this, t));
 	}
@@ -537,11 +539,13 @@ export default class Card {
 		return this.location.isAdjacentTo(tile);
 	}
 
-	attack () {
+	attack (auto) {
 
+		if (auto)
+			return;
 		if (!this.hasState("fury") || this.strikes !== 1)
 			this.actionPt--;
-		this.strikes++;
+		this.strikes = (this.strikes+1)%2;
 		this.motionPt = 0;
 		this.gameboard.update();
 	}
@@ -629,7 +633,7 @@ export default class Card {
 				this.update();
 				unsub();
 			});
-		this.update();
+		this.gameboard.update();
 	}
 
 	setVariable (name, value) {

@@ -8,6 +8,7 @@ export default class Hand {
 		area.gameboard.register(this);
 
 		this.locationOrder = 2;
+		this.public = false;
 
 		this.area = area;
 
@@ -35,11 +36,6 @@ export default class Hand {
 	get opposite () {
 
 		return this.area.opposite.hand;
-	}
-
-	get public () {
-
-		return false;
 	}
 
 	addCard (card) {

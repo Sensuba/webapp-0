@@ -50,7 +50,7 @@ export default (state = new GameBoard(), n) => {
     case "charattack": {
       let card = state.find(n.src);
       if (card)
-        card.attack();
+        card.attack(n.data[1].value);
       break; }
     case "damagecard": {
       let card = state.find(n.src);
@@ -170,6 +170,9 @@ export default (state = new GameBoard(), n) => {
     case "openchoosebox":
       state.areas[n.src.no].choosebox.open();
       break;
+    case "visibilityloc": {
+      state.find(n.src).public = n.data[0].value;
+      break; }
     case "extraturn":
       state.areas[n.src.no].extraTurn();
       break;

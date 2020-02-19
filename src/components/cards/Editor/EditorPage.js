@@ -116,7 +116,7 @@ export default class EditorPage extends Component {
 
       this.props.api.deleteCustomCards(this.props.card.idCardmodel, () => {
 
-        this.props.history.push('/cards');
+        this.props.history.push('/cards?mode=custom');
         this.props.updateCustoms();
       })
     }

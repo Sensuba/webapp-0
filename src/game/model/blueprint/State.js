@@ -6,7 +6,7 @@ class State extends Bloc {
 	constructor (src, ctx) {
 
 		super("state", src, ctx);
-		this.f = (src, ins) => [this, x => { x.states[ins[0]] = ins[1] !== undefined ? ins[1] : true; return x; }, target => target.hasState(ins[0]) === (ins[1] !== undefined ? ins[1] : true)];
+		this.f = (src, ins) => [this, x => { x.states[ins[0]] = ins[1] !== undefined ? ins[1] : true; return x; }, target => target && target.hasState(ins[0]) === (ins[1] !== undefined ? ins[1] : true)];
 		this.types = [Types.state, Types.bool];
 	}
 

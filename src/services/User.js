@@ -10,8 +10,7 @@ var User = (() => {
 	var disconnect = () => {
 
 		localStorage.removeItem("user.shadow");
-		Library.clearCustoms();
-		Library.clearDecks();
+		Library.clearAll();
 	}
 
 	var updateProfile = profile => {

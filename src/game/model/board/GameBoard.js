@@ -80,7 +80,10 @@ export default class GameBoard {
 	update () {
 
 		if (this.items && this.items.card)
-			Object.keys(this.items.card).forEach(k => this.items.card[k].update());
+			[3, 2, 1, 0].forEach(prio => Object.keys(this.items.card).forEach(k => {
+				if (this.items.card[k].location && this.items.card[k].location.locationOrder === prio)
+					this.items.card[k].update()
+				}))
 	}
 
 	find (id) {

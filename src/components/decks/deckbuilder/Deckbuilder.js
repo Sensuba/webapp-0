@@ -41,7 +41,8 @@ export default class Deckbuilder extends Component {
           continue;
         if (miraclenew.idColor === 0 && Math.random() < 0.5)
           continue;
-
+        if (this.props.deck.cards[miraclenew.idCardmodel] && this.props.deck.cards[miraclenew.idCardmodel] >= Math.min(2, miraclenew.count || 2))
+          continue;
         miraclelist.push(miraclenew);
         i++;
       }

@@ -174,12 +174,21 @@ var Library = (() => {
 		if (instantiated) f(db); else instantiate(f);
 	}
 
-	var clearAll = then => {
+	var clearCollection = then => {
 
-		clear(() => clearDecks(() => clearCustoms(then)));
+		let f = db => db.openDatabase(version, evt => {}).then(() => {
+			db.clear('collection').then(then);
+		});
+
+		if (instantiated) f(db); else instantiate(f);
 	}
 
-	return { instantiate, upToDate, update, updateCollection, updateCustoms, updateDecks, getCard, getCollection, getCardList, getCustomCardList, getDeckList, clear, clearCustoms, clearDecks, clearAll }
+	var clearAll = then => {
+
+		clear(() => clearDecks(() => clearCustoms(() => clearCollection(then))));
+	}
+
+	return { instantiate, upToDate, update, updateCollection, updateCustoms, updateDecks, getCard, getCollection, getCardList, getCustomCardList, getDeckList, clear, clearCustoms, clearDecks, clearCollection, clearAll }
 })();
 
 export default Library;
