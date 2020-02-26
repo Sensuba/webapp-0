@@ -44,7 +44,7 @@ export default class EndTurn extends Component {
       			}
       		</div>
       		<div className="sensuba-end-turn-text">{this.props.locked ? "" : (this.props.extra ? "Extra turn" : "End turn")}</div>
-          <div className="sensuba-end-turn-timer">{this.state.timer !== undefined && this.state.timer <= 60 ? this.state.timer : ""}</div>
+          <div className="sensuba-end-turn-timer">{this.props.timer && this.state.timer !== undefined && this.state.timer <= 60 ? this.state.timer : ""}</div>
       	</div>
     )
   }

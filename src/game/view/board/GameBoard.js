@@ -70,7 +70,7 @@ export default class GameBoard extends Component {
 	    		<Gauge inverted color="#1e90ff80" value={model.areas[1-no].manapool.mana + model.areas[1-no].manapool.extramana} max={model.areas[1-no].manapool.maxMana}/>
 	    	</div>
 	    	<div className={"sensuba-end-turn-wrapper " + (master.manager ? "" : "hidden")}>
-	    		<EndTurn locked={!master.isPlaying} extra={model.areas[no].extraTurns} endTurn={() => master.manager.endTurn()}/>
+	    		<EndTurn locked={!master.isPlaying} extra={model.areas[no].extraTurns} timer={master.timer} endTurn={() => master.manager.endTurn()}/>
 	    	</div>
 	    	<Area model={model.areas[no]} master={master}>
 		    	<Court model={model.areas[no].court} master={master}/>

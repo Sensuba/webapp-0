@@ -16,7 +16,6 @@ import History from './view/UI/History';
 import MuteButton from './view/UI/MuteButton';
 import Lightbox from '../components/utility/Lightbox';
 import { Button } from 'reactstrap';
-import Library from '../services/Library';
 //import files from '../utility/FileManager';
 
 import { createStore } from 'redux';
@@ -74,7 +73,8 @@ export default class Game extends Component {
 
       model: this.store.getState(),
       messages: [],
-      deck: d
+      deck: d,
+      timer: props.room !== undefined
     }
 
     this.manager = new Manager(this.state.model, this.command.bind(this), state => state ? this.setState(state) : this.forceUpdate());
@@ -100,7 +100,7 @@ export default class Game extends Component {
     this.props.socket.on('endgame', data => this.onEndgame(data));
     ['error', 'connect_failed', 'reconnect_failed', 'connect_error', 'reconnect_error'].forEach(trigger => this.props.socket.on(trigger, () => this.onError()));
 
-    Library.getCard(d.hero, hero => this.setState({hero}));
+    //Library.getCard(d.hero, hero => this.setState({hero}));
 
     this.createParticle = () => {};
   }
@@ -151,6 +151,8 @@ export default class Game extends Component {
       model.areas[1].name = n.data[3].value;
       model.areas[1].avatar = n.data[4].value;
     }
+    if (n.type === "identify" && this.no !== undefined && n.data[0].cardType === "hero" && this.state.model.areas[this.no].field.tiles[6].occupied && this.state.model.areas[this.no].field.tiles[6].card.id.no === n.data[0].id.no)
+      this.setState({ hero: n.data[0] });
     this.sequencer.add(n);
   }
 
