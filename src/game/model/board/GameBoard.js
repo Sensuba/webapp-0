@@ -79,11 +79,21 @@ export default class GameBoard {
 
 	update () {
 
-		if (this.items && this.items.card)
-			[3, 2, 1, 0].forEach(prio => Object.keys(this.items.card).forEach(k => {
-				if (this.items.card[k].location && this.items.card[k].location.locationOrder === prio)
-					this.items.card[k].update()
-				}))
+		if (!this.updateState) {
+			this.updateState = 1;
+			if (this.items && this.items.card)
+				[3, 2, 1, 0].forEach(prio => Object.keys(this.items.card).forEach(k => {
+					if (this.updateState === 2)
+						return;
+					if (this.items.card[k].location && this.items.card[k].location.locationOrder === prio)
+						this.items.card[k].update()
+					}))
+			if (this.updateState === 2) {
+				delete this.updateState;
+				this.update();
+			} else delete this.updateState;
+		} else
+			this.updateState = 2;
 	}
 
 	find (id) {
