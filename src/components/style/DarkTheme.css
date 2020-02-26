@@ -198,6 +198,11 @@
 	background: #979ba2;
 }
 
+.dark-theme #deck-count-tooltip {
+
+	background: #717377;
+}
+
 .dark-theme .sensuba-tile-targetable {
 
     background-color: rgba(255, 55, 55, 0.2);
@@ -206,4 +211,20 @@
 .dark-theme .sensuba-deckbuilder-search {
 
 	background: none repeat scroll 0 0 #1d1d1d80;
+}
+
+.dark-theme .solo-panel .solo-panel-chapters .solo-panel-chapters-end {
+
+	background-color: #36393F;
+}
+
+.dark-theme .home-panel .home-panel-text h3, .solo-panel .solo-panel-text h3 {
+
+	color: white;
+}
+
+.dark-theme .sensuba-textbox {
+
+	background: #000000C0;
+	border: #FFFFFFa0 dashed 2px;
 }

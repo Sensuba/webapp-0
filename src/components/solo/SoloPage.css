@@ -18,6 +18,7 @@
     z-index: -1;
     position: absolute;
     transition: height 0.5s, width 0.5s, top 0.5s, left 0.5s;
+    z-index: 0;
 }
 
 .solo-panel .solo-panel-filter {
@@ -49,6 +50,7 @@
 
     font-family: Constantia;
     font-variant: small-caps;
+    text-align: left;
 }
 
 .solo-panel.panel-right .solo-panel-text { left: 5%; }

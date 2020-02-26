@@ -7,9 +7,10 @@
 
 .faculty-box {
 
-    width: 18em;
-    min-height: 1em;
-    padding: 0.2em;
+    width: 20rem;
+    min-height: 1rem;
+    padding: 0.2rem;
+    font-size: 0.9em;
     background: white;
     filter: drop-shadow(2px 3px 2px #202020A0);
 }
