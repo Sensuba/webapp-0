@@ -122,7 +122,7 @@ export default class GlossaryFR extends Component {
               <div className="glossary-panel-filter"/>
               <div className="glossary-panel-text">
                 <h3>Frenzy</h3>
-                <p>Effet déclenché lorsque ce personnage attaque et détruit une figure sans mourir.</p>
+                <p>Effet déclenché lorsque ce personnage attaque et détruit une figure.</p>
                 </div>
           </div>
         </div>

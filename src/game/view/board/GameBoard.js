@@ -10,6 +10,7 @@ import Court from './Court';
 import Choosebox from './Choosebox';
 import Gauge from '../UI/Gauge';
 import EndTurn from '../UI/EndTurn';
+import TextBox from '../UI/TextBox';
 import Avatar from '../../../components/profile/Avatar';
 
 export default class GameBoard extends Component {
@@ -18,6 +19,7 @@ export default class GameBoard extends Component {
 
 		if (this.props.master.manager)
 			this.props.master.manager.unselect();
+		this.props.master.shiftMessage();
 		e.stopPropagation();
         e.cancelBubble = true;
         e.preventDefault();
@@ -98,7 +100,9 @@ export default class GameBoard extends Component {
 	    	</Area>
     	<Hand model={model.areas[no].hand} master={master}/>
     	</div>
+    	{ this.props.messages.length > 0 ? <TextBox text={this.props.messages[0].text} unselect={e => this.unselect(e)} master={master}/> : <span/> }
 		<Choosebox model={model.areas[no].choosebox} master={master}/>
+
       </div>
     )
   }

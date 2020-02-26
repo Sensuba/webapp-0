@@ -56,9 +56,14 @@ export default class Manager {
 
 	unselect () {
 
-		if (this.isPlaying)
+		if (this.isPlaying && !(this.controller instanceof PlayingState))
 			this.controller = new PlayingState(this);
-		this.update();
+		this.update({faculties: undefined});
+	}
+
+	highlight (target) {
+
+		this.controller.highlight = target;
 	}
 
 	endTurn () {

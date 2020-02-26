@@ -721,6 +721,16 @@
   100% { box-shadow: 0 0 0.8em 0.2em #00CCFF; }
 }
 
+.sensuba-card.sensuba-card-highlight {
+
+    animation: card-halo-highlight 1.8s infinite alternate;
+}
+
+@keyframes card-halo-highlight {
+  0%   { box-shadow: 0 0 0.8em 1.1em gold; }
+  100% { box-shadow: 0 0 0.8em 1.4em gold; }
+}
+
 .sensuba-card.sensuba-card-selected {
 
     animation: card-halo-selected 1s infinite alternate linear;

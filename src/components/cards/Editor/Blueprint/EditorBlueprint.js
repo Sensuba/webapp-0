@@ -150,6 +150,10 @@ const blocks = [
 	
 	{ type: "extraturn", name: "Extra turn", model: [ {inout: "in", type: "exe", name: " "}, {inout: "in", type: "area", name: "player"}, {inout: "out", type: "exe", name: " "} ], tooltip: "Give an extra turn to a player", color: "#C752A2" },
 	
+	{ type: "message", name: "Message", model: [ {inout: "in", type: "exe", name: " "}, {inout: "in", type: "string", name: "text"}, {inout: "in", type: "area", name: "player"}, {inout: "out", type: "exe", name: " "} ], tooltip: "Display a message to a player", color: "#2196F3" },
+	{ type: "quote", name: "Quote", model: [ {inout: "in", type: "exe", name: " "}, {inout: "in", type: "string", name: "text"}, {inout: "in", type: "card", name: "src"}, {inout: "out", type: "exe", name: " "} ], tooltip: "Display a quote using a card illustration", color: "#2196F3" },
+	{ type: "highlight", name: "Highlight", model: [ {inout: "in", type: "exe", name: " "}, {inout: "in", type: "card", name: "card"}, {inout: "in", type: "area", name: "player"}, {inout: "out", type: "exe", name: " "} ], tooltip: "Highlight a card for a player until they act", color: "#2196F3" },
+	
 	{ type: "opplus", name: "+", model: [ {inout: "in", type: "int", name: " "}, {inout: "in", type: "int", name: " "}, {inout: "out", type: "int", name: " "} ], tooltip: "Add two integers", color: "#202020" },
 	{ type: "opminus", name: "-", model: [ {inout: "in", type: "int", name: " "}, {inout: "in", type: "int", name: " "}, {inout: "out", type: "int", name: " "} ], tooltip: "Substract a integer from another", color: "#202020" },
 	{ type: "optimes", name: "x", model: [ {inout: "in", type: "int", name: " "}, {inout: "in", type: "int", name: " "}, {inout: "out", type: "int", name: " "} ], tooltip: "Multiply two integers", color: "#202020" },

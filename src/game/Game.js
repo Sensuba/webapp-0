@@ -73,6 +73,7 @@ export default class Game extends Component {
     this.state = {
 
       model: this.store.getState(),
+      messages: [],
       deck: d
     }
 
@@ -161,6 +162,11 @@ export default class Game extends Component {
   select (e) {
 
     this.manager.select(e);
+  }
+
+  shiftMessage () {
+
+    this.setState({"messages": this.state.messages.slice(1, this.state.messages.length)});
   }
 
   saveReplay () {
@@ -257,7 +263,7 @@ export default class Game extends Component {
         : <span/>
       }
       <div style={{ display: this.waiting ? "none" : "block" }}>
-        <View model={this.state.model} master={this} openConcedeWindow={() => this.setState({concedeWindow: true})}/>
+        <View model={this.state.model} messages={this.state.messages} master={this} openConcedeWindow={() => this.setState({concedeWindow: true})}/>
         <div id="screen-anim" className="screen-anim"><div className="screen-anim-inner"/></div>
       </div>
       <MuteButton switch={() => this.switchMute()} master={this}/>

@@ -79,6 +79,14 @@ export default class Sequencer {
 	  		if (this.model.started && n.data[0].type === "deck")
 	  			return new Shuffle(this.master, n.src.no);
 	  		break;*/
+	  	case "message": {
+	  		this.master.setState({"messages": this.master.state.messages.concat([{text: n.data[0].value}])});
+	  		break;
+	  	}
+	  	case "highlight": {
+	  		this.master.manager.highlight(n.src);
+	  		break;
+	  	}
 	  	case "draw": return new Draw(this.master);
 	  	case "summon": return new Summon(this.master, n.src.no);
 	    case "charattack": return new Attack(this.master, n.src.no);

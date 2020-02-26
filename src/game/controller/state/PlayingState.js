@@ -14,6 +14,7 @@ export default class PlayingState {
 
 		if (target.inHand) {
 			if (target.canBePlayed) {
+				delete this.highlight;
 				if (target.targets.length === 0)
 					this.manager.controller = new WaitForConfirmState(this.manager, target, this);
 				else
@@ -22,6 +23,7 @@ export default class PlayingState {
 			}
 		} else if (target.onBoard) {
 			if (target.canAct) {
+				delete this.highlight;
 				this.manager.controller = new AttackOrMoveState(this.manager, target, this);
 				return;
 			}
@@ -31,6 +33,9 @@ export default class PlayingState {
 	}
 
 	haloFor (card) {
+
+		if (this.highlight && this.highlight.no === card.id.no)
+			return "sensuba-card-highlight";
 
 		return card.canBePlayed ? "sensuba-card-playable" : "";
 	}

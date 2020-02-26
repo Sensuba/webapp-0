@@ -122,7 +122,7 @@ export default class GlossaryEN extends Component {
               <div className="glossary-panel-filter"/>
               <div className="glossary-panel-text">
                 <h3>Frenzy</h3>
-                <p>Effect triggered whenever the character attacks and destroyed a figure while surviving.</p>
+                <p>Effect triggered whenever the character attacks and destroys a figure.</p>
                 </div>
           </div>
         </div>
@@ -132,7 +132,7 @@ export default class GlossaryEN extends Component {
               <div className="glossary-panel-filter"/>
               <div className="glossary-panel-text">
                 <h3>Overload</h3>
-                <p>If a card with limit <span role="img" aria-label="limit">⚡</span> receives <i>Overload</i>, numerical values on the card are incremented by the <i>Overload</i> receives divided by the card limit <span role="img" aria-label="limit">⚡</span>.</p>
+                <p>If a card with limit <span role="img" aria-label="limit">⚡</span> receives <i>Overload</i>, numerical values on the card are incremented by the <i>Overload</i> received divided by the card limit <span role="img" aria-label="limit">⚡</span>.</p>
                 </div>
           </div>
         </div>
