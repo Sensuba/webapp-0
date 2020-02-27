@@ -46,6 +46,15 @@ export default class HomePage extends Component {
                 <a className="select-button" target="_blank" rel="noopener noreferrer" href="https://discordapp.com/invite/gqRdwg2">Continue to Discord</a>
               </div>
             </div>
+            <div className="home-panel panel-left">
+              <img className="home-panel-background" src="/img5.jpg" alt="bg"/>
+              <div className="home-panel-filter"/>
+              <div className="home-panel-text">
+                <h3>Support us</h3>
+                <p>Sensuba is a fully free game, but cost us both time and money. Managing the server and database cost more and more as time goes. If you would like the game to live on or would like to show us your support, please do !</p>
+                <a className="select-button" target="_blank" rel="noopener noreferrer" href="https://ko-fi.com/flynnsp">Continue to Ko-fi</a>
+              </div>
+            </div>
           </div>
       	</main>
       </div>
