@@ -74,7 +74,7 @@ export default class GameBoard extends Component {
 	    	</div>
 	    	<Area model={model.areas[no]} master={master}>
 		    	<Court model={model.areas[no].court} master={master}/>
-		    	{ model.areas[no].avatar ? <div className="sensuba-avatar-wrapper" onClick={this.props.openConcedeWindow}><Avatar src={model.areas[no].avatar}/></div> : <span/> }
+		    	{ model.areas[no].avatar ? <div className="sensuba-avatar-wrapper" onClick={no !== undefined ? this.props.openConcedeWindow : () => {}}><Avatar src={model.areas[no].avatar}/></div> : <span/> }
 		    	<Field model={model.areas[no].field} master={master}>
 		    		<Row>
 		    			<Tile model={model.areas[no].field.tiles[0]} master={master}/>

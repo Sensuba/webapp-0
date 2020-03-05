@@ -233,7 +233,7 @@ export default class Game extends Component {
         <div id="endgame-window">
           <h2>{ (["", "", "Draw !", "Victory !", "Defeat...", "Connection lost :/", "Internal error *-*"])[this.state.model.gamestate] }</h2>
           { this.state.model.gamestate > 1 ? <CardPreview src={this.state.hero} level={1} model={this.state.hero}/> : <span/> }
-          <Button onClick={() => this.saveReplay()} id="replay-button" className="modern-sensuba-button replay-button">Save replay</Button>
+          { this.props.room ? <Button onClick={() => this.saveReplay()} id="replay-button" className="modern-sensuba-button replay-button">Save replay</Button> : <span/> }
           <Button onClick={this.props.quitRoom} className="proceed-button">Proceed</Button>
         </div>
       </Lightbox>
@@ -258,8 +258,8 @@ export default class Game extends Component {
           <div className="waiting-room">
             <Loader type="connect"/>
             <div className="waiting-text">
-              Waiting for an opponent...
-              <br/><span className="small-text">To fight a friend, share the url with them.</span>
+              { this.props.room ? "Waiting for an opponent..." : "Waiting for the server..." }
+              <br/><span className="small-text">{ this.props.room ? "To fight a friend, share the url with them." : "" }</span>
             </div>
           </div>
         : <span/>
