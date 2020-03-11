@@ -48,6 +48,63 @@ nav .breadcrumb {
 	background: linear-gradient(180deg,transparent,transparent 40%,#000B 60%,#000D) !important;
 }
 
+.solo-panel {
+
+	height: auto !important;
+}
+
+.solo-panel .solo-panel-background {
+
+	height: 15em !important;
+	position: static !important;
+	top: unset !important;
+	left: unset !important;
+}
+
+.solo-panel .solo-panel-filter {
+
+	height: 15em !important;
+}
+
+.solo-panel .solo-panel-text {
+
+	left: 10% !important;
+	top: 10% !important;
+	width: 60% !important;
+}
+
+.solo-panel .solo-panel-chapters {
+
+	position: static !important;
+	top: unset !important;
+	right: unset !important;
+	height: auto !important;
+	font-size: 0.8em !important;
+}
+
+.solo-panel .solo-panel-chapters .solo-panel-chapter {
+
+	display: block !important;
+	height: auto !important;
+	width: auto !important;
+	transform: none !important;
+	writing-mode: initial !important;
+	margin: 0 !important;
+	padding: 0 0 0 1em !important;
+	background: linear-gradient(#404040, #202020);
+	transition: padding ease-in-out 0.4s;
+}
+
+.solo-panel .solo-panel-chapters .solo-panel-chapter:active {
+
+	padding: 0 0 0 1.5em !important;
+}
+
+.solo-panel .solo-panel-chapters .solo-panel-chapters-end {
+
+	display: none !important;
+}
+
 .lightbox {
 
 	width: 100% !important;
@@ -288,12 +345,12 @@ nav .breadcrumb {
 
 .sensuba-court {
 
-	transform: rotateX(310deg) translateX(22vw) translateY(-6vw) translateZ(18em) !important;
+	transform: rotateX(310deg) translateX(-5vw) translateY(-6vw) translateZ(18em) !important;
 }
 
 .sensuba-gems + .sensuba-court {
 
-	transform: rotateX(310deg) translateX(25vw) translateY(-10vw) translateZ(21em) !important;
+	transform: rotateX(310deg) translateX(-5vw) translateY(-10vw) translateZ(21em) !important;
 }
 
 }
