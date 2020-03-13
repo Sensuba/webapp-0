@@ -125,6 +125,13 @@ export default class Api {
     });
   }
 
+  getReplay (id, callback, error) {
+
+    this.client.get("/tmp/replay?idRoom=" + id)
+    .then(response => callback(response))
+    .catch(this.error(error));
+  }
+
   saveReplay (params, callback, error) {
 
     this.client.post("/tmp/replay", params)

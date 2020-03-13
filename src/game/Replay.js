@@ -53,11 +53,15 @@ export default class Replay extends Component {
   analyse (n) {
 
     if (n.type === "init"){
-      this.props.updateHeroes(n.data[(this.no || 0)*2+1].no, n.data[(1-(this.no || 0))*2+1].no);
+      this.props.updateHeroes(n.data[(this.no || 0)*3+2].no, n.data[(1-(this.no || 0))*3+2].no);
       var model = this.state.model;
       model.areas[0].name = n.data[0].value;
-      model.areas[1].name = n.data[2].value;
+      model.areas[0].avatar = n.data[1].value;
+      model.areas[1].name = n.data[3].value;
+      model.areas[1].avatar = n.data[4].value;
     }
+    if (n.type === "identify" && this.no !== undefined && n.data[0].cardType === "hero" && this.state.model.areas[this.no].field.tiles[6].occupied && this.state.model.areas[this.no].field.tiles[6].card.id.no === n.data[0].id.no)
+      this.setState({ hero: n.data[0] });
     this.sequencer.add(n);
   }
 
@@ -173,7 +177,7 @@ export default class Replay extends Component {
         : <span/>
       }
       <div style={{ display: this.waiting ? "none" : "block" }}>
-        <View model={this.state.model} master={this}/>
+        <View model={this.state.model} messages={[]} master={this}/>
         <div id="screen-anim" className="screen-anim"><div className="screen-anim-inner"/></div>
       </div>
       <MuteButton switch={() => this.switchMute()} defaultMute={true} master={this}/>
