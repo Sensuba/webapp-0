@@ -75,7 +75,7 @@ export default class Area {
 				unsub2();
 		}) : () => {};
 		unsub2 = this.gameboard.subscribe("playcard", (t,s,d) => {
-			if (s.area === this && aspect.targets(this.gameboard.find(s))) {
+			if (aspect.targets(this.gameboard.find(s))) {
 				aspect.deactivate();
 				unsub1();
 				unsub2();

@@ -124,7 +124,7 @@ export default class Deckbuilder extends Component {
             }
           }
         })
-        if (deck.format !== "display")
+        if (deck.format !== "display" && Object.values(deck.cards).reduce((a, b) => a + b, 0) === 30)
           User.updateDeck(res);
     //  }
     //}

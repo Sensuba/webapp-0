@@ -18,7 +18,7 @@ export default class PlayPage extends Component {
 		super(props);
 
     var deck = User.getDeck();
-    var decklist = User.isConnected() ? (User.getData().authorization >= 2 ? this.props.decks : this.props.decks.filter(d => this.findFormat(d) !== "display")) : undefined;
+    var decklist = User.isConnected() ? (User.getData().authorization >= 2 ? this.props.decks : this.props.decks.filter(d => this.findFormat(d) !== "display").filter(d => Object.values(d.cards).reduce((a, b) => a + b, 0) === 30)) : undefined;
     if (!User.isConnected())
       deck = null;
     else if (deck) {
