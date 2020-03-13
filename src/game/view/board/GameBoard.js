@@ -37,7 +37,7 @@ export default class GameBoard extends Component {
     	<div className="sensuba-gameboard" onClick={e => this.unselect(e)} onTouchEnd={e => document.getElementById("img-preview-tooltip").setAttribute("style", `display: none`)} onContextMenu={e => this.unselect(e)}>
     	<div className="sensuba-board">
     	<Hand model={model.areas[1-no].hand} master={master}/>
-	    	<Area model={model.areas[1-no]} master={master}>
+	    	<Area id="sensuba-area-1" model={model.areas[1-no]} master={master}>
 		    	{ model.areas[1-no].avatar ? <div className="sensuba-avatar-wrapper"><Avatar src={model.areas[1-no].avatar}/></div> : <span/> }
 		    	<Field model={model.areas[1-no].field} master={master}>
 		    		<Row>
@@ -72,7 +72,7 @@ export default class GameBoard extends Component {
 	    	<div className={"sensuba-end-turn-wrapper " + (master.manager ? "" : "hidden")}>
 	    		<EndTurn locked={!master.isPlaying} extra={model.areas[no].extraTurns} timer={master.timer} endTurn={() => master.manager.endTurn()}/>
 	    	</div>
-	    	<Area model={model.areas[no]} master={master}>
+	    	<Area id="sensuba-area-0" model={model.areas[no]} master={master}>
 		    	<Court model={model.areas[no].court} master={master}/>
 		    	{ model.areas[no].avatar ? <div className="sensuba-avatar-wrapper" onClick={no !== undefined ? this.props.openConcedeWindow : () => {}}><Avatar src={model.areas[no].avatar}/></div> : <span/> }
 		    	<Field model={model.areas[no].field} master={master}>

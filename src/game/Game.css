@@ -471,11 +471,10 @@
 
 .sensuba-court {
 
-	width: 80vw;
+    width: 80vw;
     position: relative;
     top: 0;
     z-index: 1000;
-    -moz-transform: translateX(-18vw) rotateX(0deg) rotateZ(26deg) skewX(32deg) skewY(-20deg) scale(1.8) translateY(0.5vw) !important;
     -webkit-transform: rotateX(310deg) translateX(-8vw) translateY(-4vw) translateZ(30em);
     -ms-transform: rotateX(310deg) translateX(-8vw) translateY(-4vw) translateZ(30em);
     transform-style: preserve-3d;
@@ -483,7 +482,18 @@
 
 .sensuba-gems + .sensuba-court {
 
+    
     transform: rotateX(310deg) translateX(-10vw) translateY(-12vw) translateZ(30em);
+}
+
+#sensuba-area-0 .sensuba-court {
+
+    -moz-transform: translateX(-18vw) rotateX(0deg) rotateZ(26deg) skewX(32deg) skewY(-20deg) scale(1.8) translateY(1.5vw) !important;
+}
+
+#sensuba-area-1 .sensuba-court {
+
+    -moz-transform: translateX(-18vw) rotateX(0deg) rotateZ(26deg) skewX(32deg) skewY(-20deg) scale(1.8) translateY(-10.5vw) !important;
 }
 
 .sensuba-gauge-wrapper {
