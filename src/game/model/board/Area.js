@@ -69,13 +69,13 @@ export default class Area {
 
 		var aspect = new Aspect(this, effect, [this.hand, this.court], targets);
 		var unsub1, unsub2;
-		unsub1 = end.subscribe((t,s,d) => {
+		unsub1 = end ? end.subscribe((t,s,d) => {
 			aspect.deactivate();
 			unsub1();
 				unsub2();
-		})
+		}) : () => {};
 		unsub2 = this.gameboard.subscribe("playcard", (t,s,d) => {
-			if (aspect.targets(this.gameboard.find(s))) {
+			if (s.area === this && aspect.targets(this.gameboard.find(s))) {
 				aspect.deactivate();
 				unsub1();
 				unsub2();
