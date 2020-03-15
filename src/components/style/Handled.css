@@ -343,6 +343,11 @@ nav .breadcrumb {
 	display: none !important;
 }
 
+.sensuba-gameboard {
+
+	margin-top: calc(-10vw - 3em) !important;
+}
+
 .sensuba-court {
 
 	transform: rotateX(310deg) translateX(-5vw) translateY(-6vw) translateZ(18em) !important;
@@ -351,6 +356,27 @@ nav .breadcrumb {
 .sensuba-gems + .sensuba-court {
 
 	transform: rotateX(310deg) translateX(-5vw) translateY(-10vw) translateZ(21em) !important;
+}
+
+.sensuba-area + .sensuba-hand .sensuba-card-view {
+
+	font-size: 0.7vw !important;
+	margin-left: -1.5vw !important;
+}
+
+.sensuba-mission-text {
+
+	left: calc(50% - 40vw) !important;
+	width: 80vw !important;
+}
+
+.faculty-box {
+
+	font-size: 0.6em !important;
+	width: 12rem !important;
+    min-height: 0.6rem !important;
+    padding: 0.12rem !important;
+    margin-left: -2em !important;
 }
 
 }
