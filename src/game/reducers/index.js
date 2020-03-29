@@ -67,6 +67,16 @@ export default (state = new GameBoard(), n) => {
       if (card)
         card.boost(n.data[0], n.data[1], n.data[2]);
       break; }
+    case "poisoncard": {
+      let card = state.find(n.src);
+      if (card)
+        card.poison(n.data[0]);
+      break; }
+    case "curepoison": {
+      let card = state.find(n.src);
+      if (card)
+        card.curePoison(n.data[0]);
+      break; }
     case "changecost": {
       let card = state.find(n.src);
       if (card)

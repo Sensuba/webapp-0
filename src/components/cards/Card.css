@@ -435,17 +435,40 @@
 
     font-size: 0.4em;
     color: white;
-    text-shadow: 0px 0px 6px rgba(0, 0, 0, 1);
+    text-shadow: 0px 0px 0.5em rgba(0, 0, 0, 1);
     font-family: "Lucida Bright";
 }
 
 .sensuba-card .sensuba-card-param-atk { left: 2.5em }
-.sensuba-card .sensuba-card-param-hp { left: 17.5em }
+.sensuba-card .sensuba-card-param-hp, .sensuba-card .sensuba-card-param-poison { left: 17.5em }
 
 .sensuba-card.sensuba-hero .sensuba-card-param-atk { left: 12.5em; top: 45em; }
-.sensuba-card.sensuba-hero .sensuba-card-param-hp { left: 23em; top: 6em; font-weight: bold; }
+.sensuba-card.sensuba-hero .sensuba-card-param-hp, .sensuba-card.sensuba-hero .sensuba-card-param-poison { left: 23em; top: 6em; font-weight: bold; }
 
 .sensuba-card.sensuba-artifact .sensuba-card-param-hp { left: 3.5em }
+
+.sensuba-card .sensuba-card-param-poison, .sensuba-card.sensuba-hero .sensuba-card-param.sensuba-card-param-poison {
+
+    color: mediumseagreen;
+    text-shadow: 0px 0px 0.33em rgba(255, 255, 255, 1);
+}
+
+.sensuba-card-althp { animation: altprm infinite alternate 3s linear }
+.sensuba-card-param-poison { animation: altsec infinite alternate 3s linear }
+
+@keyframes altprm {
+    0%   { opacity: 1 }
+    60%  { opacity: 1 }
+    70%  { opacity: 0 }
+    100% { opacity: 0 }
+}
+
+@keyframes altsec {
+    0%   { opacity: 0 }
+    60%  { opacity: 0 }
+    70%  { opacity: 1 }
+    100% { opacity: 1 }
+}
 
 .sensuba-card .sensuba-card-level {
 

@@ -116,6 +116,7 @@ export default class Card {
 				this[k] = parseFloat(this[k], 10);
 		}
 		delete this.supercode;
+		this.blueprint = this.modelblueprint;
 		this.faculties = [];
 		this.mutations = [];
 		this.cmutations = [];
@@ -126,10 +127,12 @@ export default class Card {
 		this.originalAtk = this.atk;
 		this.originalHp = this.hp;
 		this.originalRange = this.range;
+		delete this.poisondmg;
 		this.shield = false;
 		this.silenced = false;
 		this.targets = [];
 		delete this.variables;
+		delete this.mutatedState;
 		if (this.isType("entity"))
 			this.targets.push(Event.targets.friendlyEmpty);
 		this.clearBoardInstance();
@@ -204,6 +207,34 @@ export default class Card {
 		//this.gameboard.notify("healcard", this.id, amt, src.id);
 	}
 
+	poison (psn) {
+
+
+		if (!this.chp || psn <= 0 || this.isGhost)
+			return;
+		if (this.hasState("immune"))
+			return;
+
+		this.poisondmg = (this.poisondmg || 0) + psn;
+		//this.gameboard.notify("poisoncard", this, psn);
+	}
+
+	get poisoned () {
+
+		return this.poisondmg && this.poisondmg > 0;
+	}
+
+	curePoison (value) {
+
+		if (value < 0 || !this.poisoned)
+			return;
+		if (value === null || value === undefined || value > this.poisondmg)
+			value = this.poisondmg;
+
+		this.poisondmg -= value;
+		//this.gameboard.notify("curepoison", this, value);
+	}
+
 	boost (atk, hp, range) {
 
 		if (atk === 0 && hp === 0 && range === 0)
@@ -271,6 +302,7 @@ export default class Card {
 		this.passives = [];
 		this.events = [];
 		this.states = {};
+		delete this.poisondmg;
 		delete this.blueprint;
 		this.mana = this.originalMana;
 		this.atk = this.originalAtk;
@@ -327,6 +359,8 @@ export default class Card {
 			Library.getCard(this.idCardmodel, card => this.model = card);
 		else
 			this.model = data;
+		if (data && data.blueprint)
+			this.modelblueprint = data.blueprint;
 		if (!data || !data.originalMana)
 			this.originalMana = this.mana;
 		if (!data || !data.originalAtk)

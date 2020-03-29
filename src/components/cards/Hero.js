@@ -59,10 +59,17 @@ export default class Hero extends Component {
 		   	<div className={"sensuba-card-param-value" + (level !== 2 || eff ? " sensuba-card-invisible" : "") + (src.atk < src.originalAtk ? " sensuba-card-param-malus" : (src.atk > src.originalAtk ? " sensuba-card-param-bonus" : ""))}>{src.lv2.atk}</div>
 		   	<div className={"sensuba-card-param-value" + (level !== 3 || eff ? " sensuba-card-invisible" : "") + (src.atk < src.originalAtk ? " sensuba-card-param-malus" : (src.atk > src.originalAtk ? " sensuba-card-param-bonus" : ""))}>{src.lvmax.atk}</div>
 		</div>
-		<div className="sensuba-card-param sensuba-card-param-hp">
+		<div className={"sensuba-card-param sensuba-card-param-hp" + (src.hasOwnProperty('poisondmg') && src.poisondmg ? " sensuba-card-althp" : "")}>
 		    <div className="sensuba-card-param-name">HP</div>
 	   	    <div className={"sensuba-card-param-value" + (src.hasOwnProperty('chp') && src.chp < src.hp ? " sensuba-card-param-malus" : "") + (src.hasOwnProperty('chp') ? (src.chp < src.hp ? " sensuba-card-param-malus" : (src.hp > src.originalHp ? " sensuba-card-param-bonus" : "")) : "")}>{src.chp || src.hp}</div>
 		</div>
+		  {
+		  	src.hasOwnProperty('poisondmg') && src.poisondmg ?
+			<div className="sensuba-card-param sensuba-card-param-poison">
+		    <div className="sensuba-card-param-name">PSN</div>
+		      <div className="sensuba-card-param-value">{src.poisondmg}</div>
+			</div> : <span/>
+		  }
 		<div className={"sensuba-card-range" + (level !== 1 && !eff ? " sensuba-card-invisible" : "") + (src.range < src.originalRange ? " sensuba-card-param-malus" : (src.range > src.originalRange ? " sensuba-card-param-bonus" : ""))}>
 		  <div className="sensuba-card-range-arrow"/>
 		  { src.range > 1 ? <div className="sensuba-card-range-arrow sensuba-card-range-arrow-2"/> : <span/> }
