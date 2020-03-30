@@ -398,7 +398,7 @@ export default class CardsPage extends Component {
               </div>
               <div className="two-thirds-section">
                 <div className="third-section">
-                  <div className="sensuba-search-label-section"><div className="sensuba-search-select-label">mana</div></div>
+                  <div className="sensuba-search-label-section"><div className="sensuba-search-select-label">Mana</div></div>
                   <div className="sensuba-search-label-section"><div className="sensuba-search-select-label">ATK</div></div>
                   <div className="sensuba-search-label-section"><div className="sensuba-search-select-label">HP</div></div>
                   <div className="sensuba-search-label-section"><div className="sensuba-search-select-label">Range</div></div>

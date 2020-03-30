@@ -150,6 +150,26 @@ export default (() => {
 				case "atk":
 				case "hp":
 				case "range": return specNum(spec, value, card);
+				case "color": {
+					if (/^[nwrugb]+$/.test(value)){
+
+						var req = [];
+						var colormap = [ "n", "w", "r", "u", "g", "b" ]
+						req.push(colormap[card.idColor]);
+						if (card.idColor2)
+							req.push(colormap[card.idColor2]);
+						return req.every(letter => value.includes(letter))
+					}
+				 	switch(value) {
+					case "neutral": return card.idColor === 0 || card.idColor2 === 0;
+					case "white": return card.idColor === 1 || card.idColor2 === 1;
+					case "red": return card.idColor === 2 || card.idColor2 === 2;
+					case "blue": return card.idColor === 3 || card.idColor2 === 3;
+					case "green": return card.idColor === 4 || card.idColor2 === 4;
+					case "black": return card.idColor === 5 || card.idColor2 === 5;
+					default: return false;
+					}
+				}
 				default: return false;
 				}
 			}
