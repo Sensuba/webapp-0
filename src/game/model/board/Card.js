@@ -82,6 +82,11 @@ export default class Card {
 		if (loc instanceof Court && this.overload)
 			this.lb = this.eff.overload && this.eff.ol && this.eff.ol > this.eff.overload ? Math.floor(this.eff.ol/this.eff.overload) : 0;
 
+		if (this.area && loc === this.area.opposite.choosebox) {
+			this.invisible = { for: this.area.id.no };
+		} else if (this.area && this.invisible && (loc.public || (loc.area === this.area && loc !== this.area.deck)))
+			delete this.invisible;
+
 		var former = this.location;
 		this.location = loc;
 		if (former instanceof Tile && !(loc instanceof Tile) && this.activated)
