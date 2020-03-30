@@ -216,6 +216,7 @@ export default class Card {
 			return;
 
 		this.poisondmg = (this.poisondmg || 0) + psn;
+		this.update();
 		//this.gameboard.notify("poisoncard", this, psn);
 	}
 
@@ -232,6 +233,7 @@ export default class Card {
 			value = this.poisondmg;
 
 		this.poisondmg -= value;
+		this.update();
 		//this.gameboard.notify("curepoison", this, value);
 	}
 

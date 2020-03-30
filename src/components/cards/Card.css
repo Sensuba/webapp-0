@@ -447,14 +447,20 @@
 
 .sensuba-card.sensuba-artifact .sensuba-card-param-hp { left: 3.5em }
 
-.sensuba-card .sensuba-card-param-poison, .sensuba-card.sensuba-hero .sensuba-card-param.sensuba-card-param-poison {
+.sensuba-card .sensuba-card-param-poison {
 
-    color: mediumseagreen;
-    text-shadow: 0px 0px 0.33em rgba(255, 255, 255, 1);
+    opacity: 0;
 }
 
-.sensuba-card-althp { animation: altprm infinite alternate 3s linear }
-.sensuba-card-param-poison { animation: altsec infinite alternate 3s linear }
+.sensuba-card .sensuba-card-param-poison .sensuba-card-param-value, .sensuba-card.sensuba-hero .sensuba-card-param.sensuba-card-param-poison .sensuba-card-param-value {
+
+    color: mediumseagreen;
+    font-weight: bold;
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.8);
+}
+
+#img-preview-tooltip .sensuba-card-althp { animation: altprm infinite alternate 3s linear }
+#img-preview-tooltip .sensuba-card-param-poison { animation: altsec infinite alternate 3s linear }
 
 @keyframes altprm {
     0%   { opacity: 1 }
