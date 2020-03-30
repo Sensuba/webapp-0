@@ -58,8 +58,8 @@ export default class CardsPage extends Component {
       anime: url.searchParams.get("anime") || "",
       flavour: url.searchParams.get("flavour") || "",
       rarity: url.searchParams.get("rarity") || "",
-      cost: url.searchParams.get("cost") || "",
-      costop: url.searchParams.get("costop") || "",
+      mana: url.searchParams.get("mana") || "",
+      manaop: url.searchParams.get("manaop") || "",
       atk: url.searchParams.get("atk") || "",
       atkop: url.searchParams.get("atkop") || "",
       hp: url.searchParams.get("hp") || "",
@@ -125,7 +125,7 @@ export default class CardsPage extends Component {
         suf += param + "=" + encodeURIComponent(filter[param]);
       }
     }
-    ["mode", "search", "archetype", "colors", "edition", "type", "name", "description", "anime", "flavour", "rarity", "cost", "costop", "atk", "atkop", "hp", "hpop", "range", "rangeop", "orderBy", "page"].forEach(param => addFilter(param));
+    ["mode", "search", "archetype", "colors", "edition", "type", "name", "description", "anime", "flavour", "rarity", "mana", "manaop", "atk", "atkop", "hp", "hpop", "range", "rangeop", "orderBy", "page"].forEach(param => addFilter(param));
     /*if (customs) {
         suf += suf.length === 0 ? "?" : "&";
         suf += "customs=1";
@@ -398,13 +398,13 @@ export default class CardsPage extends Component {
               </div>
               <div className="two-thirds-section">
                 <div className="third-section">
-                  <div className="sensuba-search-label-section"><div className="sensuba-search-select-label">Cost</div></div>
+                  <div className="sensuba-search-label-section"><div className="sensuba-search-select-label">mana</div></div>
                   <div className="sensuba-search-label-section"><div className="sensuba-search-select-label">ATK</div></div>
                   <div className="sensuba-search-label-section"><div className="sensuba-search-select-label">HP</div></div>
                   <div className="sensuba-search-label-section"><div className="sensuba-search-select-label">Range</div></div>
                 </div>
                 <div className="third-section">
-                  <select value={this.filter.costop} id="sensuba-search-cost-op" onChange={editFilter("costop").bind(this)}>
+                  <select value={this.filter.manaop} id="sensuba-search-mana-op" onChange={editFilter("manaop").bind(this)}>
                     <option value=""></option>
                     <option value="1">&gt;</option>
                     <option value="2">&ge;</option>
@@ -442,7 +442,7 @@ export default class CardsPage extends Component {
                   </select>
                 </div>
                 <div className="third-section">
-                  <Input id="sensuba-search-cost" value={this.filter.cost} type="text" onChange={editFilter("cost").bind(this)}/>
+                  <Input id="sensuba-search-mana" value={this.filter.mana} type="text" onChange={editFilter("mana").bind(this)}/>
                   <Input id="sensuba-search-atk" value={this.filter.atk} type="text" onChange={editFilter("atk").bind(this)}/>
                   <Input id="sensuba-search-hp" value={this.filter.hp} type="text" onChange={editFilter("hp").bind(this)}/>
                   <Input id="sensuba-search-range" value={this.filter.range} type="text" onChange={editFilter("range").bind(this)}/>

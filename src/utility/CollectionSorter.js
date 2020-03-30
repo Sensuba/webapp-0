@@ -93,18 +93,66 @@ export default (() => {
 		}
 	}
 
+	var rarityFilter = rarity => card => {
+
+		switch (rarity) {
+		case "basic": return !card.rarity;
+		case "common": return card.rarity === 1;
+		case "uncommon": return card.rarity === 2;
+		case "rare": return card.rarity >= 3;
+		default: return false;
+		}
+	}
+
+	var archetypeFilter = archetype => card => card.archetypes && card.archetypes.filter(arc => arc.toLowerCase().includes(archetype.toLowerCase())).length > 0;
+
+	var descriptionFilter = description => card => card.description.toLowerCase().includes(description.toLowerCase());
+
 	var filter = (cards, f) => {
 
 		if (f.search && f.search !== "") {
 			var fullsearch = f.search.toLowerCase();
 			var minussearch = f => (s, card) => {
-				var els = s.split("-");
-				if (els.length === 1)
+				var splits = s.split("!");
+				if (splits.length === 1)
 					return f(s, card);
-				return f(els[0], card) && !f(els[1], card);
+				if (!f(splits[0], card))
+					return false;
+				for (var i = 1; i < splits.length; i++)
+					if (f(splits[i], card))
+						return false
+				return true;
 			}
 			var orsearch = f => (s, card) => s.split("/").some(somesearch => f(somesearch, card));
-			var andsearch = f => (s, card) => s.split("+").every(somesearch => f(somesearch, card));
+			var andsearch = f => (s, card) => s.split(" ").every(somesearch => f(somesearch, card));
+			var specsearch = f => (s, card) => {
+				var splits = s.split(":");
+				if (splits.length === 1)
+					return f(s, card);
+				var spec = splits[0].toLowerCase(), value = splits[1].toLowerCase();
+				var specNum = (stat, value, card) => {
+					if (card[stat] === undefined || !/^\d+[+-]?$/.test(value))
+						return false;
+					var no = parseInt(value.match(/\d+/)[0], 10), cardvalue = parseInt(card[stat], 10);
+					if (value.includes("+"))
+						return cardvalue >= no;
+					if (value.includes("-"))
+						return cardvalue <= no;
+					return cardvalue === no;
+				}
+				switch (spec) {
+				case "type": return card.cardType === value;
+				case "anime": return card.anime.toLowerCase().includes(value)
+				case "rarity": return rarityFilter(value)(card);
+				case "archetype": return archetypeFilter(value)(card);
+				case "edition": return specNum("idEdition", value, card);
+				case "mana":
+				case "atk":
+				case "hp":
+				case "range": return specNum(spec, value, card);
+				default: return false;
+				}
+			}
 			var searchFunction = (s, card) => {
 				if ((card.nameCard && card.nameCard.toLowerCase().includes(s)) || (card.anime && card.anime.toLowerCase().includes(s)) || (card.description && card.description.toLowerCase().includes(s)))
 			 		return true;
@@ -116,36 +164,28 @@ export default (() => {
 			 		return true;
 			 	return false;
 			}
-			cards = cards.filter(card => minussearch(orsearch(andsearch(searchFunction)))(fullsearch, card));
+			cards = cards.filter(card => minussearch(orsearch(andsearch(specsearch(searchFunction))))(fullsearch, card));
 		}
 		if (f.edition && f.edition !== "")
 			cards = cards.filter(card => card.idEdition === parseInt(f.edition, 10));
 		if (f.type && f.type !== "")
 			cards = cards.filter(card => card.cardType === f.type);
 		if (f.rarity && f.rarity !== "")
-			cards = cards.filter(card => {
-				switch (f.rarity) {
-				case "basic": return !card.rarity;
-				case "common": return card.rarity === 1;
-				case "uncommon": return card.rarity === 2;
-				case "rare": return card.rarity >= 3;
-				default: return false;
-				}
-			});
+			cards = cards.filter(rarityFilter(f.rarity));
 		if (f.colors && f.colors.length > 0)
 			cards = cards.filter(card => f.colors.includes(card.idColor) && (!card.idColor2 || f.colors.includes(card.idColor2)));
 		if (f.archetype && f.archetype !== "")
-			cards = cards.filter(card => card.archetypes && card.archetypes.filter(arc => arc.toLowerCase().includes(f.archetype.toLowerCase())).length > 0);
+			cards = cards.filter(archetypeFilter(f.archetype));
 		if (f.name && f.name !== "")
 			cards = cards.filter(card => card.nameCard.toLowerCase().includes(f.name.toLowerCase()));
 		if (f.description && f.description !== "")
-			cards = cards.filter(card => card.description.toLowerCase().includes(f.description.toLowerCase()));
+			cards = cards.filter(descriptionFilter(f.description));
 		if (f.anime && f.anime !== "")
 			cards = cards.filter(card => card.anime.toLowerCase().includes(f.anime.toLowerCase()));
 		if (f.flavour && f.flavour !== "")
 			cards = cards.filter(card => card.flavourText.toLowerCase().includes(f.flavour.toLowerCase()));
-		if (f.cost && !isNaN(f.cost) && f.costop && f.costop !== "")
-			cards = cards.filter(opFilter("mana", parseInt(f.cost, 10), f.costop));
+		if (f.mana && !isNaN(f.mana) && f.manaop && f.manaop !== "")
+			cards = cards.filter(opFilter("mana", parseInt(f.mana, 10), f.manaop));
 		if (f.atk && !isNaN(f.atk) && f.atkop && f.atkop !== "")
 			cards = cards.filter(opFilter("atk", parseInt(f.atk, 10), f.atkop));
 		if (f.hp && !isNaN(f.hp) && f.hpop && f.hpop !== "")
