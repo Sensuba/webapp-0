@@ -122,7 +122,7 @@ export default class CardsPage extends Component {
         return;
       if (filter[param] !== undefined && filter[param] !== null && filter[param].length !== 0) {
         suf += suf.length === 0 ? "?" : "&";
-        suf += param + "=" + filter[param];
+        suf += param + "=" + encodeURIComponent(filter[param]);
       }
     }
     ["mode", "search", "archetype", "colors", "edition", "type", "name", "description", "anime", "flavour", "rarity", "cost", "costop", "atk", "atkop", "hp", "hpop", "range", "rangeop", "orderBy", "page"].forEach(param => addFilter(param));

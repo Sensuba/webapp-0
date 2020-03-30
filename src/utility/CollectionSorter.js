@@ -96,19 +96,27 @@ export default (() => {
 	var filter = (cards, f) => {
 
 		if (f.search && f.search !== "") {
-			var s = f.search.toLowerCase();
-			var searchFilter = card => {
+			var fullsearch = f.search.toLowerCase();
+			var minussearch = f => (s, card) => {
+				var els = s.split("-");
+				if (els.length === 1)
+					return f(s, card);
+				return f(els[0], card) && !f(els[1], card);
+			}
+			var orsearch = f => (s, card) => s.split("/").some(somesearch => f(somesearch, card));
+			var andsearch = f => (s, card) => s.split("+").every(somesearch => f(somesearch, card));
+			var searchFunction = (s, card) => {
 				if ((card.nameCard && card.nameCard.toLowerCase().includes(s)) || (card.anime && card.anime.toLowerCase().includes(s)) || (card.description && card.description.toLowerCase().includes(s)))
 			 		return true;
-			 	if ((card.lv2 && searchFilter(card.lv2)) || (card.lvmax && searchFilter(card.lvmax)))
+			 	if ((card.lv2 && searchFunction(s,card.lv2)) || (card.lvmax && searchFunction(s, card.lvmax)))
 			 		return true;
-			 	if (card.archetypes && card.archetypes.filter(arc => arc.toLowerCase().includes(f.search.toLowerCase())).length > 0)
+			 	if (card.archetypes && card.archetypes.filter(arc => arc.toLowerCase().includes(s.toLowerCase())).length > 0)
 			 		return true;
-			 	if (card.tokens && card.tokens.some(token => searchFilter(token)))
+			 	if (card.tokens && card.tokens.some(token => searchFunction(s, token)))
 			 		return true;
 			 	return false;
 			}
-			cards = cards.filter(searchFilter);
+			cards = cards.filter(card => minussearch(orsearch(andsearch(searchFunction)))(fullsearch, card));
 		}
 		if (f.edition && f.edition !== "")
 			cards = cards.filter(card => card.idEdition === parseInt(f.edition, 10));
