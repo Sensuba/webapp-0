@@ -112,6 +112,19 @@ export default (() => {
 
 		if (f.search && f.search !== "") {
 			var fullsearch = f.search.toLowerCase();
+			var directsearch = f => (s, card) => {
+				var splits = s.split("\"");
+				if (splits.length < 3)
+					return splits.every(split => f(split, card));
+				for (var i = 0; i < splits.length; i++) {
+					if (i%2 === 0 || i+1 >= splits.length) {
+						if (!f(splits[i], card))
+							return false;
+					} else if (!searchFunction(splits[i], card))
+						return false;
+				}
+				return true;
+			}
 			var minussearch = f => (s, card) => {
 				var splits = s.split("!");
 				if (splits.length === 1)
@@ -184,7 +197,7 @@ export default (() => {
 			 		return true;
 			 	return false;
 			}
-			cards = cards.filter(card => minussearch(orsearch(andsearch(specsearch(searchFunction))))(fullsearch, card));
+			cards = cards.filter(card => directsearch(minussearch(orsearch(andsearch(specsearch(searchFunction)))))(fullsearch, card));
 		}
 		if (f.edition && f.edition !== "")
 			cards = cards.filter(card => card.idEdition === parseInt(f.edition, 10));
