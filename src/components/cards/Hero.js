@@ -88,7 +88,8 @@ export default class Hero extends Component {
 	    { src.overload && src.overload > 0 ? <div className={"sensuba-card-overload" + (src.ol && src.ol > src.overload ? " sensuba-card-overload-limit-break" : "") + (level !== 1 && !eff ? " sensuba-card-invisible" : "")}>{src.overload}</div> : <span/> }
 	    { src.lv2.overload && src.lv2.overload > 0 ? <div className={"sensuba-card-overload" + (src.ol && src.ol > src.lv2.overload ? " sensuba-card-overload-limit-break" : "") + (level !== 2 || eff ? " sensuba-card-invisible" : "")}>{src.lv2.overload}</div> : <span/> }
 	    { src.lv2.overload && src.lvmax.overload > 0 ? <div className={"sensuba-card-overload" + (src.ol && src.ol > src.lvmax.overload ? " sensuba-card-overload-limit-break" : "") + (level !== 3 || eff ? " sensuba-card-invisible" : "")}>{src.lvmax.overload}</div> : <span/> }
-	  	<div className="sensuba-card-frame">
+	    { src.idEdition > 1 ? <div className={"sensuba-card-edition sensuba-card-edition-" + src.idEdition}/> : <span/> }
+	    <div className="sensuba-card-frame">
 	    	<div className="sensuba-frame-icon"/>
 	    	<div className="sensuba-card-inner-frame"/>
 	    </div>

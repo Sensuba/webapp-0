@@ -648,7 +648,7 @@
 .sensuba-card-hero-icon {
 
     position: absolute;
-    background-image: url("hero.png");
+    background-image: url("Images/hero.png");
     height: 2em;
     width: 2em;
     background-size: 2em;
@@ -712,18 +712,18 @@
     margin-left: -0.25em;
     background-size: 100%;
     background-repeat: no-repeat;
-    background-image: url("lotus.png");
+    background-image: url("Images/lotus.png");
     filter: drop-shadow(0 0 0.05em #00000080);
 }
 
 .sensuba-card.basic-card .sensuba-frame-icon {
 
-    background-image: url("basic.png");
+    background-image: url("Images/basic.png");
 }
 
 .sensuba-card.uncommon-card .sensuba-frame-icon {
 
-    background-image: url("petals.png");
+    background-image: url("Images/petals.png");
 }
 
 .sensuba-card.golden-card .sensuba-frame-icon {
@@ -732,8 +732,25 @@
     width: 1.5em;
     top: -1.895em;
     opacity: 1;
-    background-image: url("glotus.png");
+    background-image: url("Images/glotus.png");
 }
+
+.sensuba-card .sensuba-card-edition {
+
+    position: absolute;
+    z-index: 1;
+    height: 1em;
+    width: 1em;
+    right: 0.03em;
+    bottom: 0.03em;
+    opacity: 0.9;
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-image: url("Images/classic.png");
+    filter: drop-shadow(0 0 0.05em #00000080);
+}
+
+.sensuba-card .sensuba-card-edition.sensuba-card-edition-3 { background-image: url("Images/guardianstar.png"); }
 
 .sensuba-card .sensuba-card-invisible {
 

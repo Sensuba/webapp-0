@@ -73,6 +73,7 @@ export default class Figure extends Component {
 		  { src.range > 2 ? <div className="sensuba-card-range-arrow sensuba-card-range-arrow-3"/> : <span/> }
 		</div>
 	    { src.overload && src.overload > 0 ? <div className={"sensuba-card-overload" + (src.ol && src.ol > src.overload ? " sensuba-card-overload-limit-break" : "")}>{src.overload}</div> : <span/> }
+	  	{ src.idEdition > 1 ? <div className={"sensuba-card-edition sensuba-card-edition-" + src.idEdition}/> : <span/> }
 	    <div className="sensuba-card-frame">
 	    	<div className="sensuba-frame-icon"/>
 	    	<div className="sensuba-card-inner-frame"/>
