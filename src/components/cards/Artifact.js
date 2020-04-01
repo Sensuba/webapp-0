@@ -40,7 +40,8 @@ export default class Artifact extends Component {
 	        <div className="sensuba-card-body-main">
 	        	<div className="sensuba-card-effect" style={{fontSize: (src.fontSize || 1.3)/2 + 'em'}} dangerouslySetInnerHTML={{__html: src.htmlDescription}}/>
 	        	<div className="sensuba-card-flavour">{src.flavourText || ""}</div>
-	        </div>
+	        	{ src.idEdition > 1 ? <div className={"sensuba-card-edition sensuba-card-edition-" + src.idEdition}/> : <span/> }
+	    	</div>
 	    </div>
 		<div className="sensuba-card-footer">
 		  <div className="sensuba-card-param sensuba-card-param-hp">
@@ -49,7 +50,6 @@ export default class Artifact extends Component {
 		  </div>
 		</div>
 	    { src.overload && src.overload > 0 ? <div className={"sensuba-card-overload" + (src.ol && src.ol > src.overload ? " sensuba-card-overload-limit-break" : "")}>{src.overload}</div> : <span/> }
-	    { src.idEdition > 1 ? <div className={"sensuba-card-edition sensuba-card-edition-" + src.idEdition}/> : <span/> }
 	    <div className="sensuba-card-frame">
 	    	<div className="sensuba-frame-icon"/>
 	    	<div className="sensuba-card-inner-frame"/>

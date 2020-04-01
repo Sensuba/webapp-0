@@ -322,7 +322,8 @@ export default class CardsPage extends Component {
                 <option value="">---</option>
                 <option value="1">Basic</option>
                 <option value="2">Classic</option>
-                <option value="3">Next to come</option>
+                <option value="3">Guardian Star</option>
+                { User.isConnected() && User.getData().authorization > 0 ? <option value="4">Next to come</option> : <span/> }
               </select>
               <div>
                 { (nocards > 0 ? <b>{ nocards }</b> : "No")}{ " card" + (nocards > 1 ? "s" : "") + " found" }

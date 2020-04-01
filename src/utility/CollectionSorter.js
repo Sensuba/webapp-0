@@ -197,7 +197,7 @@ export default (() => {
 			 		return true;
 			 	return false;
 			}
-			cards = cards.filter(card => directsearch(minussearch(orsearch(andsearch(specsearch(searchFunction)))))(fullsearch, card));
+			cards = cards.filter(card => directsearch(andsearch(minussearch(orsearch(specsearch(searchFunction)))))(fullsearch, card));
 		}
 		if (f.edition && f.edition !== "")
 			cards = cards.filter(card => card.idEdition === parseInt(f.edition, 10));

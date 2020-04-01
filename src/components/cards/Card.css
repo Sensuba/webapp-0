@@ -371,6 +371,25 @@
     bottom: -10.7em;
 }
 
+.sensuba-card .sensuba-card-edition {
+
+    position: absolute;
+    z-index: 1;
+    height: 1em;
+    width: 1em;
+    right: 0.03em;
+    bottom: -3.5em;
+    opacity: 0.25;
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-image: url("Images/classic.png");
+}
+
+.sensuba-spell .sensuba-card-edition, .sensuba-artifact .sensuba-card-edition, .sensuba-hero .sensuba-card-edition {
+
+    bottom: -4.5em;
+}
+
 .sensuba-card .sensuba-card-footer {
 
     z-index: 1;
@@ -733,21 +752,6 @@
     top: -1.895em;
     opacity: 1;
     background-image: url("Images/glotus.png");
-}
-
-.sensuba-card .sensuba-card-edition {
-
-    position: absolute;
-    z-index: 1;
-    height: 1em;
-    width: 1em;
-    right: 0.03em;
-    bottom: 0.03em;
-    opacity: 0.9;
-    background-size: 80%;
-    background-repeat: no-repeat;
-    background-image: url("Images/classic.png");
-    filter: drop-shadow(0 0 0.05em #00000080);
 }
 
 .sensuba-card .sensuba-card-edition.sensuba-card-edition-3 { background-image: url("Images/guardianstar.png"); }
