@@ -10,7 +10,7 @@ class State extends Bloc {
 		this.types = [Types.state, Types.bool];
 	}
 
-	setup () {console.log("a");
+	setup () {
 
 		var cpt = this.computeIn();
 		var s = cpt[0];
