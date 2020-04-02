@@ -221,7 +221,7 @@ export default class Deckbuilder extends Component {
         {
           this.state.miracle ?
           <div>
-          <h1 className="big-text">Pick a card</h1>
+          <h1 className="big-text">Choisissez une carte</h1>
             <div className="hero-selector">
               <div className="hero-list">
               {
@@ -241,15 +241,15 @@ export default class Deckbuilder extends Component {
         		</div>
         		<div className="half-section">
         			<div className="editor-box">
-        				<Label for="deck-name-form">Deck name</Label>
+        				<Label for="deck-name-form">Nom du deck</Label>
         				<Input type="text" id="deck-name-form" value={this.props.deck.name} onChange={e => { var d = Object.assign(this.props.deck, {name: e.target.value}); this.setState({deck: d}); }}/>
-        				<Label for="deck-background-form">Image link</Label>
+        				<Label for="deck-background-form">Lien de l'image</Label>
                 <Input type="text" id="deck-background-form" value={this.props.deck.background} onChange={e => { var d = Object.assign(this.props.deck, {background: e.target.value}); this.setState({deck: d}); }}/>
                 <Label for="deck-format-form">Format</Label>
                 <Input type="select" id="deck-format-form" value={this.props.deck.format} onChange={e => this.props.updateFormat(e.target.value)}>
                   <option value="standard">Standard</option>
-                  <option value="custom">Custom</option>
-                  <option value="display">Display</option>
+                  <option value="custom">Personnalisé</option>
+                  <option value="display">Vitrine</option>
                 </Input>
                 <Label for="deck-supercode-form">Supercode</Label>
   	                <Input id="deck-supercode-form" type="textarea" rows="4" value={superCode} onChange={ e => {
@@ -284,7 +284,7 @@ export default class Deckbuilder extends Component {
             <span/>
             :
       			<div className="sensuba-deckbuilder-search">
-      				<Input type="text" placeholder="Search" className="sensuba-deckbuilder-search-input" value={this.state.filter} onChange={e => this.setState({filter: e.target.value})}/>
+      				<Input type="text" placeholder="Recherche" className="sensuba-deckbuilder-search-input" value={this.state.filter} onChange={e => this.setState({filter: e.target.value})}/>
       				<div className="sensuba-deckbuilder-search-list">
       				{
       					cards.filter(c => c.nameCard.toLowerCase().includes(this.state.filter.toLowerCase())).map((c, i) =>
@@ -304,7 +304,7 @@ export default class Deckbuilder extends Component {
       			</div>
       			<div className="half-section deckbuilder-type-repartition">
       				<Progress className="figures empty" type="circle" percent={nbFigures * 100 / this.count} format={percent => `${nbFigures} figure${nbFigures > 1 ? "s" : ""}`}/>
-      				<Progress className="spells empty" type="circle" percent={nbSpells * 100 / this.count} format={percent => `${nbSpells} spell${nbSpells > 1 ? "s" : ""}`}/>
+      				<Progress className="spells empty" type="circle" percent={nbSpells * 100 / this.count} format={percent => `${nbSpells} sort${nbSpells > 1 ? "s" : ""}`}/>
       			</div>
       			</div>
       			<div className="half-section deckbuilder-cost-repartition">
@@ -315,8 +315,8 @@ export default class Deckbuilder extends Component {
 			       <Tooltip/>
 			       <Legend />
 			       <Bar dataKey="figures" stackId="a" fill="#FF6000" />
-			       <Bar dataKey="spells" stackId="a" fill="rgb(16, 142, 233)" />
-			       <Bar dataKey="artifacts" stackId="a" fill="#20caFF" />
+			       <Bar dataKey="sorts" stackId="a" fill="rgb(16, 142, 233)" />
+			       <Bar dataKey="artéfacts" stackId="a" fill="#20caFF" />
 			      </BarChart>
       			</div>
       		</div>

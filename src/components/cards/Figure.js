@@ -18,7 +18,7 @@ export default class Figure extends Component {
   		}
   	}
 
-  	var ct = capitalize(src.cardType);
+  	var ct = "Figure";
   	if (src.archetypes && src.archetypes.length > 0) {
   		ct += ": " + capitalize(src.archetypes[0]);
   		if (src.archetypes && src.archetypes.length > 1)
@@ -57,7 +57,7 @@ export default class Figure extends Component {
 		  </div>
 		  <span className="sensuba-card-param-separator">/</span>
 		  <div className={"sensuba-card-param sensuba-card-param-hp" + (src.hasOwnProperty('poisondmg') && src.poisondmg ? " sensuba-card-althp" : "")}>
-		    <div className="sensuba-card-param-name">HP</div>
+		    <div className="sensuba-card-param-name">PV</div>
 	   	    <div className={"sensuba-card-param-value" + (src.hasOwnProperty('chp') ? (src.chp < src.hp ? " sensuba-card-param-malus" : (src.hp > src.originalHp ? " sensuba-card-param-bonus" : "")) : "")}>{src.chp || src.hp}</div>
 		  </div>
 		  {

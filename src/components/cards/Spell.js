@@ -15,8 +15,6 @@ export default class Spell extends Component {
   		default: return edition === 1 ? "basic-card" : "";
   		}
   	}
-
-  	var capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
   	
     return (
       <div id={this.props.id} className={"sensuba-card sensuba-spell " + this.props.classColor + " " + rarityclass(src.rarity, src.idEdition) + " " + this.props.className}>
@@ -34,7 +32,7 @@ export default class Spell extends Component {
 	    { src.illustrator ? <div className="sensuba-card-illustrator">Illus: {src.illustrator}</div> : <span/> }
 	    <div className="sensuba-card-body">
 	    	<div className="sensuba-card-body-header">
-	        	<span className="sensuba-card-type">{capitalize(src.cardType)}</span>
+	        	<span className="sensuba-card-type">Sort</span>
 	        	<span className="sensuba-card-anime">{src.anime}</span>
 	        </div>
 	        <div className="sensuba-card-body-main">

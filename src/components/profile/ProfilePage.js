@@ -68,15 +68,15 @@ export default class ProfilePage extends Component {
         <Nav api={this.props.api} history={this.props.history}/>
       	<main id="profile-page">
           <div className="profile-part">
-          <div className="rule-part">Profile</div>
+          <div className="rule-part">Profil</div>
             <div className="two-thirds-section profile-form">
               <FormGroup>
                 <div className="third-section">
-                  <Label for="sensuba-profile-username" className="sensuba-profile-label">Username</Label>
+                  <Label for="sensuba-profile-username" className="sensuba-profile-label">Nom d'utilisateur</Label>
                 </div>
                 <div className="two-thirds-section">
                   <Input onChange={() => this.setState({"usernameprofilevalid": document.getElementById("sensuba-profile-username").value.length >= 4})} invalid={!this.state.usernameprofilevalid} id="sensuba-profile-username" type="text" defaultValue={ this.state.user.username }/>
-                  <FormFeedback>Your username must contain at least 4 characters</FormFeedback>
+                  <FormFeedback>Votre nom d'utilisateur doit comporter au moins 4 caractères</FormFeedback>
                 </div>
               </FormGroup>
               <FormGroup>
@@ -89,7 +89,7 @@ export default class ProfilePage extends Component {
               </FormGroup>
               <FormGroup>
                 <div className="third-section">
-                  <div className="sensuba-profile-label">Signup Date</div>
+                  <div className="sensuba-profile-label">Date d'inscription</div>
                 </div>
                 <div className="two-thirds-section">
                   <div className="sensuba-profile-label">{ this.state.user.date ? this.state.user.date.slice(0, 10) : "[?]" }</div>
@@ -97,7 +97,7 @@ export default class ProfilePage extends Component {
               <FormGroup>
               </FormGroup>
                 <div className="third-section">
-                  <div className="sensuba-profile-label">Flowers</div>
+                  <div className="sensuba-profile-label">Fleurs</div>
                 </div>
                 <div className="two-thirds-section">
                   <div className="sensuba-profile-label"><span className="sensuba-credits">{ this.state.user.credit || "0" }</span></div>
@@ -105,14 +105,14 @@ export default class ProfilePage extends Component {
               </FormGroup>
               <FormGroup>
                 <div className="third-section">
-                  <Label for="sensuba-profile-confirm-password" className="sensuba-profile-label">Confirm password</Label>
+                  <Label for="sensuba-profile-confirm-password" className="sensuba-profile-label">Confirmation du mot de passe</Label>
                 </div>
                 <div className="two-thirds-section">
                   <Input invalid={!this.state.passwordvalid} id="sensuba-profile-confirm-password" type="password"/>
-                  <FormFeedback>Password incorrect</FormFeedback>
+                  <FormFeedback>Mot de passe incorrect</FormFeedback>
                 </div>
               </FormGroup>
-              <button className="menu-button" onClick={() => this.save()}>Save</button>
+              <button className="menu-button" onClick={() => this.save()}>Enregistrer</button>
             </div>
             <div className="third-section">
               <Avatar src={ this.state.avatarUrl }/>
@@ -133,16 +133,16 @@ export default class ProfilePage extends Component {
             <div className="two-thirds-section profile-form">
               <FormGroup>
                 <div className="third-section">
-                  <Label for="sensuba-profile-theme" className="sensuba-profile-label">Display theme</Label>
+                  <Label for="sensuba-profile-theme" className="sensuba-profile-label">Thème d'affichage</Label>
                 </div>
                 <div className="two-thirds-section">
                   <Input id="sensuba-profile-theme" defaultValue={this.props.theme} type="select">
-                    <option value="">Light</option>
-                    <option value="dark">Dark</option>
+                    <option value="">Clair</option>
+                    <option value="dark">Sombre</option>
                   </Input>
                 </div>
               </FormGroup>
-              <button className="menu-button" onClick={() => this.saveOptions()}>Save</button>
+              <button className="menu-button" onClick={() => this.saveOptions()}>Enregistrer</button>
             </div>
             <div className="third-section"/>
           </div>

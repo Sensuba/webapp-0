@@ -251,8 +251,8 @@ export default class CardsPage extends Component {
               return <div>
                   <div className="sensuba-card-focus">{ cf.map((card, i) => <Card switch="manual" key={i} src={card}/>) }</div>
                   { User.isConnected() && cf[0].rarity ? <div className="sensuba-focus-shop">
-                    <div onClick={() => this.buyCard(cf[0].idCardmodel, pbuy)} className="shop-button">Buy <span className="sensuba-credits">{ pbuy }</span></div>
-                    { this.props.collection.find(card => card.idCardmodel.toString() === this.props.focus) ? <div onClick={() => this.sellCard(cf[0].idCardmodel, psell)} className="shop-button">Sell <span className="sensuba-credits">{ psell }</span></div> : <span/> }
+                    <div onClick={() => this.buyCard(cf[0].idCardmodel, pbuy)} className="shop-button">Acheter <span className="sensuba-credits">{ pbuy }</span></div>
+                    { this.props.collection.find(card => card.idCardmodel.toString() === this.props.focus) ? <div onClick={() => this.sellCard(cf[0].idCardmodel, psell)} className="shop-button">Vendre <span className="sensuba-credits">{ psell }</span></div> : <span/> }
                   </div> : <span/> }
                 </div>
             })()
@@ -261,8 +261,8 @@ export default class CardsPage extends Component {
         {
           User.isConnected() ?
           <Lightbox className="sensuba-shop-box" open={this.props.shop === true} onClose={() => this.shop(false)}>
-            <h2>Upgrade your collection !</h2>
-            <h3>10 cards / <span className="sensuba-credits">100</span></h3>
+            <h2>Améliorez votre collection !</h2>
+            <h3>10 cartes / <span className="sensuba-credits">100</span></h3>
             <div className="sensuba-shop-credits">
               <span className="sensuba-credits">{ User.getData().credit }</span>
             </div>
@@ -305,25 +305,25 @@ export default class CardsPage extends Component {
             <div className="card-collection-choicer">
               <div className="vintage-radio">
                 <Input id="official-card-collection" type="radio" name="card-collection" onChange={() => this.changeMode()} defaultChecked={mode === undefined || mode === null} value={mode === undefined || mode === null}/>
-                <Label for="official-card-collection">Official</Label>
+                <Label for="official-card-collection">Officiel</Label>
                 <Input id="collection-card-collection" type="radio" name="card-collection" onChange={() => this.changeMode("collection")} defaultChecked={mode === "collection"} value={mode === "collection"}/>
                 <Label for="collection-card-collection">Collection</Label>
                 <Input id="custom-card-collection" type="radio" name="card-collection" onChange={() => this.changeMode("custom")} defaultChecked={mode === "custom"} value={mode === "custom"}/>
-                <Label for="custom-card-collection">Customs</Label>
+                <Label for="custom-card-collection">Personnalisé</Label>
               </div>
             </div>
             : <span/>
           }
           <div className="sensuba-card-search">
             <div className="third-section">
-              <Input id="sensuba-search-text" value={this.filter.search} type="text" placeholder="Search" onChange={editFilter("search").bind(this)}/>
+              <Input id="sensuba-search-text" value={this.filter.search} type="text" placeholder="Recherche" onChange={editFilter("search").bind(this)}/>
               <Label for="sensuba-search-edition" className="sensuba-search-select-label">Edition</Label>
               <select value={this.filter.edition} id="sensuba-search-edition" onChange={editFilter("edition").bind(this)}>
                 <option value="">---</option>
-                <option value="1">Basic</option>
-                <option value="2">Classic</option>
-                <option value="3">Guardian Star</option>
-                { User.isConnected() && User.getData().authorization > 0 ? <option value="4">Next to come</option> : <span/> }
+                <option value="1">Basique</option>
+                <option value="2">Classique</option>
+                <option value="3">Etoile Gardienne</option>
+                { User.isConnected() && User.getData().authorization > 0 ? <option value="4">A venir</option> : <span/> }
               </select>
               <div>
                 { (nocards > 0 ? <b>{ nocards }</b> : "No")}{ " card" + (nocards > 1 ? "s" : "") + " found" }
@@ -333,17 +333,17 @@ export default class CardsPage extends Component {
               <Label for="sensuba-search-type" className="sensuba-search-select-label">Type</Label>
               <select value={this.filter.type} id="sensuba-search-type" onChange={editFilter("type").bind(this)}>
                 <option value="">---</option>
-                <option value="hero">Hero</option>
+                <option value="hero">Héros</option>
                 <option value="figure">Figure</option>
-                <option value="spell">Spell</option>
-                <option value="artifact">Artifact</option>
+                <option value="spell">Sort</option>
+                <option value="artifact">Artéfact</option>
               </select>
-              <Label for="sensuba-search-rarity" className="sensuba-search-select-label">Rarity</Label>
+              <Label for="sensuba-search-rarity" className="sensuba-search-select-label">Rareté</Label>
               <select value={this.filter.rarity} id="sensuba-search-rarity" onChange={editFilter("rarity").bind(this)}>
                 <option value="">---</option>
-                <option value="basic">Basic</option>
-                <option value="common">Common</option>
-                <option value="uncommon">Uncommon</option>
+                <option value="basic">Basique</option>
+                <option value="common">Commune</option>
+                <option value="uncommon">Insolite</option>
                 <option value="rare">Rare</option>
               </select>
               <div className="sensuba-search-page">
@@ -373,16 +373,16 @@ export default class CardsPage extends Component {
                 <Input id="black-mana" type="checkbox" checked={this.filter.colors.includes(5)} name="sensuba-color" onChange={colorFilter(5)}/>
                 <Label for="black-mana"/>
               </div>
-              <Label for="sensuba-search-orderby" className="sensuba-search-select-label">Order by</Label>
+              <Label for="sensuba-search-orderby" className="sensuba-search-select-label">Trier par</Label>
               <select value={this.filter.orderBy} id="sensuba-search-orderby" onChange={editFilter("orderBy").bind(this)}>
                 <option value="type">Type</option>
-                <option value="name">Name</option>
+                <option value="name">Nom</option>
                 <option value="mana">Mana</option>
                 <option value="atk">ATK</option>
-                <option value="hp">HP</option>
-                <option value="range">Range</option>
-                <option value="color">Color</option>
-                <option value="rarity">Rarity</option>
+                <option value="hp">PV</option>
+                <option value="range">Portée</option>
+                <option value="color">Couleur</option>
+                <option value="rarity">Rareté</option>
                 <option value="anime">Anime</option>
               </select>
               <div className="sensuba-search-interact" onClick={e => this.setState({advsearch: !this.state.advsearch})}>More filters &#10148;</div>
@@ -401,8 +401,8 @@ export default class CardsPage extends Component {
                 <div className="third-section">
                   <div className="sensuba-search-label-section"><div className="sensuba-search-select-label">Mana</div></div>
                   <div className="sensuba-search-label-section"><div className="sensuba-search-select-label">ATK</div></div>
-                  <div className="sensuba-search-label-section"><div className="sensuba-search-select-label">HP</div></div>
-                  <div className="sensuba-search-label-section"><div className="sensuba-search-select-label">Range</div></div>
+                  <div className="sensuba-search-label-section"><div className="sensuba-search-select-label">PV</div></div>
+                  <div className="sensuba-search-label-section"><div className="sensuba-search-select-label">Portée</div></div>
                 </div>
                 <div className="third-section">
                   <select value={this.filter.manaop} id="sensuba-search-mana-op" onChange={editFilter("manaop").bind(this)}>
@@ -467,7 +467,7 @@ export default class CardsPage extends Component {
             mode === "collection" ?
             <button className="editor-button" onClick={() => this.shop(true)}>
               <img className="editor-button-img" src="/shop.png" alt="shop-chan"/>
-              <div className="editor-button-text">Buy cards</div>
+              <div className="editor-button-text">Acheter des cartes</div>
             </button>
             : <span/>
           }
@@ -475,11 +475,11 @@ export default class CardsPage extends Component {
             isCustoms ?
             <button className="editor-button" onClick={() => this.props.history.push('/cards/editor')}>
               <img className="editor-button-img" src="/editor.png" alt="editor-chan"/>
-              <div className="editor-button-text">Open the editor</div>
+              <div className="editor-button-text">Ouvrir l'éditeur</div>
             </button>
             : <span/>
           }
-          <div className="bottom-info"><span onClick={() => this.reload()}>Reload the cards</span></div>
+          <div className="bottom-info"><span onClick={() => this.reload()}>Recharger les cartes</span></div>
       	</main>
       </div>
     );

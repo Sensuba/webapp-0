@@ -754,7 +754,7 @@
     background-image: url("Images/glotus.png");
 }
 
-.sensuba-card .sensuba-card-edition.sensuba-card-edition-3 { background-image: url("Images/guardianstar.png"); }
+.sensuba-card .sensuba-card-edition.sensuba-card-edition-3, .sensuba-card .sensuba-card-edition.sensuba-card-edition-4 { background-image: url("Images/guardianstar.png"); }
 
 .sensuba-card .sensuba-card-invisible {
 

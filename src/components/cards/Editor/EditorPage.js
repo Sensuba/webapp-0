@@ -9,7 +9,7 @@ import './EditorPage.css';
 export default class EditorPage extends Component {
 
   defaultCard = {
-      nameCard: "Penguin",
+      nameCard: "Pingouin",
       anime: "Anime",
       imgLink: "https://image.ibb.co/jbcTNJ/penguin.png",
       idColor: 0,

@@ -20,8 +20,6 @@ export default class Hero extends Component {
 
   	var src = this.props.src;
 
-  	var capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
-
   	var level = this.props.level || this.state.level;
   	var eff = src.isEff;
     return (
@@ -40,7 +38,7 @@ export default class Hero extends Component {
 	    { src.illustrator ? <div className="sensuba-card-illustrator">Illus: {src.illustrator}</div> : <span/> }
 	    <div className="sensuba-card-body">
 	    	<div className="sensuba-card-body-header">
-	        	<span className="sensuba-card-type">{capitalize(src.cardType)}</span>
+	        	<span className="sensuba-card-type">Héros</span>
 	        	<span className="sensuba-card-anime">{src.anime}</span>
 	        </div>
 	        <div className="sensuba-card-body-main">
@@ -51,9 +49,9 @@ export default class Hero extends Component {
 	        	{ src.idEdition > 1 ? <div className={"sensuba-card-edition sensuba-card-edition-" + src.idEdition}/> : <span/> }
 	    	</div>
 	    </div>
-		<div className={"sensuba-card-level" + (level !== 1 ? " sensuba-card-invisible" : "")}>Lv 1</div>
-		<div className={"sensuba-card-level" + (level !== 2 ? " sensuba-card-invisible" : "")}>Lv 2</div>
-		<div className={"sensuba-card-level" + (level !== 3 ? " sensuba-card-invisible" : "")}>Lv MAX</div>
+		<div className={"sensuba-card-level" + (level !== 1 ? " sensuba-card-invisible" : "")}>Nv 1</div>
+		<div className={"sensuba-card-level" + (level !== 2 ? " sensuba-card-invisible" : "")}>Nv 2</div>
+		<div className={"sensuba-card-level" + (level !== 3 ? " sensuba-card-invisible" : "")}>Nv MAX</div>
 		<div className="sensuba-card-param sensuba-card-param-atk">
 			<div className="sensuba-card-param-name">ATK</div>
 		   	<div className={"sensuba-card-param-value" + (level !== 1 && !eff ? " sensuba-card-invisible" : "") + (src.atk < src.originalAtk ? " sensuba-card-param-malus" : (src.atk > src.originalAtk ? " sensuba-card-param-bonus" : ""))}>{src.atk}</div>
@@ -61,7 +59,7 @@ export default class Hero extends Component {
 		   	<div className={"sensuba-card-param-value" + (level !== 3 || eff ? " sensuba-card-invisible" : "") + (src.atk < src.originalAtk ? " sensuba-card-param-malus" : (src.atk > src.originalAtk ? " sensuba-card-param-bonus" : ""))}>{src.lvmax.atk}</div>
 		</div>
 		<div className={"sensuba-card-param sensuba-card-param-hp" + (src.hasOwnProperty('poisondmg') && src.poisondmg ? " sensuba-card-althp" : "")}>
-		    <div className="sensuba-card-param-name">HP</div>
+		    <div className="sensuba-card-param-name">PV</div>
 	   	    <div className={"sensuba-card-param-value" + (src.hasOwnProperty('chp') && src.chp < src.hp ? " sensuba-card-param-malus" : "") + (src.hasOwnProperty('chp') ? (src.chp < src.hp ? " sensuba-card-param-malus" : (src.hp > src.originalHp ? " sensuba-card-param-bonus" : "")) : "")}>{src.chp || src.hp}</div>
 		</div>
 		  {

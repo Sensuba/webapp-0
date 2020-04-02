@@ -9,8 +9,8 @@ export default class PlayPage extends Component {
 
   formats = {
       standard: { name: "Standard", cardlist: this.props.cards.filter(card => card.idEdition === 1).concat((this.props.collection || []).map(el => Object.assign({count: el.number}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel)))) },
-      display: { name: "Display", cardlist: this.props.cards },
-      custom: { name: "Custom", cardlist: this.props.cards.filter(card => card.idEdition === 1).concat((this.props.collection || []).map(el => Object.assign({count: el.number}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel)))).concat(this.props.customs) }
+      display: { name: "Vitrine", cardlist: this.props.cards },
+      custom: { name: "Personnalisé", cardlist: this.props.cards.filter(card => card.idEdition === 1).concat((this.props.collection || []).map(el => Object.assign({count: el.number}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel)))).concat(this.props.customs) }
     }
 
 	constructor (props) {
@@ -136,7 +136,7 @@ export default class PlayPage extends Component {
                 </div>
                 <div className="half-section">
                   <div className="sensuba-deckbuilder-search">
-                    <Input type="text" placeholder="Search" className="sensuba-deckbuilder-search-input" value={this.state.filter} onChange={e => this.setState({filter: e.target.value})}/>
+                    <Input type="text" placeholder="Recherche" className="sensuba-deckbuilder-search-input" value={this.state.filter} onChange={e => this.setState({filter: e.target.value})}/>
                     <div className="sensuba-deckbuilder-search-list">
                     {
                       (this.state.decklist || []).filter(c => c.name.toLowerCase().includes(this.state.filter.toLowerCase())).map((c, i) => {
@@ -164,13 +164,13 @@ export default class PlayPage extends Component {
               <div onClick={() => this.seekGame(false)} className="play-panel panel-left">
                 <img className="play-panel-background" src="/play1.jpg" alt="bg"/>
                 <div className="play-panel-text">
-                  <h3>Quick game</h3>
+                  <h3>Partie rapide</h3>
                 </div>
               </div>
               <div onClick={() => this.seekGame(true)} className="play-panel panel-right">
                 <img className="play-panel-background" src="/play2.jpg" alt="bg"/>
                 <div className="play-panel-text">
-                  <h3>Private room</h3>
+                  <h3>Partie privée</h3>
                 </div>
               </div>
             </div>

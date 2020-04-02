@@ -30,15 +30,15 @@ export default class DecksPage extends Component {
 	      		</div>
 	            <button className="editor-button" onClick={() => this.props.history.push('/decks/' + this.deckbuilderType)}>
 	              <img className="editor-button-img" src="/deckbuilder.png" alt="deckbuilder-chan"/>
-	              <div className="editor-button-text">Create a deck</div>
+	              <div className="editor-button-text">Construire un deck</div>
 	            </button>
 	            <div className="editor-select">
 	            	<FormGroup row>
 			          <Input type="select" name="select" id="form-deckbuilder-type" defaultValue="builder" onChange={e => this.deckbuilderType = e.target.value}>
 			            <option value="builder">Standard</option>
 			            <option value="miracle">Miracle</option>
-			            <option value="custom">Custom</option>
-			            <option value="display">Display</option>
+			            <option value="custom">Personnalisé</option>
+			            <option value="display">Vitrine</option>
 			          </Input>
 			        </FormGroup>
 	            </div>

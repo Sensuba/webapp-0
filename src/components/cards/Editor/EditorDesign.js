@@ -127,7 +127,7 @@ export default class EditorPage extends Component {
         delete shadow.lvmax.htmlDescription;
     }
 
-    var superCode = window.btoa(JSON.stringify(shadow).replace(/[^\x00-\x7F]/g, ""));
+    var superCode = window.btoa(JSON.stringify(shadow).replace(/"[^\x00-\x7Fàéçâîôêûöïüëäè]"/g, ""));
 
     var currentLevel = this.currentCard.cardType !== "hero" ? null : (this.state.level === 1 ? this.currentCard : (this.state.level === 2 ? this.currentCard.lv2 : this.currentCard.lvmax));
 
@@ -139,23 +139,23 @@ export default class EditorPage extends Component {
               <FormGroup>
                 <div className="types-group vintage-radio">
                   <Input id="hero-card" type="radio" name="sensuba-type" onChange={() => this.changeType("hero")} checked={this.currentCard.cardType === "hero"}/>
-                  <Label for="hero-card">Hero</Label>
+                  <Label for="hero-card">Héros</Label>
                   <Input id="figure-card" type="radio" name="sensuba-type" onChange={() => this.changeType("figure")} checked={this.currentCard.cardType === "figure"}/>
                   <Label for="figure-card">Figure</Label>
                   <Input id="spell-card" type="radio" name="sensuba-type" onChange={() => this.changeType("spell")} checked={this.currentCard.cardType === "spell"}/>
-                  <Label for="spell-card">Spell</Label>
+                  <Label for="spell-card">Sort</Label>
                   <Input id="trap-card" type="radio" name="sensuba-type" onChange={() => this.changeType("trap")} checked={this.currentCard.cardType === "trap"}/>
                   {
                     this.props.token.length > 0
-                    ? <Label for="trap-card">Trap</Label>
+                    ? <Label for="trap-card">Piège</Label>
                     : <span/>
                   }
                   <Input id="artifact-card" type="radio" name="sensuba-type" onChange={() => this.changeType("artifact")} checked={this.currentCard.cardType === "artifact"}/>
-                  <Label for="artifact-card">Artifact</Label>
+                  <Label for="artifact-card">Artéfact</Label>
                 </div>
               </FormGroup>
               <FormGroup>
-                <Label for="form-card-name">Name</Label>
+                <Label for="form-card-name">Nom</Label>
                 <Input id="form-card-name" type="text" value={this.currentCard.nameCard} onChange={editAttribute("nameCard").bind(this)}/>
               </FormGroup>
               {
@@ -171,14 +171,14 @@ export default class EditorPage extends Component {
                         <Input id="form-card-anime" type="text" value={this.currentCard.anime} onChange={editAttribute("anime").bind(this)}/>
                       </div>
                       <div className="third-section">
-                        <Label for="form-card-hp">HP</Label>
+                        <Label for="form-card-hp">PV</Label>
                         <Input id="form-card-hp" type="number" min="100" max="9999" step="100" value={this.currentCard.hp} onChange={editAttribute("hp").bind(this)}/>
                       </div>
                   </FormGroup>
               }
               <FormGroup>
                 <div className="half-section">
-                  <Label>Color</Label>
+                  <Label>Couleur</Label>
                   <div className="colors-group">
                     <Input id="neutral-mana" type="radio" name="sensuba-color" onChange={changeColor(0)} checked={this.currentCard.idColor === 0}/>
                     <Label for="neutral-mana"/>
@@ -202,7 +202,7 @@ export default class EditorPage extends Component {
                     </div>
                     :
                     <div className="half-section">
-                      <Label>Color 2</Label>
+                      <Label>Couleur 2</Label>
                       <div className="colors-group">
                         <Input id="neutral-mana-2" type="radio" name="sensuba-color-2" onChange={changeColor2(0)} checked={this.currentCard.idColor2 === 0}/>
                         <Label for="neutral-mana-2"/>
@@ -224,11 +224,11 @@ export default class EditorPage extends Component {
                 this.currentCard.cardType === "figure" ?
                 <FormGroup>
                   <div className="half-section">
-                    <Label for="form-card-archetype1">Archetype 1</Label>
+                    <Label for="form-card-archetype1">Archétype 1</Label>
                     <Input id="form-card-archetype1" type="text" value={(this.currentCard.archetypes && this.currentCard.archetypes.length > 0) ? this.currentCard.archetypes[0] : ""} onChange={e => changeArchetypes(e.target.value, document.getElementById("form-card-archetype2").value)}/>
                   </div>
                   <div className="half-section">
-                    <Label for="form-card-archetype2">Archetype 2</Label>
+                    <Label for="form-card-archetype2">Archétype 2</Label>
                     <Input id="form-card-archetype2" type="text" value={(this.currentCard.archetypes && this.currentCard.archetypes.length > 1) ? this.currentCard.archetypes[1] : ""} onChange={e => changeArchetypes(document.getElementById("form-card-archetype1").value, e.target.value)}/>
                   </div>
                 </FormGroup> : <span/>
@@ -241,11 +241,11 @@ export default class EditorPage extends Component {
                     <Input id="form-card-atk" type="number" min="0" max="9999" step="100" value={this.currentCard.atk} onChange={editAttribute("atk").bind(this)}/>
                   </div>
                   <div className="third-section">
-                    <Label for="form-card-hp">HP</Label>
+                    <Label for="form-card-hp">PV</Label>
                     <Input id="form-card-hp" type="number" min="100" max="9999" step="100" value={this.currentCard.hp} onChange={editAttribute("hp").bind(this)}/>
                   </div>
                   <div className="third-section">
-                    <Label for="form-card-range">Range</Label>
+                    <Label for="form-card-range">Portée</Label>
                     <Input id="form-card-range" type="number" min="1" max="3" value={this.currentCard.range} onChange={editAttribute("range").bind(this)}/>
                   </div>
                 </FormGroup> : <span/>
@@ -255,11 +255,11 @@ export default class EditorPage extends Component {
                 <div className="editor-menu">
                   <div className="editor-menu-tabs">
                     <Input id="level1-tab" type="radio" onChange={() => this.setState({level: 1})} checked={this.state.level === 1}/>
-                    <Label for="level1-tab">LV 1</Label>
+                    <Label for="level1-tab">Niv 1</Label>
                     <Input id="level2-tab" type="radio" onChange={() => this.setState({level: 2})} checked={this.state.level === 2}/>
-                    <Label for="level2-tab">LV 2</Label>
+                    <Label for="level2-tab">Niv 2</Label>
                     <Input id="levelmax-tab" type="radio" onChange={() => this.setState({level: 3})} checked={this.state.level === 3}/>
-                    <Label for="levelmax-tab">LV MAX</Label>
+                    <Label for="levelmax-tab">Niv MAX</Label>
                   </div>
                   <div className="editor-box">
                     <FormGroup>
@@ -268,7 +268,7 @@ export default class EditorPage extends Component {
                         <Input id="form-card-atk" type="number" min="0" max="9999" step="100" value={currentLevel.atk} onChange={e => editLevelAttribute("atk")(e, currentLevel)}/>
                       </div>
                       <div className="half-section">
-                        <Label for="form-card-range">Range</Label>
+                        <Label for="form-card-range">Portée</Label>
                         <Input id="form-card-range" type="number" min="1" max="3" value={currentLevel.range} onChange={e => editLevelAttribute("range")(e, currentLevel)}/>
                       </div>
                     </FormGroup>
@@ -278,9 +278,9 @@ export default class EditorPage extends Component {
                         <Input id="form-card-description" rows="4" type="textarea" value={currentLevel.description} onChange={e => editLevelAttribute("description")(e, currentLevel)}/>
                       </div>
                       <div className="third-section">
-                        <Label for="form-card-font-size">Font size</Label>
+                        <Label for="form-card-font-size">Taille du texte</Label>
                         <Input id="form-card-font-size" type="number" min="0.95" max="1.3" step="0.05" value={currentLevel.fontSize} onChange={e => editLevelAttribute("fontSize")(e, currentLevel)}/>
-                        <Label for="form-card-overload">Limit</Label>
+                        <Label for="form-card-overload">Limite</Label>
                         <Input id="form-card-overload" type="number" min="0" max="10000" step="10" value={currentLevel.overload} onChange={e => editLevelAttribute("overload")(e, currentLevel)}/>
                       </div>
                     </FormGroup>
@@ -290,7 +290,7 @@ export default class EditorPage extends Component {
               {
                 this.currentCard.cardType === "artifact" ?
                 <FormGroup>
-                    <Label for="form-card-hp">Durability</Label>
+                    <Label for="form-card-hp">Durabilité</Label>
                     <Input id="form-card-hp" type="number" min="100" max="9999" step="100" value={this.currentCard.hp} onChange={editAttribute("hp").bind(this)}/>
                 </FormGroup> : <span/>
               }
@@ -302,27 +302,27 @@ export default class EditorPage extends Component {
                   <Input id="form-card-description" rows="4" type="textarea" value={this.currentCard.description} onChange={editAttribute("description").bind(this)}/>
                 </div>
                 <div className="third-section">
-                  <Label for="form-card-font-size">Font size</Label>
+                  <Label for="form-card-font-size">Taille du texte</Label>
                   <Input id="form-card-font-size" type="number" min="0.95" max="1.3" step="0.05" value={this.currentCard.fontSize} onChange={editAttribute("fontSize").bind(this)}/>
-                  <Label for="form-card-overload">Limit</Label>
+                  <Label for="form-card-overload">Limite</Label>
                   <Input id="form-card-overload" type="number" min="0" max="10000" step="10" value={this.currentCard.overload} onChange={editAttribute("overload").bind(this)}/>
                 </div>
               </FormGroup> : <span/>
               }
               <FormGroup>
-                <Label for="form-card-flavour">Flavour text</Label>
+                <Label for="form-card-flavour">Texte d'ambiance</Label>
                 <Input id="form-card-flavour" type="textarea" value={this.currentCard.flavourText} onChange={editAttribute("flavourText").bind(this)}/>
               </FormGroup>
               <FormGroup>
-                <Label for="form-card-img">Image link</Label>
+                <Label for="form-card-img">Lien de l'image</Label>
                 <Input id="form-card-img" type="url" value={this.currentCard.imgLink} onChange={editAttribute("imgLink").bind(this)}/>
               </FormGroup>
               <FormGroup>
-                <Label for="form-card-highres">High resolution image</Label>
+                <Label for="form-card-highres">Image en haute résolution</Label>
                 <Input id="form-card-highres" type="url" value={this.currentCard.highRes} onChange={editAttribute("highRes").bind(this)}/>
               </FormGroup>
               <FormGroup>
-                <Label for="form-card-illustrator">Illustrator</Label>
+                <Label for="form-card-illustrator">Illustrateur</Label>
                 <Input id="form-card-illustrator" type="text" value={this.currentCard.illustrator || ""} onChange={editAttribute("illustrator").bind(this)}/>
               </FormGroup>
             </Form>
@@ -331,7 +331,7 @@ export default class EditorPage extends Component {
         <div className="half-section">
           <div className="editor-card-visual">
             <Card id="card-preview" level={this.state.level} src={this.currentCard}/>
-            { this.props.token.length === 0 ? <button className="menu-button" onClick={() => this.props.save()}>{ this.props.isEdit ? "Edit" : "Save" }</button> : <span/> }
+            { this.props.token.length === 0 ? <button className="menu-button" onClick={() => this.props.save()}>{ this.props.isEdit ? "Modifier" : "Enregistrer" }</button> : <span/> }
             { this.props.card.idCardmodel !== undefined || this.props.token.length > 0 ? <button className="red menu-button" onClick={() => this.props.delete()}>Delete</button> : <span/> }
             <div className="editor-box">
               <Label for="form-card-supercode">Supercode</Label>
@@ -353,7 +353,7 @@ export default class EditorPage extends Component {
                   return null;
                 })()
               }
-              <button className="red menu-button" onClick={() => this.newToken()}>New token</button>
+              <button className="red menu-button" onClick={() => this.newToken()}>Nouveau jeton</button>
             </div>
           </div>
         </div>

@@ -14,45 +14,45 @@ export default class HomePage extends Component {
               <img className="home-panel-background" src="/img1.jpg" alt="bg"/>
               <div className="home-panel-filter"/>
               <div className="home-panel-text">
-                <h3>Get into the game</h3>
-                <p>Once again, worlds will collide ! With the power of your cards, engage fierce battles between heroes of any time or any world, and gather people to help you during your fight. Play Sensuba online for free to experience the world of card battles between your favorites anime characters.</p>
-                <button className="select-button" onClick={() => this.props.history.push("/play")}>Start a game</button>
+                <h3>Plongez dans la bataille</h3>
+                <p>Une fois encore, les mondes convergent dans une bataille infernale ! Utilisez le pouvoir de vos cartes pour mener des batailles entre héros de tous temps et de tout univers. Jouez à Sensubaa en ligne gratuitement pour profiter du duels épiques entre vos personnages d'animes préférés.</p>
+                <button className="select-button" onClick={() => this.props.history.push("/play")}>Lancer une partie</button>
               </div>
             </div>
             <div className="home-panel panel-right">
               <img className="home-panel-background" src="/img2.jpg" alt="bg"/>
               <div className="home-panel-filter"/>
               <div className="home-panel-text">
-                <h3>How to play ?</h3>
-                <p>Come here to get all the knowledge you need to play Sensuba with your friends and kick asses online.</p>
-                <button className="select-button" onClick={() => this.props.history.push("/solo")}>Learn the basics</button>
+                <h3>Comment jouer ?</h3>
+                <p>Découvrez les règles de Sensuba à travers un tutoriel en plusieurs missions pour maîtriser les arcanes des cartes et battre tous vos amis.</p>
+                <button className="select-button" onClick={() => this.props.history.push("/solo")}>Apprendre à jouer</button>
               </div>
             </div>
             <div className="home-panel panel-left">
               <img className="home-panel-background" src="/img3.jpg" alt="bg"/>
               <div className="home-panel-filter"/>
               <div className="home-panel-text">
-                <h3>A full set of cards</h3>
-                <p>Explore the collection and discover more than 200 cards. Assemble effects to conceive powerful synergies.</p>
-                <button className="select-button" onClick={() => this.props.history.push("/cards")}>Explore the collection</button>
+                <h3>Une grande variété de cartes</h3>
+                <p>Explorez la collection pour découvrir les 400 cartes disponibles. Concevez les meilleures stratégies !</p>
+                <button className="select-button" onClick={() => this.props.history.push("/cards")}>Voir la collection</button>
               </div>
             </div>
             <div className="home-panel panel-right">
               <img className="home-panel-background" src="/img4.jpg" alt="bg"/>
               <div className="home-panel-filter"/>
               <div className="home-panel-text">
-                <h3>Join us on Discord</h3>
-                <p>Meet the community and share your playstyle with everyone. By sharing your experience and your time with others, you support the game and get better at it.</p>
-                <a className="select-button" target="_blank" rel="noopener noreferrer" href="https://discordapp.com/invite/gqRdwg2">Continue to Discord</a>
+                <h3>Rejoignez-nous sur Discord</h3>
+                <p>Rencontrez la communauté et affrontez d'autres passionnés. En partageant votre expérience et votre temps avec les autres, vous supportez le jeu et vous améliorez en même temps.</p>
+                <a className="select-button" target="_blank" rel="noopener noreferrer" href="https://discordapp.com/invite/gqRdwg2">Ouvrir Discord</a>
               </div>
             </div>
             <div className="home-panel panel-left">
               <img className="home-panel-background" src="/img5.jpg" alt="bg"/>
               <div className="home-panel-filter"/>
               <div className="home-panel-text">
-                <h3>Support us</h3>
-                <p>Sensuba is a fully free game, but cost us both time and money. Managing the server and database cost more and more as time goes. If you would like the game to live on or would like to show us your support, please do !</p>
-                <a className="select-button" target="_blank" rel="noopener noreferrer" href="https://ko-fi.com/flynnsp">Continue to Ko-fi</a>
+                <h3>Supportez-nous</h3>
+                <p>Sensuba est un jeu complètement gratuit, mais nous coûte du temps et de l'argent. Gérer les serveurs et les données coûte de plus en plus au fil du temps. Si vous voulez que le jeu perdure ou souhaitez nous aidez, nous en serions très reconnaissants !</p>
+                <a className="select-button" target="_blank" rel="noopener noreferrer" href="https://ko-fi.com/flynnsp">Ouvrir Ko-fi</a>
               </div>
             </div>
           </div>

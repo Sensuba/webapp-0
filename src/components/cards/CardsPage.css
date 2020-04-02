@@ -301,9 +301,7 @@
 
 .sensuba-shop-box .sensuba-shop-booster {
 
-  display: block;
-  margin-left: 5em;
-  margin-right: 5em;
+  display: inline-block;
   margin-top: 2em;
   cursor: pointer;
 }

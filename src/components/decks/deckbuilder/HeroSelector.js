@@ -97,7 +97,7 @@ export default class HeroSelector extends Component {
 
 		return (
 		<div>
-			<h1 className="big-text">Pick a hero</h1>
+			<h1 className="big-text">Choisissez un héros</h1>
       <div id="hero-selector" className="hero-selector">
         <div id="hero-list" className="hero-list">
         {

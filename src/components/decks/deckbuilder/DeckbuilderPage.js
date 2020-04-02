@@ -22,18 +22,18 @@ export default class DeckbuilderPage extends Component {
 	  	var deck = this.props.deck;
 	  	var type, format;
 	  	switch (this.props.type) {
-	  	case "standard": type = "Standard"; format = this.props.type; break;
-	  	case "display": type = "Display"; format = this.props.type; break;
-	  	case "miracle": type = "Miracle"; format = "standard"; break;
-	  	case "custom": type = "Custom"; format = this.props.type; break;
-	  	default: type = "New"; format = "display"; break;
+	  	case "standard": type = "Deck Standard"; format = this.props.type; break;
+	  	case "display": type = "Deck Vitrine"; format = this.props.type; break;
+	  	case "miracle": type = "Deck Miracle"; format = "standard"; break;
+	  	case "custom": type = "Deck Personnalisé"; format = this.props.type; break;
+	  	default: type = "Nouveau deck"; format = "display"; break;
 	  	}
 
 	  	if (!deck)
 		  	deck = {
 		  		hero: null,
 		  		cards: {},
-		  		name: type + " Deck",
+		  		name: type,
 		  		format: format
 		  	}
 
