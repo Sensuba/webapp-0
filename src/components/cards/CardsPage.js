@@ -250,7 +250,7 @@ export default class CardsPage extends Component {
 
               return <div>
                   <div className="sensuba-card-focus">{ cf.map((card, i) => <Card switch="manual" key={i} src={card}/>) }</div>
-                  { User.isConnected() && cf[0].rarity ? <div className="sensuba-focus-shop">
+                  { User.isConnected() && cf[0].rarity && cf[0].idEdition < 3 ? <div className="sensuba-focus-shop">
                     <div onClick={() => this.buyCard(cf[0].idCardmodel, pbuy)} className="shop-button">Acheter <span className="sensuba-credits">{ pbuy }</span></div>
                     { this.props.collection.find(card => card.idCardmodel.toString() === this.props.focus) ? <div onClick={() => this.sellCard(cf[0].idCardmodel, psell)} className="shop-button">Vendre <span className="sensuba-credits">{ psell }</span></div> : <span/> }
                   </div> : <span/> }
