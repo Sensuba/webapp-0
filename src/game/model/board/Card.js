@@ -113,6 +113,8 @@ export default class Card {
 	resetBody () {
 
 		let wasActivated = this.activated;
+		if (this.passives)
+			this.passives.forEach(passive => passive.deactivate());
 		if (this.activated)
 			this.deactivate();
 		for (var k in this.model) {
@@ -396,7 +398,7 @@ export default class Card {
 		if (this.blueprint)
 			Reader.read(this.blueprint, this);
 		if (this.isType("hero")) {
-			let lvupf = this.faculties.find(f => f.desc.includes("Level Up"));
+			let lvupf = this.faculties.find(f => f.desc.includes("Level Up") || f.desc.includes("Niveau Supérieur"));
 			if (lvupf)
 				lvupf.show = Object.assign({}, this, { level: this.level === 1 ? 2 : 3 });
 		}

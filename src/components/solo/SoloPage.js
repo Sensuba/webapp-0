@@ -22,7 +22,7 @@ export default class SoloPage extends Component {
                 <div className="solo-panel-chapters">
                   <div className="solo-panel-chapter" onClick={() => this.props.history.push("/solo/mission/tutorial/basics")}>1: Bases</div>
                   <div className="solo-panel-chapter" onClick={() => this.props.history.push("/solo/mission/tutorial/range")}>2: <span className="small-text-chapter-2">Portée & Mouvement</span></div>
-                  <div className="solo-panel-chapter" onClick={() => this.props.history.push("/solo/mission/tutorial/skills")}>3: <span className="small-text-chapter-2">Actions & Compétences</span></div>
+                  <div className="solo-panel-chapter" onClick={() => this.props.history.push("/solo/mission/tutorial/skills")}>3: <span className="small-text-chapter-3">Actions & Compétences</span></div>
                   <div className="solo-panel-chapter" onClick={() => this.props.history.push("/solo/mission/tutorial/heroes")}>4: Héros</div>
                   <div className="solo-panel-chapter" onClick={() => this.props.history.push("/solo/mission/tutorial/artifacts")}>5: <span className="small-text-chapter-2">Gemmes & Artéfacts</span></div>
                   <div className="solo-panel-chapters-end"/>
