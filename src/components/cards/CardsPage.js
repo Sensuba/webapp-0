@@ -326,7 +326,7 @@ export default class CardsPage extends Component {
                 { User.isConnected() && User.getData().authorization > 0 ? <option value="4">A venir</option> : <span/> }
               </select>
               <div>
-                { (nocards > 0 ? <b>{ nocards }</b> : "No")}{ " card" + (nocards > 1 ? "s" : "") + " found" }
+                { (nocards > 0 ? <b>{ nocards }</b> : "Aucune")}{ " carte" + (nocards > 1 ? "s" : "") + " trouvée" + (nocards > 1 ? "s" : "") }
               </div>
             </div>
             <div className="third-section">
