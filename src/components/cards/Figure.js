@@ -18,11 +18,20 @@ export default class Figure extends Component {
   		}
   	}
 
+    var archetypeTranslation = archetype => {
+
+      switch (archetype) {
+      case "beast": return "bête";
+      case "demon": return "démon";
+      default: return archetype;
+      }
+    }
+
   	var ct = "Figure";
   	if (src.archetypes && src.archetypes.length > 0) {
-  		ct += ": " + capitalize(src.archetypes[0]);
+  		ct += ": " + capitalize(archetypeTranslation(src.archetypes[0]));
   		if (src.archetypes && src.archetypes.length > 1)
-  			ct += ", " + capitalize(src.archetypes[1])
+  			ct += ", " + capitalize(archetypeTranslation(src.archetypes[1]))
   	}
   	
     return (
