@@ -67,7 +67,7 @@ export default class DeckbuilderPage extends Component {
   				formats.splice(formats.indexOf(f), 1);
   		})
   	})
-
+console.log(formats)
   	return formats[0];
   }
 

@@ -437,7 +437,7 @@ export default class Card {
 		if (this.blueprint)
 			Reader.read(this.blueprint, this);
 		if (this.isType("hero")) {
-			let lvupf = this.faculties.find(f => f.desc.includes("Level Up"));
+			let lvupf = this.faculties.find(f => f.desc.includes("Level Up") || f.desc.includes("Niveau Supérieur"));
 			if (lvupf)
 				lvupf.show = Object.assign({}, this, { level: this.level === 1 ? 2 : 3 });
 		}
