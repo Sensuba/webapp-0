@@ -231,16 +231,16 @@ export default class Game extends Component {
       <div>
       <Lightbox open={this.state.model.gamestate > 0} onClose={this.props.quitRoom}>
         <div id="endgame-window">
-          <h2>{ (["", "", "Draw !", "Victory !", "Defeat...", "Connection lost :/", "Internal error *-*"])[this.state.model.gamestate] }</h2>
+          <h2>{ (["", "", "Egalité !", "Victoire !", "Défaite...", "Erreur de connexion :/", "Erreur interne *-*"])[this.state.model.gamestate] }</h2>
           { this.state.model.gamestate > 1 ? <CardPreview src={this.state.hero} level={1} model={this.state.hero}/> : <span/> }
-          { this.props.room ? <Button onClick={() => this.saveReplay()} id="replay-button" className="modern-sensuba-button replay-button">Save replay</Button> : <span/> }
-          <Button onClick={this.props.quitRoom} className="proceed-button">Proceed</Button>
+          { this.props.room ? <Button onClick={() => this.saveReplay()} id="replay-button" className="modern-sensuba-button replay-button">Enregistrer</Button> : <span/> }
+          <Button onClick={this.props.quitRoom} className="proceed-button">Continuer</Button>
         </div>
       </Lightbox>
       <Lightbox open={this.state.concedeWindow} onClose={() => this.setState({concedeWindow: false})}>
         <div id="concede-window">
-          <h2>Concede ?</h2>
-          <Button onClick={() => { this.command({ type: "concede" }); this.setState({concedeWindow: false}); }} className="proceed-button">Concede</Button>
+          <h2>Abandonner ?</h2>
+          <Button onClick={() => { this.command({ type: "concede" }); this.setState({concedeWindow: false}); }} className="proceed-button">Abandonner</Button>
         </div>
       </Lightbox>
       <div id="faculty-tooltip" data-toggle="tooltip" data-placement="right" data-animation="false" data-trigger="manual" /*style={{marginTop: "-" + (this.state.faculties ? this.state.faculties.length-1 : 0) + "em"}}*/>
@@ -258,8 +258,8 @@ export default class Game extends Component {
           <div className="waiting-room">
             <Loader type="connect"/>
             <div className="waiting-text">
-              { this.props.room ? "Waiting for an opponent..." : "Waiting for the server..." }
-              <br/><span className="small-text">{ this.props.room ? "To fight a friend, share the url with them." : "" }</span>
+              { this.props.room ? "En attente d'un adversaire..." : "En attente du serveur..." }
+              <br/><span className="small-text">{ this.props.room ? "Pour affronter un ami, partagez-leur l'url." : "" }</span>
             </div>
           </div>
         : <span/>

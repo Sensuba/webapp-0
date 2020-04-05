@@ -385,16 +385,16 @@ export default class CardsPage extends Component {
                 <option value="rarity">Rareté</option>
                 <option value="anime">Anime</option>
               </select>
-              <div className="sensuba-search-interact" onClick={e => this.setState({advsearch: !this.state.advsearch})}>More filters &#10148;</div>
+              <div className="sensuba-search-interact" onClick={e => this.setState({advsearch: !this.state.advsearch})}>Plus d'options &#10148;</div>
             </div>
           </div>
           {
             this.state.advsearch ?
             <div className="sensuba-card-search">
               <div className="third-section">
-                <Input id="sensuba-search-name" value={this.filter.name} type="text" placeholder="Name" onChange={editFilter("name").bind(this)}/>
+                <Input id="sensuba-search-name" value={this.filter.name} type="text" placeholder="Nom" onChange={editFilter("name").bind(this)}/>
                 <Input id="sensuba-search-description" value={this.filter.description} type="text" placeholder="Description" onChange={editFilter("description").bind(this)}/>
-                <Input id="sensuba-search-archetype" value={this.filter.archetype} type="text" placeholder="Archetype" onChange={editFilter("archetype").bind(this)}/>
+                <Input id="sensuba-search-archetype" value={this.filter.archetype} type="text" placeholder="Archétype" onChange={editFilter("archetype").bind(this)}/>
                 <Input id="sensuba-search-anime" value={this.filter.anime} type="text" placeholder="Anime" onChange={editFilter("anime").bind(this)}/>
               </div>
               <div className="two-thirds-section">

@@ -40,7 +40,7 @@
 
 .replay-button::before {
 
-  content: "Copied !";
+  content: "Copié !";
   position: absolute;
   background-color: black;
   color: white;
