@@ -117,8 +117,11 @@ export default class Game extends Component {
 
   onEndgame (data) {
 
-    if (User.isConnected() && data.credit)
-      User.updateCredit(User.getData().credit + data.credit);
+    if (User.isConnected() && data.credit) {
+      var credit = User.getData().credit + data.credit;
+      User.updateCredit(credit);
+      this.setState({credit: {gain: data.credit, total: credit}});
+    }
     this.sequencer.add({type: "end", src: 0, data: [{type: "int", no: data.state}]});
   }
 
@@ -232,7 +235,12 @@ export default class Game extends Component {
       <Lightbox open={this.state.model.gamestate > 0} onClose={this.props.quitRoom}>
         <div id="endgame-window">
           <h2>{ (["", "", "Egalité !", "Victoire !", "Défaite...", "Erreur de connexion :/", "Erreur interne *-*"])[this.state.model.gamestate] }</h2>
-          { this.state.model.gamestate > 1 ? <CardPreview src={this.state.hero} level={1} model={this.state.hero}/> : <span/> }
+          { this.state.model.gamestate > 1 ?
+            <div>
+              <CardPreview src={this.state.hero} level={1} model={this.state.hero}/>
+              { User.isConnected() && this.state.credit ? <div className="sensuba-endgame-credits">Obtenu: <span className="sensuba-credits">{this.state.credit.gain}</span> | Total: <span className="sensuba-credits">{this.state.credit.total}</span></div> : <span/> }
+            </div> : <span/>
+          }
           { this.props.room ? <Button onClick={() => this.saveReplay()} id="replay-button" className="modern-sensuba-button replay-button">Enregistrer</Button> : <span/> }
           <Button onClick={this.props.quitRoom} className="proceed-button">Continuer</Button>
         </div>
