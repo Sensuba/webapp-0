@@ -393,7 +393,7 @@ export default class Card {
 			this.actionPt = 1;
 			this.skillPt = 1;
 			this.activated = true;
-			this.faculties.push({no: 0, desc: "Create a mana receptacle.", cost: "!"});
+			this.faculties.push({no: 0, desc: "Crée un réceptacle de mana.", cost: "!"});
 		}
 		if (this.blueprint)
 			Reader.read(this.blueprint, this);
@@ -403,7 +403,7 @@ export default class Card {
 				lvupf.show = Object.assign({}, this, { level: this.level === 1 ? 2 : 3 });
 		}
 		if (this.isType("artifact"))
-			this.faculties.push({no: this.faculties.length, desc: "Explode.", cost: "0"});
+			this.faculties.push({no: this.faculties.length, desc: "Explose.", cost: "0"});
 		if (this.onBoard)
 			this.resetSickness();
 		this.update();
@@ -432,7 +432,7 @@ export default class Card {
 		this.originalRange = this.range;
 		this.blueprint = lv.blueprint;
 		this.targets = [Event.targets.friendlyEmpty];
-		this.faculties = [{no: 0, desc: "Create a mana receptacle.", cost: "!"}];
+		this.faculties = [{no: 0, desc: "Crée un réceptacle de mana.", cost: "!"}];
 
 		if (this.blueprint)
 			Reader.read(this.blueprint, this);
@@ -441,6 +441,8 @@ export default class Card {
 			if (lvupf)
 				lvupf.show = Object.assign({}, this, { level: this.level === 1 ? 2 : 3 });
 		}
+		if (this.isType("artifact"))
+			this.faculties.push({no: this.faculties.length, desc: "Explose.", cost: "0"});
 		this.gameboard.update();
 	}
 
