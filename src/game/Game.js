@@ -279,7 +279,7 @@ export default class Game extends Component {
       <MuteButton switch={() => this.switchMute()} master={this}/>
       <History entries={this.state.model.log.history} master={this}/>
       <div id="newturn-frame">
-        <h1 className="big-text">Your Turn</h1>
+        <h1 className="big-text">A vous de jouer</h1>
       </div>
       </div>
     );
