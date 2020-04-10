@@ -268,6 +268,7 @@ export default class Game extends Component {
             <div className="waiting-text">
               { this.props.room ? "En attente d'un adversaire..." : "En attente du serveur..." }
               <br/><span className="small-text">{ this.props.room ? "Pour affronter un ami, partagez-leur l'url." : "" }</span>
+              { this.props.room ? <span><br/><span className="small-text">{ "Pas d'adversaire ? Venez sur "}<a target="_blank" rel="noopener noreferrer" href="https://discordapp.com/invite/gqRdwg2">notre Discord</a>{"."}</span></span> : <span/> }
             </div>
           </div>
         : <span/>

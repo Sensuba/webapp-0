@@ -241,16 +241,16 @@ export default class CardsPage extends Component {
 
               var pbuy = 0, psell = 0;
               switch (cf[0].rarity) {
-              case 1: pbuy = 20; psell = 4; break;
-              case 2: pbuy = 40; psell = 8; break;
-              case 3: pbuy = 80; psell = 16; break;
+              case 1: pbuy = 25; psell = 4; break;
+              case 2: pbuy = 50; psell = 8; break;
+              case 3: pbuy = 100; psell = 16; break;
               case 4: pbuy = 200; psell = 20; break;
               default: break;
               }
 
               return <div>
                   <div className="sensuba-card-focus">{ cf.map((card, i) => <Card switch="manual" key={i} src={card}/>) }</div>
-                  { User.isConnected() && cf[0].rarity && cf[0].idEdition < 3 ? <div className="sensuba-focus-shop">
+                  { User.isConnected() && cf[0].rarity && cf[0].idEdition < 4 ? <div className="sensuba-focus-shop">
                     <div onClick={() => this.buyCard(cf[0].idCardmodel, pbuy)} className="shop-button">Acheter <span className="sensuba-credits">{ pbuy }</span></div>
                     { this.props.collection.find(card => card.idCardmodel.toString() === this.props.focus) ? <div onClick={() => this.sellCard(cf[0].idCardmodel, psell)} className="shop-button">Vendre <span className="sensuba-credits">{ psell }</span></div> : <span/> }
                   </div> : <span/> }
@@ -267,7 +267,7 @@ export default class CardsPage extends Component {
               <span className="sensuba-credits">{ User.getData().credit }</span>
             </div>
             <div onClick={() => this.buyBooster(2)} className="sensuba-shop-booster"><Booster expansion="Classic" theme="lightblue" img="/game/back.png"/></div>
-            {/*<div onClick={() => this.buyBooster(3)} className="sensuba-shop-booster"><Booster expansion="Guardian Star" theme="darksky" img="/guardianstar.jpg"/></div>*/}
+            <div onClick={() => this.buyBooster(3)} className="sensuba-shop-booster"><Booster expansion="Etoile Gardienne" theme="darksky" img="/guardianstar.jpg"/></div>
           </Lightbox> : <span/>
         }
         {
@@ -323,7 +323,7 @@ export default class CardsPage extends Component {
                 <option value="1">Basique</option>
                 <option value="2">Classique</option>
                 <option value="3">Etoile Gardienne</option>
-                { User.isConnected() && User.getData().authorization > 0 ? <option value="4">A venir</option> : <span/> }
+                { (() => { if (User.isConnected() && User.getData().authorization > 0) return <option value="4">A venir</option> })() }
               </select>
               <div>
                 { (nocards > 0 ? <b>{ nocards }</b> : "Aucune")}{ " carte" + (nocards > 1 ? "s" : "") + " trouvée" + (nocards > 1 ? "s" : "") }

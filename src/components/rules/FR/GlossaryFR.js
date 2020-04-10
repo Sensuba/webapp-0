@@ -101,7 +101,7 @@ export default class GlossaryFR extends Component {
               <img className="glossary-panel-background" src="/glossary/conceal.jpg" alt="bg"/>
               <div className="glossary-panel-filter"/>
               <div className="glossary-panel-text">
-                <h3>Conceal</h3>
+                <h3>Camouflage</h3>
                 <p>Ne peut pas être ciblé par des attaques ou des effets de carte. Ne peut pas défendre.</p>
                 </div>
           </div>
