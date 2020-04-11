@@ -299,10 +299,16 @@
   right: 1em;
 }
 
+.sensuba-shop-box .sensuba-shop-boosters {
+
+  margin-top: 2em;
+  overflow: auto;
+  display: flex;
+}
+
 .sensuba-shop-box .sensuba-shop-booster {
 
   display: inline-block;
-  margin-top: 2em;
   cursor: pointer;
 }
 

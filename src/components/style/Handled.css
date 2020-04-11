@@ -136,6 +136,12 @@ nav .breadcrumb {
 	max-width: 50% !important;
 }
 
+.sensuba-shop-boosters {
+
+	font-size: 0.7em !important;
+	max-width: calc(100vw - 2em) !important;
+}
+
 .rule-extender .explanation {
 
 	display: block !important;

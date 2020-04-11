@@ -10,6 +10,8 @@ import Lightbox from '../utility/Lightbox';
 import Loader from '../utility/Loader';
 import Booster from './shop/Booster';
 
+const PAGE_SIZE = 50;
+
 export default class CardsPage extends Component {
 
 	constructor (props) {
@@ -19,6 +21,8 @@ export default class CardsPage extends Component {
     this.state = {
       advsearch: false
     };
+
+    this.timers = {};
 
     window.search = name => sorter.filter(this.cardlist, {orderBy: "name", search: name});
     window.update = () => Library.clear();
@@ -195,18 +199,29 @@ export default class CardsPage extends Component {
     var mode = url.searchParams.get("mode");
 
     var page = 0;
-    if (nocards > 100) {
+    if (nocards > PAGE_SIZE) {
       var fpage = url.searchParams.get("page") || "";
       if (fpage && !isNaN(fpage))
         page = parseInt(fpage, 10);
-      cards = cards.slice(100*page, 100*(page+1));
+      cards = cards.slice(PAGE_SIZE*page, PAGE_SIZE*(page+1));
     }
 
     var goPage = p => this.search(this.filter, mode, p);
 
+    var editText = attr => (e => {
+
+      this.timers[attr] = Date.now();
+      var val = e.target.value;
+      setTimeout(() => {
+        if (Date.now() - this.timers[attr] < 790)
+          return;
+        editFilter(attr)(val);
+      }, 800)
+    })
+
     var editFilter = attr => (e => {
       var plus = {};
-      plus[attr] = e.target.value;
+      plus[attr] = e.target ? e.target.value : e;
       this.search(Object.assign({}, this.filter, plus), mode);
     });
 
@@ -266,8 +281,10 @@ export default class CardsPage extends Component {
             <div className="sensuba-shop-credits">
               <span className="sensuba-credits">{ User.getData().credit }</span>
             </div>
-            <div onClick={() => this.buyBooster(2)} className="sensuba-shop-booster"><Booster expansion="Classic" theme="lightblue" img="/game/back.png"/></div>
-            <div onClick={() => this.buyBooster(3)} className="sensuba-shop-booster"><Booster expansion="Etoile Gardienne" theme="darksky" img="/guardianstar.jpg"/></div>
+            <div className="sensuba-shop-boosters">
+              <div onClick={() => this.buyBooster(2)} className="sensuba-shop-booster"><Booster expansion="Classic" theme="lightblue" img="/game/back.png"/></div>
+              <div onClick={() => this.buyBooster(3)} className="sensuba-shop-booster"><Booster expansion="Etoile Gardienne" theme="darksky" img="/guardianstar.jpg"/></div>
+            </div>
           </Lightbox> : <span/>
         }
         {
@@ -316,7 +333,7 @@ export default class CardsPage extends Component {
           }
           <div className="sensuba-card-search">
             <div className="third-section">
-              <Input id="sensuba-search-text" value={this.filter.search} type="text" placeholder="Recherche" onChange={editFilter("search").bind(this)}/>
+              <Input id="sensuba-search-text" defaultValue={this.filter.search} type="text" placeholder="Recherche" onChange={editText("search").bind(this)}/>
               <Label for="sensuba-search-edition" className="sensuba-search-select-label">Edition</Label>
               <select value={this.filter.edition} id="sensuba-search-edition" onChange={editFilter("edition").bind(this)}>
                 <option value="">---</option>
@@ -348,11 +365,11 @@ export default class CardsPage extends Component {
               </select>
               <div className="sensuba-search-page">
                {
-                nocards > 100 ?
+                nocards > PAGE_SIZE ?
                 <div>
                   <span className={"sensuba-search-page-button" + (page > 0 ? "" : " sensuba-search-page-locked-button")} onClick={page > 0 ? () => goPage(page-1) : () => {}}>&#11164;</span>
-                  <span className="sensuba-search-page-text">{ (page + 1) + " / " + (Math.floor((nocards-1) / 100 + 1)) }</span>
-                  <span className={"sensuba-search-page-button" + (page < Math.floor((nocards-1) / 100) ? "" : " sensuba-search-page-locked-button")} onClick={page < Math.floor((nocards-1) / 100) ? () => goPage(page+1) : () => {}}>&#11166;</span> 
+                  <span className="sensuba-search-page-text">{ (page + 1) + " / " + (Math.floor((nocards-1) / PAGE_SIZE + 1)) }</span>
+                  <span className={"sensuba-search-page-button" + (page < Math.floor((nocards-1) / PAGE_SIZE) ? "" : " sensuba-search-page-locked-button")} onClick={page < Math.floor((nocards-1) / PAGE_SIZE) ? () => goPage(page+1) : () => {}}>&#11166;</span> 
                 </div>
                 : <span/>
                }
@@ -392,10 +409,10 @@ export default class CardsPage extends Component {
             this.state.advsearch ?
             <div className="sensuba-card-search">
               <div className="third-section">
-                <Input id="sensuba-search-name" value={this.filter.name} type="text" placeholder="Nom" onChange={editFilter("name").bind(this)}/>
-                <Input id="sensuba-search-description" value={this.filter.description} type="text" placeholder="Description" onChange={editFilter("description").bind(this)}/>
-                <Input id="sensuba-search-archetype" value={this.filter.archetype} type="text" placeholder="Archétype" onChange={editFilter("archetype").bind(this)}/>
-                <Input id="sensuba-search-anime" value={this.filter.anime} type="text" placeholder="Anime" onChange={editFilter("anime").bind(this)}/>
+                <Input id="sensuba-search-name" defaultValue={this.filter.name} type="text" placeholder="Nom" onChange={editText("name").bind(this)}/>
+                <Input id="sensuba-search-description" defaultValue={this.filter.description} type="text" placeholder="Description" onChange={editText("description").bind(this)}/>
+                <Input id="sensuba-search-archetype" defaultValue={this.filter.archetype} type="text" placeholder="Archétype" onChange={editText("archetype").bind(this)}/>
+                <Input id="sensuba-search-anime" defaultValue={this.filter.anime} type="text" placeholder="Anime" onChange={editText("anime").bind(this)}/>
               </div>
               <div className="two-thirds-section">
                 <div className="third-section">
@@ -443,10 +460,10 @@ export default class CardsPage extends Component {
                   </select>
                 </div>
                 <div className="third-section">
-                  <Input id="sensuba-search-mana" value={this.filter.mana} type="text" onChange={editFilter("mana").bind(this)}/>
-                  <Input id="sensuba-search-atk" value={this.filter.atk} type="text" onChange={editFilter("atk").bind(this)}/>
-                  <Input id="sensuba-search-hp" value={this.filter.hp} type="text" onChange={editFilter("hp").bind(this)}/>
-                  <Input id="sensuba-search-range" value={this.filter.range} type="text" onChange={editFilter("range").bind(this)}/>
+                  <Input id="sensuba-search-mana" defaultValue={this.filter.mana} type="text" onChange={editText("mana").bind(this)}/>
+                  <Input id="sensuba-search-atk" defaultValue={this.filter.atk} type="text" onChange={editText("atk").bind(this)}/>
+                  <Input id="sensuba-search-hp" defaultValue={this.filter.hp} type="text" onChange={editText("hp").bind(this)}/>
+                  <Input id="sensuba-search-range" defaultValue={this.filter.range} type="text" onChange={editText("range").bind(this)}/>
                 </div>
               </div>
             </div>

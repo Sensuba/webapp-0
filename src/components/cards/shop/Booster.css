@@ -61,13 +61,13 @@
   
   position: absolute;
   max-height: 1em;
-  top: 1.5rem;
+  top: 0.6em;
   z-index: 2;
   height: 100%;
   width: 100%;
   font-family: Constantia;
   color: #fff;
-  text-shadow: 0 0 0.05rem #000;
+  text-shadow: 0 0 0.05em #000;
   font-size: 2.5em;
   font-weight: 700;
   text-align: center;
@@ -76,12 +76,12 @@
 
 .sensuba-booster .sensuba-booster-expansion-name {
   
-  top: 15rem;
+  top: 6em;
 }
 
 .sensuba-booster .sensuba-booster-boosterpack-text {
   
-  top: 18rem;
+  top: 18em;
   font-size: 1em;
   opacity: 0.9;
 }
@@ -124,8 +124,8 @@
 .sensuba-booster .sensuba-booster-card-preview {
 
 	position: absolute;
-    top: 2.5rem;
-    left: 0rem;
+    top: 2.5em;
+    left: 0em;
     width: 15em;
     height: 20em;
     font-size: 0.95em;
@@ -135,7 +135,7 @@
 
 .sensuba-booster:hover .sensuba-booster-card-preview {
 
-	top: -1rem;
+	top: -1em;
 }
 
 .sensuba-booster-sky .sensuba-booster-extremum { background: #009FFB }
@@ -161,8 +161,8 @@
 
 .sensuba-booster-darksky .sensuba-booster-extremum { background: #d8c32f }/* 111b3e */
 .sensuba-booster-darksky .sensuba-booster-medium { background: #23979c }
-.sensuba-booster-darksky .sensuba-booster-title { text-shadow: 0 0 0.25rem #000 }
-.sensuba-booster-darksky .sensuba-booster-expansion-name { top: 15.5rem; font-size: 1.9em; font-style: italic; color: #d8c32f; text-shadow: 0 0 0.15rem #000 }
+.sensuba-booster-darksky .sensuba-booster-title { text-shadow: 0 0 0.1em #000 }
+.sensuba-booster-darksky .sensuba-booster-expansion-name { top: 8.3em; font-size: 1.9em; font-style: italic; color: #d8c32f; text-shadow: 0 0 0.06em #000 }
 .sensuba-booster-darksky .sensuba-booster-filter { background: linear-gradient(#d8c32f, transparent 15%, transparent 30%, transparent 80%, #d8c32f) }
 .sensuba-booster-darksky .sensuba-booster-image-wrap { height: 21em; top: 0em; }
 
