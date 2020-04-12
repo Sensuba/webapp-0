@@ -272,21 +272,21 @@ export default class Card {
 
 		if (cost || cost === 0) {
 			this.mana = cost;
-			this.originalMana = this.mana;
+			//this.originalMana = this.mana;
 		}
 		if (atk || atk === 0) {
 			this.atk = atk;
-			this.originalAtk = this.atk;
+			//this.originalAtk = this.atk;
 		}
 		if (hp || hp === 0) {
 			this.hp = hp;
 			this.chp = hp;
-			this.originalHp = this.hp;
+			//this.originalHp = this.hp;
 			delete this.php;
 		}
 		if (range || range === 0) {
 			this.range = range;
-			this.originalRange = this.range;
+			//this.originalRange = this.range;
 		}
 		this.update();
 		//this.gameboard.notify("setcard", this.id, cost, atk, hp, range);
