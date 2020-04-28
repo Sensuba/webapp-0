@@ -107,6 +107,7 @@ export default class Game extends Component {
 
   onJoined (role) {
 
+    this.role = role.as;
     if (role.as === 'player') {
         this.no = role.no;
         this.props.socket.emit('prepare', User.isConnected() ? User.getData().token : "Anonymous", this.state.deck);

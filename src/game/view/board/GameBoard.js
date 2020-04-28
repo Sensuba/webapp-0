@@ -74,7 +74,7 @@ export default class GameBoard extends Component {
 	    	</div>
 	    	<Area id="sensuba-area-0" model={model.areas[no]} master={master}>
 		    	<Court model={model.areas[no].court} master={master}/>
-		    	{ model.areas[no].avatar ? <div className="sensuba-avatar-wrapper" onClick={no !== undefined ? this.props.openConcedeWindow : () => {}}><Avatar src={model.areas[no].avatar}/></div> : <span/> }
+		    	{ model.areas[no].avatar ? <div className="sensuba-avatar-wrapper" onClick={no !== undefined && master.role === "player" ? this.props.openConcedeWindow : () => {}}><Avatar src={model.areas[no].avatar}/></div> : <div className="sensuba-avatar-wrapper sensuba-blank-avatar-wrapper" onClick={no !== undefined && master.role === "player" ? this.props.openConcedeWindow : () => {}}/> }
 		    	<Field model={model.areas[no].field} master={master}>
 		    		<Row>
 		    			<Tile model={model.areas[no].field.tiles[0]} master={master}/>
@@ -101,7 +101,7 @@ export default class GameBoard extends Component {
     	<Hand model={model.areas[no].hand} master={master}/>
     	</div>
     	{ this.props.messages.length > 0 ? <TextBox text={this.props.messages[0].text} unselect={e => this.unselect(e)} master={master}/> : <span/> }
-		<Choosebox model={model.areas[no].choosebox} master={master}/>
+		{ master.role === "player" ? <Choosebox model={model.areas[no].choosebox} master={master}/> : <span/> }
 
       </div>
     )

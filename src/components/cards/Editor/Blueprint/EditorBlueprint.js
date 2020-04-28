@@ -91,7 +91,7 @@ const blocks = [
 	{ type: "checkcard", name: "Check card", model: [ {inout: "in", type: "card", name: "card"}, {inout: "in", type: "cardfilter", name: "filter"}, {inout: "out", type: "bool", name: "checked"}, {inout: "out", type: "bool", name: "exists"} ], tooltip: "Check if a card exists or matches a filter", color: "#89BC62" },
 	{ type: "checktile", name: "Check tile", model: [ {inout: "in", type: "location", name: "tile"}, {inout: "in", type: "tilefilter", name: "filter"}, {inout: "out", type: "bool", name: "checked"} ], tooltip: "Check if a tile matches a filter", color: "#89BC62" },
 	{ type: "checkmodel", name: "Check model", model: [ {inout: "in", type: "model", name: "model"}, {inout: "in", type: "modelfilter", name: "filter"}, {inout: "out", type: "bool", name: "checked"} ], tooltip: "Check if a model matches a filter", color: "#89BC62" },
-	{ type: "checkloc", name: "Check location", model: [ {inout: "in", type: "location", name: "location"}, {inout: "in", type: "locations", name: "area"}, {inout: "out", type: "bool", name: "checked"} ], tooltip: "Check if a location is in an area", color: "#89BC62" },
+	{ type: "checkloc", name: "Check location", model: [ {inout: "in", type: "location", name: "location"}, {inout: "in", type: "locations", name: "area"}, {inout: "out", type: "bool", name: "checked"}, {inout: "out", type: "bool", name: "exists"} ], tooltip: "Check if a location exists or is in an area", color: "#89BC62" },
 	{ type: "checkeffect", name: "Check effect", model: [ {inout: "in", type: "effect", name: "effect"}, {inout: "in", type: "effecttype", name: "type"}, {inout: "out", type: "bool", name: "checked"} ], tooltip: "Check if an effect is a specific type", color: "#89BC62" },
 	{ type: "cover", name: "Does cover", model: [ {inout: "in", type: "card", name: "covering"}, {inout: "in", type: "card", name: "covered"}, {inout: "out", type: "bool", name: "global"}, {inout: "out", type: "bool", name: "ground"}, {inout: "out", type: "bool", name: "air"} ], tooltip: "Check if an card covers another", color: "#89BC62" },
 	{ type: "covered", name: "Is covered", model: [ {inout: "in", type: "card", name: "card"}, {inout: "out", type: "bool", name: "global"}, {inout: "out", type: "bool", name: "ground"}, {inout: "out", type: "bool", name: "air"} ], tooltip: "Check if an card is covered on the ground or in the air", color: "#89BC62" },
@@ -197,7 +197,7 @@ export default class EditorBlueprint extends Component {
 			{inout: "in", type: "effect", name: " "},
 			{inout: "in", type: "effect", name: " "} ];
 
-		var node = new Node("basis", "Object", "#C0C0C0");
+		var node = new Node("basis", "Base", "#C0C0C0");
 		node.remove = () => {};
 		node.model = model;
 		node.x = 650;

@@ -72,6 +72,7 @@ export default class Card {
 		if (this.isType("character"))
 			this.resetSickness();
 		this.activate();
+		this.gameboard.update();
 	}
 
 	goto (loc) {
