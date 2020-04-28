@@ -204,13 +204,13 @@ export default class Deckbuilder extends Component {
     	var chartFilter = (type, mana, plus = false) => listCards.filter(c => c.cardType === type && (plus ? c.mana >= mana : c.mana === mana.toString())).map(c => this.props.deck.cards[c.idCardmodel]).reduce((acc, val) => acc + val, 0);
 
     	var chart = [
-    		{name: "0", figures: chartFilter("figure", 0), spells: chartFilter("spell", 0), artifacts: chartFilter("artifact", 0)},
-    		{name: "1", figures: chartFilter("figure", 1), spells: chartFilter("spell", 1), artifacts: chartFilter("artifact", 1)},
-    		{name: "2", figures: chartFilter("figure", 2), spells: chartFilter("spell", 2), artifacts: chartFilter("artifact", 2)},
-    		{name: "3", figures: chartFilter("figure", 3), spells: chartFilter("spell", 3), artifacts: chartFilter("artifact", 3)},
-    		{name: "4", figures: chartFilter("figure", 4), spells: chartFilter("spell", 4), artifacts: chartFilter("artifact", 4)},
-    		{name: "5", figures: chartFilter("figure", 5), spells: chartFilter("spell", 5), artifacts: chartFilter("artifact", 5)},
-    		{name: "6+", figures: chartFilter("figure", 6, true), spells: chartFilter("spell", 6, true), artifacts: chartFilter("artifact", 6, true)}
+    		{name: "0", figures: chartFilter("figure", 0), sorts: chartFilter("spell", 0), artefacts: chartFilter("artifact", 0)},
+    		{name: "1", figures: chartFilter("figure", 1), sorts: chartFilter("spell", 1), artefacts: chartFilter("artifact", 1)},
+    		{name: "2", figures: chartFilter("figure", 2), sorts: chartFilter("spell", 2), artefacts: chartFilter("artifact", 2)},
+    		{name: "3", figures: chartFilter("figure", 3), sorts: chartFilter("spell", 3), artefacts: chartFilter("artifact", 3)},
+    		{name: "4", figures: chartFilter("figure", 4), sorts: chartFilter("spell", 4), artefacts: chartFilter("artifact", 4)},
+    		{name: "5", figures: chartFilter("figure", 5), sorts: chartFilter("spell", 5), artefacts: chartFilter("artifact", 5)},
+    		{name: "6+", figures: chartFilter("figure", 6, true), sorts: chartFilter("spell", 6, true), artefacts: chartFilter("artifact", 6, true)}
     	];
 
 		return (
@@ -316,7 +316,7 @@ export default class Deckbuilder extends Component {
 			       <Legend />
 			       <Bar dataKey="figures" stackId="a" fill="#FF6000" />
 			       <Bar dataKey="sorts" stackId="a" fill="rgb(16, 142, 233)" />
-			       <Bar dataKey="artéfacts" stackId="a" fill="#20caFF" />
+			       <Bar dataKey="artefacts" stackId="a" fill="#20caFF" />
 			      </BarChart>
       			</div>
       		</div>
