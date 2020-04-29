@@ -75,13 +75,13 @@ export default class PlayPage extends Component {
     c.push(deck.hero);
     c.forEach (card => {
       formats.slice().forEach(f => {
-        var cc = this.formats[f].cardlist.find(l => l.idCardmodel.toString() === card.toString());
+        var cc = this.formats[f].cardlist.find(l => l.idCardmodel && l.idCardmodel.toString() === card.toString());
         if (!cc || (cc.count === 1 && deck.cards[card] > 1))
           formats.splice(formats.indexOf(f), 1);
       })
     })
 
-    return formats[0];
+    return formats[0] || "display";
   }
 
   setDeck (deck, setState = true) {

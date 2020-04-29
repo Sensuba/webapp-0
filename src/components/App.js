@@ -22,7 +22,9 @@ import Library from '../services/Library';
 import openSocket from 'socket.io-client';
 import sorter from '../utility/CollectionSorter';
 
-const serverURL = /*process.env.SERVER_URL || 'http://localhost:8080' ||*/ 'https://sensuba-server.herokuapp.com/';
+const serverURL = /*process.env.SERVER_URL ||*/ 'http://localhost:8080' || 'https://sensuba-server.herokuapp.com/';
+
+const nocards = 400;
 
 export default class App extends Component {
 
@@ -162,8 +164,10 @@ export default class App extends Component {
   updateCollection () {
 
     this.props.options.api.getCollection(cards => {
-      this.setState({collection: cards});
-      Library.updateCollection(cards);
+      if (cards.length >= nocards) {
+        this.setState({collection: cards});
+        Library.updateCollection(cards);
+      } else this.updateCollection();
     }, err => this.setState({collection: []}));
   }
 

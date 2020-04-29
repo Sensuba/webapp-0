@@ -62,13 +62,13 @@ export default class DeckbuilderPage extends Component {
   	c.push(this.state.deck.hero);
   	c.forEach (card => {
   		formats.slice().forEach(f => {
-        var cc = this.formats[f].cardlist.find(l => l.idCardmodel.toString() === card.toString());
+        var cc = this.formats[f].cardlist.find(l => l.idCardmodel && l.idCardmodel.toString() === card.toString());
   			if (!cc || (cc.count === 1 && this.state.deck.cards[card] > 1))
   				formats.splice(formats.indexOf(f), 1);
   		})
   	})
-console.log(formats)
-  	return formats[0];
+
+  	return formats[0] || "display";
   }
 
   updateFormat (format) {
