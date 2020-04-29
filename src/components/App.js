@@ -164,10 +164,10 @@ export default class App extends Component {
   updateCollection () {
 
     this.props.options.api.getCollection(cards => {
-      if (cards.length >= nocards) {
+      //if (cards.length >= nocards) {
         this.setState({collection: cards});
         Library.updateCollection(cards);
-      } else this.updateCollection();
+      //} else this.updateCollection();
     }, err => this.setState({collection: []}));
   }
 
