@@ -24,7 +24,7 @@ import sorter from '../utility/CollectionSorter';
 
 const serverURL = /*process.env.SERVER_URL || 'http://localhost:8080' ||*/ 'https://sensuba-server.herokuapp.com/';
 
-//const nocards = 400;
+const nocards = 400;
 
 export default class App extends Component {
 
@@ -56,22 +56,17 @@ export default class App extends Component {
       var f = () => {
         Library.getCardList(list => {
 
-          if (list && list.length) {
+          if (list && list.length && list.length >= nocards) {
             sorter.sort(list, "type");
             this.setState({cards: list});
           }
           else
-            this.props.options.api.getCards(cards => {
-              var c = cards.map(card => this.filterCardData(this.readObject(card)));
-              sorter.sort(c, "type");
-              this.setState({cards: c});
-              Library.update(c);
-            });
+            this.updateCardlist();
         })
 
         if (User.isConnected()) {
 
-          Library.getCollection(list => {
+          Library.getCollection(list => {console.log(list);
 
             if (list && list.length)
               this.setState({collection: list});
@@ -152,6 +147,18 @@ export default class App extends Component {
     }, err => this.setState({customCards: []}));
   }*/
 
+  updateCardlist () {
+
+    this.props.options.api.getCards(cards => {
+      if (cards && cards.length >= nocards) {
+        var c = cards.map(card => this.filterCardData(this.readObject(card)));
+        sorter.sort(c, "type");
+        this.setState({cards: c});
+        Library.update(c);
+      } else this.updateCardlist();
+    });
+  }
+
   updateCustoms () {
 
     this.props.options.api.getCustomCards(cards => {
@@ -164,10 +171,8 @@ export default class App extends Component {
   updateCollection () {
 
     this.props.options.api.getCollection(cards => {
-      //if (cards.length >= nocards) {
-        this.setState({collection: cards});
-        Library.updateCollection(cards);
-      //} else this.updateCollection();
+      this.setState({collection: cards});
+      Library.updateCollection(cards);
     }, err => this.setState({collection: []}));
   }
 

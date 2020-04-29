@@ -14,4 +14,4 @@ render(
   <App options={options} />,
   document.getElementById('root')
 )
-//registerServiceWorker();
+registerServiceWorker();
