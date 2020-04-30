@@ -5,8 +5,6 @@ export default class Choosebox {
 		this.id = { type: "choosebox", no: area.id.no };
 		area.gameboard.register(this);
 
-		this.locationOrder = 0;
-
 		this.area = area;
 
 		this.cards = [];

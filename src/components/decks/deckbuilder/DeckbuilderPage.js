@@ -127,6 +127,14 @@ export default class DeckbuilderPage extends Component {
     })
   }
 
+  isGhost (card, i) {
+
+    var dis = this.formats.display.cardlist.find(l => l.idCardmodel.toString() === card.idCardmodel.toString());
+    var std = this.formats.standard.cardlist.find(l => l.idCardmodel.toString() === card.idCardmodel.toString());
+
+    return dis && (!std || i > std.count);
+  }
+
 	render () {
 
 		return (
@@ -136,7 +144,7 @@ export default class DeckbuilderPage extends Component {
 	      		{
 	      			this.state.deck.hero ?
 	      			(this.props.cards && this.props.cards.length > 0 ?
-		      			<Deckbuilder ref={this.builder} list={this.state.list} new={this.state.new} onSave={this.onSave.bind(this)} onDelete={this.onDelete.bind(this)} updateDeck={this.updateDeck.bind(this)} updateFormat={this.updateFormat.bind(this)} deck={this.state.deck} cards={this.state.cardlist} type={this.props.type}/>
+		      			<Deckbuilder ref={this.builder} isGhost={(c, i) => this.isGhost(c, i)} list={this.state.list} new={this.state.new} onSave={this.onSave.bind(this)} onDelete={this.onDelete.bind(this)} updateDeck={this.updateDeck.bind(this)} updateFormat={this.updateFormat.bind(this)} deck={this.state.deck} cards={this.state.cardlist} type={this.props.type}/>
 		      			: <span/>
 	      			)
 	      			:

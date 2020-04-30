@@ -76,6 +76,12 @@
 	display: inline-block;
 }
 
+.sensuba-deckbuilder-list-group .sensuba-card.sensuba-deckbuilder-ghost-card {
+
+	filter: sepia(0.7) grayscale(0.7);
+	opacity: 0.85;
+}
+
 .sensuba-deckbuilder-list-group .sensuba-card + .sensuba-card {
 
 	margin-top: -18em;

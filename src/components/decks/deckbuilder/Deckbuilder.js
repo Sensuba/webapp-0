@@ -273,7 +273,7 @@ export default class Deckbuilder extends Component {
       							while (j++ < this.props.deck.cards[model.idCardmodel])
       								arr.push(j);
 
-      							return <div key={i} className="sensuba-deckbuilder-list-group" onClick={this.state.miracle ? () => {} : () => this.removeCard(model.idCardmodel)}>{arr.map(i => <Card key={i} src={model}/>)}</div>;
+      							return <div key={i} className="sensuba-deckbuilder-list-group" onClick={this.state.miracle ? () => {} : () => this.removeCard(model.idCardmodel)}>{arr.map(i => <Card className={this.props.isGhost(model, i) ? "sensuba-deckbuilder-ghost-card" : ""} key={i} src={model}/>)}</div>;
       						})
       					}
       				</div>
@@ -300,7 +300,7 @@ export default class Deckbuilder extends Component {
       		<div>
       			<div className="half-section">
       			<div className="half-section deckbuilder-hero-preview">
-      				<Card switch="manual" src={hero}/>
+      				<Card className={this.props.isGhost(hero) ? "sensuba-deckbuilder-ghost-card" : ""} switch="manual" src={hero}/>
       			</div>
       			<div className="half-section deckbuilder-type-repartition">
       				<Progress className="figures empty" type="circle" percent={nbFigures * 100 / this.count} format={percent => `${nbFigures} figure${nbFigures > 1 ? "s" : ""}`}/>
