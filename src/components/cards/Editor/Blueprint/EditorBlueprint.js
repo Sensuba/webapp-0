@@ -121,6 +121,7 @@ const blocks = [
 	{ type: "color", name: "Color", model: [ {inout: "in", type: "color", name: "color"}, {inout: "out", type: "cardfilter", name: "filter"}, {inout: "out", type: "modelfilter", name: "filter"} ], tooltip: "Filter on a card color", color: "#670e6b" },
 	{ type: "token", name: "Token", model: [ {inout: "in", type: "int", name: "no"}, {inout: "out", type: "model", name: "model"} ], tooltip: "Get the model of a token", color: "#670e6b" },
 	{ type: "limitbrk", name: "Limit break", model: [ {inout: "out", type: "int", name: "bonus"} ], tooltip: "Card effect bonus due to overload", color: "#670e6b" },
+	{ type: "current", name: "Current player", model: [ {inout: "out", type: "area", name: "player"} ], tooltip: "Get the player whose turn it is", color: "#670e6b" },
 	{ type: "manapool", name: "Mana pool", model: [ {inout: "in", type: "area", name: "player"}, {inout: "out", type: "int", name: "mana"}, {inout: "out", type: "int", name: "receptacles"}, {inout: "out", type: "int", name: "gems"} ], tooltip: "Data on a player's mana pool", color: "#670e6b" },
 	{ type: "innerdata", name: "Mutant", model: [ {inout: "out", type: "card", name: "target"} ], tooltip: "Card targeted by a mutation", color: "#670e6b" },
 	{ type: "innerdata", name: "Analysed event", model: [ {inout: "out", type: "data", name: "data"} ], tooltip: "Event data under analyse", color: "#670e6b" },

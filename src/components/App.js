@@ -66,7 +66,7 @@ export default class App extends Component {
 
         if (User.isConnected()) {
 
-          Library.getCollection(list => {console.log(list);
+          Library.getCollection(list => {
 
             if (list && list.length)
               this.setState({collection: list});
