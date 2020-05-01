@@ -150,6 +150,7 @@ var Library = (() => {
 	var clear = then => {
 
 		let f = db => db.openDatabase(version, evt => {}).then(() => {
+			localStorage.removeItem("library.date");
 			db.clear('cards').then(then);
 		});
 

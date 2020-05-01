@@ -7,10 +7,11 @@ var User = (() => {
 		localStorage.setItem("user.shadow", JSON.stringify(save));
 	}
 
-	var disconnect = () => {
+	var disconnect = then => {
 
 		localStorage.removeItem("user.shadow");
-		Library.clearAll();
+		localStorage.removeItem("playdeck");
+		Library.clearAll(then);
 	}
 
 	var updateProfile = profile => {
