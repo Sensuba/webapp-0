@@ -3,7 +3,7 @@ import Deck from '../Deck.js';
 import { Input, Label } from 'reactstrap';
 import Card from '../../cards/Card';
 import sorter from '../../../utility/CollectionSorter';
-import { Progress } from 'antd';
+//import { Progress } from 'antd';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import User from '../../../services/User';
 
@@ -303,9 +303,9 @@ export default class Deckbuilder extends Component {
       				<Card className={this.props.isGhost(hero) ? "sensuba-deckbuilder-ghost-card" : ""} switch="manual" src={hero}/>
       			</div>
       			<div className="half-section deckbuilder-type-repartition">
-      				<Progress className="figures empty" type="circle" percent={nbFigures * 100 / this.count} format={percent => `${nbFigures} figure${nbFigures > 1 ? "s" : ""}`}/>
+      				{ /* <Progress className="figures empty" type="circle" percent={nbFigures * 100 / this.count} format={percent => `${nbFigures} figure${nbFigures > 1 ? "s" : ""}`}/>
       				<Progress className="spells empty" type="circle" percent={nbSpells * 100 / this.count} format={percent => `${nbSpells} sort${nbSpells > 1 ? "s" : ""}`}/>
-      			</div>
+      			*/ }</div>
       			</div>
       			<div className="half-section deckbuilder-cost-repartition">
       				<BarChart width={500} height={250} data={chart}>
