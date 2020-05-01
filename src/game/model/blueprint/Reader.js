@@ -65,7 +65,6 @@ var StoreLocation = require('./StoreLocation');
 var ClearVariable = require('./ClearVariable');
 
 var CanPay = require('./CanPay');
-var CanReach = require('./CanReach');
 var HasShield = require('./HasShield');
 var FilterCard = require('./FilterCard');
 var FilterStats = require('./FilterStats');
@@ -95,10 +94,8 @@ var IsCovered = require('./IsCovered');
 var Poisoned = require('./Poisoned');
 var MergeMutations = require('./MergeMutations');
 var ConditionalMutation = require('./ConditionalMutation');
-var TargetData = require('./TargetData');
 
 var BreakCard = require('./BreakCard');
-var BaseStats = require('./BaseStats');
 var BreakModel = require('./BreakModel');
 var BreakTile = require('./BreakTile');
 var BreakLocation = require('./BreakLocation');
@@ -107,7 +104,6 @@ var BreakPlayer = require('./BreakPlayer');
 var Archetype = require('./Archetype');
 var Color = require('./Color');
 var Extremum = require('./Extremum');
-var CurrentPlayer = require('./CurrentPlayer');
 var Analyse = require('./Analyse');
 var InnerData = require('./InnerData');
 var Token = require('./Token');
@@ -117,7 +113,6 @@ var ManaPool = require('./ManaPool');
 var FindRandomCard = require('./FindRandomCard');
 var FindRandomTile = require('./FindRandomTile');
 var FindRandomModel = require('./FindRandomModel');
-var FindRandomEvent = require('./FindRandomEvent');
 var RandomInt = require('./RandomInt');
 var RandomBool = require('./RandomBool');
 var IntVariable = require('./IntVariable');
@@ -136,9 +131,6 @@ var ForEachEvent = require('./ForEachEvent');
 var Timer = require('./Timer');
 
 var ExtraTurn = require('./ExtraTurn');
-
-var Message = require('./Message');
-var Highlight = require('./Highlight');
 
 var Plus = require('./Plus');
 var Minus = require('./Minus');
@@ -229,7 +221,6 @@ class Reader {
 			case "setvisibility": bloc = new SetVisibility(card, ctx); break;
 			case "clearvar": bloc = new ClearVariable(card, ctx); break;
 			case "canpay": bloc = new CanPay(card, ctx); break;
-			case "canreach": bloc = new CanReach(card, ctx); break;
 			case "hasshield": bloc = new HasShield(card, ctx); break;
 			case "checkcard": bloc = new CheckCard(card, ctx); break;
 			case "checktile": bloc = new CheckTile(card, ctx); break;
@@ -259,14 +250,12 @@ class Reader {
 			case "covered": bloc = new IsCovered(card, ctx); break;
 			case "mergemut": bloc = new MergeMutations(card, ctx); break;
 			case "conditionmut": bloc = new ConditionalMutation(card, ctx); break;
-			case "target": bloc = new TargetData(card, ctx); break;
 			case "extremum": bloc = new Extremum(card, ctx); break;
 			case "archetype": bloc = new Archetype(card, ctx); break;
 			case "color": bloc = new Color(card, ctx); break;
 			case "analyse": bloc = new Analyse(card, ctx); break;
 			case "innerdata": bloc = new InnerData(card, ctx); break;
 			case "token": bloc = new Token(card, ctx); break;
-			case "current": bloc = new CurrentPlayer(card, ctx); break;
 			case "timestamp": bloc = new Timestamp(card, ctx); break;
 			case "limitbrk": bloc = new LimitBreak(card, ctx); break;
 			case "manapool": bloc = new ManaPool(card, ctx); break;
@@ -277,11 +266,9 @@ class Reader {
 			case "findcard": bloc = new FindRandomCard(card, ctx); break;
 			case "findtile": bloc = new FindRandomTile(card, ctx); break;
 			case "findmodel": bloc = new FindRandomModel(card, ctx); break;
-			case "findevent": bloc = new FindRandomEvent(card, ctx); break;
 			case "randint": bloc = new RandomInt(card, ctx); break;
 			case "randbool": bloc = new RandomBool(card, ctx); break;
 			case "brkcard": bloc = new BreakCard(card, ctx); break;
-			case "basestats": bloc = new BaseStats(card, ctx); break;
 			case "brkmodel": bloc = new BreakModel(card, ctx); break;
 			case "brktile": bloc = new BreakTile(card, ctx); break;
 			case "brklocation": bloc = new BreakLocation(card, ctx); break;
@@ -295,8 +282,6 @@ class Reader {
 			case "foreffect": bloc = new ForEachEffect(card, ctx); break;
 			case "forevent": bloc = new ForEachEvent(card, ctx); break;
 			case "extraturn": bloc = new ExtraTurn(card, ctx); break;
-			case "message": bloc = new Message(card, ctx); break;
-			case "highlight": bloc = new Highlight(card, ctx); break;
 			case "opplus": bloc = new Plus(card, ctx); break;
 			case "opminus": bloc = new Minus(card, ctx); break;
 			case "optimes": bloc = new Times(card, ctx); break;
@@ -346,10 +331,6 @@ class Reader {
 			case "breakshield-data": bloc = new Data(el.type, card, ctx, d => [d.src]); break;
 			case "destroygem-trigger": bloc = new Trigger(el.type, card, ctx, "usegem"); break;
 			case "destroygem-data": bloc = new Data(el.type, card, ctx, d => [d.src.area]); break;
-			case "createreceptacle-trigger": bloc = new Trigger(el.type, card, ctx, "createmana"); break;
-			case "createreceptacle-data": bloc = new Data(el.type, card, ctx, d => [d.src.area]); break;
-			case "levelup-trigger": bloc = new Trigger(el.type, card, ctx, "levelup"); break;
-			case "levelup-data": bloc = new Data(el.type, card, ctx, d => [d.src, d.src.level]); break;
 			default: bloc = new Bloc(el.type, card, ctx); break;
 			}
 			ctx[key].push(bloc);
