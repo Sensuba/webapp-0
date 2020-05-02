@@ -57,8 +57,7 @@ export default class Nav extends Component {
 
 	logout () {
 
-		User.disconnect();
-		window.location.reload();
+		User.disconnect(() => window.location.reload());
 	}
 
 	signup () {
