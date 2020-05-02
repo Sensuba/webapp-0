@@ -94,6 +94,22 @@ export default class EditorPage extends Component {
 
     this.props.api.saveCustomCards(params, () => {
 
+      var pd = localStorage.getItem("playdeck");
+      if (this.props.card && this.props.card.idCardmodel && pd) {
+        pd = JSON.parse(pd);
+        var idcard = this.props.card.idCardmodel;
+        if (pd.hero.idCardmodel.toString() === idcard.toString()) {
+          pd.hero = shadow;
+          pd.hero.supercode = supercode;
+        }
+        for (var i = 0; i < pd.body.length; i++) {
+          if (pd.body[i].idCardmodel && pd.body[i].idCardmodel.toString() === idcard.toString()) {
+            pd.body[i] = shadow;
+            pd.body[i].supercode = supercode;
+          }
+        }
+        localStorage.setItem("playdeck", JSON.stringify(pd));
+      }
       this.props.history.push('/cards?mode=custom');
       this.props.updateCustoms();
     })

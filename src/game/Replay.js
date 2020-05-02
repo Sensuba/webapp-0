@@ -163,7 +163,7 @@ export default class Replay extends Component {
         { this.state.preview ? <CardPreview src={this.state.preview} level={this.state.preview.level} model={this.state.preview.model}/> : <span/> }
       </div>
       <div id="deck-count-tooltip" data-toggle="tooltip" data-placement="left" data-animation="false" data-trigger="manual">
-        { this.state.deckcount ? ("" + this.state.deckcount.count + " card" + (this.state.deckcount.count > 1 ? "s" : "") + " left.") : "" }
+        { this.state.deckcount ? ("" + this.state.deckcount.count + " carte" + (this.state.deckcount.count > 1 ? "s" : "") + " restante"  + (this.state.deckcount.count > 1 ? "s" : "") + ".") : "" }
       </div>
       {
         this.waiting
@@ -183,7 +183,7 @@ export default class Replay extends Component {
       <MuteButton switch={() => this.switchMute()} defaultMute={true} master={this}/>
       <History entries={this.state.model.log.history} master={this}/>
       <div id="newturn-frame">
-        <h1 className="big-text">Your Turn</h1>
+        <h1 className="big-text">A vous de jouer</h1>
       </div>
       </div>
     );
