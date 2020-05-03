@@ -388,6 +388,8 @@ export default class Card {
 		this.passives = [];
 		this.mutations = [];
 		this.cmutations = [];
+		this.states = Object.assign({}, data.states);
+		this.poisondmg = data.poisondmg;
 		if (wasActivated)
 			this.activate();
 		if (this.isType("entity"))
