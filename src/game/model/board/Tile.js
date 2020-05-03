@@ -15,7 +15,7 @@ export default class Tile {
 
 	get isEmpty () {
 
-		return this.card === null || this.card === undefined;
+		return this.card === null || this.card === undefined || this.card.destroyed || this.card.isGhost;
 	}
 
 	get occupied () {
