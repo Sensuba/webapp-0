@@ -1,8 +1,8 @@
-export default class Capsule {
+export default class Nether {
 
 	constructor (area) {
 
-		this.id = { type: "capsule", no: area.id.no };
+		this.id = { type: "nether", no: area.id.no };
 		area.gameboard.register(this);
 
 		this.area = area;
