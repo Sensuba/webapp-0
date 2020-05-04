@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Hero from './Hero';
 import Figure from './Figure';
 import Spell from './Spell';
+import Secret from './Secret';
 import Artifact from './Artifact';
 import './Card.css';
 
@@ -33,7 +34,7 @@ export default class Card extends Component {
 
       desc = desc.replace(/\n/g, '</div><div class="sensuba-card-effect-p">');
 
-      desc = desc.replace(/initiative|furie|hâte|exaltation|niveau supérieur|létal|camoufle(r)?|camouflé(e)?(s)?|empoisonné(e)?(s)?|poison|insensible(s)?|frénésie:?|dernière volonté(:)?|dernières volontés(:)?|silence|bouclier|don du vol|(dé)?gèle|gelé(e)?(s)?|surcharge|piège:/gi, x => `<b>${x}</b>`);
+      desc = desc.replace(/initiative|furie|hâte|exaltation|niveau supérieur|létal|camoufle(r)?|camouflé(e)?(s)?|empoisonné(e)?(s)?|poison|insensible(s)?|frénésie:?|dernière volonté(:)?|dernières volontés(:)?|silence|bouclier|don du vol|(dé)?gèle|gelé(e)?(s)?|surcharge|condition:|effet:|piège:/gi, x => `<b>${x}</b>`);
 
       desc = desc.replace(/(\+|-)?(\d+|!|\*) ?:/g, x => {
         var emph = "";
@@ -134,9 +135,9 @@ export default class Card extends Component {
   	switch (this.props.src.cardType) {
     case "hero": result = <Hero model={this.props.model} className={this.props.className} level={this.props.level} switch={this.props.switch} id={this.props.id} src={src} classColor={{color1: colorIdToClassName(this.props.src.idColor), color2: colorIdToClassName(this.props.src.idColor2)}}/>; break;
   	case "figure": result = <Figure model={this.props.model} className={this.props.className} id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
-    case "trap":
     case "spell": result = <Spell model={this.props.model} className={this.props.className} id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
     case "artifact": result = <Artifact model={this.props.model} className={this.props.className} id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
+    case "secret": result = <Secret model={this.props.model} className={this.props.className} id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
     default: break;
   	}
 

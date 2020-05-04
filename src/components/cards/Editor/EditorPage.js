@@ -4,6 +4,7 @@ import { Input, Label } from 'reactstrap';
 import Design from './EditorDesign';
 import Blueprint from './Blueprint/EditorBlueprint';
 import Animation from './Animation/EditorAnimation';
+import User from '../../../services/User';
 import './EditorPage.css';
 
 export default class EditorPage extends Component {
@@ -32,7 +33,11 @@ export default class EditorPage extends Component {
       
     var card = this.props.card || Object.assign({}, this.defaultCard);
 
-    this.state = { card, token: [], tab: "design" };
+    var auth = User.getData();
+    if (auth)
+      auth = auth.authorization;
+
+    this.state = { card, token: [], tab: "design", authorization: auth };
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
 	}
@@ -207,6 +212,7 @@ export default class EditorPage extends Component {
 
     var design =
     <Design
+      authorization={this.state.authorization}
       ref="design"
       idmodel={this.props.idmodel}
       card={this.state.card}

@@ -66,8 +66,8 @@ export default class EditorPage extends Component {
     switch (newType) {
     case "figure": filter = ["lv2", "lvmax", "idColor2"]; break;
     case "hero": filter = ["archetypes", "mana"]; break;
-    case "spell": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "hp", "range"]; break;
-    case "trap": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "hp", "range"]; break;
+    case "spell":
+    case "secret": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "hp", "range"]; break;
     case "artifact": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "range"]; break;
     default: break;
     }
@@ -144,14 +144,16 @@ export default class EditorPage extends Component {
                   <Label for="figure-card">Figure</Label>
                   <Input id="spell-card" type="radio" name="sensuba-type" onChange={() => this.changeType("spell")} checked={this.currentCard.cardType === "spell"}/>
                   <Label for="spell-card">Sort</Label>
-                  <Input id="trap-card" type="radio" name="sensuba-type" onChange={() => this.changeType("trap")} checked={this.currentCard.cardType === "trap"}/>
-                  {
-                    this.props.token.length > 0
-                    ? <Label for="trap-card">Piège</Label>
-                    : <span/>
-                  }
                   <Input id="artifact-card" type="radio" name="sensuba-type" onChange={() => this.changeType("artifact")} checked={this.currentCard.cardType === "artifact"}/>
                   <Label for="artifact-card">Artéfact</Label>
+                  {
+                    this.props.authorization > 0 ?
+                    <span>
+                      <Input id="secret-card" type="radio" name="sensuba-type" onChange={() => this.changeType("secret")} checked={this.currentCard.cardType === "secret"}/>
+                      <Label for="secret-card">Secret</Label>
+                    </span>
+                    : <span/>
+                  }
                 </div>
               </FormGroup>
               <FormGroup>
