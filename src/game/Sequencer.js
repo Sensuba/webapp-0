@@ -20,6 +20,7 @@ import LevelUp from './view/animation/LevelUp';
 import BreakShield from './view/animation/BreakShield';
 import GainEffect from './view/animation/GainEffect';
 import ExtraTurn from './view/animation/ExtraTurn';
+import Wait from './view/animation/Wait';
 
 export default class Sequencer {
 
@@ -79,6 +80,8 @@ export default class Sequencer {
 	  		if (this.model.started && n.data[0].type === "deck")
 	  			return new Shuffle(this.master, n.src.no);
 	  		break;*/
+	  	case "wait":console.log("wait");console.log(n);
+    		return new Wait(this.master, n.data[0].value);
 	  	case "message": {
 	  		this.master.setState({"messages": this.master.state.messages.concat([{text: n.data[0].value}])});
 	  		break;
