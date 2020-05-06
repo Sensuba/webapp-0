@@ -49,7 +49,8 @@ export default (() => {
 			case "hero": return 0;
 			case "figure": return 1;
 			case "spell": return 2;
-			case "artefact": return 3;
+			case "secret": return 3;
+			case "artifact": return 4;
 			default: return 99;
 			}
 		}

@@ -51,12 +51,13 @@ class Types {
 		case 'this': return src.location;
 		case 'hand': return src.area.hand;
 		case 'deck': return src.area.deck;
-		case 'cemetery': return src.location;
+		case 'cemetery': return src.area.cemetery;
 		case 'discard': return src.area.discard;
 		case 'opponent\'s hand': return src.area.opposite.hand;
 		case 'opponent\'s deck': return src.area.opposite.deck;
-		case 'opponent\'s cemetery': return src.location;
+		case 'opponent\'s cemetery': return src.area.opposite.cemetery;
 		case 'opponent\'s discard': return src.area.opposite.discard;
+		case 'choosebox': return src.area.choosebox;
 		case 'capsule': return src.area.capsule;
 		default: return src.location;
 		}
@@ -82,7 +83,9 @@ class Types {
 		case 'opponent\'s deck': return [src.area.opposite.deck];
 		case 'opponent\'s cemetery': return [src.area.opposite.cemetery];
 		case 'opponent\'s discard': return [src.area.opposite.discard];
+		case 'choosebox': return [src.area.choosebox];
 		case 'capsule': return [src.area.capsule];
+		case 'everywhere': return src.area.gameboard.tiles.concat([src.area.hand, src.area.court, src.area.deck, src.area.opposite.hand, src.area.opposite.court, src.area.opposite.deck]);
 		default: return [src.location];
 		}
 	}
@@ -119,6 +122,7 @@ class Types {
 		case 'character':
 		case 'entity':
 		case 'spell':
+		case 'secret':
 		case 'artifact':
 			return target => target.isType(value);
 		case 'damaged': return target => target.damaged;
@@ -161,6 +165,7 @@ class Types {
 		case 'hero':
 		case 'figure':
 		case 'spell':
+		case 'secret':
 		case 'artifact':
 			return target => target.cardType === value;
 		default: return target => true;

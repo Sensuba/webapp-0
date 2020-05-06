@@ -160,6 +160,19 @@
   position: relative;
 }
 
+/*.sensuba-secretbox {
+
+  position: absolute;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: -10px;
+}
+
+.sensuba-area-top .sensuba-secretbox {
+
+  margin-top: 11vw;
+}*/
+
 .sensuba-field, .sensuba-gauge-wrapper {
 
 	display: inline-block;

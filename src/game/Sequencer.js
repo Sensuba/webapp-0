@@ -80,7 +80,7 @@ export default class Sequencer {
 	  		if (this.model.started && n.data[0].type === "deck")
 	  			return new Shuffle(this.master, n.src.no);
 	  		break;*/
-	  	case "wait":console.log("wait");console.log(n);
+	  	case "wait":
     		return new Wait(this.master, n.data[0].value);
 	  	case "message": {
 	  		this.master.setState({"messages": this.master.state.messages.concat([{text: n.data[0].value}])});
@@ -119,6 +119,7 @@ export default class Sequencer {
 		    break;
 		}
 	    case "trap": 
+	    case "triggersecret": 
 	  		return new Spell(this.master);
 	    case "cardmove": 
 	  		if (this.model.started && n.data[0].type === "deck")

@@ -145,7 +145,7 @@ export default class Card {
 		this.targets = [];
 		delete this.variables;
 		delete this.mutatedState;
-		if (this.isType("entity"))
+		if (this.isType("entity") || this.isType("secret"))
 			this.targets.push(Event.targets.friendlyEmpty);
 		this.clearBoardInstance();
 		if (wasActivated)
@@ -394,7 +394,7 @@ export default class Card {
 			this.poisondmg = data.poisondmg;
 		if (wasActivated)
 			this.activate();
-		if (this.isType("entity"))
+		if (this.isType("entity") || this.isType("secret"))
 			this.targets.push(Event.targets.friendlyEmpty);
 		if (this.isType("hero")) {
 			this.area.hero = this;
@@ -411,7 +411,7 @@ export default class Card {
 			if (lvupf)
 				lvupf.show = Object.assign({}, this, { level: this.level === 1 ? 2 : 3 });
 		}
-		if (this.isType("artifact"))
+		if (this.isType("artifact") || this.isType("secret"))
 			this.faculties.push({no: this.faculties.length, desc: "Explose.", cost: "0"});
 		if (this.onBoard)
 			this.resetSickness();
@@ -462,7 +462,7 @@ export default class Card {
 
 	get canBePlayed () {
 
-		if (!this.inHand || !this.canBePaid || !this.area.isPlaying)
+		if (!this.inHand || (!this.isType("secret") && !this.canBePaid) || !this.area.isPlaying)
 			return false;
 		if (this.targets.length === 0)
 			return true;
@@ -472,7 +472,7 @@ export default class Card {
 
 	canBePlayedOn (targets) {
 
-		if (!this.canBePaid || !this.area.isPlaying)
+		if ((!this.isType("secret") && !this.canBePaid) || !this.area.isPlaying)
 			return false;
 		if (this.targets.length === 0)
 			return true;
