@@ -422,12 +422,16 @@ export default class Card {
 		}
 	}
 
-	levelUp () {
+	levelUp (level) {
 
 		if (!this.isType("hero"))
 			return;
 
-		this.level++;
+		if (!level)
+			level = this.level + 1;
+		if (level === this.level)
+			return;
+		this.level = level;
 		var lv = this.level === 2 ? this.lv2 : this.lvmax;
 		if (!lv) {
 			this.level--;
@@ -453,6 +457,15 @@ export default class Card {
 		if (this.isType("artifact"))
 			this.faculties.push({no: this.faculties.length, desc: "Explose.", cost: "0"});
 		this.gameboard.update();
+	}
+
+	levelDown () {
+
+		if (!this.isType("hero"))
+			return;
+		if (this.level === 0)
+			return;
+		this.levelUp(this.level - 1);
 	}
 
 	get canBePaid () {

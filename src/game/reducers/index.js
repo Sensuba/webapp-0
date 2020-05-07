@@ -109,8 +109,11 @@ export default (state = new GameBoard(), n) => {
       break; }
     case "levelup": {
       let card = state.find(n.src);
-      if (card)
-        card.levelUp();
+      if (card) {
+        if (n.data[0])
+          card.levelDown();
+        else card.levelUp();
+      }
       break; }
     case "cardfaculty": {
       let card = state.find(n.src);

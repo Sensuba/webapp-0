@@ -93,7 +93,7 @@ export default class Sequencer {
 	  	case "draw": return new Draw(this.master);
 	  	case "summon": return new Summon(this.master, n.src.no);
 	    case "charattack": return new Attack(this.master, n.src.no);
-	    case "levelup": return new LevelUp(this.master, n.src.no);
+	    case "levelup": return n.data[0].value ? null : new LevelUp(this.master, n.src.no);
 	    case "damagecard": {
 	    	let card = this.model.find(n.src);
 	    	if (!card) break;
