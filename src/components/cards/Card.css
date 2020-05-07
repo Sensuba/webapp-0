@@ -255,6 +255,7 @@
 .sensuba-card .sensuba-card-secret-icon {
 
     position: absolute;
+    text-align: center;
     font-size: 2.2em;
     top: 5.65em;
     z-index: 2;

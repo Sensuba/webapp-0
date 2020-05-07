@@ -427,6 +427,7 @@ export default class Card {
 		if (!this.isType("hero"))
 			return;
 
+		var originallevel;
 		if (!level)
 			level = this.level + 1;
 		if (level === this.level)
@@ -434,7 +435,7 @@ export default class Card {
 		this.level = level;
 		var lv = this.level === 1 ? this : (this.level === 2 ? this.lv2 : this.lvmax);
 		if (!lv) {
-			this.level--;
+			this.level = originallevel;
 			return;
 		}
 
@@ -444,6 +445,7 @@ export default class Card {
 		this.originalAtk = this.atk;
 		this.originalRange = this.range;
 		this.blueprint = lv.blueprint;
+		this.states = {};
 		this.targets = [Event.targets.friendlyEmpty];
 		this.faculties = [{no: 0, desc: "Crée un réceptacle de mana.", cost: "!"}];
 

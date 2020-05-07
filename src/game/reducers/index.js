@@ -110,7 +110,7 @@ export default (state = new GameBoard(), n) => {
     case "levelup": {
       let card = state.find(n.src);
       if (card) {
-        if (n.data[0])
+        if (n.data[0].value)
           card.levelDown();
         else card.levelUp();
       }
