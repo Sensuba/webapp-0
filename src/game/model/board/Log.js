@@ -1,4 +1,4 @@
-const MAX_HISTORY_SIZE = 6;
+const MAX_HISTORY_SIZE = 25;
 
 class Log {
 
@@ -11,25 +11,36 @@ class Log {
 
 	add (log) {
 
-		this.logs.push(log);
+		this.logs.push(log);var a = this.history.length;
+		var entry;
 
 		switch (log.type) {
 		case "playcard":
-			this.history.push({type:"play", src:this.gameboard.find(log.src)});
+			this.history.unshift({type:"play", src:this.gameboard.find(log.src)});
 			break;
 		case "trap":
-			this.history.push({type:"trap", src:this.gameboard.find(log.src)});
+			this.history.unshift({type:"trap", src:this.gameboard.find(log.src)});
 			break;
 		case "cardfaculty":
-			this.history.push({type: log.data[0].value ? "action" : "skill", src:this.gameboard.find(log.src)});
+			entry = {type: log.data[0].value ? "action" : "skill", src:this.gameboard.find(log.src)};
+			if (entry.type === "action" && !log.data[2].value)
+				entry.option = "manaup";
+			if (entry.type === "skill" && log.data[2].value && (log.data[2].value.toLowerCase().includes("level up") || log.data[2].value.toLowerCase().includes("niveau supérieur")))
+				entry.option = "levelup";
+			this.history.unshift(entry);
 			break;
 		case "charattack":
-			this.history.push({type:"attack", src:this.gameboard.find(log.src)});
+			this.history.unshift({type:"attack", src:this.gameboard.find(log.src)});
+			break;
+		case "endturn":
+			this.history.unshift({type:"endturn"});
 			break;
 		default: break;
 		}
+		if (this.history.length > a)
+			console.log(log);
 		if (this.history.length > MAX_HISTORY_SIZE)
-			this.history.shift();
+			this.history.pop();
 	}
 }
 

@@ -3,27 +3,48 @@
     position: absolute;
     top: 0;
     right: 0;
-    padding: 1.3vw;
+    margin: 1.3vw;
+    max-height: calc(100vh - 2.6vw);
+    overflow: hidden;
 }
 
 .history .history-entry {
 
-    display: inline-block;
+    position: relative;
+    display: block;
     height: 3vw;
     width: 3vw;
-    margin: 0.4vw;
-    border-radius: 4px;
-    border-width: 3px;
+    border-width: 2px;
     border-style: outset;
     overflow: hidden;
     pointer-events: all;
 }
+
+.history-entry.history-endturn { height: 0.5vw; opacity: 0; }
 
 .history-entry.history-play { border-color: black }
 .history-entry.history-trap { border-color: darkgray }
 .history-entry.history-action { border-color: #d6cc3a }
 .history-entry.history-skill { border-color: #00d1a4 }
 .history-entry.history-attack { border-color: #c71606 }
+
+.history-entry.history-action, .history-entry.history-skill, .history-entry.history-attack { height: 1.6vw }
+.history-entry.history-action.option-manaup, .history-entry.history-skill.option-levelup { height: 3vw }
+
+.history-entry.option-levelup::after, .history-entry.option-manaup::after {
+
+    content: "";
+    position: absolute;
+    bottom: -0.1vw;
+    right: -0.1vw;
+    width: 1.8vw;
+    height: 1.8vw;
+    background-image: url('../../images/levelup.png');
+    filter: hue-rotate(-30deg);
+    background-size: 100%;
+}
+
+.history-entry.option-manaup::after { filter: hue-rotate(220deg) sepia(0.2); }
 
 .history .history-entry .history-entry-bg {
 
@@ -37,12 +58,22 @@
 
 @media only screen and (max-width: 768px) {
 
+    .history {
+
+        margin-right: -2px;
+        padding-right: 0;
+    }
+
     .history .history-entry {
 
         height: 6vw;
         width: 6vw;
-        margin: 0.4vw;
     }
+
+    .history-entry.history-endturn { height: 0.5vw }
+
+    .history-entry.history-action, .history-entry.history-skill, .history-entry.history-attack { height: 3vw }
+    .history-entry.history-action.option-manaup, .history-entry.history-skill.option-levelup { height: 6vw }
 
     .history .history-entry .history-entry-bg {
 

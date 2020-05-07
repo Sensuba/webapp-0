@@ -29,11 +29,11 @@ export default class Entry extends Component {
 
     return (
     	<div
-    	className={"history-entry history-" + this.props.value.type}
+    	className={"history-entry history-" + this.props.value.type + ( this.props.value.option ? (" option-" + this.props.value.option) : "" )}
         onMouseMove={e => this.showTooltip(e, this.props.value.src, true)}
         onMouseLeave={e => this.hideTooltip()}
         >
-    		<img crossOrigin="Anonymous" className="history-entry-bg" src={this.props.value.src.imgLink} alt="History card preview"/>
+    		{ this.props.value.src ? <img crossOrigin="Anonymous" className="history-entry-bg" src={this.props.value.src.imgLink || "/game/back.png"} alt="History card preview"/> : <span/> }
 		</div>
     )
   }
