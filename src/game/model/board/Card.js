@@ -432,7 +432,7 @@ export default class Card {
 		if (level === this.level)
 			return;
 		this.level = level;
-		var lv = this.level === 2 ? this.lv2 : this.lvmax;
+		var lv = this.level === 1 ? this : (this.level === 2 ? this.lv2 : this.lvmax);
 		if (!lv) {
 			this.level--;
 			return;
