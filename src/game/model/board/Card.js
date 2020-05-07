@@ -403,6 +403,13 @@ export default class Card {
 			this.skillPt = 1;
 			this.activated = true;
 			this.faculties.push({no: 0, desc: "Crée un réceptacle de mana.", cost: "!"});
+			this.lv1 = {
+				blueprint: this.blueprint,
+				description: this.description,
+				atk: this.atk,
+				range: this.range,
+				overload: this.overload
+			}
 		}
 		if (this.blueprint)
 			Reader.read(this.blueprint, this);
@@ -433,7 +440,7 @@ export default class Card {
 		if (level === this.level)
 			return;
 		this.level = level;
-		var lv = this.level === 1 ? this : (this.level === 2 ? this.lv2 : this.lvmax);
+		var lv = this.level === 1 ? this.lv1 : (this.level === 2 ? this.lv2 : this.lvmax);
 		if (!lv) {
 			this.level = originallevel;
 			return;
@@ -441,7 +448,7 @@ export default class Card {
 
 		this.atk = parseInt(lv.atk, 10);
 		this.range = parseInt(lv.range, 10);
-		this.overload = parseInt(lv.blueprint, 10);
+		this.overload = parseInt(lv.overload, 10);
 		this.originalAtk = this.atk;
 		this.originalRange = this.range;
 		this.blueprint = lv.blueprint;
