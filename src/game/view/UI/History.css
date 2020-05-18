@@ -27,8 +27,9 @@
 .history-entry.history-action { border-color: #d6cc3a }
 .history-entry.history-skill { border-color: #00d1a4 }
 .history-entry.history-attack { border-color: #c71606 }
+.history-entry.history-discard { border-color: #563088 }
 
-.history-entry.history-action, .history-entry.history-skill, .history-entry.history-attack { height: 1.6vw }
+.history-entry.history-action, .history-entry.history-skill, .history-entry.history-attack, .history-entry.history-discard { height: 1.6vw }
 .history-entry.history-action.option-manaup, .history-entry.history-skill.option-levelup { height: 3vw }
 
 .history-entry.option-levelup::after, .history-entry.option-manaup::after {

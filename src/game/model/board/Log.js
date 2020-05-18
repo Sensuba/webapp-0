@@ -21,6 +21,9 @@ class Log {
 		case "trap":
 			this.history.unshift({type:"trap", src:this.gameboard.find(log.src)});
 			break;
+		case "discardcard":
+			this.history.unshift({type:"discard", src:this.gameboard.find(log.src)});
+			break;
 		case "cardfaculty":
 			entry = {type: log.data[0].value ? "action" : "skill", src:this.gameboard.find(log.src)};
 			if (entry.type === "action" && !log.data[2].value)
