@@ -64,8 +64,9 @@ export default class AssistantBuilder {
 			var rewardvalue = syn.reward.reduce((a, b) => a + this.computeRewardValue(b, options), 0);
 			var colorvalue = card.idColor > 0 ? 1 : 0;
 			if (card.cardType === "figure") {
-				if (card.range > 1)
-			 		optionsvalue += (0.05 - 0.005 * options.damage - 0.005 * options.destroy - 0.015 * options.range - 0.015 * options.flying) * deck.cards/25;
+				if (card.range > 1) {
+			 		optionsvalue += Math.max(-0.12, ((0.15 - 0.005 * options.damage - 0.005 * options.destroy - 0.015 * options.range - 0.015 * options.flying) * Object.keys(deck.cards).reduce((a, k) => a + deck.cards[k], 0)/25);
+				}
 			 	if (card.archetypes && card.archetypes.length > 0)
 			 		optionsvalue -= 0.02;
 			}
@@ -311,7 +312,7 @@ export default class AssistantBuilder {
 		switch (type) {
 		case "silence": return (gain + 0.02 - 0.02 * options.silence) * deck.cards/25;
 		case "flying":
-		case "range": return (gain + 0.05 - 0.005 * options.damage - 0.005 * options.destroy - 0.015 * options.range - 0.015 * options.flying) * deck.cards/25;
+		case "range": return Math.max(-0.12, (gain + 0.15 - 0.005 * options.damage - 0.005 * options.destroy - 0.015 * options.range - 0.015 * options.flying) * Object.keys(deck.cards).reduce((a, k) => a + deck.cards[k], 0)/25);
 		case "enemydraw": return gain - 0.06 + 0.015 * options.enemydraw;
 		case "freeze":
 		case "boost":
