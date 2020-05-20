@@ -65,7 +65,7 @@ export default class AssistantBuilder {
 			var colorvalue = card.idColor > 0 ? 1 : 0;
 			if (card.cardType === "figure") {
 				if (card.range > 1) {
-			 		optionsvalue += Math.max(-0.12, ((0.15 - 0.005 * options.damage - 0.005 * options.destroy - 0.015 * options.range - 0.015 * options.flying) * Object.keys(deck.cards).reduce((a, k) => a + deck.cards[k], 0)/25);
+			 		optionsvalue += Math.max(-0.12, ((0.15 - 0.005 * options.damage - 0.005 * options.destroy - 0.015 * options.range - 0.015 * options.flying) * Object.keys(deck.cards).reduce((a, k) => a + deck.cards[k], 0)/25));
 				}
 			 	if (card.archetypes && card.archetypes.length > 0)
 			 		optionsvalue -= 0.02;
