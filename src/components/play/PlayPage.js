@@ -143,14 +143,14 @@ export default class PlayPage extends Component {
                         var hero;
                         var idHero = c.hero.idCardmodel || c.hero;
                         hero = this.state.cards.find(s => s.idCardmodel === idHero);
+                        if (hero)
                         return (
-                          hero ?
                           <div key={i} className={"sensuba-deckbuilder-tag " + colorIdToClassName(hero.idColor) + " " + colorIdToClassName(hero.idColor2)} onClick={() => this.choice(c.idDeck)}>
                             <div className="sensuba-deckbuilder-tag-name">{c.name}</div>
                             <img className="sensuba-deckbuilder-tag-img" src={c.background} alt={c.name}/>
                           </div>
-                          : <span/>
                         )
+                        return null
                       })
                     }
                     </div>

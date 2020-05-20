@@ -44,7 +44,7 @@
 .sensuba-deckbuilder-search .sensuba-deckbuilder-search-list {
 
 	overflow-y: scroll;
-	height: calc(100% - 2em);
+	height: calc(100% - 8.2em);
 }
 
 .sensuba-deckbuilder-list-cards {
@@ -97,6 +97,20 @@
 	box-shadow: none;
 	transition: background 0.2s;
 	border-radius: 0;
+	font-family: Constantia;
+}
+
+.sensuba-deckbuilder-search .sensuba-deckbuilder-suggestions-header {
+
+	height: 1.7em;
+	font-size: inherit;
+	text-align: left;
+	padding: 0 .75rem;
+	line-height: calc(1.7em - 4px);
+	background-color: #20204020;
+	border-style: outset;
+	border-width: 2px;
+	color: #495057;
 	font-family: Constantia;
 }
 

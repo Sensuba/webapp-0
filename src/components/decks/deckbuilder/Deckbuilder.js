@@ -6,6 +6,7 @@ import sorter from '../../../utility/CollectionSorter';
 //import { Progress } from 'antd';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import User from '../../../services/User';
+import Assistant from './AssistantBuilder';
 
 export default class Deckbuilder extends Component {
 
@@ -19,7 +20,8 @@ export default class Deckbuilder extends Component {
       choices = this.generateMiracleChoice(this.miracleColorList.cards);
     }
 
-		this.state = { filter: "", preview: null, miracle: this.miracle, choices };
+    this.assistant = new Assistant(this.props.cards);
+		this.state = { filter: "", preview: null, miracle: this.miracle, suggestions: this.assistant.suggest(this.getColorList(), this.props.deck, 3), choices };
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
 	}
@@ -64,6 +66,8 @@ export default class Deckbuilder extends Component {
     if (cc && cc.count === 1)
       this.hideTooltip();
   	this.props.updateDeck();
+
+    this.setState({ suggestions: this.assistant.suggest(this.getColorList(), this.props.deck, 3) });
   }
 
   addMiracleCard (id) {
@@ -82,6 +86,8 @@ export default class Deckbuilder extends Component {
   	if (c[id] === 0)
   		delete c[id];
   	this.props.updateDeck();
+
+    this.setState({ suggestions: this.assistant.suggest(this.getColorList(), this.props.deck, 3) });
   }
 
   showTooltip(e, card, left) {
@@ -165,6 +171,7 @@ export default class Deckbuilder extends Component {
     var clist = {};
     clist.hero = this.props.cards.find(c => c.idCardmodel === (this.props.deck.hero.idCardmodel || this.props.deck.hero));
     clist.cards = this.props.cards.filter(c => c.cardType !== "hero" && (c.idColor === 0 || c.idColor === clist.hero.idColor || c.idColor === clist.hero.idColor2) && (c.count !== 1 || !this.props.deck.cards[c.idCardmodel]));
+    sorter.sort(clist.cards, "name");
     return clist;
   }
 
@@ -294,6 +301,16 @@ export default class Deckbuilder extends Component {
       						</div>)
       				}
       				</div>
+              <div className="sensuba-deckbuilder-suggestions-header">Suggestions</div>
+              <div className="sensuba-deckbuilder-suggestions">
+              {
+                this.state.suggestions.map((c, i) =>
+                  <div key={i} className={"sensuba-deckbuilder-tag " + colorIdToClassName(c.idColor)} onMouseMove={e => this.showTooltip(e, c, true)} onMouseLeave={e => this.hideTooltip()} onClick={() => this.addCard(c.idCardmodel)}>
+                    <div className="sensuba-deckbuilder-tag-name">{c.nameCard}</div>
+                    <img className="sensuba-deckbuilder-tag-img" src={c.imgLink} alt={c.nameCard}/>
+                  </div>)
+              }
+              </div>
       			</div>
             }
       		</div>
