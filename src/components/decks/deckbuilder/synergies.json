@@ -256,7 +256,7 @@
 	"295": { "basis": ["control"], "roles": ["control"], "options": [{ "type": "damage", "value": 4 }], "reward": ["selfdamage"] },
 	"210": { "basis": ["control"], "roles": ["control"], "options": [{ "type": "destroy", "value": 1 }, { "type": "exaltation", "value": 1 }], "reward": [] },
 	"207": { "basis": ["control"], "roles": ["control"], "options": [{ "type": "lowhp", "value": 1 }], "reward": [] },
-	"259": { "basis": ["control"], "roles": ["control"], "options": [{ "type": "destroy", "value": 1 }], "reward": ["lastwill"] },
+	"259": { "basis": ["control"], "roles": ["control"], "options": [{ "type": "destroy", "value": 1 }, { "type": "selfdestroy", "value": 1 }], "reward": ["lastwill"] },
 	"323": { "basis": ["control"], "roles": ["control"], "options": [{ "type": "destroy", "value": 3 }], "reward": ["freeze"] },
 	"321": { "basis": ["control", "burst"], "roles": ["control", "value"], "options": [{ "type": "damage", "value": 1 }, { "type": "draw", "value": 1 }], "reward": [] },
 	"280": { "basis": ["control"], "roles": ["control"], "options": [{ "type": "destroy", "value": 1 }], "reward": ["freeze"] },

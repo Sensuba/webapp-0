@@ -274,7 +274,7 @@ export default class AssistantBuilder {
 		case "damage": return (noptions.damage + noptions.selfdamage  - 55) / 100;
 		case "selfdamage": return (noptions.selfdamage - 20) / 40 + (noptions.board - 50) / 220;
 		case "destroy": return (noptions.destroy - 40) / 100;
-		case "selfdestroy": return (noptions.board - 60) / 250;
+		case "selfdestroy": return (noptions.selfdestroy - 6)/25 + (noptions.board - 60) / 250;
 		case "spell": return (noptions.spell - 50) / 120;
 		case "nospell": return (noptions.board - 60) / 140 - Math.max(0, noptions.spell / 35);
 		case "big": return (noptions.big - 10) / 80 - Math.max(0, (noptions.board - 10) / 120);
