@@ -61,7 +61,7 @@ export default class AssistantBuilder {
 			var basisvalue = 0;
 			basis.forEach(b => basisvalue += params.type[b] / totalTypes);
 			var optionsvalue = syn.options.reduce((a, b) => a + this.computeOptionValue(id, b.type, options, deck), 0);
-			var rewardvalue = syn.reward.reduce((a, b) => a + this.computeRewardValue(b, options), 0);
+			var rewardvalue = syn.reward.reduce((a, b) => a + this.computeRewardValue(b, options) * (syn.reward.length > 1 ? 3/5 : 1), 0);
 			var colorvalue = card.idColor > 0 ? 1 : 0;
 			if (card.cardType === "figure") {
 				if (card.range > 1) {
