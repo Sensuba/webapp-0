@@ -280,7 +280,7 @@
 	
 	"341": { "basis": ["control"], "roles": ["value"], "options": [{ "type": "draw", "value": 1 }, { "type": "enemydraw", "value": 1 }], "reward": ["silence"] },
 	"342": { "basis": ["control"], "roles": ["tempo"], "options": [{ "type": "exaltation", "value": 1 }], "reward": ["draw"] },
-	"338": { "basis": ["burst"], "roles": ["control"], "options": [{ "type": "destroy", "value": 1 }], "reward": ["overload"] },
+	"438": { "basis": ["burst"], "roles": ["control"], "options": [{ "type": "destroy", "value": 1 }], "reward": ["overload"] },
 	"480": { "basis": ["midrange"], "roles": ["value"], "options": [{ "type": "draw", "value": "X" }], "reward": ["motion"] },
 	"343": { "basis": ["combo"], "roles": ["value"], "options": [{ "type": "draw", "value": 1 }, { "type": "play", "value": 1 }], "reward": ["bounce"] },
 	"477": { "basis": ["midrange"], "roles": ["tempo"], "options": [{ "type": "lastwill", "value": 1 }], "reward": [""] },
