@@ -370,7 +370,7 @@
 	"383": { "basis": ["agro", "burst"], "roles": ["burst", "control"], "options": [{ "type": "damage", "value": "X" }], "reward": ["push"] },
 	"386": { "basis": ["midrange"], "roles": ["value"], "options": [{ "type": "generate", "value": "X" }], "reward": ["exaltation"] },
 	"384": { "basis": ["midrange"], "roles": ["buff"], "options": [{ "type": "exaltation", "value": 2 }], "reward": [""] },
-	"382": { "basis": ["midrange"], "roles": ["burst"], "options": [], "reward": ["board"] },
+	"382": { "basis": ["midrange"], "roles": ["burst"], "options": [], "reward": ["board", "initiative"] },
 	"387": { "basis": ["burst", "control"], "roles": ["control"], "options": [{ "type": "damage", "value": 2 }], "reward": [""] },
 
 	"434": { "basis": ["midrange", "burst"], "roles": ["tempo"], "options": [{ "type": "exaltation", "value": 0.5 }, { "type": "spell", "value": 0.5 }, { "type": "overload", "value": 1 }], "reward": [""] },

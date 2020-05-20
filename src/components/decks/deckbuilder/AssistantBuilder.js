@@ -345,7 +345,7 @@ export default class AssistantBuilder {
 		case "selfpoison": 
 		case "selfdamage": 
 		case "selfdestroy": return gain - 0.08;
-		case "board": return gain - 0.1;
+		case "board": return gain - 0.12;
 		default: return gain;
 		}
 	}
