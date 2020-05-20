@@ -71,6 +71,9 @@ export default class AssistantBuilder {
 			 		optionsvalue -= 0.02;
 			}
 			var value = ((manavalue + rolevalue + manavalue * rolevalue + Math.pow(rewardvalue, 0.8)) * 0.8 + Math.pow(optionsvalue, 0.8)) * (1 + basisvalue*2) * (1 + colorvalue * 0.1);
+			for (var i = 0; i < count; i++)
+				if (value <= suggestions[i].value)
+					value -= (synergies[suggestions[i].id].roles.filter(el => roles.indexOf(el) !== -1).length / roles.length / synergies[suggestions[i].id].roles.length) * 0.5;
 			if (value > suggestions[count-1].value) {
 				suggestions[count-1] = { id, value }
 				suggestions.sort((a, b) => b.value - a.value);
