@@ -263,7 +263,7 @@ export default class AssistantBuilder {
 		case "spell": return (noptions.spell - 50) / 120;
 		case "nospell": return (noptions.board - 60) / 100 - Math.max(0, noptions.spell / 80);
 		case "big": return (noptions.big - 10) / 80 - Math.max(0, (noptions.board - 10) / 120);
-		case "bounce": return (noptions.lowhp - 2)/30;
+		case "bounce": return (noptions.bounce - 2)/30;
 		case "overload": return (noptions.overload - 20) / 150;
 		case "lowatk": return (noptions.lowatk - 6)/25;
 		case "lowhp": return (noptions.lowhp - 6)/25 + (noptions.damage - 40)/200;
