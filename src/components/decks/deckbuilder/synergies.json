@@ -209,7 +209,7 @@
 	"278": { "basis": ["midrange"], "roles": ["tempo"], "options": [{ "type": "initiative", "value": "X" }], "reward": ["board"] },
 	"291": { "basis": ["midrange", "control"], "roles": ["control"], "options": [{ "type": "board", "value": 3 }], "reward": [] },
 	"122": { "basis": ["agro"], "roles": ["control"], "options": [], "reward": [] },
-	"224": { "basis": ["midrange"], "roles": ["burst"], "options": [{ "type": "board", "value": 3 }], "reward": [] },
+	"224": { "basis": ["midrange"], "roles": ["burst"], "options": [{ "type": "board", "value": 3 }, { "type": "beast", "value": 3 }], "reward": [] },
 	"221": { "basis": ["burst"], "roles": ["value"], "options": [{ "type": "draw", "value": 1 }, { "type": "generate", "value": 2 }], "reward": [] },
 	"205": { "basis": ["burst", "control"], "roles": ["control"], "options": [{ "type": "damage", "value": 2 }], "reward": [] },
 	"237": { "basis": ["combo", "burst"], "roles": ["dealer"], "options": [{ "type": "gem", "value": "X" }], "reward": ["play"] },

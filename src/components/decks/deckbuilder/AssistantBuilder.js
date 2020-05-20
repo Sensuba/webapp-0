@@ -219,7 +219,7 @@ export default class AssistantBuilder {
 			case "beast":
 			case "cyber":
 			case "demon":
-			case "magical girl": options[op.for] += options[op.using] / 4 * op.count; break;
+			case "magical girl": options[op.for] += options[op.using] / 3 * op.count; break;
 			default: break;
 			}
 		})
@@ -281,13 +281,13 @@ export default class AssistantBuilder {
 		case "ramp": return (noptions.receptacle - 10) / 40;
 		case "flying":
 		case "initiative":
-		case "exaltation": 
+		case "exaltation":  return (noptions[type] - 20) / 80;
 		case "dragon":
 		case "lolita":
 		case "beast":
 		case "cyber":
 		case "demon":
-		case "magical girl": return (noptions[type] - 30) / 100;
+		case "magical girl": return (noptions[type] - 15) / 60;
 		default: return 0;
 		}
 	}
