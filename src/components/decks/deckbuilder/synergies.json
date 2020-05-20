@@ -17,7 +17,7 @@
 	"159": { "basis": ["midrange", "control"], "roles": ["sustain"], "options": [{ "type": "heal", "value": 1 }], "reward": [] },
 	"146": { "basis": ["midrange"], "roles": ["tempo", "buff"], "options": [{ "type": "boost", "value": "X" }], "reward": ["board"] },
 	"155": { "basis": ["agro"], "roles": ["burst"], "options": [], "reward": [] },
-	"257": { "basis": ["midrange", "control"], "roles": ["tempo"], "options": [{ "type": "cyber", "value": 1 }, { "type": "board", "value": 2 }], "reward": [] },
+	"257": { "basis": ["midrange", "control"], "roles": ["tempo"], "options": [{ "type": "cyber", "value": 1 }, { "type": "board", "value": 1.5 }], "reward": [] },
 	"130": { "basis": ["midrange", "control"], "roles": ["dealer"], "options": [], "reward": ["spell"] },
 	"117": { "basis": ["control"], "roles": ["tempo", "control"], "options": [{ "type": "silence", "value": 1 }], "reward": [] },
 	"101": { "basis": ["agro", "midrange"], "roles": ["tempo"], "options": [], "reward": [] },

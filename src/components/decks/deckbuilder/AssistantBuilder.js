@@ -109,7 +109,7 @@ export default class AssistantBuilder {
 		var params = {
 			type: { "agro": deckTypes.agro/totalTypes, "midrange": deckTypes.midrange/totalTypes, "control": deckTypes.control/totalTypes, "burst": deckTypes.burst/totalTypes, "combo": deckTypes.combo/totalTypes },
 			mana: { "0": deckManas[0]/totalManas, "1": deckManas[1]/totalManas, "2": deckManas[2]/totalManas, "3": deckManas[3]/totalManas, "4": deckManas[4]/totalManas, "5": deckManas[5]/totalManas, "6": deckManas[6]/totalManas },
-			roles: { "tempo": deckRoles.tempo/totalRoles, "dealer": deckRoles.dealer/totalRoles, "value": deckRoles.value/totalRoles, "control": deckRoles.control/totalRoles, "sustain": deckRoles.sustain/totalRoles, "burst": deckRoles.burst/totalRoles, "ramp": deckRoles.ramp/totalRoles, "buff": deckRoles.buff/totalRoles }
+			roles: { "tempo": deckRoles.tempo/totalRoles, "dealer": deckRoles.dealer/totalRoles, "value": deckRoles.value/totalRoles, "control": deckRoles.control/totalRoles, "sustain": deckRoles.sustain/totalRoles, "burst": deckRoles.burst/totalRoles, "ramp": deckRoles.ramp/totalRoles, "buff": deckRoles.buff/totalRoles, "invest": deckRoles.invest/totalRoles }
 		}
 
 		return params;
@@ -251,17 +251,19 @@ export default class AssistantBuilder {
 
 		switch (type) {
 		case "boost": return (noptions.boost - 20) / 150;
-		case "board": return (noptions.board - 60) / 150;
+		case "board": return (noptions.board - 60) / 180;
 		case "play": return (1 + (noptions.play-40)/120 + (noptions.gem-2)/40 + (noptions.mana-2)/40) * (1 + (noptions.draw-15)/50 + (noptions.generate-10)/150) - 1;
 		case "freeze": return (noptions.freeze - 40) / 100;
 		case "shield": return (noptions.shield - 40) / 100;
+		case "draw": return (noptions.draw  - 25) / 120;
+		case "enemydraw": return (noptions.enemydraw  - 15) / 60;
 		case "hand": return (noptions.draw  - 25) / 100 + (noptions.generate  - 25) / 100;
 		case "damage": return (noptions.damage + noptions.selfdamage  - 55) / 100;
 		case "selfdamage": return (noptions.selfdamage - 20) / 40 + (noptions.board - 50) / 220;
 		case "destroy": return (noptions.destroy - 40) / 100;
 		case "selfdestroy": return (noptions.board - 60) / 250;
 		case "spell": return (noptions.spell - 50) / 120;
-		case "nospell": return (noptions.board - 60) / 100 - Math.max(0, noptions.spell / 80);
+		case "nospell": return (noptions.board - 60) / 140 - Math.max(0, noptions.spell / 35);
 		case "big": return (noptions.big - 10) / 80 - Math.max(0, (noptions.board - 10) / 120);
 		case "bounce": return (noptions.bounce - 2)/30;
 		case "overload": return (noptions.overload - 20) / 150;
@@ -319,10 +321,10 @@ export default class AssistantBuilder {
 		case "play": return gain - 0.04;
 		case "spell":
 		case "overload": return gain - 0.06;
-		case "board":
 		case "bounce":
 		case "selfdamage": 
 		case "selfdestroy": return gain - 0.08;
+		case "board": return gain - 0.1;
 		default: return gain;
 		}
 	}
