@@ -21,7 +21,7 @@ export default class Deckbuilder extends Component {
     }
 
     this.assistant = new Assistant(this.props.cards);
-		this.state = { filter: "", preview: null, miracle: this.miracle, suggestions: this.assistant.suggest(this.getColorList(), this.props.deck, 12), choices };
+		this.state = { filter: "", preview: null, miracle: this.miracle, suggestions: this.assistant.suggest(this.getColorList(), this.props.deck, 3), choices };
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
 	}
