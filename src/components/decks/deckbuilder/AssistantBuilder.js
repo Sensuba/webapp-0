@@ -291,7 +291,7 @@ export default class AssistantBuilder {
 		case "silence": return (noptions.silence - 10)/40;
 		case "lastwill": return (noptions.lastwill - 10)/40;
 		case "heal": return (noptions.heal - 35)/120;
-		case "push": return (noptions.push - 15)/60;
+		case "push": return (noptions.push - 12)/60;
 		case "gem": return (noptions.gem - 10)/40;
 		case "steal": return (noptions.steal - 10)/40;
 		case "ramp": return (noptions.receptacle - 10) / 40;
@@ -336,6 +336,7 @@ export default class AssistantBuilder {
 		case "heal": return gain - 0.004 * options[type];
 		case "cover":
 		case "gem":
+		case "push":
 		case "poison": return gain - 0.02 - 0.004 * options[type];
 		case "conceal":
 		case "freeze":
