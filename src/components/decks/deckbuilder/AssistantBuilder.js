@@ -283,9 +283,10 @@ export default class AssistantBuilder {
 		case "big": return (noptions.big - 10) / 80 - Math.max(0, (noptions.board - 10) / 120);
 		case "bounce": return Math.pow((noptions.bounce - 6)/60, 0.6);
 		case "overload": return (noptions.overload - 20) / 150;
-		case "lowatk": return (noptions.lowatk - 6)/25;
-		case "lowhp": return (noptions.lowhp - 6)/25 + (noptions.damage - 40)/200;
-		case "cover": return (noptions.cover - 6)/25 + (noptions.board - 60)/200;
+		case "lowatk": return (noptions.lowatk - 4)/60;
+		case "lowhp": return (noptions.lowhp - 4)/60 + (noptions.damage - 40)/250;
+		case "highhp": return (noptions.highhp - 4)/60;
+		case "cover": return (noptions.cover - 4)/60 + (noptions.board - 60)/200;
 		case "frenzy": return (noptions.frenzy - 10)/100;
 		case "artifact": return (noptions.artifact - 10)/40;
 		case "silence": return (noptions.silence - 10)/40;
