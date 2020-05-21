@@ -388,7 +388,7 @@
 	"392": { "basis": ["combo"], "roles": ["value"], "options": [{ "type": "draw", "value": 1 }], "reward": [""] },
 	"476": { "basis": ["control"], "roles": ["control"], "options": [{ "type": "damage", "value": "X" }], "reward": ["hand"] },
 	"495": { "basis": ["burst"], "roles": ["control"], "options": [{ "type": "damage", "value": 1 }], "reward": ["overload"] },
-	"493": { "basis": ["combo"], "roles": ["value"], "options": [{ "type": "bounce", "value": 1 }, { "type": "generate", "value": 1 }], "reward": [""] },
+	"493": { "basis": ["combo"], "roles": ["value"], "options": [{ "type": "generate", "value": 1 }, { "type": "generate", "value": 1 }], "reward": [""] },
 
 	"399": { "basis": ["midrange"], "roles": ["tempo", "buff"], "options": [{ "type": "motion", "value": 2 }], "reward": [""] },
 	"397": { "basis": ["midrange"], "roles": ["dealer"], "options": [{ "type": "initiative", "value": 1 }, { "type": "frenzy", "value": 1 }], "reward": [""] },

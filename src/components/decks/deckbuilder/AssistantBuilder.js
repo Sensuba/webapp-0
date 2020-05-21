@@ -281,7 +281,7 @@ export default class AssistantBuilder {
 		case "spell": return (noptions.spell - 50) / 120;
 		case "nospell": return (noptions.board - 60) / 140 - Math.max(0, noptions.spell / 35);
 		case "big": return (noptions.big - 10) / 80 - Math.max(0, (noptions.board - 10) / 120);
-		case "bounce": return Math.pow((noptions.bounce - 4)/60, 0.65);
+		case "bounce": return Math.pow((noptions.bounce - 6)/60, 0.6);
 		case "overload": return (noptions.overload - 20) / 150;
 		case "lowatk": return (noptions.lowatk - 6)/25;
 		case "lowhp": return (noptions.lowhp - 6)/25 + (noptions.damage - 40)/200;
@@ -330,25 +330,33 @@ export default class AssistantBuilder {
 		case "flying":
 		case "range": return Math.max(-0.12, (gain + 0.15 - 0.005 * options.damage - 0.005 * options.destroy - 0.015 * options.range - 0.015 * options.flying) * Object.keys(deck.cards).reduce((a, k) => a + deck.cards[k], 0)/25);
 		case "enemydraw": return gain - 0.06 + 0.015 * options.enemydraw;
-		case "poison": return gain - 0.02;
+		case "damage":
+		case "generate":
+		case "draw": return gain - 0.002 * options[type];
+		case "shield":
+		case "heal": return gain - 0.004 * options[type];
+		case "cover":
+		case "gem":
+		case "poison": return gain - 0.02 - 0.004 * options[type];
 		case "conceal":
 		case "freeze":
 		case "steal":
 		case "lowatk":
 		case "lowhp":
-		case "highhp":
-		case "play": return gain - 0.04;
+		case "highhp": return gain - 0.04 - 0.004 * options[type];
+		case "play": return gain - 0.04 - 0.002 * options[type];
+		case "motion":
 		case "boost":
 		case "discard":
 		case "spell":
-		case "overload": return gain - 0.06;
-		case "specific":
-		case "bounce":
+		case "overload": return gain - 0.06 - 0.004 * options[type];
+		case "specific": return gain - 0.08;
+		case "bounce": return gain - 0.08 - 0.01 * options[type];
 		case "selffreeze": 
 		case "selfpoison": 
 		case "selfdamage": 
-		case "selfdestroy": return gain - 0.08;
-		case "board": return gain - 0.12;
+		case "selfdestroy": return gain - 0.08 - 0.004 * options[type];
+		case "board": return gain - 0.1 - 0.004 * options[type];
 		default: return gain;
 		}
 	}
