@@ -317,7 +317,7 @@
 	"350": { "basis": ["midrange"], "roles": ["dealer"], "options": [{ "type": "fury", "value": 1 }, { "type": "initiative", "value": 1 }], "reward": ["boost"] },
 	"471": { "basis": ["midrange"], "roles": ["value"], "options": [{ "type": "generate", "value": 1 }], "reward": [""] },
 	"360": { "basis": ["combo"], "roles": ["value"], "options": [], "reward": ["bounce"] },
-	"440": { "basis": ["midrange"], "roles": ["invest"], "options": [{ "type": "exaltation", "value": 1 }, { "type": "bounce", "value": 1 }, { "type": "generate", "value": 1 }], "reward": [""] },
+	"440": { "basis": ["midrange"], "roles": ["invest"], "options": [{ "type": "exaltation", "value": 1 }, { "type": "generate", "value": 1 }], "reward": [""] },
 	"449": { "basis": ["midrange"], "roles": ["sustain"], "options": [{ "type": "heal", "value": 1 }], "reward": ["selfpoison"] },
 	"361": { "basis": ["midrange", "control"], "roles": ["sustain"], "options": [{ "type": "heal", "value": 1 }], "reward": [""] },
 	"362": { "basis": ["midrange"], "roles": ["dealer"], "options": [], "reward": ["motion"] },
