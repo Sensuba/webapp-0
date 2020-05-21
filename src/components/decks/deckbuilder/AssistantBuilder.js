@@ -286,7 +286,7 @@ export default class AssistantBuilder {
 		case "lowatk": return (noptions.lowatk - 6)/25;
 		case "lowhp": return (noptions.lowhp - 6)/25 + (noptions.damage - 40)/200;
 		case "cover": return (noptions.cover - 6)/25 + (noptions.board - 60)/200;
-		case "frenzy": return (noptions.frenzy - 15)/100;
+		case "frenzy": return (noptions.frenzy - 10)/100;
 		case "artifact": return (noptions.artifact - 10)/40;
 		case "silence": return (noptions.silence - 10)/40;
 		case "lastwill": return (noptions.lastwill - 10)/40;
@@ -330,7 +330,6 @@ export default class AssistantBuilder {
 		case "flying":
 		case "range": return Math.max(-0.12, (gain + 0.15 - 0.005 * options.damage - 0.005 * options.destroy - 0.015 * options.range - 0.015 * options.flying) * Object.keys(deck.cards).reduce((a, k) => a + deck.cards[k], 0)/25);
 		case "enemydraw": return gain - 0.06 + 0.015 * options.enemydraw;
-		case "damage":
 		case "generate":
 		case "draw": return gain - 0.002 * options[type];
 		case "shield":
