@@ -295,8 +295,8 @@ export default class AssistantBuilder {
 		case "gem": return (noptions.gem - 10)/40;
 		case "steal": return (noptions.steal - 10)/40;
 		case "ramp": return (noptions.receptacle - 10) / 40;
+		case "initiative":  return (noptions[type] - 20) / 140;
 		case "flying":
-		case "initiative":
 		case "exaltation":  return (noptions[type] - 20) / 80;
 		case "dragon":
 		case "lolita":
