@@ -206,7 +206,7 @@
 	"204": { "basis": ["agro", "midrange"], "roles": ["dealer"], "options": [], "reward": ["play"] },
 	"307": { "basis": ["midrange"], "roles": ["dealer"], "options": [{ "type": "initiative", "value": 1 }], "reward": ["dragon"] },
 	"241": { "basis": ["burst"], "roles": ["burst", "value"], "options": [{ "type": "damage", "value": 1 }, { "type": "generate", "value": 1 }], "reward": ["play"] },
-	"278": { "basis": ["midrange"], "roles": ["tempo"], "options": [{ "type": "initiative", "value": "X" }], "reward": ["board"] },
+	"178": { "basis": ["midrange"], "roles": ["tempo"], "options": [{ "type": "initiative", "value": "X" }], "reward": ["board"] },
 	"291": { "basis": ["midrange", "control"], "roles": ["control"], "options": [{ "type": "board", "value": 3 }], "reward": [] },
 	"122": { "basis": ["agro"], "roles": ["control"], "options": [], "reward": [] },
 	"224": { "basis": ["midrange"], "roles": ["burst"], "options": [{ "type": "board", "value": 3 }, { "type": "beast", "value": 3 }], "reward": [] },
