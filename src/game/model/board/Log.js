@@ -11,7 +11,7 @@ class Log {
 
 	add (log) {
 
-		this.logs.push(log);var a = this.history.length;
+		this.logs.push(log);
 		var entry;
 
 		switch (log.type) {
@@ -40,8 +40,6 @@ class Log {
 			break;
 		default: break;
 		}
-		if (this.history.length > a)
-			console.log(log);
 		if (this.history.length > MAX_HISTORY_SIZE)
 			this.history.pop();
 	}

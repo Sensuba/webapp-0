@@ -15,7 +15,7 @@ export default class HomePage extends Component {
               <div className="home-panel-filter"/>
               <div className="home-panel-text">
                 <h3>Plongez dans la bataille</h3>
-                <p>Une fois encore, les mondes convergent dans une bataille infernale ! Utilisez le pouvoir de vos cartes pour mener des batailles entre héros de tous temps et de tout univers. Jouez à Sensubaa en ligne gratuitement pour profiter du duels épiques entre vos personnages d'animes préférés.</p>
+                <p>Une fois encore, les mondes convergent dans une bataille infernale ! Utilisez le pouvoir de vos cartes pour mener des batailles entre héros de tous temps et de tout univers. Jouez à Sensuba en ligne gratuitement pour profiter du duels épiques entre vos personnages d'animes préférés.</p>
                 <button className="select-button" onClick={() => this.props.history.push("/play")}>Lancer une partie</button>
               </div>
             </div>

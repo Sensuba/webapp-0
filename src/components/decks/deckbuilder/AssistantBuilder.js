@@ -286,7 +286,7 @@ export default class AssistantBuilder {
 		case "lowatk": return (noptions.lowatk - 4)/60;
 		case "lowhp": return (noptions.lowhp - 4)/60 + (noptions.damage - 40)/250;
 		case "highhp": return (noptions.highhp - 4)/60;
-		case "cover": return (noptions.cover - 4)/60 + (noptions.board - 60)/200;
+		case "cover": return (noptions.cover - 4)/50 + (noptions.board - 60)/250;
 		case "frenzy": return (noptions.frenzy - 10)/100;
 		case "artifact": return (noptions.artifact - 10)/40;
 		case "silence": return (noptions.silence - 10)/40;
