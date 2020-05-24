@@ -68,6 +68,7 @@ var CanPay = require('./CanPay');
 var CanReach = require('./CanReach');
 var HasShield = require('./HasShield');
 var FilterCard = require('./FilterCard');
+var FilterModel = require('./FilterModel');
 var FilterStats = require('./FilterStats');
 var FilterVariable = require('./FilterVariable');
 var CheckCard = require('./CheckCard');
@@ -249,6 +250,7 @@ class Reader {
 			case "cmpplayers": bloc = new ComparePlayers(card, ctx); break;
 			case "tiletotiles": bloc = new TileToTiles(card, ctx); break;
 			case "filtercard": bloc = new FilterCard(card, ctx); break;
+			case "filtermodel": bloc = new FilterModel(card, ctx); break;
 			case "filterstats": bloc = new FilterStats(card, ctx); break;
 			case "filtervar": bloc = new FilterVariable(card, ctx); break;
 			case "countcards": bloc = new CountCards(card, ctx); break;
