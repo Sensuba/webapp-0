@@ -8,8 +8,13 @@ class Token extends Bloc {
 
 		super("token", src, ctx);
 		this.f = (src, ins) => {
-			return [];
-		};
+			if (ins[0] === null)
+				ins[0] = 0;
+			if (ins[0] < 0)
+				return [];
+			else
+				return [{ parent: this.genParent(this.src), token: ins[0] }];
+		}
 		this.types = [Types.int];
 	}
 
