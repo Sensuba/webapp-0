@@ -79,3 +79,32 @@
     vertical-align: middle;
     font-weight: bold;
 }
+
+.faculty-secret-params {
+
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.2em;
+}
+
+.faculty-secret-params .faculty-secret-param {
+
+    display: inline-block;
+    font-family: "Lucida Bright";
+    font-style: italic;
+    width: 2.8em;
+    height: 2em;
+    line-height: 2em;
+    vertical-align: middle;
+    font-weight: bold;
+    border: 1px dotted lightgray;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.faculty-secret-params .faculty-secret-param:hover {
+
+    background: darkgray;
+    color: white;
+    border-color: #d3d3d300;
+}

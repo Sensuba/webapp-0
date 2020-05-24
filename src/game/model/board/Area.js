@@ -51,7 +51,7 @@ export default class Area {
 		if (this.extraTurns)
 			this.extraTurns--;
 		this.manapool.reload();
-		this.field.entities.forEach(e => e.refresh());
+		this.field.cards.forEach(e => e.refresh());
 		this.gameboard.update();
 	}
 

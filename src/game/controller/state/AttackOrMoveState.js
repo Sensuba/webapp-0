@@ -7,7 +7,7 @@ export default class AttackOrMoveState {
 		this.manager = manager;
 		this.card = card;
 		this.def = def;
-		this.manager.update({faculties: card.faculties.map(f => Object.assign({}, f, {usable: this.card.canUse(f)}))});
+		this.manager.update({faculties: card.faculties.map(f => Object.assign({}, f, {usable: this.card.canUse(f)})), secret: card.isType("secret")});
 	}
 
 	select (target) {
@@ -31,6 +31,10 @@ export default class AttackOrMoveState {
 	          	this.manager.unselect();
 			}
 			return;
+		} else if (target.id.type === "parameter") {
+			this.manager.command({ type: "param", id: this.card.id, option: "setcount", count: target.id.no });
+			this.manager.controller = this.def;
+          	this.manager.unselect();
 		}
 
 		var ltarget = target.id.type === "card" ? target.location : target;

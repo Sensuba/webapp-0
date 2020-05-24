@@ -539,6 +539,8 @@ export default class Card {
 			return false;
 		if (!this.onBoard)
 			return false;
+		if (this.isType("secret"))
+			return true;
 		if (this.frozen)
 			return false;
 		if (eff.motionPt)
@@ -555,6 +557,8 @@ export default class Card {
 
 		if (!this.area.isPlaying)
 			return false;
+		if (this.isType("secret"))
+			return true;
 		return (this.skillPt && !isNaN(faculty.cost) && (this.isType("artifact") ? this.eff.chp >= -faculty.cost : this.area.manapool.usableMana >= faculty.cost)) || (this.actionPt && isNaN(faculty.cost) && !this.firstTurn);
 	}
 
@@ -692,13 +696,17 @@ export default class Card {
 
 	refresh () {
 
-		this.skillPt = 1;
-		if (this.isType("character")) {
-			this.actionPt = 1;
-			this.motionPt = 1;
-			this.firstTurn = false;
-			this.strikes = 0;
+		if (this.isType("entity")) {
+			this.skillPt = 1;
+			if (this.isType("character")) {
+				this.actionPt = 1;
+				this.motionPt = 1;
+				this.firstTurn = false;
+				this.strikes = 0;
+			}
 		}
+		if (this.isType("secret"))
+			delete this.secretcount;
 	}
 
 	mutate (effect, end) {
