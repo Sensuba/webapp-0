@@ -484,7 +484,7 @@ export default class Card {
 
 	get canBePlayed () {
 
-		if (!this.inHand || (!this.isType("secret") && !this.canBePaid) || !this.area.isPlaying)
+		if (!this.inHand || !this.canBePaid || !this.area.isPlaying)
 			return false;
 		if (this.targets.length === 0)
 			return true;
@@ -494,7 +494,7 @@ export default class Card {
 
 	canBePlayedOn (targets) {
 
-		if ((!this.isType("secret") && !this.canBePaid) || !this.area.isPlaying)
+		if (!this.canBePaid || !this.area.isPlaying)
 			return false;
 		if (this.targets.length === 0)
 			return true;

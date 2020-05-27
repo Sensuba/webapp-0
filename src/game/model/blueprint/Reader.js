@@ -16,6 +16,7 @@ var Contact = require('./Contact');
 var PassiveMutation = require('./PassiveMutation');
 var ContactMutation = require('./ContactMutation');
 var Aura = require('./Aura');
+var Secret = require('./Secret');
 
 var Draw = require('./Draw');
 var Move = require('./Move');
@@ -182,6 +183,7 @@ class Reader {
 			case "passivemut": bloc = new PassiveMutation(card, ctx); break;
 			case "contactmut": bloc = new ContactMutation(card, ctx); break;
 			case "aura": bloc = new Aura(card, ctx); break;
+			case "secret": bloc = new Secret(card, ctx); break;
 			case "draw": bloc = new Draw(card, ctx); break;
 			case "move": bloc = new Move(card, ctx); break;
 			case "attack": bloc = new Attack(card, ctx); break;

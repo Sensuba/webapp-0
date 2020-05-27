@@ -18,9 +18,12 @@ export default class AttackOrMoveState {
 		if (target.id.type === "faculty") {
 			var faculty = this.card.faculties[target.id.no];
 			if (this.card.isType("secret")){
-				this.manager.command({ type: "param", id: this.card.id, option: "destroy" });
+				if (faculty.no === this.card.faculties.length-1)
+					this.manager.command({ type: "param", id: this.card.id, option: "destroy" });
+				else this.manager.command({ type: "param", id: this.card.id, option: "seteffect", value: faculty.no });
 				this.manager.controller = this.def;
 	          	this.manager.unselect();
+	          	return;
 			}
 			if (faculty.target) {
 				this.manager.controller = new SelectFacultyTargetState(this.manager, this.card, faculty, this.def);
@@ -32,7 +35,7 @@ export default class AttackOrMoveState {
 			}
 			return;
 		} else if (target.id.type === "parameter") {
-			this.manager.command({ type: "param", id: this.card.id, option: "setcount", count: target.id.no });
+			this.manager.command({ type: "param", id: this.card.id, option: "setcount", value: target.id.no });
 			this.manager.controller = this.def;
           	this.manager.unselect();
 		}
