@@ -392,6 +392,8 @@ export default class Card {
 			this.states = Object.assign({}, data.states);
 		if (data && data.poisondmg)
 			this.poisondmg = data.poisondmg;
+		if (!data.blueprint)
+			delete this.blueprint;
 		if (wasActivated)
 			this.activate();
 		if (this.isType("entity") || this.isType("secret"))
