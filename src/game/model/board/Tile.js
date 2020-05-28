@@ -25,7 +25,7 @@ export default class Tile {
 
 	get cards () {
 
-		return this.card ? [this.card] : [];
+		return [this.card];
 	}
 
 	place (card) {
