@@ -284,6 +284,7 @@ export default class CardsPage extends Component {
             <div className="sensuba-shop-boosters">
               <div onClick={() => this.buyBooster(2)} className="sensuba-shop-booster"><Booster expansion="Classic" theme="lightblue" img="/game/back.png"/></div>
               <div onClick={() => this.buyBooster(3)} className="sensuba-shop-booster"><Booster expansion="Etoile Gardienne" theme="darksky" img="/guardianstar.jpg"/></div>
+              { /* <div onClick={() => this.buyBooster(4)} className="sensuba-shop-booster"><Booster expansion="Grand Bal Masqué" theme="hot" img="/masquerade.jpg"/></div> */ }
             </div>
           </Lightbox> : <span/>
         }
@@ -340,7 +341,7 @@ export default class CardsPage extends Component {
                 <option value="1">Basique</option>
                 <option value="2">Classique</option>
                 <option value="3">Etoile Gardienne</option>
-                { (() => { if (User.isConnected() && User.getData().authorization > 0) return <option value="4">A venir</option> })() }
+                { (() => { if (User.isConnected() && User.getData().authorization > 0) return <option value="4">Grand Bal Masqué</option> })() }
               </select>
               <div>
                 { (nocards > 0 ? <b>{ nocards }</b> : "Aucune")}{ " carte" + (nocards > 1 ? "s" : "") + " trouvée" + (nocards > 1 ? "s" : "") }
