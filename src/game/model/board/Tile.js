@@ -100,6 +100,32 @@ export default class Tile {
 		return this.neighbors.includes(other);
 	}
 
+	get left () {
+
+		var line = this.inFront ? this.field.front : this.field.back;
+		for (var i = 1; i < line.length; i++)
+			if (line[i] === this)
+				return line[i-1];
+		return null;
+	}
+
+	get right () {
+
+		var line = this.inFront ? this.field.front : this.field.back;
+		for (var i = 0; i < line.length-1; i++)
+			if (line[i] === this)
+				return line[i+1];
+		return null;
+	}
+
+	get mirror () {
+
+		for (var i = 0; i < this.field.tiles.length; i++)
+			if (this.field.tiles[i] === this)
+				return this.field.opposite.tiles[i];
+		return null;
+	}
+
 	get tilesBehind () {
 
 		var b = [];
