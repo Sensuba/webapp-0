@@ -302,6 +302,11 @@
     margin-top: 0.22em;
 }
 
+.sensuba-card .sensuba-card-effect.sensuba-card-long-effect .sensuba-card-effect-p + .sensuba-card-effect-p {
+
+    margin-top: 0.1em;
+}
+
 .sensuba-card .sensuba-card-effect .sensuba-card-summon-effect-icon {
 
     width: 1em;

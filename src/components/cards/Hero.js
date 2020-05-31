@@ -42,9 +42,9 @@ export default class Hero extends Component {
 	        	<span className="sensuba-card-anime">{src.anime}</span>
 	        </div>
 	        <div className="sensuba-card-body-main">
-	        	<div className={"sensuba-card-effect" + (level !== 1 ? " sensuba-card-invisible" : "")} style={{fontSize: (src.fontSize || 1.3)/2 + 'em'}} dangerouslySetInnerHTML={{__html: src.htmlDescription}}/>
-	        	<div className={"sensuba-card-effect" + (level !== 2 ? " sensuba-card-invisible" : "")} style={{fontSize: (src.lv2.fontSize || 1.3)/2 + 'em'}} dangerouslySetInnerHTML={{__html: src.lv2.htmlDescription}}/>
-	        	<div className={"sensuba-card-effect" + (level !== 3 ? " sensuba-card-invisible" : "")} style={{fontSize: (src.lvmax.fontSize || 1.3)/2 + 'em'}} dangerouslySetInnerHTML={{__html: src.lvmax.htmlDescription}}/>
+	        	<div className={"sensuba-card-effect" + (level !== 1 ? " sensuba-card-invisible" : "") + (src.lvmax.fontSize < 0.95 ? " sensuba-card-long-effect" : "")} style={{fontSize: (src.fontSize || 1.3)/2 + 'em'}} dangerouslySetInnerHTML={{__html: src.htmlDescription}}/>
+	        	<div className={"sensuba-card-effect" + (level !== 2 ? " sensuba-card-invisible" : "") + (src.lv2.fontSize < 0.95 ? " sensuba-card-long-effect" : "")} style={{fontSize: (src.lv2.fontSize || 1.3)/2 + 'em'}} dangerouslySetInnerHTML={{__html: src.lv2.htmlDescription}}/>
+	        	<div className={"sensuba-card-effect" + (level !== 3 ? " sensuba-card-invisible" : "") + (src.lvmax.fontSize < 0.95 ? " sensuba-card-long-effect" : "")} style={{fontSize: (src.lvmax.fontSize || 1.3)/2 + 'em'}} dangerouslySetInnerHTML={{__html: src.lvmax.htmlDescription}}/>
 	        	<div className="sensuba-card-flavour">{src.flavourText || ""}</div>
 	        	{ src.idEdition > 1 ? <div className={"sensuba-card-edition sensuba-card-edition-" + src.idEdition}/> : <span/> }
 	    	</div>
