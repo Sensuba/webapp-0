@@ -152,6 +152,12 @@ export default class Card {
 			this.activate();
 		if (this.blueprint)
 			Reader.read(this.blueprint, this);
+		if (this.isType("secret")) {
+			if (this.faculties.length === 2)
+				this.secreteffect = 0;
+			else delete this.secreteffect;
+			this.secretcount = 1;
+		}
 		this.update();
 	}
 
@@ -423,6 +429,12 @@ export default class Card {
 		}
 		if (this.isType("artifact") || this.isType("secret"))
 			this.faculties.push({no: this.faculties.length, desc: "Explose.", cost: "0"});
+		if (this.isType("secret")) {
+			if (this.faculties.length === 2)
+				this.secreteffect = 0;
+			else delete this.secreteffect;
+			this.secretcount = 1;
+		}
 		if (this.onBoard)
 			this.resetSickness();
 		this.update();
@@ -561,7 +573,7 @@ export default class Card {
 		if (!this.area.isPlaying)
 			return false;
 		if (this.isType("secret"))
-			return true;
+			return this.secreteffect !== faculty.no;
 		return (this.skillPt && !isNaN(faculty.cost) && (this.isType("artifact") ? this.eff.chp >= -faculty.cost : this.area.manapool.usableMana >= faculty.cost)) || (this.actionPt && isNaN(faculty.cost) && !this.firstTurn);
 	}
 

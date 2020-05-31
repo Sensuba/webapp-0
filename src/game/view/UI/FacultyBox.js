@@ -6,6 +6,8 @@ export default class FacultyBox extends Component {
 
   render () {
 
+    var secretcount = this.props.secretcount;
+
     return (
     	<div className={"faculty-box faculty-box-" + this.props.faculties.length}>
       {
@@ -16,7 +18,7 @@ export default class FacultyBox extends Component {
       	<div className="faculty-secret-params">
       		{ [0, 1, 2, 3, 4, 5].map(i => <div key={i}
               onClick={e => { this.props.select({ id: { type: "parameter", no: i } }); }}
-              className="faculty-secret-param">
+              className={"faculty-secret-param" + (secretcount !== i ? "" : " locked-faculty")}>
               {(i === 0 ? "-" : i)}
             </div> ) }
       	</div> : <span/>

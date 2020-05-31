@@ -7,7 +7,7 @@ export default class AttackOrMoveState {
 		this.manager = manager;
 		this.card = card;
 		this.def = def;
-		this.manager.update({faculties: card.faculties.map(f => Object.assign({}, f, {usable: this.card.canUse(f)})), secret: card.isType("secret")});
+		this.manager.update({faculties: card.faculties.map(f => Object.assign({}, f, {usable: this.card.canUse(f)})), secret: card.isType("secret"), secretcount: card.isType("secret") ? card.secretcount : -1});
 	}
 
 	select (target) {
@@ -20,7 +20,10 @@ export default class AttackOrMoveState {
 			if (this.card.isType("secret")){
 				if (faculty.no === this.card.faculties.length-1)
 					this.manager.command({ type: "param", id: this.card.id, option: "destroy" });
-				else this.manager.command({ type: "param", id: this.card.id, option: "seteffect", value: faculty.no });
+				else {
+					this.card.secreteffect = target.id.no;
+					this.manager.command({ type: "param", id: this.card.id, option: "seteffect", value: faculty.no });
+				}
 				this.manager.controller = this.def;
 	          	this.manager.unselect();
 	          	return;
@@ -35,6 +38,7 @@ export default class AttackOrMoveState {
 			}
 			return;
 		} else if (target.id.type === "parameter") {
+			this.card.secretcount = target.id.no;
 			this.manager.command({ type: "param", id: this.card.id, option: "setcount", value: target.id.no });
 			this.manager.controller = this.def;
           	this.manager.unselect();
