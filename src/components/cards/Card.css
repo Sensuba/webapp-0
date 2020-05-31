@@ -819,7 +819,7 @@
   100% { box-shadow: 0 0 0.8em 0.6em #00FF00; }
 }
 
-.sensuba-card.sensuba-card-targetable {
+.sensuba-card.sensuba-card-targetable, .sensuba-tile-targetable .sensuba-card {
 
     animation: card-halo-targetable 1s infinite alternate linear;
 }

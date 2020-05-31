@@ -7,6 +7,7 @@ import Action from './view/animation/Action';
 import Ability from './view/animation/Ability';
 import Destroy from './view/animation/Destroy';
 import Summon from './view/animation/Summon';
+import Secret from './view/animation/Secret';
 import Fatigue from './view/animation/Fatigue';
 import Shuffle from './view/animation/Shuffle';
 import Boost from './view/animation/Boost';
@@ -122,8 +123,12 @@ export default class Sequencer {
 	    case "triggersecret": 
 	  		return new Spell(this.master);
 	    case "cardmove": 
-	  		if (this.model.started && n.data[0].type === "deck")
+	    	if (!this.model.started)
+	    		break;
+	  		if (n.data[0].type === "deck")
 	  			return new Shuffle(this.master, n.src.no);
+	  		if (n.data[0].type === "tile" && (!n.data[1] || n.data[1].type !== "tile"))
+	  			return new Secret(this.master, n.src.no);
 	  		break;
 		case "cardfaculty": {
 			let anim = n.data[0].value ? new Action(this.master, n.src.no, n.data[1]) : new Ability(this.master, n.src.no, n.data[1]);
