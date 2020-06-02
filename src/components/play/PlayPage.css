@@ -63,6 +63,16 @@
     cursor: pointer;
 }
 
+.play-panel.panel-full {
+
+    width: 100%;
+}
+
+.play-panel.panel-full img {
+
+    object-position: center;
+}
+
 .play-panel + .play-panel {
 
 	border-left: 1px solid rgba(0, 0, 0, 0.5);
@@ -79,6 +89,13 @@
     filter: grayscale(0%);
 }
 
+.play-panel.panel-full:hover {
+
+    width: 120% !important;
+    margin-left: -10%;
+    filter: grayscale(0%);
+}
+
 .play-panel .play-panel-background {
 
 	object-fit: cover;
@@ -89,7 +106,7 @@
     left: 0;
     z-index: -1;
     position: absolute;
-    transition: height 0.5s, width 0.5s, top 0.5s, left 0.5s;
+    transition: height 0.5s, width 0.5s, top 0.5s, left 0.5s, margin 0.5s;
 }
 
 .play-panel .play-panel-filter {

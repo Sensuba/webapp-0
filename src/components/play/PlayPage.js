@@ -40,7 +40,8 @@ export default class PlayPage extends Component {
       decklist: decklist,
       seeking: false,
       deck: deck,
-      filter: ""
+      filter: "",
+      filterCPU: ""
     };
 	}
 
@@ -54,6 +55,11 @@ export default class PlayPage extends Component {
       history.push(`/play/${res.to}`);
     });
     this.setState({seeking: true});
+  }
+
+  callAI (ai) {
+
+    this.props.history.push(`/training/${ai}`);
   }
 
   choice (idDeck) {
@@ -171,6 +177,31 @@ export default class PlayPage extends Component {
                 <img className="play-panel-background" src="/play2.jpg" alt="bg"/>
                 <div className="play-panel-text">
                   <h3>Partie privée</h3>
+                </div>
+              </div>
+            </div>
+            <div className="rule-part">Jouez contre l'ordinateur</div>
+            <div className="deck-selection-area">
+            {
+              <div className="deck-selection-memberlist">
+                <div className="half-section">
+                  <Deck/>
+                </div>
+                <div className="half-section">
+                  <div className="sensuba-deckbuilder-search">
+                    <Input type="text" placeholder="Recherche" className="sensuba-deckbuilder-search-input" value={this.state.filter} onChange={e => this.setState({filterCPU: e.target.value})}/>
+                    <div className="sensuba-deckbuilder-search-list">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+            </div>
+            <div className="play-panel-wrapper">
+              <div onClick={() => this.callAI(1)} className="play-panel panel-full">
+                <img className="play-panel-background" src="/play3.png" alt="bg"/>
+                <div className="play-panel-text">
+                  <h3>Affronter l'ordinateur</h3>
                 </div>
               </div>
             </div>
