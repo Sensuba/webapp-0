@@ -797,6 +797,27 @@
 }
 
 
+.sensuba-card-view .sensuba-card-sakuramark {
+
+    position: absolute;
+    top: -1.4em;
+    left: 12.3em;
+    width: 5em;
+    height: 5em;
+    overflow: hidden;
+    margin: 0.1em;
+    background: url('./images/extra/sakura.png');
+    background-size: 100%;
+    filter: drop-shadow(0 0 0.1em #efe2a0);
+    animation: sakuramark-rotation 6s alternate infinite;
+}
+
+@keyframes sakuramark-rotation {
+  from { transform: rotateZ(-15deg) }
+  to { transform: rotateZ(15deg) }
+}
+
+
 .sensuba-card-view .sensuba-card-cover-neighbors {
 
     position: absolute;
