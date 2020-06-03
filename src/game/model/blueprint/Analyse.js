@@ -66,7 +66,7 @@ class Analyse extends Bloc {
 		let c = 0, you = false;
 		event.gameboard.log.logs.forEach(log => {
 			if (log.type === "newturn") {
-				if (log.src.id.no === this.src.area.id.no) {
+				if (log.src.no === this.src.area.id.no) {
 					you = true;
 					c = 0;
 				} else you = false;
