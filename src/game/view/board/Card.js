@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import View from '../../../components/cards/Card';
 
+const marks = ["sakuramark", "reipromote"];
+
 export default class Card extends Component {
 
   showTooltip(e, card, left, bottom) {
@@ -63,12 +65,13 @@ export default class Card extends Component {
           { visible && model.hasState("glazed") ? <div className="sensuba-card-glaze"/> : <span/> }
           { visible && model.hasState("immune") ? <div className="sensuba-card-immune"/> : <span/> }
           { model.frozen ? <div className="sensuba-card-freeze"/> : <span/> }
+          { model.lastwill ? <div className="sensuba-card-lastwill"/> : <span/> }
           { model.hasShield ? <div className="sensuba-card-shield"/> : <span/> }
           { model.hasState("initiative") && model.onBoard ? <div className="sensuba-card-initiative"/> : <span/> }
           { model.hasState("lethal") && model.onBoard ? <div className="sensuba-card-lethal"/> : <span/> }
           { model.silenced ? <div className="sensuba-card-silence"/> : <span/> }
-          { model.hasState("cover neighbors") ? <div className="sensuba-card-cover-neighbors"/> : <span/> }
-          { model.variables && model.variables["sakuramark"] ? <div className="sensuba-card-sakuramark"/> : <span/> }
+          { model.hasState("cover neighbors") && model.onBoard ? <div className="sensuba-card-cover-neighbors"/> : <span/> }
+          { model.variables && marks.find(m => model.variables[m]) ? <div className={"sensuba-card-mark sensuba-card-mark-" + marks.find(m => model.variables[m])}/> : <span/> }
           <div className="sensuba-card-covers">{ model.covered ? <div className="sensuba-card-cover"/> : <span/> }{ model.isCovered(true) ? <div className="sensuba-card-cover sensuba-card-cover-air"/> : <span/> }</div>
           </div>
         <div className="sensuba-card-animmask"/><div className="sensuba-card-digitanim"/>

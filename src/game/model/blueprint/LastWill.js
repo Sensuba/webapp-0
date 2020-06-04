@@ -15,6 +15,7 @@ class LastWill extends Bloc {
 
 	setup (owner, image) {
 
+		owner.lastwill = true;
 		/*var that = this;
 		var listener = new Listener(owner, () => that.src.gameboard.subscribe("destroycard", (t,s,d) => {
 			if (s === owner && owner.onBoard)

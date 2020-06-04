@@ -145,6 +145,7 @@ export default class Card {
 		this.targets = [];
 		delete this.variables;
 		delete this.mutatedState;
+		delete this.lastwill;
 		if (this.isType("entity") || this.isType("secret"))
 			this.targets.push(Event.targets.friendlyEmpty);
 		this.clearBoardInstance();
@@ -324,6 +325,7 @@ export default class Card {
 		this.states = {};
 		delete this.poisondmg;
 		delete this.blueprint;
+		delete this.lastwill;
 		this.mana = this.originalMana;
 		this.atk = this.originalAtk;
 		this.hp = this.originalHp;

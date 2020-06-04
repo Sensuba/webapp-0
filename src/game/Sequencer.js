@@ -32,6 +32,7 @@ export default class Sequencer {
 		this.queue = [];
 		this.current = null;
 		this.dispatch = dispatch;
+		this.extraturns = [0, 0];
 	}
 
 	add (n) {
@@ -186,8 +187,8 @@ export default class Sequencer {
 	    	}
 	    	break ; }
 	    case "newturn": {
-    		if (this.extraturns) {
-    			this.extraturns--;
+    		if (this.extraturns[n.src.no]) {
+    			this.extraturns[n.src.no]--;
     			return new ExtraTurn(this.master);
     		}
 	    	if (this.master.no === n.src.no) {
@@ -196,7 +197,7 @@ export default class Sequencer {
 	    	break;
 	    }
 	    case "extraturn":
-	    	this.extraturns = (this.extraturns || 0) + 1;
+	    	this.extraturns[n.src.no]++;
 	    	return null;
 	    default: return null;
 	    }

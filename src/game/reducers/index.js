@@ -153,6 +153,14 @@ export default (state = new GameBoard(), n) => {
         card.mutate(mut.effect, mut.end);
       }
       break; }
+    case "addeffect": {
+      let lastwill = n.data[1].value;
+      if (lastwill) {
+        let card = state.find(n.src);
+        if (card)
+          card.lastwill = true;
+      }
+      break; }
     case "nextcard": {
       let player = state.find(n.src);
       let mutsrc = state.find(n.data[0]);

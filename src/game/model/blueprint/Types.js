@@ -215,12 +215,7 @@ class Types {
 
 	static effecttype (value, src) {
 
-		if (!(typeof value === 'string'))
-			return value;
-		switch (value) {
-		case 'last will': return target => target.type === "lw";
-		default: return target => true;
-		}
+		return value;
 	}
 
 	static color (value, src) {
