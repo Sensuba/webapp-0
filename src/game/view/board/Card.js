@@ -64,6 +64,7 @@ export default class Card extends Component {
           { model.hasState("fury") && model.onBoard ? <div className="sensuba-card-fury"/> : <span/> }
           { model.exalted && model.onBoard ? <div className="sensuba-card-exalt"/> : <span/> }
           { visible && model.hasState("glazed") ? <div className="sensuba-card-glaze"/> : <span/> }
+          { model.hasState("static") && model.onBoard ? <div className="sensuba-card-static"/> : <span/> }
           { visible && model.hasState("immune") ? <div className="sensuba-card-immune"/> : <span/> }
           { model.frozen ? <div className="sensuba-card-freeze"/> : <span/> }
           { model.hasShield ? <div className="sensuba-card-shield"/> : <span/> }
