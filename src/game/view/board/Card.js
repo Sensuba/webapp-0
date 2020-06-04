@@ -59,13 +59,13 @@ export default class Card extends Component {
         }}>
           <div className="sensuba-card-container">
       	   <View model={model.model} level={model.level} src={visible ? model.eff : null} className={master.manager ? master.manager.controller.haloFor(model) : ""}/>
+          { model.lastwill ? <div className="sensuba-card-lastwill"/> : <span/> }
           { model.concealed ? <div className="sensuba-card-conceal"/> : <span/> }
           { model.hasState("fury") && model.onBoard ? <div className="sensuba-card-fury"/> : <span/> }
           { model.exalted && model.onBoard ? <div className="sensuba-card-exalt"/> : <span/> }
           { visible && model.hasState("glazed") ? <div className="sensuba-card-glaze"/> : <span/> }
           { visible && model.hasState("immune") ? <div className="sensuba-card-immune"/> : <span/> }
           { model.frozen ? <div className="sensuba-card-freeze"/> : <span/> }
-          { model.lastwill ? <div className="sensuba-card-lastwill"/> : <span/> }
           { model.hasShield ? <div className="sensuba-card-shield"/> : <span/> }
           { model.hasState("initiative") && model.onBoard ? <div className="sensuba-card-initiative"/> : <span/> }
           { model.hasState("lethal") && model.onBoard ? <div className="sensuba-card-lethal"/> : <span/> }
