@@ -14,7 +14,7 @@ export default class Card {
 	constructor (noId, location) {
 
 		this.id = { type: "card", no: noId };
-		this.equals = other => other.id && this.id.type === other.id.type && this.id.no === other.id.no;
+		this.equals = other => this && other && other.id && this.id.type === other.id.type && this.id.no === other.id.no;
 		location.area.gameboard.register(this);
 
 		this.location = null;
@@ -548,24 +548,24 @@ export default class Card {
 		return this.gameboard.tiles.filter(tile => targets(this, tile));
 	}
 
-	get canAct () {
+	get canAct () {console.log("a");
 
 		var eff = this.eff;
 
 		if (!this.area.isPlaying)
-			return false;
+			return false;console.log("b");
 		if (!this.onBoard)
-			return false;
+			return false;console.log("c");
 		if (this.isType("secret"))
-			return true;
+			return true;console.log("d");
 		if (this.frozen)
-			return false;
+			return false;console.log("e");
 		if (eff.motionPt)
-			return true;
+			return true;console.log("f");
 		if ((eff.actionPt || (this.hasState("fury") && eff.strikes === 1)) && (!eff.firstTurn || this.hasState("rush")))
-			return true;
+			return true;console.log("g");
 		if (this.faculties.some(f => this.canUse(f)))
-			return true;
+			return true;console.log("h");
 
 		return false;
 	}
@@ -756,6 +756,7 @@ export default class Card {
 		default: break;
 		}
 		this.variables[name] = value;
+		this.gameboard.update();
 	}
 
 	getVariable (name) {
