@@ -56,7 +56,7 @@ export default class Manager {
 
 	unselect () {
 
-		if (this.isPlaying && !(this.controller instanceof PlayingState))
+		if (this.isPlaying && !(this.controller instanceof PlayingState) && !(this.controller instanceof ChooseboxState))
 			this.controller = new PlayingState(this);
 		this.update({faculties: undefined});
 	}

@@ -172,6 +172,7 @@ export default class AssistantBuilder {
 	addCardToOptions (options, cross, id, count) {
 
 		var card = this.cardlist.find(c => c.idCardmodel === id);
+		if (!card) return;
 		if (card.mana !== undefined && card.mana !== null) {
 			if (card.mana === 0 || card.mana === "0")
 				options.play += count;
