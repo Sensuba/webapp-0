@@ -16,7 +16,7 @@ class Play extends Bloc {
 	setup (owner, image) {
 
 		var req = this.computeIn()[0];
-		var tar = this.target ? (req ? (src, target) => (req(src, target) && (!target.card || target.card.targetable)) : (src, target) => true) : null;
+		var tar = this.target ? (req ? (src, target) => (req(src, target) && (!target.card || target.card.targetableBy(owner))) : (src, target) => true) : null;
 		if (this.target && !(typeof tar === "string")) 
 			owner.targets.push(tar);
 	}

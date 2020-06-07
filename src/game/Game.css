@@ -813,7 +813,7 @@
 
     background: url('./images/extra/sakura.png');
     background-size: 100%;
-    animation: sakuramark-rotation 6s alternate infinite ease-in-out;
+    /*animation: sakuramark-rotation 6s alternate infinite ease-in-out;*/
 }
 
 @keyframes sakuramark-rotation {

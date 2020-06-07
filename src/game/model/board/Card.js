@@ -198,9 +198,9 @@ export default class Card {
 		return this.hasState("concealed") ? true : false;
 	}
 
-	get targetable () {
+	targetableBy (other) {
 
-		return !this.exalted && !this.concealed;
+		return !this.exalted && ((this.area && other.area && this.area === other.area) || !this.concealed);
 	}
 
 	damage (dmg, src) {
@@ -326,6 +326,7 @@ export default class Card {
 		delete this.poisondmg;
 		delete this.blueprint;
 		delete this.lastwill;
+		delete this.variables;
 		this.mana = this.originalMana;
 		this.atk = this.originalAtk;
 		this.hp = this.originalHp;
@@ -548,24 +549,24 @@ export default class Card {
 		return this.gameboard.tiles.filter(tile => targets(this, tile));
 	}
 
-	get canAct () {console.log("a");
+	get canAct () {
 
 		var eff = this.eff;
 
 		if (!this.area.isPlaying)
-			return false;console.log("b");
+			return false;
 		if (!this.onBoard)
-			return false;console.log("c");
+			return false;
 		if (this.isType("secret"))
-			return true;console.log("d");
+			return true;
 		if (this.frozen)
-			return false;console.log("e");
+			return false;
 		if (eff.motionPt)
-			return true;console.log("f");
+			return true;
 		if ((eff.actionPt || (this.hasState("fury") && eff.strikes === 1)) && (!eff.firstTurn || this.hasState("rush")))
-			return true;console.log("g");
+			return true;
 		if (this.faculties.some(f => this.canUse(f)))
-			return true;console.log("h");
+			return true;
 
 		return false;
 	}
