@@ -563,7 +563,7 @@ export default class Card {
 			return false;
 		if (eff.motionPt)
 			return true;
-		if ((eff.actionPt || (this.hasState("fury") && !eff.furyStrike)) && (!eff.firstTurn || this.hasState("rush")))
+		if ((eff.actionPt || (this.hasState("fury") && eff.furyState === 1)) && (!eff.firstTurn || this.hasState("rush")))
 			return true;
 		if (this.faculties.some(f => this.canUse(f)))
 			return true;
@@ -588,7 +588,7 @@ export default class Card {
 			return false;
 		if (eff.firstTurn && !this.hasState("rush"))
 			return false;
-		if (!eff.actionPt && (!this.hasState("fury") || eff.furyStrike))
+		if (!eff.actionPt && (!this.hasState("fury") || eff.furyState !== 1))
 			return false;
 		if (target.isType("hero") && this.hasState("cannot attack heroes"))
 			return false;
@@ -643,10 +643,12 @@ export default class Card {
 
 		if (auto)
 			return;
-		if (!this.hasState("fury") || !this.furyStrike || this.actionPt > 0) {
+		if (!this.hasState("fury") || this.furyState !== 1) {
 			this.actionPt--;
-		} else if (!auto && this.hasState("fury") && !this.furyStrike) {
-			this.furyStrike = true;
+			if (this.furyState === 0)
+				this.furyState = 1; 
+		} else if (!auto && this.hasState("fury") && this.furyState === 1) {
+			this.furyState = 2;
 		}
 		this.motionPt = 0;
 		this.gameboard.update();
@@ -703,7 +705,7 @@ export default class Card {
 		this.skillPt = 1;
 		this.motionPt = 0;
 		this.firstTurn = true;
-		this.furyStrike = false;
+		this.furyState = 0;
 	}
 
 	setPoints (action, skill, motion) {
@@ -722,7 +724,7 @@ export default class Card {
 				this.actionPt = 1;
 				this.motionPt = 1;
 				this.firstTurn = false;
-				this.furyStrike = false;
+				this.furyState = 0;
 			}
 		}
 		if (this.isType("secret"))
