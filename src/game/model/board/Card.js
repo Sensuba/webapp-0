@@ -689,6 +689,8 @@ export default class Card {
 		if (isAction) {
 			this.actionPt--;
 			this.motionPt = 0;
+			if (this.furyState === 1)
+				this.furyState = 0;
 		}
 		else
 			this.skillPt--;
