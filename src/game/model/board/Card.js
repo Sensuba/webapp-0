@@ -646,6 +646,8 @@ export default class Card {
 		if (!this.hasState("fury") || this.strikes !== 1 || this.actionPt > 0) {
 			this.actionPt--;
 			this.strikes = 1;
+		} else if (!auto) {
+			this.strikes = (this.strikes+1)%2
 		}
 		this.motionPt = 0;
 		this.gameboard.update();
