@@ -21,6 +21,8 @@ import { Button } from 'reactstrap';
 import { createStore } from 'redux';
 import reducers from './reducers';
 
+import Assistant from '../components/decks/deckbuilder/AssistantBuilder';
+
 const defaultDecks = [{
   hero: 1,
   body: [
@@ -93,7 +95,7 @@ export default class Game extends Component {
       this.props.socket.emit("join", name, avatar, props.room);
       this.props.socket.on('joined', role => this.onJoined(role));
     } else if (props.training) {
-      this.props.socket.emit("training", name, avatar, d);
+      this.props.socket.emit("training", name, avatar, d, this.buildDeck());
       this.role = "player";
       this.no = 0;
       this.props.socket.on('notification',  this.analyse.bind(this));
@@ -109,6 +111,20 @@ export default class Game extends Component {
     //Library.getCard(d.hero, hero => this.setState({hero}));
 
     this.createParticle = () => {};
+  }
+
+  buildDeck () {
+
+    var assistant = new Assistant(this.props.cards);
+    var deck = assistant.build();
+    var body = [];
+    Object.keys(deck.cards).forEach(k => {
+      for (var i = 0; i < deck.cards[k]; i++)
+        body.push(k);
+    })
+    delete deck.cards;
+    deck.body = body;
+    return deck;
   }
 
   onJoined (role) {

@@ -57,9 +57,9 @@ export default class PlayPage extends Component {
     this.setState({seeking: true});
   }
 
-  callAI (ai) {
+  callAI () {
 
-    this.props.history.push(`/training/${ai}`);
+    this.props.history.push(`/training`);
   }
 
   choice (idDeck) {
@@ -198,7 +198,7 @@ export default class PlayPage extends Component {
             }
             </div>
             <div className="play-panel-wrapper">
-              <div onClick={() => this.callAI(1)} className="play-panel panel-full">
+              <div onClick={() => this.callAI()} className="play-panel panel-full">
                 <img className="play-panel-background" src="/play3.png" alt="bg"/>
                 <div className="play-panel-text">
                   <h3>Affronter l'ordinateur</h3>

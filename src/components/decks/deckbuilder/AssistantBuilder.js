@@ -30,6 +30,19 @@ export default class AssistantBuilder {
 		this.cardlist = cardlist;
 	}
 
+	build () {
+
+		var heroes = this.cardlist.filter(card => card.cardType === "hero");
+		var hero = heroes[Math.floor(Math.random() * heroes.length)].idCardmodel;
+		var deck = { hero, cards: {} };
+		while (Object.keys(deck.cards).reduce((acc, k) => acc + deck.cards[k], 0) < 30) {
+			var suggestions = this.suggest({cards:this.cardlist}, deck, 3);
+			var pick = suggestions[Math.floor(Math.random() * suggestions.length)];
+			deck.cards[pick.idCardmodel] = Math.min(deck.cards[pick.idCardmodel] ? deck.cards[pick.idCardmodel] + 1 : 1, 2);
+		}
+		return deck;
+	}
+
 	suggest (possibilities, deck, count) {
 
 		var empty = Object.keys(deck.cards).length === 0;
