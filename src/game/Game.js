@@ -110,7 +110,7 @@ export default class Game extends Component {
       this.props.socket.on('notification',  this.analyse.bind(this));
     }
     this.props.socket.on('endgame', data => this.onEndgame(data));
-    ['error', 'connect_failed', 'reconnect_failed', 'connect_error', 'reconnect_error'].forEach(trigger => this.props.socket.on(trigger, () => this.onError()));
+    ['disconnect', 'error', 'connect_failed', 'reconnect_failed', 'connect_error', 'reconnect_error'].forEach(trigger => this.props.socket.on(trigger, () => this.onError(trigger)));
 
     //Library.getCard(d.hero, hero => this.setState({hero}));
 
@@ -152,10 +152,10 @@ export default class Game extends Component {
     this.sequencer.add({type: "end", src: 0, data: [{type: "int", no: data.state}]});
   }
 
-  onError () {
+  onError (trigger) {
 
     if (this.state.model.started)
-      this.sequencer.add({type: "end", src: 0, data: [{type: "int", no: 6}]});
+      this.sequencer.add({type: "end", src: 0, data: [{type: "int", no: trigger === 'disconnect' ? 5 : 6}]});
     else
       this.props.quitRoom();
   }
