@@ -44,12 +44,25 @@ var User = (() => {
 			localStorage.removeItem("playdeck");
 	}
 
+	var updateCPU = (deck) => {
+
+		if (deck)
+			localStorage.setItem("cpupartnerdeck", JSON.stringify(deck));
+		else
+			localStorage.removeItem("cpupartnerdeck");
+	}
+
 	var getDeck = () => {
 
 		return localStorage.getItem("playdeck");
 	}
 
-	return { connect, disconnect, getData, isConnected, updateDeck, getDeck, updateProfile, updateCredit }
+	var getCPU = () => {
+
+		return localStorage.getItem("cpupartnerdeck");
+	}
+
+	return { connect, disconnect, getData, isConnected, updateDeck, updateCPU, getDeck, getCPU, updateProfile, updateCredit }
 })();
 
 export default User;

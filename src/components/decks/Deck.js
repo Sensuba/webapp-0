@@ -10,7 +10,7 @@ export default class Deck extends Component {
 				<div className="sensuba-deck-case">
 					<div className="sensuba-deck-case-mask"/>
 					<img className="sensuba-deck-case-bg" src="/game/back.png" alt="Deck case background"/>
-					<div className="sensuba-deck-case-name">Deck par défaut</div>
+					<div className="sensuba-deck-case-name">{this.props.defaultName}</div>
 				</div>
 			)
 

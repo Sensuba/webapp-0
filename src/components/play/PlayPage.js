@@ -17,8 +17,9 @@ export default class PlayPage extends Component {
 
 		super(props);
 
-    var deck = User.getDeck();
     var decklist = User.isConnected() ? (User.getData().authorization >= 2 ? this.props.decks : this.props.decks.filter(d => this.findFormat(d) !== "display").filter(d => Object.values(d.cards).reduce((a, b) => a + b, 0) === 30)) : undefined;
+    
+    var deck = User.getDeck();
     if (!User.isConnected())
       deck = null;
     else if (deck) {
@@ -35,11 +36,29 @@ export default class PlayPage extends Component {
     else
       deck = null;
 
+    var cpu = User.getCPU();
+    if (!User.isConnected())
+      cpu = null;
+    else if (cpu) {
+      cpu = JSON.parse(cpu);
+      if (cpu.id === undefined) {
+        if (decklist && decklist.length > 0)
+          cpu.id = decklist.reduce((max, el) => Math.max(max, el.idDeck), null);
+      }
+    }
+    else if (decklist && decklist.length > 0) {
+      this.setDeck(decklist[0], false);
+      cpu = decklist[0];
+    }
+    else
+      cpu = null;
+
     this.state = {
       cards: this.props.cards.concat(this.props.customs),
       decklist: decklist,
       seeking: false,
       deck: deck,
+      cpu: cpu,
       filter: "",
       filterCPU: ""
     };
@@ -62,14 +81,19 @@ export default class PlayPage extends Component {
     this.props.history.push(`/training`);
   }
 
-  choice (idDeck) {
+  choice (idDeck, cpu) {
 
     if (idDeck === -1) {
-      User.updateDeck(null);
-      this.setState({deck: null});
+      if (cpu) {
+        User.updateCPU(null);
+        this.setState({cpu: null});
+      } else {
+        User.updateDeck(null);
+        this.setState({deck: null});
+      }
+    } else {
+        this.setDeck(this.state.decklist.find(deck => deck.idDeck === idDeck), true, cpu);
     }
-    else
-      this.setDeck(this.state.decklist.find(deck => deck.idDeck === idDeck));
   }
 
   findFormat (deck) {
@@ -90,7 +114,7 @@ export default class PlayPage extends Component {
     return formats[0] || "display";
   }
 
-  setDeck (deck, setState = true) {
+  setDeck (deck, setState = true, cpu = false) {
 
     var listsrc = setState ? this.state.cards : this.props.cards.concat(this.props.customs);
     var res = { id: deck.idDeck, hero: deck.hero, body: [] };
@@ -108,9 +132,15 @@ export default class PlayPage extends Component {
           }
         }
     })
-    User.updateDeck(res);
-    if (setState)
-      this.setState({deck: res});
+    if (cpu) {
+      User.updateCPU(res);
+      if (setState)
+        this.setState({cpu: res});
+    } else {
+      User.updateDeck(res);
+      if (setState)
+        this.setState({deck: res});
+    }
   }
 
   render() {
@@ -138,7 +168,7 @@ export default class PlayPage extends Component {
               this.state.deck ?
               <div className="deck-selection-memberlist">
                 <div className="half-section">
-                  <Deck src={this.state.decklist ? this.state.decklist.find(deck => deck.idDeck === this.state.deck.id) : null}/>
+                  <Deck defaultName="Deck par défaut" src={this.state.decklist ? this.state.decklist.find(deck => deck.idDeck === this.state.deck.id) : null}/>
                 </div>
                 <div className="half-section">
                   <div className="sensuba-deckbuilder-search">
@@ -185,12 +215,34 @@ export default class PlayPage extends Component {
             {
               <div className="deck-selection-memberlist">
                 <div className="half-section">
-                  <Deck/>
+                  <Deck defaultName="Aléatoire" src={this.state.decklist && this.state.cpu ? this.state.decklist.find(deck => deck.idDeck === this.state.cpu.id) : null}/>
                 </div>
                 <div className="half-section">
                   <div className="sensuba-deckbuilder-search">
-                    <Input type="text" placeholder="Recherche" className="sensuba-deckbuilder-search-input" value={this.state.filter} onChange={e => this.setState({filterCPU: e.target.value})}/>
+                    <Input type="text" placeholder="Recherche" className="sensuba-deckbuilder-search-input" value={this.state.filterCPU} onChange={e => this.setState({filterCPU: e.target.value})}/>
                     <div className="sensuba-deckbuilder-search-list">
+                    {
+                      [{name: "Aléatoire", random: true}].concat(this.state.decklist || []).filter(c => c.name.toLowerCase().includes(this.state.filterCPU.toLowerCase())).map((c, i) => {
+                        if (c.random)
+                        return (
+                          <div key={i} className={"sensuba-deckbuilder-tag " + colorIdToClassName(0)} onClick={() => this.choice(-1, true)}>
+                            <div className="sensuba-deckbuilder-tag-name">{c.name}</div>
+                            <img className="sensuba-deckbuilder-tag-img" src="/game/back.png" alt={c.name}/>
+                          </div>
+                        )
+                        var hero;
+                        var idHero = c.hero.idCardmodel || c.hero;
+                        hero = this.state.cards.find(s => s.idCardmodel === idHero);
+                        if (hero)
+                        return (
+                          <div key={i} className={"sensuba-deckbuilder-tag " + colorIdToClassName(hero.idColor) + " " + colorIdToClassName(hero.idColor2)} onClick={() => this.choice(c.idDeck, true)}>
+                            <div className="sensuba-deckbuilder-tag-name">{c.name}</div>
+                            <img className="sensuba-deckbuilder-tag-img" src={c.background} alt={c.name}/>
+                          </div>
+                        )
+                        return null
+                      })
+                    }
                     </div>
                   </div>
                 </div>

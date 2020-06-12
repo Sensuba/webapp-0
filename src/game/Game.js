@@ -95,7 +95,11 @@ export default class Game extends Component {
       this.props.socket.emit("join", name, avatar, props.room);
       this.props.socket.on('joined', role => this.onJoined(role));
     } else if (props.training) {
-      this.props.socket.emit("training", name, avatar, d, this.buildDeck());
+      var cpudeck = User.getCPU();
+      if (cpudeck)
+        cpudeck = JSON.parse(cpudeck);
+      var cpu = (User.isConnected() && cpudeck) ? cpudeck : this.buildDeck();
+      this.props.socket.emit("training", name, avatar, d, cpu);
       this.role = "player";
       this.no = 0;
       this.props.socket.on('notification',  this.analyse.bind(this));
