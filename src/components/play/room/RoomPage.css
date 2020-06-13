@@ -101,6 +101,22 @@
     top: 25vh;
     filter: drop-shadow(0.3vh 0.5vh 0.5vh #20202080);
     transition: top 0.25s ease-in, height 0.25s ease-in, width 0.25s ease-in;
+    animation: vsshake 0.2s;
+  	animation-iteration-count: infinite;
+}
+
+@keyframes vsshake {
+  0% { transform: translate(1px, 1px) }
+  10% { transform: translate(-1px, -2px) }
+  20% { transform: translate(-3px, 0px) }
+  30% { transform: translate(3px, 2px) }
+  40% { transform: translate(1px, -1px) }
+  50% { transform: translate(-1px, 2px) }
+  60% { transform: translate(-3px, 1px) }
+  70% { transform: translate(3px, 1px) }
+  80% { transform: translate(-1px, -1px) }
+  90% { transform: translate(1px, 2px) }
+  100% { transform: translate(1px, -2px) }
 }
 
 .vs-screen-open .room-vs-screen .room-vs-icon {

@@ -21,11 +21,11 @@ export default class MissionPage extends Component {
 
     this.setState({ vsstate: 1 });
     this.subscribers[0].forEach(f => f());
-    setTimeout(() => this.subscribers[1].forEach(f => f()), this.props.training ? 4000 : 5500);
+    setTimeout(() => this.subscribers[1].forEach(f => f()), this.props.training ? 3700 : 5200);
     setTimeout(() => {
       this.setState({ vsstate: 2 });
       setTimeout(() => this.setState({ vsstate: 3 }), 2000);
-    }, 5000);
+    }, 4500);
   }
 
   render() {
