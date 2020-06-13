@@ -34,6 +34,13 @@ export default class Sequencer {
 		this.current = null;
 		this.dispatch = dispatch;
 		this.extraturns = [0, 0];
+		this.state = 0;
+	}
+
+	increment () {
+
+		this.state++;
+		this.next();
 	}
 
 	add (n) {
@@ -53,6 +60,14 @@ export default class Sequencer {
 
 	read (n) {
 
+		if (!this.state) {
+			this.queue.push(n);
+			return;
+		} 
+		if (this.state === 1 && n.type === "start") {
+			this.queue.unshift(n);
+			return;
+		}
 		var anim = this.notifToAnim(n);
 		if (anim) {
 			if (anim.sync)

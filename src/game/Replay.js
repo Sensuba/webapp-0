@@ -48,6 +48,10 @@ export default class Replay extends Component {
       model: this.store.getState()
     }
     this.sequencer = new Sequencer(this, this.state.model, this.store.dispatch);
+    this.props.subscribe(() => {
+      setTimeout(() => this.sequencer.increment(), 1000);
+    }, 0);
+    this.props.subscribe(() => this.sequencer.increment(), 1);
   }
 
   analyse (n) {
@@ -74,6 +78,10 @@ export default class Replay extends Component {
   end () {
 
     setTimeout(() => this.quit(), 5000);
+  }
+
+  shiftMessage () {
+
   }
 
   next () {

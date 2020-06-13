@@ -32,13 +32,26 @@
 	outline: 0;
 }
 
-.room-background {
+.room-background, .room-vs-wrapper, .room-vs-screen {
 
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
+}
+
+.room-vs-wrapper {
+
+	background: white;
+	z-index: 1000;
+	opacity: 1;
+	transition: opacity 2s ease-in-out;
+}
+
+.room-vs-wrapper.vs-screen-open {
+
+	opacity: 0;
 }
 
 .room-background .room-background-hero {
@@ -55,9 +68,44 @@
 	opacity: 0.5;
 }
 
-.room-background .room-background-hero + .room-background-hero {
+.room-vs-screen .room-background-hero {
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 50%;
+	height: 100%;
+	object-fit: cover;
+	object-position: 50% 20%;
+	mask-image: linear-gradient(to left, rgba(0,0,0,1) 80%, rgba(255,255,255,0));
+	transform: scaleX(-1);
+	transition: left 2s ease-in-out, right 2s ease-in-out;
+}
+
+.vs-screen-open .room-vs-screen .room-background-hero { left: -50vw; }
+
+.vs-screen-open .room-vs-screen .room-background-hero + .room-background-hero { left: initial; right: -50vw; }
+
+.room-background .room-background-hero + .room-background-hero, .room-vs-screen .room-background-hero + .room-background-hero {
 
 	left: initial;
 	right: 0;
 	transform: initial;
+}
+
+.room-vs-screen .room-vs-icon {
+
+	position: relative;
+	height: 50vh;
+	width: 37.5vh;
+    top: 25vh;
+    filter: drop-shadow(0.3vh 0.5vh 0.5vh #20202080);
+    transition: top 0.25s ease-in, height 0.25s ease-in, width 0.25s ease-in;
+}
+
+.vs-screen-open .room-vs-screen .room-vs-icon {
+
+	top: -50vh;
+	height: 200vh;
+	width: 0vh;
 }

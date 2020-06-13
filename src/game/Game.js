@@ -76,11 +76,17 @@ export default class Game extends Component {
       model: this.store.getState(),
       messages: [],
       deck: d,
-      timer: props.room !== undefined
+      timer: props.room !== undefined,
+      waiting: true
     }
 
     this.manager = new Manager(this.state.model, this.command.bind(this), state => state ? this.setState(state) : this.forceUpdate());
     this.sequencer = new Sequencer(this, this.state.model, this.store.dispatch);
+    this.props.subscribe(() => {
+      this.setState({waiting: false});
+      setTimeout(() => this.sequencer.increment(), 1000);
+    }, 0);
+    this.props.subscribe(() => this.sequencer.increment(), 1);
 
     this.props.socket.removeAllListeners();
 
@@ -288,7 +294,7 @@ export default class Game extends Component {
         { this.state.preview ? <CardPreview src={this.state.preview} level={this.state.preview.level} model={this.state.preview.model}/> : <span/> }
       </div>
       {
-        this.waiting
+        this.state.waiting
         ? 
           <div className="waiting-room">
             <Loader type="connect"/>
@@ -300,7 +306,7 @@ export default class Game extends Component {
           </div>
         : <span/>
       }
-      <div style={{ display: this.waiting ? "none" : "block" }}>
+      <div style={{ display: this.state.waiting ? "none" : "block" }}>
         <View model={this.state.model} messages={this.state.messages} master={this} openConcedeWindow={() => this.setState({concedeWindow: true})}/>
         <div id="screen-anim" className="screen-anim"><div className="screen-anim-inner"/></div>
       </div>
