@@ -36,6 +36,11 @@
 	color: white;
 }
 
+.dark-theme .room-vs-wrapper {
+
+	background: black;
+}
+
 .dark-theme .colors-group #neutral-mana + label, .dark-theme .colors-group #neutral-mana-2 + label { background-color: rgba(133, 167, 193, 0.2) }
 .dark-theme .colors-group #white-mana + label, .dark-theme .colors-group #white-mana-2 + label { background-color: rgba(232, 209, 97, 0.2) }
 .dark-theme .colors-group #red-mana + label, .dark-theme .colors-group #red-mana-2 + label { background-color: rgba(247, 69, 69, 0.2) }
