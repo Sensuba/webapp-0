@@ -19,7 +19,7 @@ import Deckbuilder from './decks/deckbuilder/DeckbuilderPage';
 import Home from './home/HomePage';
 import User from '../services/User';
 import Library from '../services/Library';
-import openSocket from 'socket.io-client';
+import io from 'socket.io-client';
 import sorter from '../utility/CollectionSorter';
 
 const serverURL = /*process.env.SERVER_URL || 'http://localhost:8080' ||*/ 'https://sensuba-server.herokuapp.com/';
@@ -33,7 +33,7 @@ export default class App extends Component {
     super(props);
     this.state = {};
 
-    this.state.socket = openSocket(serverURL);
+    this.state.socket = io(serverURL);
 
     if (User.isConnected()) {
 

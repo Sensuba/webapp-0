@@ -11,6 +11,7 @@ import Secret from './view/animation/Secret';
 import Fatigue from './view/animation/Fatigue';
 import Shuffle from './view/animation/Shuffle';
 import Boost from './view/animation/Boost';
+import Blink from './view/animation/Blink';
 import Heal from './view/animation/Heal';
 import Trigger from './view/animation/Trigger';
 import NewTurn from './view/animation/NewTurn';
@@ -153,6 +154,11 @@ export default class Sequencer {
 	    	let card = this.model.find(n.src);
 	    	if (card && card.onBoard)
 	    		return new Boost(this.master, n.src.no);
+	    	break; }
+	    case "blink": {
+	    	let card = this.model.find(n.src);
+	    	if (card && card.onBoard)
+	    		return new Blink(this.master, n.src.no);
 	    	break; }
 	    case "healcard": {
 	    	let card = this.model.find(n.src);
