@@ -347,7 +347,6 @@ export default class Card {
 		switch (type) {
 		case "entity": return this.isType("character") || this.isType("artifact");
 		case "character": return this.isType("hero") || this.isType("figure");
-		case "secret": return this.cardType === type || (!this.nameCard && this.onBoard);
 		default: return this.cardType === type;
 		}
 	}

@@ -128,9 +128,8 @@ export default class Sequencer {
 	    		break;
 	  		if (n.data[0].type === "deck")
 	  			return new Shuffle(this.master, n.src.no);
-	  		/*if (n.data[0].type === "tile" && (!n.data[1] || n.data[1].type !== "tile"))
-	  			return new Secret(this.master, n.src.no);*/
 	  		break;
+	    case "secretsetup": return new Secret(this.master, n.src.no);
 		case "cardfaculty": {
 			let anim = n.data[0].value ? new Action(this.master, n.src.no, n.data[1]) : new Ability(this.master, n.src.no, n.data[1]);
 			let target = n.data[1];
