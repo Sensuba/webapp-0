@@ -21,11 +21,11 @@ export default class ReplayPage extends Component {
 
     this.setState({ vsstate: 1 });
     this.subscribers[0].forEach(f => f());
-    setTimeout(() => this.subscribers[1].forEach(f => f()), 5000);
+    setTimeout(() => this.subscribers[1].forEach(f => f()), 4000);
     setTimeout(() => {
       this.setState({ vsstate: 2 });
       setTimeout(() => this.setState({ vsstate: 3 }), 2000);
-    }, 6000);
+    }, 5000);
   }
   
   render() {
