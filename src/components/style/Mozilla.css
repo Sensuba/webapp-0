@@ -1,0 +1,20 @@
+.firefox-browser .sensuba-card-digitanim {
+
+  line-height: 4.5rem;
+}
+
+.firefox-browser .sensuba-card-damage .sensuba-card-digitanim {
+
+	animation: firefox-card-damage-digit 0.6s 1;
+}
+
+@keyframes firefox-card-damage-digit {
+  0% { font-size: 6em; opacity: 1; color: white;}
+  50% { font-size: 8em; opacity: 1; color: white;}
+  100% { font-size: 10em; opacity: 0; color: black;}
+}
+
+.firefox-browser .sensuba-card-damage.sensuba-card-destroy .sensuba-card-digitanim {
+
+	display: none;
+}
