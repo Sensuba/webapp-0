@@ -1,3 +1,19 @@
+.sensuba-sound {
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 5vw;
+    width: 5vw;
+    overflow: hidden;
+    transition: width 0.4s;
+}
+
+.sensuba-sound:hover {
+
+    width: 14vw;
+}
+
 .mute-button {
 
     position: absolute;
@@ -17,6 +33,13 @@
 
     background: url('/game/mute.png');
     background-size: 100%;
+}
+
+.sensuba-sound .sensuba-slider {
+
+    position: relative;
+    top: 1.85vw;
+    left: 4.875vw;
 }
 
 

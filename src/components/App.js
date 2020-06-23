@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 import './style/Handled.css';
 import './style/DarkTheme.css';
+import './style/Mozilla.css';
 import Cards from './cards/CardsPage';
 import Editor from './cards/Editor/EditorPage';
 import Play from './play/PlayPage';
@@ -31,7 +32,7 @@ export default class App extends Component {
   constructor (props) {
 
     super(props);
-    this.state = {};
+    this.state = { browser: this.checkBrowser() };
 
     this.state.socket = io(serverURL);
 
@@ -147,6 +148,25 @@ export default class App extends Component {
     }, err => this.setState({customCards: []}));
   }*/
 
+  checkBrowser () {
+
+    var browser = "unknown";
+    var c = navigator.userAgent.search("Chrome");
+    var f = navigator.userAgent.search("Firefox");
+    var m8 = navigator.userAgent.search("MSIE 8.0");
+    var m9 = navigator.userAgent.search("MSIE 9.0");
+    if (c > -1) {
+        browser = "chrome";
+    } else if (f > -1) {
+        browser = "firefox";
+    } else if (m9 > -1) {
+        browser ="msie9";
+    } else if (m8 > -1) {
+        browser ="msie8";
+    }
+    return browser;
+  }
+
   updateCardlist () {
 
     this.props.options.api.getCards(cards => {
@@ -192,7 +212,7 @@ export default class App extends Component {
       return <Loading className={(this.state.theme ? this.state.theme + "-theme" : "")}/>;
 
     return (
-      <div className={"sensuba-app " + (this.state.theme ? this.state.theme + "-theme" : "")}>
+      <div className={"sensuba-app " + (this.state.theme ? this.state.theme + "-theme " : "") + (this.state.browser + "-browser")}>
         <BrowserRouter>
             <Switch>
               <Route exact path="/" component={({ match, history }) => (<Redirect to="/home"/>)}/>

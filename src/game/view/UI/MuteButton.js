@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import "./MuteButton.css";
+import Slider from '../../../components/utility/Slider';
 
 export default class MuteButton extends Component {
 
@@ -24,7 +25,10 @@ export default class MuteButton extends Component {
   render () {
 
     return (
-    	<div id="mute-button" onClick={() => this.switch()} className={"mute-button" + (this.props.defaultMute && this.muted ? " muted" : "")}/>
+    	<div id="sensuba-sound" className="sensuba-sound">
+    		<div id="mute-button" onClick={() => this.switch()} className={"mute-button" + (this.props.defaultMute && this.muted ? " muted" : "")}/>
+    		<Slider onChange={value => this.props.changeVolume(value)}/>
+    	</div>
     )
   }
 }

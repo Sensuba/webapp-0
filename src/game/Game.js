@@ -82,6 +82,7 @@ export default class Game extends Component {
 
     this.manager = new Manager(this.state.model, this.command.bind(this), state => state ? this.setState(state) : this.forceUpdate());
     this.sequencer = new Sequencer(this, this.state.model, this.store.dispatch);
+    this.volume = 1;
     this.props.subscribe(() => {
       this.setState({waiting: false});
       setTimeout(() => this.sequencer.setState(1), 1000);
@@ -262,6 +263,11 @@ export default class Game extends Component {
     this.mute = !this.mute;
   }
 
+  changeVolume (vol) {
+
+    this.volume = vol;
+  }
+
   render() {
     return (
       <div>
@@ -310,7 +316,7 @@ export default class Game extends Component {
         <View model={this.state.model} messages={this.state.messages} master={this} openConcedeWindow={() => this.setState({concedeWindow: true})}/>
         <div id="screen-anim" className="screen-anim"><div className="screen-anim-inner"/></div>
       </div>
-      <MuteButton switch={() => this.switchMute()} master={this}/>
+      <MuteButton switch={() => this.switchMute()} changeVolume={volume => this.changeVolume(volume)} master={this}/>
       <History entries={this.state.model.log.history} master={this}/>
       <div id="newturn-frame">
         <h1 className="big-text">A vous de jouer</h1>

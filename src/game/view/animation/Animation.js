@@ -15,8 +15,10 @@ export default class Animation {
 
 	start (update) {
 		
-		if (!this.master.mute && this.audio)
+		if (!this.master.mute && this.audio) {
+			this.audio.volume = this.master.volume;
 			this.audio.play();
+		}
 		this.run();
 
 		if (this.sync && update)
