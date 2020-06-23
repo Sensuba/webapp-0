@@ -37,9 +37,9 @@ export default class Sequencer {
 		this.state = 0;
 	}
 
-	increment () {
+	setState (state) {
 
-		this.state++;
+		this.state = state;
 		this.next();
 	}
 
@@ -60,12 +60,13 @@ export default class Sequencer {
 
 	read (n) {
 
-		if (!this.state) {
+		if (!this.state || this.state === 2) {
 			this.queue.push(n);
 			return;
 		} 
 		if (this.state === 1 && n.type === "start") {
 			this.queue.unshift(n);
+			this.state = 2;
 			return;
 		}
 		var anim = this.notifToAnim(n);

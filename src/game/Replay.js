@@ -49,9 +49,9 @@ export default class Replay extends Component {
     }
     this.sequencer = new Sequencer(this, this.state.model, this.store.dispatch);
     this.props.subscribe(() => {
-      setTimeout(() => this.sequencer.increment(), 1000);
+      setTimeout(() => this.sequencer.setState(1), 1000);
     }, 0);
-    this.props.subscribe(() => this.sequencer.increment(), 1);
+    this.props.subscribe(() => this.sequencer.setState(3), 1);
   }
 
   analyse (n) {
