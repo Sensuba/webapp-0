@@ -84,7 +84,8 @@ export default class Game extends Component {
     this.manager = new Manager(this.state.model, this.command.bind(this), state => state ? this.setState(state) : this.forceUpdate());
     this.sequencer = new Sequencer(this, this.state.model, this.store.dispatch);
     this.volume = 1;
-    this.audio = new Audio("/audio/virgocluster.mp3");
+    var music = Math.random() < 0.33 ? "virgocluster" : (Math.random() < 0.5 ? "planemo" : "auroraborealis");
+    this.audio = new Audio("/audio/" + music + ".mp3");
     this.audio.volume = 0.2;
     this.props.subscribe(() => {
       this.setState({waiting: false});
