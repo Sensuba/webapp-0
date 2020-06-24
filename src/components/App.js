@@ -36,6 +36,16 @@ export default class App extends Component {
 
     this.state.socket = io(serverURL);
 
+    setTimeout(() => {
+      if (this.state.socket.connected)
+        this.state.socket.on("disconnect", () => {
+
+          console.log("Disconnected from server");
+          this.reconnect();
+        })
+      else setTimeout(() => this.reconnect(), 10000);
+    }, 500);
+
     if (User.isConnected()) {
 
       var user = User.getData();
@@ -124,6 +134,24 @@ export default class App extends Component {
       else
         this.updateCustoms();
     }*/
+  }
+
+  reconnect () {
+
+    var socket = io(serverURL);
+
+    setTimeout(() => {
+      if (socket.connected) {
+        console.log("Reconnected to server");
+        socket.on("disconnect", () => {
+
+          console.log("Disconnected from server");
+          this.reconnect();
+        })
+        this.setState({ socket });
+      }
+      else setTimeout(() => this.reconnect(), 10000);
+    }, 500);
   }
 
   /*updateDecks () {
