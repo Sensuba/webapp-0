@@ -84,11 +84,16 @@ export default class Game extends Component {
     this.manager = new Manager(this.state.model, this.command.bind(this), state => state ? this.setState(state) : this.forceUpdate());
     this.sequencer = new Sequencer(this, this.state.model, this.store.dispatch);
     this.volume = 1;
+    this.audio = new Audio("/audio/virgocluster.mp3");
+    this.audio.volume = 0.2;
     this.props.subscribe(() => {
       this.setState({waiting: false});
       setTimeout(() => this.sequencer.setState(1), 1000);
     }, 0);
-    this.props.subscribe(() => this.sequencer.setState(3), 1);
+    this.props.subscribe(() => {
+      this.sequencer.setState(3);
+      this.loopMusic();
+    }, 1);
 
     this.props.socket.removeAllListeners();
 
@@ -128,6 +133,15 @@ export default class Game extends Component {
     //Library.getCard(d.hero, hero => this.setState({hero}));
 
     this.createParticle = () => {};
+  }
+
+  loopMusic () {
+
+      if (this.unmounted)
+        return;
+      this.audio.currentTime = 0;
+      this.audio.play();
+      setTimeout(() => this.loopMusic(), this.audio.duration*1000);
   }
 
   buildDeck () {
@@ -175,8 +189,11 @@ export default class Game extends Component {
 
   componentWillUnmount () {
 
+    this.unmounted = true;
     this.props.socket.emit('quit');
     this.props.socket.removeAllListeners();
+    this.audio.pause();
+    this.audio.currentTime = 0;
   }
 
   getDefaultDeck () {
@@ -267,11 +284,13 @@ export default class Game extends Component {
   switchMute () {
 
     this.mute = !this.mute;
+    this.audio.muted = this.mute;
   }
 
   changeVolume (vol) {
 
     this.volume = vol;
+    this.audio.volume = vol * 0.2;
   }
 
   render() {
