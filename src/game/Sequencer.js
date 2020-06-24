@@ -23,6 +23,7 @@ import BreakShield from './view/animation/BreakShield';
 import GainEffect from './view/animation/GainEffect';
 import ExtraTurn from './view/animation/ExtraTurn';
 import Wait from './view/animation/Wait';
+import Quake from './view/animation/Quake';
 
 export default class Sequencer {
 
@@ -120,8 +121,11 @@ export default class Sequencer {
 	    		if (this.model.find(n.data[1]) !== card)
 	    			return new Damage(this.master, n.src.no, n.data[0]);
 	    	}
-	    	else if (card.onBoard)
+	    	else if (card.onBoard) {
+	    		if (n.data[0] >= 600)
+	    			new Quake(this.master, n.data[0] >= 2000 ? 3 : (n.data[0] >= 1200 ? 2 : 1)).start();
 	    		return new Damage(this.master, n.src.no, n.data[0]);
+	    	}
 	    	break; }
 	    case "playcard": {
 	    	let card = this.model.find(n.src);

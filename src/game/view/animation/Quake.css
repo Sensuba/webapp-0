@@ -1,0 +1,56 @@
+.sensuba-board.sensuba-board-quake-1 {
+
+  	animation: shake3 0.2s ease-out;
+}
+
+.sensuba-board.sensuba-board-quake-3 {
+
+  	animation: shake3 0.35s ease-out;
+}
+
+.sensuba-board.sensuba-board-quake-4 {
+
+  	animation: shake4 0.45s ease-out;
+}
+
+@keyframes shake1 {
+  0%, 75% {
+    transform: rotateX(50deg) translateX(-2px) rotateZ(-0.2deg);
+  }
+  
+  20%, 45% {
+    transform: rotateX(50deg) translateX(3px) rotateZ(0.2deg);
+  }
+}
+
+@keyframes shake2 {
+  0%, 75% {
+    transform: rotateX(50deg) translateX(-2px) rotateZ(-0.4deg);
+  }
+
+  10%, 33%, 60% {
+    transform: rotateX(50deg) translateX(-4px) rotateZ(-0.8deg);
+  }
+  
+  21%, 46% {
+    transform: rotateX(50deg) translateX(4px) rotateZ(0.4deg);
+  }
+}
+
+@keyframes shake3 {
+  0%, 70% {
+    transform: rotateX(50deg) translateX(-2px) rotateZ(-0.8deg);
+  }
+  
+  7%, 57% {
+    transform: rotateX(50deg) translateX(4px) rotateZ(0.8deg);
+  }
+
+  15%, 25%, 45% {
+    transform: rotateX(50deg) translateX(-8px) rotateZ(-1.4deg);
+  }
+
+  24%, 33% {
+    transform: rotateX(50deg) translateX(8px) rotateZ(1.4deg);
+  }
+}

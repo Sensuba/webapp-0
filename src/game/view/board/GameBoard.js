@@ -35,7 +35,7 @@ export default class GameBoard extends Component {
 
     return (
     	<div className="sensuba-gameboard" onClick={e => this.unselect(e)} onTouchEnd={e => document.getElementById("img-preview-tooltip").setAttribute("style", `display: none`)} onContextMenu={e => this.unselect(e)}>
-    	<div className="sensuba-board">
+    	<div id="sensuba-board" className="sensuba-board">
     	<Hand model={model.areas[1-no].hand} master={master}/>
 	    	<Area className="sensuba-area-top" model={model.areas[1-no]} master={master}>
 		    	{ model.areas[1-no].avatar ? <div className="sensuba-avatar-wrapper"><Avatar src={model.areas[1-no].avatar}/></div> : <span/> }
