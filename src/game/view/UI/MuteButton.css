@@ -45,11 +45,27 @@
 
 @media only screen and (max-width: 768px) {
 
+    .sensuba-sound {
+
+        height: 7.4vw;
+        width: 7.4vw;
+    }
+
+    .sensuba-sound:hover {
+
+        width: 7.4vw;
+    }
+
     .mute-button {
 
         height: 4.8vw;
         width: 4.8vw;
         border-width: 0.4vw;
         margin: 2.6vw;
+    }
+
+    .sensuba-sound .sensuba-slider {
+
+        display: none;
     }
 }

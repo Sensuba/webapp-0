@@ -14,6 +14,7 @@ import Loader from '../components/utility/Loader';
 import FacultyBox from './view/UI/FacultyBox';
 import History from './view/UI/History';
 import MuteButton from './view/UI/MuteButton';
+import Chatbox from './view/UI/Chatbox';
 import Lightbox from '../components/utility/Lightbox';
 import { Button } from 'reactstrap';
 //import files from '../utility/FileManager';
@@ -118,6 +119,11 @@ export default class Game extends Component {
     }
     this.props.socket.on('endgame', data => this.onEndgame(data));
     ['disconnect', 'error', 'connect_failed', 'reconnect_failed', 'connect_error', 'reconnect_error'].forEach(trigger => this.props.socket.on(trigger, () => this.onError(trigger)));
+
+    this.props.socket.on('chat', data => {
+      if (this.addMessage)
+        this.addMessage(data.from, data.text);
+    });
 
     //Library.getCard(d.hero, hero => this.setState({hero}));
 
@@ -317,6 +323,7 @@ export default class Game extends Component {
         <div id="screen-anim" className="screen-anim"><div className="screen-anim-inner"/></div>
       </div>
       <MuteButton switch={() => this.switchMute()} changeVolume={volume => this.changeVolume(volume)} master={this}/>
+      { this.props.room ? <Chatbox master={this}/> : <span/> }
       <History entries={this.state.model.log.history} master={this}/>
       <div id="newturn-frame">
         <h1 className="big-text">A vous de jouer</h1>

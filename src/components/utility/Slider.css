@@ -3,6 +3,7 @@
   height: 1em;
   width: 6em;
   position: relative;
+  cursor: pointer;
 }
 
 .sensuba-slider .sensuba-slider-bar {

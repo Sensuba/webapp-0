@@ -17,6 +17,8 @@ export default class Slider extends Component {
         var offset = this.ref.current.offsetLeft;
         var width = this.ref.current.clientWidth;
         var value = (e.clientX - offset) / width;
+        value = Math.max(value-0.08, 0);
+        value = Math.min(value/(1-2*0.08), 1);
         this.setState({ value });
         if (this.props.onChange)
           this.props.onChange(value);
