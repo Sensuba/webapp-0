@@ -124,11 +124,12 @@ export default class Game extends Component {
       this.props.socket.on('notification',  this.analyse.bind(this));
     }
     this.props.socket.on('endgame', data => this.onEndgame(data));
+    this.props.socket.on('info', data => this.onInfo(data));
     ['disconnect', 'error', 'connect_failed', 'reconnect_failed', 'connect_error', 'reconnect_error'].forEach(trigger => this.props.socket.on(trigger, () => this.onError(trigger)));
 
     this.props.socket.on('chat', data => {
       if (this.addMessage)
-        this.addMessage(data.from, data.text);
+        this.addMessage(data);
     });
 
     //Library.getCard(d.hero, hero => this.setState({hero}));
@@ -186,6 +187,19 @@ export default class Game extends Component {
       this.sequencer.add({type: "end", src: 0, data: [{type: "int", no: trigger === 'disconnect' ? 5 : 6}]});
     else
       this.props.quitRoom();
+  }
+
+  onInfo (data) {
+
+    switch (data.type) {
+    case "access": {
+      this.access = this.access || [];
+      this.access.push(data.access);
+      this.forceUpdate();
+      break;
+    }
+    default: break;
+    }
   }
 
   componentWillUnmount () {

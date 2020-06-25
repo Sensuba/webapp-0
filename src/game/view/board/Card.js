@@ -36,7 +36,7 @@ export default class Card extends Component {
     var model = this.props.model;
     var master = this.props.master;
 
-    var visible = model.nameCard && (!model.invisible || model.invisible.for !== master.no) && (model.location.public || model.area === master.state.model.areas[master.no] || model.location.id.type === "deck");
+    var visible = model.nameCard && (!model.invisible || model.invisible.for !== master.no) && (model.location.public || model.area === master.state.model.areas[master.no] || (master.access && master.access.some(no => no === model.area.id.no)) || model.location.id.type === "deck");
 
     return (
       <div

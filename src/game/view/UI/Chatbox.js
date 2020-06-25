@@ -12,24 +12,43 @@ export default class Chatbox extends Component {
 			messages: []
 		}
 
-		this.props.master.addMessage = (name, text) => this.add(name, text);
+		this.props.master.addMessage = (message) => this.add(message);
 	}
 
-	add (name, text) {
+	add (message) {
 
-		if (name >= 0 && name <= 4) {
-			switch (name) {
-			case 0: name = "Vous"; break;
-			case 1: name = "Adversaire"; break;
-			case 2: name = "Joueur 1"; break;
-			case 3: name = "Joueur 2"; break;
-			case 4: name = "Spectateur"; break;
-			default: name = "?"; break;
+		var id = this.count++, text = "";
+
+		if (message.type === "text") {
+
+			var name = message.from;
+			text = message.text;
+
+			if (name >= 0 && name <= 4) {
+				switch (name) {
+				case 0: name = "Vous"; break;
+				case 1: name = "Adversaire"; break;
+				case 2: name = "Joueur 1"; break;
+				case 3: name = "Joueur 2"; break;
+				case 4: name = "Spectateur"; break;
+				default: name = "?"; break;
+				}
 			}
+
+			this.state.messages.push({ from: name || "?", text, id });
+
+		} else if (message.type === "info") {
+
+			switch (message.info) {
+			case 0: text = "Commande inconnue"; break;
+			case 1: text = "Commande exécutée"; break;
+			case 2: text = "Commande échouée"; break;
+			default: text = "Commande inconnue"; break;
+			}
+
+			this.state.messages.push({ text, id });
 		}
 
-		var id = this.count++;
-		this.state.messages.push({ from: name || "?", text, id });
 		var history = document.getElementById("sensuba-chat-history");
 		this.setState( { messages: this.state.messages } , () => history.scrollTop = history.scrollHeight);
 		setTimeout(() => {
@@ -42,6 +61,9 @@ export default class Chatbox extends Component {
 
 		var el = document.getElementById("sensuba-chat-input");
 		e.preventDefault();
+		var text = el.value;
+		if (text.length <= 0 || text.length >= 100)
+			return;
 		this.props.master.props.socket.emit("chat", el.value);
 		el.value = "";
 	}
@@ -54,7 +76,7 @@ export default class Chatbox extends Component {
     		{
     			this.state.messages.map(m => 
     				<div key={m.id} className="sensuba-chat-message">
-    					<div className="sensuba-chat-message-author">{ m.from + ":" }</div>
+    					{ m.from ? <div className="sensuba-chat-message-author">{ m.from + ":" }</div> : <span/> }
     					<div className="sensuba-chat-message-text">{ m.text }</div>
     				</div>
     			)
