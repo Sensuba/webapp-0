@@ -15,7 +15,8 @@ export default class Card extends Component {
     }
     else tooltip.setAttribute("style", `display: block`);
     this.show = true;
-    this.props.master.setState({preview: card.eff});
+    this.props.master.updatePreview({ card: card.eff });
+    //setState({preview: card.eff});
   }
 
   hideTooltip() {

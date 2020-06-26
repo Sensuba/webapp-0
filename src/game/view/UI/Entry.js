@@ -8,7 +8,19 @@ export default class Entry extends Component {
     if (e.pageX < 300)
       left = false;
   	tooltip.setAttribute("style", `display: block; top: ${e.pageY > window.innerHeight * 0.74 - 60 + window.scrollY ? window.innerHeight * 0.74 - 60 + window.scrollY : (e.pageY < 80 + window.innerHeight * 0.2 ? 80 + window.innerHeight * 0.2 : e.pageY)}px; left: ${e.pageX}px; margin-left: ${left ? -18 : 4}em;`);
-  	this.props.master.setState({preview: card});
+  	var src = card && card.eff ? card.eff : card;
+    var target = this.props.value.target ? (this.props.value.target.eff || this.props.value.target) : undefined;
+    var icon = undefined;
+    if (target) {
+      switch (this.props.value.type) {
+      case "play":
+      case "action":
+      case "skill":
+      case "attack": icon = this.props.value.type; break;
+      default: break;
+      }
+    }
+    this.props.master.updatePreview({ card: src, target, icon, text: this.props.value.text });
   }
 
   hideTooltip() {

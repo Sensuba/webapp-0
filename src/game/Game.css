@@ -1149,9 +1149,61 @@
   to {transform: translateZ(1em);}
 }
 
-#room-page #img-preview-tooltip, #replay-page #img-preview-tooltip {
+#img-preview-tooltip {
 
   font-size: 3vh;
+}
+
+#img-preview-tooltip .img-preview-tooltip-target {
+
+  font-size: 1.5vh;
+  position: absolute;
+  top: 25vh;
+  left: 35vh;
+}
+
+#img-preview-tooltip .img-preview-tooltip-icon {
+
+  position: absolute;
+  top: 36vh;
+  left: 34vh;
+  height: 8vh;
+  width: 4vh;
+  filter: drop-shadow(0.2vh 0.2vh 0.2vh #202020F0);
+}
+
+#img-preview-tooltip .img-preview-tooltip-icon.img-preview-icon-attack,
+#img-preview-tooltip .img-preview-tooltip-icon.img-preview-icon-play {
+
+  background: url('./images/targetarrow.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  filter: drop-shadow(0.2vh 0.2vh 0.2vh #202020F0);
+}
+
+#img-preview-tooltip .img-preview-tooltip-icon.img-preview-icon-action,
+#img-preview-tooltip .img-preview-tooltip-icon.img-preview-icon-skill {
+
+  background: url('./images/arrow.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  transform: scaleX(-1);
+  filter: drop-shadow(0.2vh 0.2vh 0.2vh #202020F0);
+}
+
+#img-preview-tooltip .img-preview-tooltip-icon.img-preview-icon-skill { filter: drop-shadow(0.2vh 0.2vh 0.2vh #202020F0) hue-rotate(100deg) }
+
+#img-preview-tooltip .img-preview-tooltip-text {
+
+    position: absolute;
+    font-size: 0.75em;
+    left: 4vh;
+    top: 60vh;
+    min-height: 1em;
+    width: 40vh;
+    padding: 0.4em 1em;
+    background: white;
+    filter: drop-shadow(2px 3px 2px #202020A0);
 }
 
 #screen-anim {

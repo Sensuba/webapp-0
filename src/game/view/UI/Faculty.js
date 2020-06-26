@@ -12,7 +12,7 @@ export default class Faculty extends Component {
     }
     else tooltip.setAttribute("style", `display: block`);
     this.show = true;
-    this.props.master.setState({preview: card});
+    this.props.master.updatePreview({ card: card });
   }
 
   hideTooltip() {
