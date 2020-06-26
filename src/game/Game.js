@@ -83,10 +83,14 @@ export default class Game extends Component {
 
     this.manager = new Manager(this.state.model, this.command.bind(this), state => state ? this.setState(state) : this.forceUpdate());
     this.sequencer = new Sequencer(this, this.state.model, this.store.dispatch);
-    this.volume = 1;
+
+    this.volume = localStorage.getItem('sound.sfx') !== undefined ? localStorage.getItem('sound.sfx') : 1;
     var music = Math.random() < 0.33 ? "virgocluster" : (Math.random() < 0.5 ? "planemo" : "auroraborealis");
     this.audio = new Audio("/audio/" + music + ".mp3");
-    this.audio.volume = 0.2;
+    this.audio.volume = localStorage.getItem('sound.music') !== undefined ? localStorage.getItem('sound.music') * 0.2 : 0.2;
+    this.mute = localStorage.getItem('sound.muted');
+    this.audio.muted = this.mute;
+
     this.props.subscribe(() => {
       this.setState({waiting: false});
       setTimeout(() => this.sequencer.setState(1), 1000);
@@ -302,10 +306,12 @@ export default class Game extends Component {
     this.audio.muted = this.mute;
   }
 
-  changeVolume (vol) {
+  changeVolume (vol, sfx) {
 
-    this.volume = vol;
-    this.audio.volume = vol * 0.2;
+    if (sfx)
+      this.volume = vol;
+    else
+      this.audio.volume = vol * 0.2;
   }
 
   render() {
@@ -356,8 +362,8 @@ export default class Game extends Component {
         <View model={this.state.model} messages={this.state.messages} master={this} openConcedeWindow={() => this.setState({concedeWindow: true})}/>
         <div id="screen-anim" className="screen-anim"><div className="screen-anim-inner"/></div>
       </div>
-      <MuteButton switch={() => this.switchMute()} changeVolume={volume => this.changeVolume(volume)} master={this}/>
-      { this.props.room ? <Chatbox master={this}/> : <span/> }
+      <MuteButton switch={() => this.switchMute()} changeVolume={(volume, sfx) => this.changeVolume(volume, sfx)} master={this}/>
+      { this.props.room && !this.state.waiting ? <Chatbox master={this}/> : <span/> }
       <History entries={this.state.model.log.history} master={this}/>
       <div id="newturn-frame">
         <h1 className="big-text">A vous de jouer</h1>

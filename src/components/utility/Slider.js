@@ -3,11 +3,14 @@ import "./Slider.css";
 
 export default class Slider extends Component {
 
-  constructor () {
+  constructor (props) {
 
-    super();
+    super(props);
     this.ref = React.createRef();
-    this.state = { value: 1 }
+    var def = this.props.defaultValue;
+    if (!def && def !== 0)
+      def = 1;
+    this.state = { value: def }
   }
 
   render() {
@@ -15,6 +18,8 @@ export default class Slider extends Component {
     return (
       <div ref={this.ref} className="sensuba-slider" onClick={e => {
         var offset = this.ref.current.offsetLeft;
+        if (this.ref.current.offsetParent)
+          offset += this.ref.current.offsetParent.offsetLeft;
         var width = this.ref.current.clientWidth;
         var value = (e.clientX - offset) / width;
         value = Math.max(value-0.08, 0);

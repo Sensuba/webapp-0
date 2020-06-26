@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './SoloPage.css';
 import Nav from '../Nav';
+import MuteButton from '../../game/view/UI/MuteButton';
 
 export default class SoloPage extends Component {
 
@@ -10,6 +11,7 @@ export default class SoloPage extends Component {
       <div>
         <Nav api={this.props.api} history={this.props.history}/>
       	<main>
+          <MuteButton switch={() => {}} changeVolume={(volume, sfx) => {}}/>
           <div className="main-section">
             <div className="solo-choicer">
               <div className="solo-panel panel-right">

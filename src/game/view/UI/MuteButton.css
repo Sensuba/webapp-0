@@ -7,11 +7,12 @@
     width: 5vw;
     overflow: hidden;
     transition: width 0.4s;
+    z-index: 1001;
 }
 
 .sensuba-sound:hover {
 
-    width: 14vw;
+    width: calc(14.125vw + 2em);
 }
 
 .mute-button {
@@ -35,11 +36,40 @@
     background-size: 100%;
 }
 
+.sensuba-sound .sound-slider-case {
+
+    position: relative;
+    top: 1.35vw;
+    left: 5vw;
+}
+
 .sensuba-sound .sensuba-slider {
 
     position: relative;
-    top: 1.85vw;
-    left: 4.875vw;
+    top: 0;
+    left: 1em;
+}
+
+.sensuba-sound .sound-slider-icon {
+
+    position: relative;
+    float: left;
+    height: 1em;
+    width: 1em;
+}
+
+#sfx-slider-icon {
+
+    background: url('./sfx.png');
+    background-size: 80%;
+    background-repeat: no-repeat;
+}
+
+#music-slider-icon {
+
+    background: url('./music.png');
+    background-size: 80%;
+    background-repeat: no-repeat;
 }
 
 
@@ -64,7 +94,7 @@
         margin: 2.6vw;
     }
 
-    .sensuba-sound .sensuba-slider {
+    .sensuba-sound .sensuba-slider-case {
 
         display: none;
     }

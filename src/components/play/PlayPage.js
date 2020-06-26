@@ -4,6 +4,7 @@ import { Input } from 'reactstrap'
 import Nav from '../Nav';
 import Deck from '../decks/Deck';
 import User from '../../services/User';
+import MuteButton from '../../game/view/UI/MuteButton';
 
 export default class PlayPage extends Component {
 
@@ -163,6 +164,7 @@ export default class PlayPage extends Component {
         <Nav api={this.props.api} history={this.props.history}/>
       	<main>
           <div className="main-section">
+            <MuteButton switch={() => {}} changeVolume={(volume, sfx) => {}}/>
             <div className="deck-selection-area">
             {
               this.state.deck ?

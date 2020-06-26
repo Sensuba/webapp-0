@@ -41,7 +41,14 @@ export default class Replay extends Component {
         this.next();
       }
     });
+
+
+    this.volume = localStorage.getItem('sound.sfx') !== undefined ? localStorage.getItem('sound.sfx') : 1;
+    var music = Math.random() < 0.33 ? "virgocluster" : (Math.random() < 0.5 ? "planemo" : "auroraborealis");
+    this.audio = new Audio("/audio/" + music + ".mp3");
+    this.audio.volume = localStorage.getItem('sound.music') !== undefined ? localStorage.getItem('sound.music') * 0.2 : 0.2;
     this.mute = true;
+    this.audio.muted = true;
 
     this.state = {
 
@@ -51,7 +58,19 @@ export default class Replay extends Component {
     this.props.subscribe(() => {
       setTimeout(() => this.sequencer.setState(1), 1000);
     }, 0);
-    this.props.subscribe(() => this.sequencer.setState(3), 1);
+    this.props.subscribe(() => {
+      this.sequencer.setState(3);
+      this.loopMusic();
+    }, 1);
+  }
+
+  loopMusic () {
+
+      if (this.unmounted)
+        return;
+      this.audio.currentTime = 0;
+      this.audio.play();
+      setTimeout(() => this.loopMusic(), this.audio.duration*1000);
   }
 
   analyse (n) {
@@ -136,6 +155,7 @@ export default class Replay extends Component {
 
   componentWillUnmount() {
 
+    this.unmounted = true;
     if (!this.stopped)
       this.quit();
   }
@@ -158,6 +178,15 @@ export default class Replay extends Component {
   switchMute () {
 
     this.mute = !this.mute;
+    this.audio.muted = this.mute;
+  }
+
+  changeVolume (vol, sfx) {
+
+    if (sfx)
+      this.volume = vol;
+    else
+      this.audio.volume = vol * 0.2;
   }
 
   select (e) {
@@ -188,7 +217,7 @@ export default class Replay extends Component {
         <View model={this.state.model} messages={[]} master={this}/>
         <div id="screen-anim" className="screen-anim"><div className="screen-anim-inner"/></div>
       </div>
-      <MuteButton switch={() => this.switchMute()} defaultMute={true} master={this}/>
+      <MuteButton switch={() => this.switchMute()} changeVolume={(volume, sfx) => this.changeVolume(volume, sfx)} defaultMute={true} master={this}/>
       <History entries={this.state.model.log.history} master={this}/>
       <div id="newturn-frame">
         <h1 className="big-text">A vous de jouer</h1>

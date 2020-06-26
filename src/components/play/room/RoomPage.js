@@ -26,7 +26,10 @@ export default class RoomPage extends Component {
       this.setState({ vsstate: 2 });
       setTimeout(() => this.setState({ vsstate: 3 }), 2000);
     }, 4500);
-    new Audio("/audio/cinematic.ogg").play();
+    var audio = new Audio("/audio/cinematic.ogg");
+    audio.volume = localStorage.getItem('sound.sfx') !== undefined ? localStorage.getItem('sound.sfx') : 1;
+    if (!localStorage.getItem('sound.muted'))
+      audio.play();
   }
   
   render() {
