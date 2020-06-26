@@ -1160,6 +1160,7 @@
   position: absolute;
   top: 25vh;
   left: 35vh;
+  pointer-events: none;
 }
 
 #img-preview-tooltip .img-preview-tooltip-icon {

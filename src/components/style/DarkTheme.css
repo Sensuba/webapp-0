@@ -208,6 +208,11 @@
 	background: #717377;
 }
 
+#img-preview-tooltip .img-preview-tooltip-text {
+
+	background: #717377;
+}
+
 .dark-theme .sensuba-tile-targetable {
 
     background-color: rgba(255, 55, 55, 0.2);
