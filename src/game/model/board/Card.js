@@ -437,8 +437,14 @@ export default class Card {
 			else delete this.secreteffect;
 			this.secretcount = 1;
 		}
-		if (this.onBoard)
+		if (this.onBoard) {
 			this.resetSickness();
+			if (data && data.php) {
+				this.mutatedState = this.mutatedState || {};
+				this.mutatedState.hp = data.php.hp;
+				this.mutatedState.chp = data.php.chp;
+			}
+		}
 		this.update();
 		if (data && data.chp) {
 			this.chp = data.chp;
