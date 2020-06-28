@@ -48,7 +48,7 @@ export default class PlayPage extends Component {
       }
     }
     else if (decklist && decklist.length > 0) {
-      this.setDeck(decklist[0], false);
+      this.setDeck(decklist[0], false, true);
       cpu = decklist[0];
     }
     else
