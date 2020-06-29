@@ -194,6 +194,11 @@ export default class Replay extends Component {
   select (e) {
 
   }
+  
+  updatePreview (preview) {
+
+    this.setState({preview});
+  }
 
   render() {
     return (
