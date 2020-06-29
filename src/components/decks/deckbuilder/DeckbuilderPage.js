@@ -19,7 +19,7 @@ export default class DeckbuilderPage extends Component {
 
 		if (!User.isConnected()) this.props.history.push('/home');
 
-    if (User.getData().authorization >= 2)
+    if (User.getData().authorization >= 4)
       this.formats.custom.cardlist = this.props.cards.concat(this.props.customs);
 
 	  	var deck = this.props.deck;

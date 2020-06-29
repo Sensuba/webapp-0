@@ -119,9 +119,11 @@ export default class ProfilePage extends Component {
               {
                 (() => {
                   switch (this.state.user.authorization) {
-                  case 1: return <div className="profile-status profile-status-platinum"/>
-                  case 2: return <div className="profile-status profile-status-vip"/>
-                  case 3: return <div className="profile-status profile-status-admin"/>
+                  case 1: return <div className="profile-status profile-status-duellist"/>
+                  case 2: return <div className="profile-status profile-status-champion"/>
+                  case 3: return <div className="profile-status profile-status-legend"/>
+                  case 4: return <div className="profile-status profile-status-vip"/>
+                  case 5: return <div className="profile-status profile-status-admin"/>
                   default: return <span/>;
                   }
                 })()

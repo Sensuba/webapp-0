@@ -45,22 +45,38 @@
 	color: white;
 }
 
-.profile-status.profile-status-platinum {
+.profile-status.profile-status-duellist {
 
 	background: linear-gradient(50deg, rgba(233, 240, 240, 0.7), rgba(216, 230, 230, 0.7));
 	border-color: rgb(248, 255, 255);
-	color: #DAD5D0;
+	color: #AAA5A0;
 }
 
-.profile-status.profile-status-platinum:before { content: "⚬ Platinum" }
+.profile-status.profile-status-duellist:before { content: "⚬ Duelliste" }
 
-.profile-status.profile-status-vip {
+.profile-status.profile-status-champion {
 
 	background: linear-gradient(50deg, rgba(250, 207, 80, 0.7), rgba(212, 170, 49, 0.7));
 	border-color: rgb(240, 222, 170);
 }
 
-.profile-status.profile-status-vip:before { content: "🏵️ VIP" }
+.profile-status.profile-status-champion:before { content: "🏵️ Champion" }
+
+.profile-status.profile-status-legend {
+
+	background: linear-gradient(50deg, rgba(230, 30, 103, 0.7), rgba(186, 32, 88, 0.7));
+	border-color: rgb(220, 150, 180);
+}
+
+.profile-status.profile-status-legend:before { content: "💮 Légende" }
+
+.profile-status.profile-status-vip {
+
+	background: linear-gradient(50deg, rgba(32, 155, 186, 0.7), rgba(43, 141, 166, 0.7));
+	border-color: rgb(150, 210, 220);
+}
+
+.profile-status.profile-status-vip:before { content: "⚜️ VIP" }
 
 .profile-status.profile-status-admin {
 

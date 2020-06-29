@@ -71,6 +71,7 @@ export default class Game extends Component {
     if (myDeck)
       myDeck = JSON.parse(myDeck);
     var d = (User.isConnected() && myDeck) ? myDeck : this.getDefaultDeck();
+    var authorization = User.isConnected() ? (User.getData().authorization || 0) : 0;
 
     this.state = {
 
@@ -110,7 +111,7 @@ export default class Game extends Component {
     }
 
     if (props.room) {
-      this.props.socket.emit("join", name, avatar, props.room);
+      this.props.socket.emit("join", name, avatar, props.room, authorization > 0);
       this.props.socket.on('joined', role => this.onJoined(role));
     } else if (props.training) {
       var cpudeck = User.getCPU();

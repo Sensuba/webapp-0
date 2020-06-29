@@ -341,7 +341,7 @@ export default class CardsPage extends Component {
                 <option value="1">Basique</option>
                 <option value="2">Classique</option>
                 <option value="3">Etoile Gardienne</option>
-                { (() => { if (User.isConnected() && User.getData().authorization > 0) return <option value="4">Grand Bal Masqué</option> })() }
+                { (() => { if (User.isConnected() && User.getData().authorization > 3) return <option value="4">Grand Bal Masqué</option> })() }
               </select>
               <div>
                 { (nocards > 0 ? <b>{ nocards }</b> : "Aucune")}{ " carte" + (nocards > 1 ? "s" : "") + " trouvée" + (nocards > 1 ? "s" : "") }

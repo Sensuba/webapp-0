@@ -52,7 +52,7 @@ export default class HomePage extends Component {
               <div className="home-panel-text">
                 <h3>Supportez-nous</h3>
                 <p>Sensuba est un jeu complètement gratuit, mais nous coûte du temps et de l'argent. Gérer les serveurs et les données coûte de plus en plus au fil du temps. Si vous voulez que le jeu perdure ou souhaitez nous aidez, nous en serions très reconnaissants !</p>
-                <a className="select-button" target="_blank" rel="noopener noreferrer" href="https://ko-fi.com/flynnsp">Ouvrir Ko-fi</a>
+                <a className="select-button" target="_blank" rel="noopener noreferrer" href="https://www.patreon.com/flynnsp">Ouvrir Patreon</a>
               </div>
             </div>
           </div>
