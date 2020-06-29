@@ -304,7 +304,7 @@ export default class Deckbuilder extends Component {
               <div className="sensuba-deckbuilder-suggestions-header">Suggestions</div>
               <div className="sensuba-deckbuilder-suggestions">
               {
-                this.state.suggestions.map((c, i) =>
+                this.state.suggestions.filter(c => c).map((c, i) =>
                   <div key={i} className={"sensuba-deckbuilder-tag " + colorIdToClassName(c.idColor)} onMouseMove={e => this.showTooltip(e, c, true)} onMouseLeave={e => this.hideTooltip()} onClick={() => this.addCard(c.idCardmodel)}>
                     <div className="sensuba-deckbuilder-tag-name">{c.nameCard}</div>
                     <img className="sensuba-deckbuilder-tag-img" src={c.imgLink} alt={c.nameCard}/>
