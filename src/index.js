@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import registerServiceWorker from './utility/registerServiceWorker';
 import Api from './services/Api'
 
-const api = new Api({ url: 'https://bhtwey7kwc.execute-api.eu-west-3.amazonaws.com/alpha' });
+const api = new Api({ url: 'https://dqf4f7ca83.execute-api.us-east-2.amazonaws.com/production' });
 
 const options = { api }
  
