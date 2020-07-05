@@ -86,8 +86,7 @@ export default class Game extends Component {
     this.sequencer = new Sequencer(this, this.state.model, this.store.dispatch);
 
     this.volume = localStorage.getItem('sound.sfx') !== undefined ? localStorage.getItem('sound.sfx') : 1;
-    //var music = Math.random() < 0.33 ? "virgocluster" : (Math.random() < 0.5 ? "planemo" : "auroraborealis");
-    var music = "void";
+    var music = Math.random() < 0.33 ? "virgocluster" : (Math.random() < 0.5 ? "planemo" : "auroraborealis");
     this.audio = new Audio("/audio/" + music + ".mp3");
     this.audio.volume = localStorage.getItem('sound.music') !== undefined ? localStorage.getItem('sound.music') * 0.2 : 0.2;
     this.mute = localStorage.getItem('sound.muted');
