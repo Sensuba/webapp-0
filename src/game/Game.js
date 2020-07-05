@@ -82,6 +82,8 @@ export default class Game extends Component {
       waiting: true
     }
 
+    this.socket = this.props.getSocket();
+
     this.manager = new Manager(this.state.model, this.command.bind(this), state => state ? this.setState(state) : this.forceUpdate());
     this.sequencer = new Sequencer(this, this.state.model, this.store.dispatch);
 
@@ -101,7 +103,7 @@ export default class Game extends Component {
       this.loopMusic();
     }, 1);
 
-    this.props.socket.removeAllListeners();
+    this.socket.removeAllListeners();
 
     var name = "", avatar = "";
     if (User.isConnected()) {
@@ -111,28 +113,28 @@ export default class Game extends Component {
     }
 
     if (props.room) {
-      this.props.socket.emit("join", name, avatar, props.room, authorization > 0);
-      this.props.socket.on('joined', role => this.onJoined(role));
+      this.socket.emit("join", name, avatar, props.room, authorization > 0);
+      this.socket.on('joined', role => this.onJoined(role));
     } else if (props.training) {
       var cpudeck = User.getCPU();
       if (cpudeck)
         cpudeck = JSON.parse(cpudeck);
       var cpu = (User.isConnected() && cpudeck) ? cpudeck : this.buildDeck();
-      this.props.socket.emit("training", name, avatar, d, cpu);
+      this.socket.emit("training", name, avatar, d, cpu);
       this.role = "player";
       this.no = 0;
-      this.props.socket.on('notification',  this.analyse.bind(this));
+      this.socket.on('notification',  this.analyse.bind(this));
     } else if (props.mission) {
-      this.props.socket.emit("mission", name, avatar, props.mission);
+      this.socket.emit("mission", name, avatar, props.mission);
       this.role = "player";
       this.no = 0;
-      this.props.socket.on('notification',  this.analyse.bind(this));
+      this.socket.on('notification',  this.analyse.bind(this));
     }
-    this.props.socket.on('endgame', data => this.onEndgame(data));
-    this.props.socket.on('info', data => this.onInfo(data));
-    ['disconnect', 'error', 'connect_failed', 'reconnect_failed', 'connect_error', 'reconnect_error'].forEach(trigger => this.props.socket.on(trigger, () => this.onError(trigger)));
+    this.socket.on('endgame', data => this.onEndgame(data));
+    this.socket.on('info', data => this.onInfo(data));
+    ['disconnect', 'error', 'connect_failed', 'reconnect_failed', 'connect_error', 'reconnect_error'].forEach(trigger => this.socket.on(trigger, () => this.onError(trigger)));
 
-    this.props.socket.on('chat', data => {
+    this.socket.on('chat', data => {
       if (this.addMessage)
         this.addMessage(data);
     });
@@ -170,10 +172,10 @@ export default class Game extends Component {
     this.role = role.as;
     if (role.as === 'player') {
         this.no = role.no;
-        this.props.socket.emit('prepare', User.isConnected() ? User.getData().token : "Anonymous", this.state.deck);
+        this.socket.emit('prepare', User.isConnected() ? User.getData().token : "Anonymous", this.state.deck);
       }
 
-      this.props.socket.on('notification',  this.analyse.bind(this));
+      this.socket.on('notification',  this.analyse.bind(this));
   }
 
   onEndgame (data) {
@@ -210,8 +212,8 @@ export default class Game extends Component {
   componentWillUnmount () {
 
     this.unmounted = true;
-    this.props.socket.emit('quit');
-    this.props.socket.removeAllListeners();
+    this.socket.emit('quit');
+    this.socket.removeAllListeners();
     this.audio.pause();
     this.audio.currentTime = 0;
   }
@@ -238,7 +240,7 @@ export default class Game extends Component {
 
   command (command) {
 
-    this.props.socket.emit('command', command);
+    this.socket.emit('command', command);
   }
 
   select (e) {

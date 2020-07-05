@@ -51,7 +51,7 @@ export default class RoomPage extends Component {
             { this.state.heroes && this.state.heroes.you ? <img crossOrigin="Anonymous" className="room-background-hero" src={this.state.heroes.you} alt={""}/> : <span/> }
             { this.state.heroes && this.state.heroes.opponent ? <img crossOrigin="Anonymous" className="room-background-hero" src={this.state.heroes.opponent} alt={""}/> : <span/> }
           </div>
-          <Game subscribe={(f, i) => this.subscribers[i].push(f)} api={this.props.api} room={this.props.room} socket={this.props.socket} updateHeroes={this.changeBackground.bind(this)} quitRoom = {() => this.props.history.push("/play")}/>
+          <Game subscribe={(f, i) => this.subscribers[i].push(f)} api={this.props.api} room={this.props.room} getSocket={() => this.props.getSocket()} updateHeroes={this.changeBackground.bind(this)} quitRoom = {() => this.props.history.push("/play")}/>
         </main>
       </div>
     );

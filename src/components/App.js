@@ -34,11 +34,11 @@ export default class App extends Component {
     super(props);
     this.state = { browser: this.checkBrowser() };
 
-    this.state.socket = io(serverURL);
+    this.socket = io(serverURL);
 
     setTimeout(() => {
-      if (this.state.socket.connected)
-        this.state.socket.on("disconnect", () => {
+      if (this.socket.connected)
+        this.socket.on("disconnect", () => {
 
           console.log("Disconnected from server");
           this.reconnect();
@@ -148,7 +148,7 @@ export default class App extends Component {
           console.log("Disconnected from server");
           this.reconnect();
         })
-        this.setState({ socket });
+        this.socket = socket;
       }
       else setTimeout(() => this.reconnect(), 10000);
     }, 500);
@@ -234,6 +234,11 @@ export default class App extends Component {
     }, err => this.setState({decks: []}));
   }
 
+  getSocket () {
+
+    return this.socket;
+  }
+
   render() {
 
     if (!this.state.cards || (User.isConnected() && (!this.state.decks || !this.state.customCards || !this.state.collection)))
@@ -250,12 +255,12 @@ export default class App extends Component {
               <Route path="/cards/shop" component={({ match, history }) => <Cards cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateCollection={this.updateCollection.bind(this)} shop={true} history={history} api={this.props.options.api}/>}/>
               <Route exact path="/cards/editor" component={({ match, history }) => <Editor history={history} updateCustoms={this.updateCustoms.bind(this)} api={this.props.options.api}/>}/>
               <Route path="/cards/editor/:card" component={({ match, history }) => (User.isConnected() ? <Editor updateCustoms={this.updateCustoms.bind(this)} idmodel={match.params.card} card={this.state.customCards.find(card => card.idCardmodel.toString() === match.params.card)} history={history} api={this.props.options.api}/> : <Redirect to="/cards"/>)}/>
-              <Route exact path="/solo" component={({ match, history }) => (<Solo socket={this.state.socket} history={history} api={this.props.options.api}/>)}/>
+              <Route exact path="/solo" component={({ match, history }) => (<Solo getSocket={() => this.getSocket()} history={history} api={this.props.options.api}/>)}/>
               <Route exact path="/solo/mission/:mission/:chapter" component={({ match, history }) => (<Mission mission={{mission: match.params.mission, chapter: match.params.chapter}} socket={this.state.socket} history={history} api={this.props.options.api}/>)}/>
               <Route exact path="/play" component={({ match, history }) => (<Play cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} decks={this.state.decks} socket={this.state.socket} history={history} api={this.props.options.api}/>)}/>
-              <Route path="/play/:room" component={({ match, history }) => (<Room socket={this.state.socket} room={match.params.room} history={history} api={this.props.options.api}/>)}/>
-              <Route path="/replay/:room" component={({ match, history }) => (<Replay socket={this.state.socket} room={match.params.room} history={history} api={this.props.options.api}/>)}/>
-              <Route path="/training" component={({ match, history }) => (<Mission cards={this.state.cards} socket={this.state.socket} training={1} history={history} api={this.props.options.api}/>)}/>
+              <Route path="/play/:room" component={({ match, history }) => (<Room getSocket={() => this.getSocket()} room={match.params.room} history={history} api={this.props.options.api}/>)}/>
+              <Route path="/replay/:room" component={({ match, history }) => (<Replay getSocket={() => this.getSocket()} room={match.params.room} history={history} api={this.props.options.api}/>)}/>
+              <Route path="/training" component={({ match, history }) => (<Mission cards={this.state.cards} getSocket={() => this.getSocket()} training={1} history={history} api={this.props.options.api}/>)}/>
               <Route exact path="/profile" component={({ match, history }) => ( (User.isConnected() ? <Profile history={history} api={this.props.options.api} theme={this.state.theme}/> : <Redirect to="/home"/>)  )}/>
               <Route exact path="/decks" component={({ match, history }) => (<Decks cards={this.state.cards} history={history} decks={this.state.decks} api={this.props.options.api}/>)}/>
               <Route exact path="/decks/builder" component={({ match, history }) => (<Deckbuilder cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateDecks={this.updateDecks.bind(this)} history={history} api={this.props.options.api} type="standard"/>)}/>

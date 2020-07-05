@@ -51,7 +51,7 @@ export default class ReplayPage extends Component {
             { this.state.heroes && this.state.heroes.you ? <img crossOrigin="Anonymous" className="room-background-hero" src={this.state.heroes.you} alt={"Your hero"}/> : <span/> }
             { this.state.heroes && this.state.heroes.opponent ? <img crossOrigin="Anonymous" className="room-background-hero" src={this.state.heroes.opponent} alt={"Opponent's hero"}/> : <span/> }
           </div>
-          <Game subscribe={(f, i) => this.subscribers[i].push(f)} api={this.props.api} room={this.props.room} socket={this.props.socket} updateHeroes={this.changeBackground.bind(this)} quitReplay = {() => this.props.history.push("/play")}/>
+          <Game subscribe={(f, i) => this.subscribers[i].push(f)} api={this.props.api} room={this.props.room} getSocket={() => this.props.getSocket()} updateHeroes={this.changeBackground.bind(this)} quitReplay = {() => this.props.history.push("/play")}/>
         </main>
       </div>
     );

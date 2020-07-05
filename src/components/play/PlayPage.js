@@ -69,9 +69,10 @@ export default class PlayPage extends Component {
 
     if (this.state.seeking)
       return;
-    this.props.socket.emit('seek', prv);
+    var socket = this.props.getSocket();
+    socket.emit('seek', prv);
     var history = this.props.history;
-    this.props.socket.on('assign', function (res) {
+    socket.on('assign', function (res) {
       history.push(`/play/${res.to}`);
     });
     this.setState({seeking: true});

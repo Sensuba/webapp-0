@@ -52,7 +52,7 @@ export default class MissionPage extends Component {
             { this.state.heroes && this.state.heroes.you ? <img crossOrigin="Anonymous" className="room-background-hero" src={this.state.heroes.you} alt={"Your hero"}/> : <span/> }
             { this.state.heroes && this.state.heroes.opponent ? <img crossOrigin="Anonymous" className="room-background-hero" src={this.state.heroes.opponent} alt={"Opponent's hero"}/> : <span/> }
           </div>
-          <Game subscribe={(f, i) => this.subscribers[i].push(f)} cards={this.props.cards} api={this.props.api} mission={this.props.mission} training={this.props.training} socket={this.props.socket} updateHeroes={this.changeBackground.bind(this)} quitRoom = {() => this.props.history.push(this.props.mission ? "/solo" : "/play")}/>
+          <Game subscribe={(f, i) => this.subscribers[i].push(f)} cards={this.props.cards} api={this.props.api} mission={this.props.mission} training={this.props.training} getSocket={() => this.props.getSocket()} updateHeroes={this.changeBackground.bind(this)} quitRoom = {() => this.props.history.push(this.props.mission ? "/solo" : "/play")}/>
       	</main>
       </div>
     );
