@@ -36,13 +36,15 @@ export default class App extends Component {
 
     this.socket = io(serverURL);
 
-    setTimeout(() => {
-      if (this.socket.connected)
+    setTimeout(() => {console.log("wtf");
+      if (this.socket.connected){console.log("help");
         this.socket.on("disconnect", () => {
 
           console.log("Disconnected from server");
+          this.socket.close();
           this.reconnect();
         })
+      }
       else setTimeout(() => this.reconnect(), 10000);
     }, 500);
 
@@ -146,6 +148,7 @@ export default class App extends Component {
         socket.on("disconnect", () => {
 
           console.log("Disconnected from server");
+          this.socket.close();
           this.reconnect();
         })
         this.socket = socket;
