@@ -67,7 +67,7 @@ export default class Figure extends Component {
 		  <span className="sensuba-card-param-separator">/</span>
 		  <div className={"sensuba-card-param sensuba-card-param-hp" + (src.hasOwnProperty('poisondmg') && src.poisondmg ? " sensuba-card-althp" : "")}>
 		    <div className="sensuba-card-param-name">PV</div>
-	   	    <div className={"sensuba-card-param-value" + (src.hasOwnProperty('chp') ? (src.chp < src.hp ? " sensuba-card-param-malus" : (src.hp > src.originalHp ? " sensuba-card-param-bonus" : "")) : "")}>{src.chp || src.hp}</div>
+	   	    <div className={"sensuba-card-param-value" + (src.hasOwnProperty('chp') && src.chp < src.hp ? " sensuba-card-param-malus" : (src.hp > src.originalHp ? " sensuba-card-param-bonus" : ""))}>{src.chp || src.hp}</div>
 		  </div>
 		  {
 		  	src.hasOwnProperty('poisondmg') && src.poisondmg ?
