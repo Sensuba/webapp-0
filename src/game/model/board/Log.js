@@ -30,9 +30,21 @@ class Log {
 			this.history.unshift(entry);
 			break;
 		}
-		case "trap":
-			this.history.unshift({type:"trap", src:this.gameboard.find(log.src)});
+		case "trap": {
+			let src = this.gameboard.find(log.src);
+			entry = {type:"trap", src};
+			let other = log.data[0];
+			if (other) {
+				let tile = this.gameboard.find(other)
+				if (tile) {
+					let card = tile.card;
+					if (card)
+						entry.target = card;
+				}
+			}
+			this.history.unshift(entry);
 			break;
+		}
 		case "discardcard":
 			this.history.unshift({type:"discard", src:this.gameboard.find(log.src)});
 			break;

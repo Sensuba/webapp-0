@@ -142,8 +142,11 @@ export default class Sequencer {
 		    break;
 		}
 	    case "trap": 
-	    case "triggersecret": 
-	  		return new Spell(this.master);
+	    case "triggersecret": {
+	    	if (n.data[0])
+		    	new Target(this.master, n.data[0].no).start();
+		    return new Spell(this.master);
+	    }
 	    case "cardmove": 
 	    	if (!this.model.started)
 	    		break;
