@@ -749,6 +749,14 @@ export default class Card {
 		this.gameboard.update();
 	}
 
+	transform (data) {
+
+		delete this.variables;
+		if (!data.idCardmodel)
+			delete this.idCardmodel;
+		this.become(data);
+	}
+
 	setVariable (name, value) {
 
 		this.variables = this.variables || {};
