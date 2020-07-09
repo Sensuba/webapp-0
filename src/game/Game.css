@@ -1091,13 +1091,12 @@
 .sensuba-card-view .sensuba-card-static {
 
     position: absolute;
-    top: 2em;
-    left: 0.4em;
-    width: 15em;
-    height: 16em;
-    opacity: 0.5;
-    background: url('./images/chains.png');
-    background-size: 100%;
+    top: 0;
+    left: 0;
+    border: 0.6em solid darkgray;
+    width: 100%;
+    border-style: ridge;
+    height: 100%;
 }
 
 .sensuba-card-view .sensuba-card-silence {
