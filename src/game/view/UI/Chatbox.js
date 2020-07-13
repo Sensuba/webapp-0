@@ -64,7 +64,7 @@ export default class Chatbox extends Component {
 		var text = el.value;
 		if (text.length <= 0 || text.length >= 100)
 			return;
-		this.props.master.props.socket.emit("chat", el.value);
+		this.props.master.props.getSocket().emit("chat", el.value);
 		el.value = "";
 	}
 
