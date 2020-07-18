@@ -31,16 +31,18 @@ export default class Hero extends Component {
       className={"sensuba-card sensuba-hero " + this.props.classColor.color1 + " " + this.props.classColor.color2 + (this.props.switch === "manual" ? " editable " : " ") + (holographic ? "sensuba-card-holographic " : " ") + (this.props.className || "")}
       onClick={this.props.switch === "manual" ? e => this.setState({ level: level%3+1 }) : () => {}}
       onMouseMove={e => {
-		  var offset = this.ref.current.offsetLeft;
-	        if (this.ref.current.offsetParent)
-	          offset += this.ref.current.offsetParent.offsetLeft;
-	        var width = this.ref.current.clientWidth;
-	        var value = (e.clientX - offset) / width;
-		  const percentage = value * 100;
-  		  document.getElementById(this.id + "-filter").style.backgroundPosition = percentage + "%";
-  		  var img = document.getElementById(this.id + "-img");
-  		  document.getElementById(this.id + "-inner").style.transform = "skew(0, " + (value * 2 - 1) + "deg)";
-  		  img.style.left = (-1.75 - value * 1.5) + "%";
+      		if (holographic) {
+			  var offset = this.ref.current.offsetLeft;
+		        if (this.ref.current.offsetParent)
+		          offset += this.ref.current.offsetParent.offsetLeft;
+		        var width = this.ref.current.clientWidth;
+		        var value = (e.clientX - offset) / width;
+			  const percentage = value * 100;
+	  		  document.getElementById(this.id + "-filter").style.backgroundPosition = percentage + "%";
+	  		  var img = document.getElementById(this.id + "-img");
+	  		  document.getElementById(this.id + "-inner").style.transform = "skew(0, " + (value * 2 - 1) + "deg)";
+	  		  img.style.left = (-1.75 - value * 1.5) + "%";
+	  		}
 		}}
       >
       	<div id={this.id + "-inner"} className="sensuba-card-inner">
