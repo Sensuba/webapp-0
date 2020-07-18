@@ -67,7 +67,8 @@ export default class EditorPage extends Component {
     case "figure": filter = ["lv2", "lvmax", "idColor2"]; break;
     case "hero": filter = ["archetypes", "mana"]; break;
     case "spell":
-    case "secret": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "hp", "range"]; break;
+    case "secret":
+    case "world": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "hp", "range"]; break;
     case "artifact": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "range"]; break;
     default: break;
     }
@@ -151,6 +152,14 @@ export default class EditorPage extends Component {
                     <span>
                       <Input id="secret-card" type="radio" name="sensuba-type" onChange={() => this.changeType("secret")} checked={this.currentCard.cardType === "secret"}/>
                       <Label for="secret-card">Secret</Label>
+                    </span>
+                    : <span/>
+                  }
+                  {
+                    this.props.authorization > 3 ?
+                    <span>
+                      <Input id="world-card" type="radio" name="sensuba-type" onChange={() => this.changeType("world")} checked={this.currentCard.cardType === "world"}/>
+                      <Label for="world-card">Monde</Label>
                     </span>
                     : <span/>
                   }

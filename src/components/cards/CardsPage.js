@@ -482,7 +482,7 @@ export default class CardsPage extends Component {
             }
           </div>
           {
-            mode === "collection" ?
+            mode === "collection" || (!mode && User.isConnected()) ?
             <button className="editor-button" onClick={() => this.shop(true)}>
               <img className="editor-button-img" src="/shop.png" alt="shop-chan"/>
               <div className="editor-button-text">Acheter des cartes</div>

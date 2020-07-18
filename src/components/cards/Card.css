@@ -35,6 +35,15 @@
     margin: 0.4em;
 }
 
+.sensuba-card .sensuba-card-inner {
+
+    position: relative;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
 .sensuba-card .sensuba-card-bg {
 
     object-fit: cover;
@@ -43,6 +52,16 @@
     position: absolute;
     top: 0;
     left: 0;
+}
+
+.sensuba-card.sensuba-card-holographic .sensuba-card-bg {
+
+    object-fit: cover;
+    width: 105%;
+    height: 105%;
+    position: absolute;
+    top: 0;
+    left: -2.5%;
 }
 
 .sensuba-card .sensuba-card-header {
@@ -240,6 +259,17 @@
 .sensuba-card.sensuba-hero.white-mana.red-mana.blue-mana.green-mana.black-mana .sensuba-card-body .sensuba-card-body-header,
 .sensuba-card.sensuba-hero.all-mana .sensuba-card-body .sensuba-card-body-header { background: linear-gradient(to right, rgba(133, 167, 193, 0.8), rgba(232, 209, 97, 0.8), rgba(17, 150, 216, 0.8), rgba(142, 197, 102, 0.8), rgba(80, 26, 53, 0.8)) }
 
+.sensuba-card.sensuba-world .sensuba-card-body .sensuba-card-body-header, .sensuba-card.sensuba-world .sensuba-card-body {
+
+    background: transparent;
+}
+
+.sensuba-card.sensuba-world .sensuba-card-flavour, .sensuba-card.sensuba-world .sensuba-card-body .sensuba-card-body-header, .sensuba-card.sensuba-world .sensuba-card-effect {
+
+    color: white;
+    text-shadow: 1px 1px #000000a0;
+} 
+
 .sensuba-card .sensuba-card-type {
 
 	float: left;
@@ -393,7 +423,7 @@
     margin: 0 10%;
 }
 
-.sensuba-spell .sensuba-card-flavour, .sensuba-secret .sensuba-card-flavour, .sensuba-artifact .sensuba-card-flavour, .sensuba-hero .sensuba-card-flavour {
+.sensuba-spell .sensuba-card-flavour, .sensuba-secret .sensuba-card-flavour, .sensuba-world .sensuba-card-flavour, .sensuba-artifact .sensuba-card-flavour, .sensuba-hero .sensuba-card-flavour {
 
     bottom: -10.7em;
 }
@@ -412,7 +442,7 @@
     background-image: url("Images/classic.png");
 }
 
-.sensuba-spell .sensuba-card-edition, .sensuba-secret .sensuba-card-edition, .sensuba-artifact .sensuba-card-edition, .sensuba-hero .sensuba-card-edition {
+.sensuba-spell .sensuba-card-edition, .sensuba-secret .sensuba-card-edition, .sensuba-world .sensuba-card-edition, .sensuba-artifact .sensuba-card-edition, .sensuba-hero .sensuba-card-edition {
 
     bottom: -4.5em;
 }
@@ -607,7 +637,7 @@
     text-shadow: 1px 1px 1px blue;
 }
 
-.sensuba-card.sensuba-spell .sensuba-card-overload, .sensuba-card.sensuba-secret .sensuba-card-overload, .sensuba-card.sensuba-artifact .sensuba-card-overload { top: 18.3em }
+.sensuba-card.sensuba-spell .sensuba-card-overload, .sensuba-card.sensuba-secret .sensuba-card-overload, .sensuba-card.sensuba-world .sensuba-card-overload, .sensuba-card.sensuba-artifact .sensuba-card-overload { top: 18.3em }
 .sensuba-card.sensuba-artifact .sensuba-card-overload { left: 1.2em; right: unset; }
 
 .sensuba-card .sensuba-card-overload::before {
@@ -707,12 +737,36 @@
     cursor: pointer;
 }
 
+.sensuba-card .sensuba-card-filter {
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+}
+
+.sensuba-card-holographic {
+
+    filter: contrast(1.2);
+}
+
+.sensuba-card-holographic .sensuba-card-filter {
+
+    background-image: linear-gradient(to right, rgb(194, 255, 182), rgb(255, 163, 182), rgb(221, 169, 255), rgb(162, 209, 255));
+    opacity: 0.2;
+    z-index: 2;
+    background-size: 200%;
+}
+
 .sensuba-card .sensuba-card-frame {
 
     top: 2em;
     height: 21em;
     width: 14em;
     font-size: 0.95em;
+    pointer-events: none;
     left: 0.8em;
     position: absolute;
 }

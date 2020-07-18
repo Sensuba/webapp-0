@@ -6,8 +6,10 @@ export default class Hero extends Component {
 
 		super(props);
 		this.state = { level: 1 }
+    	this.ref = React.createRef();
 		if (props.switch === "timer")
 			this.timer = setInterval(() => this.setState({level: this.state.level%3+1}), 5000)
+		this.id = this.props.id || (this.props.src.idCardmodel + "." + Math.floor(Math.random() * 100000));
 	}
 
 	componentWillUnmount () {
@@ -22,9 +24,27 @@ export default class Hero extends Component {
 
   	var level = this.props.level || this.state.level;
   	var eff = src.isEff;
+  	var holographic = false;
+
     return (
-      <div id={this.props.id} className={"sensuba-card sensuba-hero " + this.props.classColor.color1 + " " + this.props.classColor.color2 + (this.props.switch === "manual" ? " editable " : " ") + this.props.className} onClick={this.props.switch === "manual" ? e => this.setState({ level: level%3+1 }) : () => {}}>
-		<img crossOrigin="Anonymous" className="sensuba-card-bg" src={src.imgLink} alt={src.nameCard}/>
+      <div ref={this.ref} id={this.id}
+      className={"sensuba-card sensuba-hero " + this.props.classColor.color1 + " " + this.props.classColor.color2 + (this.props.switch === "manual" ? " editable " : " ") + (holographic ? "sensuba-card-holographic " : " ") + (this.props.className || "")}
+      onClick={this.props.switch === "manual" ? e => this.setState({ level: level%3+1 }) : () => {}}
+      onMouseMove={e => {
+		  var offset = this.ref.current.offsetLeft;
+	        if (this.ref.current.offsetParent)
+	          offset += this.ref.current.offsetParent.offsetLeft;
+	        var width = this.ref.current.clientWidth;
+	        var value = (e.clientX - offset) / width;
+		  const percentage = value * 100;
+  		  document.getElementById(this.id + "-filter").style.backgroundPosition = percentage + "%";
+  		  var img = document.getElementById(this.id + "-img");
+  		  document.getElementById(this.id + "-inner").style.transform = "skew(0, " + (value * 2 - 1) + "deg)";
+  		  img.style.left = (-1.75 - value * 1.5) + "%";
+		}}
+      >
+      	<div id={this.id + "-inner"} className="sensuba-card-inner">
+		<img id={this.id + "-img"} crossOrigin="Anonymous" className="sensuba-card-bg" src={src.imgLink} alt={src.nameCard}/>
 	    <div className="sensuba-card-header">
 	        <div className={"sensuba-card-title" +
 	        	(src.nameCard.length >= 25 ?
@@ -90,6 +110,8 @@ export default class Hero extends Component {
 	    <div className="sensuba-card-frame">
 	    	<div className="sensuba-frame-icon"/>
 	    	<div className="sensuba-card-inner-frame"/>
+	    </div>
+	    <div id={this.id + "-filter"} className="sensuba-card-filter"/>
 	    </div>
 	  </div>
     );
