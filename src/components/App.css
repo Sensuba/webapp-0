@@ -63,19 +63,29 @@ main.dark-page {
 
 .vintage-radio label {
 
-  font-family: Constantia;
-  margin-left: 0.3em;
-  padding: 0.4em 4em;
+  text-shadow: 0 0 4px #241f4a;
+  margin: 0.2em;
+  padding: 0.4em 2em;
   cursor: pointer;
-  margin: 0;
   color: white;
-  text-shadow: 0 0 8px #382e22;
+  font-weight: bold;
+  border: 2px solid transparent;
+  -webkit-text-stroke-color: #241f4a;
+  -webkit-text-fill-color: white;
+    -webkit-text-stroke-width: 0.03em;
+    transition: all 0.2s;
+}
+
+.vintage-radio input:checked + label, .vintage-radio label:hover {
+
+  color: white;
+  background-color: #241f4a80;
+  /*background: radial-gradient(#13121b, transparent, transparent);*/
 }
 
 .vintage-radio input:checked + label {
 
-  color: white;
-  background: radial-gradient(#382e22, transparent, transparent);
+  border: 2px solid #241f4a;
 }
 
 main.dark-page .vintage-radio input:checked + label {

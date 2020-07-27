@@ -58,9 +58,9 @@
 
     object-fit: cover;
     width: 105%;
-    height: 105%;
+    height: 102%;
     position: absolute;
-    top: 0;
+    top: -1%;
     left: -2.5%;
 }
 
@@ -267,7 +267,7 @@
 .sensuba-card.sensuba-world .sensuba-card-flavour, .sensuba-card.sensuba-world .sensuba-card-body .sensuba-card-body-header, .sensuba-card.sensuba-world .sensuba-card-effect {
 
     color: white;
-    text-shadow: 1px 1px #000000a0;
+    text-shadow: 1px 1px 0.1em #000000d0, 0px 0px 0.2em #000000a0;
 } 
 
 .sensuba-card .sensuba-card-type {

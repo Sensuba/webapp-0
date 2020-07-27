@@ -24,7 +24,7 @@ export default class Nav extends Component {
 
 	member_links = [
 		{ name: "Accueil", path: "/home" },
-		{ name: "Cartes", path: "/cards" },
+		{ name: "Cartes", path: "/cards", params: "mode=collection" },
 		{ name: "Solo", path: "/solo" },
 		{ name: "Jouer", path: "/play" },
 		{ name: "Règles", path: "/rules" },
@@ -87,7 +87,7 @@ export default class Nav extends Component {
 						<BreadcrumbItem
 							className={"nav-item" + (this.props.history.location.pathname === link.path ? "" : " enabled-nav-item")}
 							key={link.name}
-							onClick={ link.path ? () => this.props.history.push(link.path) : link.action }
+							onClick={ link.path ? () => this.props.history.push(link.path + (link.params ? "?" + link.params : "")) : link.action }
 							active={this.props.history.location.pathname === link.path}>
 								{ link.name }
 						</BreadcrumbItem>

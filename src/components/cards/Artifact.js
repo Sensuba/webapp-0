@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 
 export default class Artifact extends Component {
 
+	constructor (props) {
+
+		super (props);
+		this.id = this.props.id || (this.props.src.idCardmodel + "." + Math.floor(Math.random() * 100000));
+	}
+
   render() {
 
   	var src = this.props.src;
@@ -15,10 +21,30 @@ export default class Artifact extends Component {
   		default: return edition === 1 ? "basic-card" : "";
   		}
   	}
+
+  	var holographic = false;
   	
     return (
-      <div id={this.props.id} className={"sensuba-card sensuba-artifact " + this.props.classColor + " " + rarityclass(src.rarity, src.idEdition) + " " + this.props.className}>
-		<img crossOrigin="Anonymous" className="sensuba-card-bg" src={src.imgLink} alt={src.nameCard}/>
+      <div
+      	id={this.id}
+      	className={"sensuba-card sensuba-artifact " + this.props.classColor + " " + rarityclass(src.rarity, src.idEdition) + " " + (holographic ? "sensuba-card-holographic " : " ") + this.props.className}
+      	onMouseMove={e => {
+      		if (holographic) {
+      			var el = document.getElementById(this.id);
+			  var offset = el.offsetLeft;
+		        if (el.offsetParent)
+		          offset += el.offsetParent.offsetLeft;
+		        var width = el.clientWidth;
+		        var value = (e.clientX - offset) / width;
+			  const percentage = value * 100;
+	  		  document.getElementById(this.id + "-filter").style.backgroundPosition = percentage + "%";
+	  		  document.getElementById(this.id + "-inner").style.transform = "skew(0, " + (value * 1.25 - 0.625) + "deg)";
+	  		  document.getElementById(this.id + "-img").style.left = (-1.75 - value * 1.5) + "%";
+	  		}
+		}}
+      	>
+      	<div id={this.id + "-inner"} className="sensuba-card-inner">
+		<img id={this.id + "-img"} crossOrigin="Anonymous" className="sensuba-card-bg" src={src.imgLink} alt={src.nameCard}/>
 	    <div className="sensuba-card-header">
 	    	<div className={"sensuba-card-mana" + (src.mana < src.originalMana ? " sensuba-card-param-bonus" : (src.mana > src.originalMana ? " sensuba-card-param-malus" : ""))}>{src.mana}</div>
 	        <div className={"sensuba-card-title" +
@@ -51,6 +77,8 @@ export default class Artifact extends Component {
 	    <div className="sensuba-card-frame">
 	    	<div className="sensuba-frame-icon"/>
 	    	<div className="sensuba-card-inner-frame"/>
+	    </div>
+	    <div id={this.id + "-filter"} className="sensuba-card-filter"/>
 	    </div>
 	  </div>
     );

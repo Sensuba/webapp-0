@@ -342,6 +342,7 @@ export default class CardsPage extends Component {
                 <option value="2">Classique</option>
                 <option value="3">Etoile Gardienne</option>
                 { (() => { if (User.isConnected() && User.getData().authorization > 3) return <option value="4">Grand Bal Masqué</option> })() }
+                { (() => { if (User.isConnected() && User.getData().authorization > 3) return <option value="5">EXT #3</option> })() }
               </select>
               <div>
                 { (nocards > 0 ? <b>{ nocards }</b> : "Aucune")}{ " carte" + (nocards > 1 ? "s" : "") + " trouvée" + (nocards > 1 ? "s" : "") }
@@ -389,6 +390,8 @@ export default class CardsPage extends Component {
                 <Input id="green-mana" type="checkbox" checked={this.filter.colors.includes(4)} name="sensuba-color" onChange={colorFilter(4)}/>
                 <Label for="green-mana"/>
                 <Input id="black-mana" type="checkbox" checked={this.filter.colors.includes(5)} name="sensuba-color" onChange={colorFilter(5)}/>
+                <Label for="black-mana"/>
+                <Input id="collection-check" type="checkbox" className={this.filter.collection && this.filter.c} name="sensuba-color" onChange={colorFilter(5)}/>
                 <Label for="black-mana"/>
               </div>
               <Label for="sensuba-search-orderby" className="sensuba-search-select-label">Trier par</Label>

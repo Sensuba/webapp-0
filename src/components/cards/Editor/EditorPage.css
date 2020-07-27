@@ -28,6 +28,11 @@
     color: white;
 }
 
+.editor-box .colors-group label {
+    height: 1.4em;
+    width: 1.4em;
+}
+
 .editor-box .third-section, .editor-box .two-thirds-section {
 
   padding-right: 10%;
@@ -80,7 +85,6 @@
 
 .editor-box .vintage-radio label {
 
-  margin: 0 !important;
   font-size: 1em;
 }
 
