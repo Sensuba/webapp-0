@@ -391,8 +391,6 @@ export default class CardsPage extends Component {
                 <Label for="green-mana"/>
                 <Input id="black-mana" type="checkbox" checked={this.filter.colors.includes(5)} name="sensuba-color" onChange={colorFilter(5)}/>
                 <Label for="black-mana"/>
-                <Input id="collection-check" type="checkbox" className={this.filter.collection && this.filter.c} name="sensuba-color" onChange={colorFilter(5)}/>
-                <Label for="black-mana"/>
               </div>
               <Label for="sensuba-search-orderby" className="sensuba-search-select-label">Trier par</Label>
               <select value={this.filter.orderBy} id="sensuba-search-orderby" onChange={editFilter("orderBy").bind(this)}>
