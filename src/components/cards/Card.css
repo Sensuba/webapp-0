@@ -264,10 +264,15 @@
     background: transparent;
 }
 
+.sensuba-card.sensuba-world .sensuba-card-body {
+
+    height: 6.5em;
+}
+
 .sensuba-card.sensuba-world .sensuba-card-flavour, .sensuba-card.sensuba-world .sensuba-card-body .sensuba-card-body-header, .sensuba-card.sensuba-world .sensuba-card-effect {
 
     color: white;
-    text-shadow: 1px 1px 0.1em #000000d0, 0px 0px 0.2em #000000a0;
+    text-shadow: 1px 1px 0.1em #000000, 0 0 0.2em #000000f0;
 } 
 
 .sensuba-card .sensuba-card-type {

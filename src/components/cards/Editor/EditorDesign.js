@@ -325,6 +325,10 @@ export default class EditorPage extends Component {
                 <Input id="form-card-flavour" type="textarea" value={this.currentCard.flavourText} onChange={editAttribute("flavourText").bind(this)}/>
               </FormGroup>
               <FormGroup>
+                <Label for="form-card-category">Catégorie</Label>
+                <Input id="form-card-category" type="text" value={this.currentCard.category || ""} onChange={editAttribute("category").bind(this)}/>
+              </FormGroup>
+              <FormGroup>
                 <Label for="form-card-img">Lien de l'image</Label>
                 <Input id="form-card-img" type="url" value={this.currentCard.imgLink} onChange={editAttribute("imgLink").bind(this)}/>
               </FormGroup>
