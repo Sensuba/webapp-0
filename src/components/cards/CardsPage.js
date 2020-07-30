@@ -37,7 +37,7 @@ export default class CardsPage extends Component {
     var mode = url.searchParams.get("mode");
     switch (mode) {
       case "custom": return this.props.customs;
-      case "collection": return this.props.cards.filter(card => card.idEdition === 1).concat(this.props.collection.map(el => Object.assign({count: el.number}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel))));
+      case "collection": return this.props.cards.filter(card => card.idEdition === 1).concat(this.props.collection.map(el => Object.assign({count: el.number, holographic: el.holographic}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel))));
       default: return this.props.cards;
     }
   }
@@ -69,7 +69,8 @@ export default class CardsPage extends Component {
       hp: url.searchParams.get("hp") || "",
       hpop: url.searchParams.get("hpop") || "",
       range: url.searchParams.get("range") || "",
-      rangeop: url.searchParams.get("rangeop") || ""
+      rangeop: url.searchParams.get("rangeop") || "",
+      collection: url.searchParams.get("collection") || ""
     };
   }
 
@@ -129,7 +130,7 @@ export default class CardsPage extends Component {
         suf += param + "=" + encodeURIComponent(filter[param]);
       }
     }
-    ["mode", "search", "archetype", "colors", "edition", "type", "name", "description", "anime", "flavour", "rarity", "mana", "manaop", "atk", "atkop", "hp", "hpop", "range", "rangeop", "orderBy", "page"].forEach(param => addFilter(param));
+    ["mode", "search", "archetype", "colors", "edition", "type", "name", "description", "anime", "flavour", "rarity", "mana", "manaop", "atk", "atkop", "hp", "hpop", "range", "rangeop", "orderBy", "page", "collection"].forEach(param => addFilter(param));
     /*if (customs) {
         suf += suf.length === 0 ? "?" : "&";
         suf += "customs=1";
@@ -192,6 +193,14 @@ export default class CardsPage extends Component {
     var isCustoms = this.isCustoms;
     var cards = this.cardlist;
     cards = this.filterCards(cards);
+
+    if (User.isConnected() && this.props.collection && this.filter.collection) {
+      if (this.filter.collection === "true")
+        cards = cards.filter(card => card.idEdition === 1 || this.props.collection.find(c => card.idCardmodel.toString() === c.idCardmodel.toString()));
+      else
+        cards = cards.filter(card => !(card.idEdition === 1 || this.props.collection.find(c => card.idCardmodel.toString() === c.idCardmodel.toString())));
+    }
+    
     window.result = cards;
     var nocards = cards.length;
 
@@ -264,7 +273,7 @@ export default class CardsPage extends Component {
               }
 
               return <div>
-                  <div className="sensuba-card-focus">{ cf.map((card, i) => <Card switch="manual" key={i} src={card}/>) }</div>
+                  <div className="sensuba-card-focus">{ cf.map((card, i) => <Card switch="manual" key={i} src={card} holographic={mode === "collection" && cards.find(c => c.idCardmodel.toString() === this.props.focus).holographic === 1}/>) }</div>
                   { User.isConnected() && cf[0].rarity && cf[0].idEdition < 4 ? <div className="sensuba-focus-shop">
                     <div onClick={() => this.buyCard(cf[0].idCardmodel, pbuy)} className="shop-button">Acheter <span className="sensuba-credits">{ pbuy }</span></div>
                     { this.props.collection.find(card => card.idCardmodel.toString() === this.props.focus) ? <div onClick={() => this.sellCard(cf[0].idCardmodel, psell)} className="shop-button">Vendre <span className="sensuba-credits">{ psell }</span></div> : <span/> }
@@ -391,6 +400,14 @@ export default class CardsPage extends Component {
                 <Label for="green-mana"/>
                 <Input id="black-mana" type="checkbox" checked={this.filter.colors.includes(5)} name="sensuba-color" onChange={colorFilter(5)}/>
                 <Label for="black-mana"/>
+                {
+                  User.isConnected() ?
+                  <div>
+                  <Input id="collection-check" type="checkbox" className={this.filter.collection} name="sensuba-color" onChange={e => this.search(Object.assign(this.filter, {collection: this.filter.collection ? (this.filter.collection === "true" ? "false" : undefined) : "true"}), mode)}/>
+                  <Label for="collection-check"/>
+                  </div> : <span/>
+                }
+                
               </div>
               <Label for="sensuba-search-orderby" className="sensuba-search-select-label">Trier par</Label>
               <select value={this.filter.orderBy} id="sensuba-search-orderby" onChange={editFilter("orderBy").bind(this)}>
@@ -474,10 +491,10 @@ export default class CardsPage extends Component {
           <div className="sensuba-card-container">
       		  {
               isCustoms ?
-                cards.map(card => <a className="sensuba-card-link" onClick={() => this.props.history.push(`/cards/editor/${card.idCardmodel}`)} key={card.idCardmodel}><Card switch="timer" key={card.idCardmodel} src={card}/></a>)
+                cards.map(card => <a className="sensuba-card-link" onClick={() => this.props.history.push(`/cards/editor/${card.idCardmodel}`)} key={card.idCardmodel}><Card switch="timer" key={card.idCardmodel} src={card} holographic={false}/></a>)
                 :
                 cards.map((card, i) => <a className="sensuba-card-link" key={card.idCardmodel} onClick={() => this.focus(card.idCardmodel)}>
-                  <Card switch="timer" src={card}/>
+                  <Card switch="timer" src={card} holographic={card.holographic === 1}/>
                   { mode === "collection" && !(card.count === undefined && card.cardType === "hero") && card.count !== 1 ? <div className="sensuba-card-count">{"x" + (card.count || 2)}</div> : <span/> }
                   </a>)
             }

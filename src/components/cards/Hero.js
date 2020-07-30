@@ -23,14 +23,13 @@ export default class Hero extends Component {
 
   	var level = this.props.level || this.state.level;
   	var eff = src.isEff;
-  	var holographic = false;
 
     return (
       <div id={this.id}
-      className={"sensuba-card sensuba-hero " + this.props.classColor.color1 + " " + this.props.classColor.color2 + (this.props.switch === "manual" ? " editable " : " ") + (holographic ? "sensuba-card-holographic " : " ") + (this.props.className || "")}
+      className={"sensuba-card sensuba-hero " + this.props.classColor.color1 + " " + this.props.classColor.color2 + (this.props.switch === "manual" ? " editable " : " ") + (this.props.holographic ? "sensuba-card-holographic " : " ") + (this.props.className || "")}
       onClick={this.props.switch === "manual" ? e => this.setState({ level: level%3+1 }) : () => {}}
       onMouseMove={e => {
-      		if (holographic) {
+      		if (this.props.holographic) {
       			var el = document.getElementById(this.id);
 			  var offset = el.offsetLeft;
 		        if (el.offsetParent)

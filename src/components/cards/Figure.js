@@ -39,14 +39,12 @@ export default class Figure extends Component {
   		if (src.archetypes && src.archetypes.length > 1)
   			ct += ", " + capitalize(archetypeTranslation(src.archetypes[1]))
   	}
-
-  	var holographic = false;
   	
     return (
       <div id={this.id}
-      className={"sensuba-card sensuba-figure " + this.props.classColor + " " + rarityclass(src.rarity, src.idEdition) + " " + (holographic ? "sensuba-card-holographic " : " ") + this.props.className}
+      className={"sensuba-card sensuba-figure " + this.props.classColor + " " + rarityclass(src.rarity, src.idEdition) + " " + (this.props.holographic ? "sensuba-card-holographic " : " ") + this.props.className}
       onMouseMove={e => {
-      		if (holographic) {
+      		if (this.props.holographic) {
       			var el = document.getElementById(this.id);
 			  var offset = el.offsetLeft;
 		        if (el.offsetParent)

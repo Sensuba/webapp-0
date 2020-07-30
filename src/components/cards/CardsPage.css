@@ -262,6 +262,10 @@
 .colors-group #green-mana:checked + label, .colors-group #green-mana-2:checked + label { background-color: rgb(142, 197, 102) }
 .colors-group #black-mana:checked + label, .colors-group #black-mana-2:checked + label { background-color: rgb(80, 26, 53) }
 
+.colors-group #collection-check + label { border: none; background: url("./collection.png"); background-repeat: no-repeat; background-size: 100%; }
+.colors-group #collection-check.true + label { background: url("./incollection.png"); background-repeat: no-repeat; background-size: 100%; }
+.colors-group #collection-check.false + label { background: url("./notincollection.png"); background-repeat: no-repeat; background-size: 100%; }
+
 .sensuba-focus-box .lightbox {
 
   max-height: 95vh !important;
