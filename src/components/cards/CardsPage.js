@@ -350,7 +350,7 @@ export default class CardsPage extends Component {
                 <option value="1">Basique</option>
                 <option value="2">Classique</option>
                 <option value="3">Etoile Gardienne</option>
-                { (() => { if (User.isConnected() && User.getData().authorization > 3) return <option value="4">Grand Bal Masqué</option> })() }
+                <option value="4">Grand Bal Masqué</option>
                 { (() => { if (User.isConnected() && User.getData().authorization > 3) return <option value="5">EXT #3</option> })() }
               </select>
               <div>

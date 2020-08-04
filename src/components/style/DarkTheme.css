@@ -129,7 +129,7 @@
 	color: black !important;
 	border-color: black !important;
 }
-
+/*
 .dark-theme .vintage-radio input + label {
 
 	color: #d7dadd;
@@ -138,7 +138,7 @@
 .dark-theme .vintage-radio input:checked + label {
 
 	background: radial-gradient(#7c7c7b, transparent, transparent);
-}
+}*/
 
 .dark-theme .rule-part {
 
