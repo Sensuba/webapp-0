@@ -274,7 +274,7 @@ export default class CardsPage extends Component {
 
               return <div>
                   <div className="sensuba-card-focus">{ cf.map((card, i) => <Card switch="manual" key={i} src={card} holographic={mode === "collection" && cards.find(c => c.idCardmodel.toString() === this.props.focus).holographic === 1}/>) }</div>
-                  { User.isConnected() && cf[0].rarity && cf[0].idEdition < 4 ? <div className="sensuba-focus-shop">
+                  { User.isConnected() && cf[0].rarity && cf[0].idEdition <= 4 ? <div className="sensuba-focus-shop">
                     <div onClick={() => this.buyCard(cf[0].idCardmodel, pbuy)} className="shop-button">Acheter <span className="sensuba-credits">{ pbuy }</span></div>
                     { this.props.collection.find(card => card.idCardmodel.toString() === this.props.focus) ? <div onClick={() => this.sellCard(cf[0].idCardmodel, psell)} className="shop-button">Vendre <span className="sensuba-credits">{ psell }</span></div> : <span/> }
                   </div> : <span/> }
@@ -293,7 +293,7 @@ export default class CardsPage extends Component {
             <div className="sensuba-shop-boosters">
               <div onClick={() => this.buyBooster(2)} className="sensuba-shop-booster"><Booster expansion="Classic" theme="lightblue" img="/game/back.png"/></div>
               <div onClick={() => this.buyBooster(3)} className="sensuba-shop-booster"><Booster expansion="Etoile Gardienne" theme="darksky" img="/guardianstar.jpg"/></div>
-              { /* <div onClick={() => this.buyBooster(4)} className="sensuba-shop-booster"><Booster expansion="Grand Bal Masqué" theme="hot" img="/masquerade.jpg"/></div> */ }
+              <div onClick={() => this.buyBooster(4)} className="sensuba-shop-booster"><Booster expansion="Grand Bal Masqué" theme="hot" img="/masquerade.jpg"/></div>
             </div>
           </Lightbox> : <span/>
         }
@@ -364,6 +364,7 @@ export default class CardsPage extends Component {
                 <option value="hero">Héros</option>
                 <option value="figure">Figure</option>
                 <option value="spell">Sort</option>
+                <option value="secret">Secret</option>
                 <option value="artifact">Artéfact</option>
               </select>
               <Label for="sensuba-search-rarity" className="sensuba-search-select-label">Rareté</Label>

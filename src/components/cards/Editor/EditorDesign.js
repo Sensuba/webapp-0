@@ -147,14 +147,8 @@ export default class EditorPage extends Component {
                   <Label for="spell-card">Sort</Label>
                   <Input id="artifact-card" type="radio" name="sensuba-type" onChange={() => this.changeType("artifact")} checked={this.currentCard.cardType === "artifact"}/>
                   <Label for="artifact-card">Artéfact</Label>
-                  {
-                    this.props.authorization > 3 ?
-                    <span>
-                      <Input id="secret-card" type="radio" name="sensuba-type" onChange={() => this.changeType("secret")} checked={this.currentCard.cardType === "secret"}/>
-                      <Label for="secret-card">Secret</Label>
-                    </span>
-                    : <span/>
-                  }
+                  <Input id="secret-card" type="radio" name="sensuba-type" onChange={() => this.changeType("secret")} checked={this.currentCard.cardType === "secret"}/>
+                  <Label for="secret-card">Secret</Label>
                   {
                     this.props.authorization > 3 ?
                     <span>
