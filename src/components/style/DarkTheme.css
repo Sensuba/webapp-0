@@ -238,3 +238,8 @@
 	background: #000000C0;
 	border: #FFFFFFa0 dashed 2px;
 }
+
+.dark-theme .sensuba-chatbox .sensuba-chat-input:focus {
+
+	color: #d7dadd;
+}
