@@ -5,6 +5,7 @@ var Data = require('./Data');
 var State = require('./State');
 var Variation = require('./Variation');
 var LockStats = require('./LockStats');
+var Armor = require('./Armor');
 var Play = require('./Play');
 var Action = require('./Action');
 var Skill = require('./Skill');
@@ -175,6 +176,7 @@ class Reader {
 			case "state": bloc = new State(card, ctx); break;
 			case "variation": bloc = new Variation(card, ctx); break;
 			case "lockstats": bloc = new LockStats(card, ctx); break;
+			case "armor": bloc = new Armor(card, ctx); break;
 			case "play": bloc = new Play(card, ctx, el.target); break;
 			case "action": bloc = new Action(card, ctx, el.target); break;
 			case "skill": bloc = new Skill(card, ctx, el.target); break;
