@@ -104,6 +104,8 @@ export default class Card {
 			this.deactivate();
 			this.activate();
 		}
+		if (this.onBoard)
+			this.location.clearHazards();
 		if (this.onBoard && former && former.area === this.area.opposite) {
 			this.skillPt = 1;
 			if (this.isType("character"))

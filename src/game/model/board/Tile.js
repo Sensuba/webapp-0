@@ -185,4 +185,18 @@ export default class Tile {
 
 		return Math.ceil(Math.abs(num - numo)/2);
 	}
+
+	changeHazards (hazards) {
+
+		if (hazards === this.hazards || (!hazards && !this.hazards))
+			return;
+		if (hazards)
+			this.hazards = hazards;
+		else delete this.hazards;
+	}
+
+	clearHazards () {
+
+		this.changeHazards();
+	}
 }

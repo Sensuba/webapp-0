@@ -166,6 +166,11 @@ export default (state = new GameBoard(), n) => {
           card.lastwill = true;
       }
       break; }
+    case "hazards": {
+      let tile = state.find(n.src);
+      if (tile)
+        tile.changeHazards(n.data[0].value);
+      break; }
     case "nextcard": {
       let player = state.find(n.src);
       let mutsrc = state.find(n.data[0]);

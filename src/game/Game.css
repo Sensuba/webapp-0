@@ -468,6 +468,11 @@
 	position: relative;
 }
 
+.sensuba-tile.sensuba-hazards-fire { background-color: rgba(200, 0, 0, 0.1) }
+.sensuba-tile.sensuba-hazards-water { background-color: rgba(0, 0, 200, 0.1) }
+.sensuba-tile.sensuba-hazards-wind { background-color: rgba(0, 200, 0, 0.1) }
+.sensuba-tile.sensuba-hazards-portal { background-color: rgba(0, 0, 0, 0.15) }
+
 .sensuba-tile-targetable {
 
 	background-color: rgba(255, 0, 0, 0.1);
