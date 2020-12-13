@@ -280,7 +280,7 @@
 	"29": { "basis": ["agro"], "roles": ["dealer", "ramp"], "options": [{ "type": "gem", "value": 2 }, { "type": "discard", "value": 3 }, { "type": "draw", "value": 3 }], "reward": [""] },
 	
 	"341": { "basis": ["control"], "roles": ["value"], "options": [{ "type": "draw", "value": 1 }, { "type": "enemydraw", "value": 1 }], "reward": ["silence"] },
-	"342": { "basis": ["control"], "roles": ["tempo"], "options": [{ "type": "exaltation", "value": 1 }], "reward": ["draw"] },
+	"342": { "basis": ["control"], "roles": ["tempo"], "options": [{ "type": "exaltation", "value": 1 }, { "type": "specific", "value": 0.5 }], "reward": ["draw"] },
 	"438": { "basis": ["burst"], "roles": ["control"], "options": [{ "type": "destroy", "value": 1 }, { "type": "attack", "value": 0.5 }], "reward": ["overload"] },
 	"480": { "basis": ["midrange"], "roles": ["value"], "options": [{ "type": "draw", "value": "X" }], "reward": ["motion"] },
 	"343": { "basis": ["combo"], "roles": ["value"], "options": [{ "type": "draw", "value": 1 }, { "type": "play", "value": 1 }], "reward": ["bounce"] },
@@ -565,7 +565,7 @@
 	"521": { "basis": ["midrange"], "roles": ["control"], "options": [{ "type": "attack", "value": 1 }, { "type": "flying", "value": 0.5 }], "reward": [""] },
 	"530": { "basis": ["agro", "midrange"], "roles": ["buff"], "options": [{ "type": "boost", "value": 1 }], "reward": [""] },
 
-	"590": { "basis": ["control"], "roles": ["control", "tempo"], "options": [{ "type": "damage", "value": 5 }, { "type": "selfdamage", "value": 2 }], "reward": ["damage"] },
+	"590": { "basis": ["control"], "roles": ["control", "tempo"], "options": [{ "type": "damage", "value": 5 }, { "type": "selfdamage", "value": 2 }], "reward": ["damage", "lowhp"] },
 	"491": { "basis": ["midrange", "control"], "roles": ["tempo", "buff"], "options": [{ "type": "selfdestroy", "value": 1 }, { "type": "lastwill", "value": 1 }, { "type": "board", "value": 1.5 }], "reward": ["lastwill", "big"] },
 	"574": { "basis": ["agro", "midrange"], "roles": ["dealer"], "options": [{ "type": "fury", "value": 1 }], "reward": ["selfdamage"] },
 	"581": { "basis": ["agro", "midrange"], "roles": ["buff", "tempo"], "options": [{ "type": "boost", "value": 1 }], "reward": ["selfdamage"] },

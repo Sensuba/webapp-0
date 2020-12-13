@@ -25,6 +25,8 @@ export default (() => {
 
 	var raritySort = valueSort("rarity");
 
+	var editionSSort = valueSort("idEdition");
+
 	var animeSort = valueSort("anime", true);
 
 	var colorSort = (a, b) => {
@@ -70,6 +72,7 @@ export default (() => {
 		case "range": func = rangeSort; break;
 		case "color": func = colorSort; break;
 		case "rarity": func = raritySort; break;
+		case "edition": func = editionSSort; break;
 		case "anime": func = animeSort; break;
 		default: break;
 		}

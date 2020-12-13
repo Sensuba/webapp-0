@@ -390,8 +390,8 @@ export default class AssistantBuilder {
 		case "gem":
 		case "push":
 		case "poison": return gain - 0.02 - 0.004 * options[type];
-		case "artifact": return gain - 0.002 - 0.08 * (noptions[type] < 0 ? noptions[type] : Math.pow(options[type], 1.15));
-		case "secret": return gain - 0.02 - 0.08 * (noptions[type] < 0 ? noptions[type] : Math.pow(options[type], 1.25));
+		case "artifact": return gain - 0.002 - 0.08 * (noptions[type] < 0 ? noptions[type] : Math.pow(options[type], 1.12));
+		case "secret": return gain - 0.02 - 0.08 * (noptions[type] < 0 ? noptions[type] : Math.pow(options[type], 1.2));
 		case "conceal":
 		case "freeze":
 		case "steal":

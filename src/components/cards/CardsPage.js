@@ -420,6 +420,7 @@ export default class CardsPage extends Component {
                 <option value="range">Portée</option>
                 <option value="color">Couleur</option>
                 <option value="rarity">Rareté</option>
+                <option value="edition">Edition</option>
                 <option value="anime">Anime</option>
               </select>
               <div className="sensuba-search-interact" onClick={e => this.setState({advsearch: !this.state.advsearch})}>Plus d'options &#10148;</div>
