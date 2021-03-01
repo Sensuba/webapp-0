@@ -119,6 +119,10 @@ export default class CardsPage extends Component {
     filter.mode = mode;
     filter.page = page;
 
+    var display = new URL(window.location.href).searchParams.get("display") || PAGE_SIZE;
+    if (display !== PAGE_SIZE)
+      filter.display = display;
+
     var suf = "";
 
     var addFilter = param => {
@@ -130,7 +134,7 @@ export default class CardsPage extends Component {
         suf += param + "=" + encodeURIComponent(filter[param]);
       }
     }
-    ["mode", "search", "archetype", "colors", "edition", "type", "name", "description", "anime", "flavour", "rarity", "mana", "manaop", "atk", "atkop", "hp", "hpop", "range", "rangeop", "orderBy", "page", "collection"].forEach(param => addFilter(param));
+    ["mode", "search", "archetype", "colors", "edition", "type", "name", "description", "anime", "flavour", "rarity", "mana", "manaop", "atk", "atkop", "hp", "hpop", "range", "rangeop", "orderBy", "page", "display", "collection"].forEach(param => addFilter(param));
     /*if (customs) {
         suf += suf.length === 0 ? "?" : "&";
         suf += "customs=1";
@@ -208,11 +212,12 @@ export default class CardsPage extends Component {
     var mode = url.searchParams.get("mode");
 
     var page = 0;
-    if (nocards > PAGE_SIZE) {
+    var displaysize = url.searchParams.get("display") || PAGE_SIZE;
+    if (nocards > displaysize) {
       var fpage = url.searchParams.get("page") || "";
       if (fpage && !isNaN(fpage))
         page = parseInt(fpage, 10);
-      cards = cards.slice(PAGE_SIZE*page, PAGE_SIZE*(page+1));
+      cards = cards.slice(displaysize*page, displaysize*(page+1));
     }
 
     var goPage = p => this.search(this.filter, mode, p);
@@ -377,11 +382,11 @@ export default class CardsPage extends Component {
               </select>
               <div className="sensuba-search-page">
                {
-                nocards > PAGE_SIZE ?
+                nocards > displaysize ?
                 <div>
                   <span className={"sensuba-search-page-button" + (page > 0 ? "" : " sensuba-search-page-locked-button")} onClick={page > 0 ? () => goPage(page-1) : () => {}}>&#11164;</span>
-                  <span className="sensuba-search-page-text">{ (page + 1) + " / " + (Math.floor((nocards-1) / PAGE_SIZE + 1)) }</span>
-                  <span className={"sensuba-search-page-button" + (page < Math.floor((nocards-1) / PAGE_SIZE) ? "" : " sensuba-search-page-locked-button")} onClick={page < Math.floor((nocards-1) / PAGE_SIZE) ? () => goPage(page+1) : () => {}}>&#11166;</span> 
+                  <span className="sensuba-search-page-text">{ (page + 1) + " / " + (Math.floor((nocards-1) / displaysize + 1)) }</span>
+                  <span className={"sensuba-search-page-button" + (page < Math.floor((nocards-1) / displaysize) ? "" : " sensuba-search-page-locked-button")} onClick={page < Math.floor((nocards-1) / displaysize) ? () => goPage(page+1) : () => {}}>&#11166;</span> 
                 </div>
                 : <span/>
                }
