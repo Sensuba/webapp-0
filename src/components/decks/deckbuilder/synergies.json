@@ -192,7 +192,7 @@
 	"300": { "basis": ["control"], "roles": ["tempo", "control"], "options": [{ "type": "cover", "value": 1 }, { "type": "shield", "value": 1 }], "reward": [] },
 	"240": { "basis": ["control"], "roles": ["value"], "options": [], "reward": ["big"] },
 	"111": { "basis": ["control"], "roles": ["control"], "options": [{ "type": "destroy", "value": 1 }], "reward": [] },
-	"303": { "basis": ["control"], "roles": ["control", "value"], "options": [{ "type": "silence", "value": 1 }, { "type": "draw", "value": 1 }], "reward": [] },
+	"303": { "basis": ["control"], "roles": ["control", "value"], "options": [{ "type": "silence", "value": 1 }, { "type": "draw", "value": 1 }], "reward": ["enemydraw"] },
 	"329": { "basis": ["control"], "roles": ["control", "burst"], "options": [{ "type": "damage", "value": 1 }], "reward": ["heal"] },
 	"120": { "basis": ["agro"], "roles": ["value"], "options": [{ "type": "draw", "value": 2 }], "reward": [] },
 	"264": { "basis": ["control"], "roles": ["tempo"], "options": [], "reward": ["big"] },
@@ -420,7 +420,7 @@
 	"441": { "basis": ["midrange"], "roles": ["buff"], "options": [{ "type": "silence", "value": "X" }], "reward": ["flying"] },
 	"415": { "basis": ["agro", "burst"], "roles": ["burst"], "options": [{ "type": "discard", "value": 1 }, { "type": "damage", "value": 1 }], "reward": [""] },
 	"417": { "basis": ["control"], "roles": ["control"], "options": [{ "type": "damage", "value": 4 }, { "type": "selfdamage", "value": 2 }], "reward": [""] },
-	"416": { "basis": ["midrange"], "roles": ["buff"], "options": [{ "type": "flying", "value": "X" }, { "type": "draw", "value": 1 }], "reward": ["selfdamage"] },
+	"416": { "basis": ["midrange"], "roles": ["buff", "sustain"], "options": [{ "type": "flying", "value": "X" }, { "type": "heal", "value": 1 }], "reward": ["selfdamage"] },
 	"419": { "basis": ["control"], "roles": ["invest"], "options": [{ "type": "play", "value": "X" }], "reward": ["discard", "draw"] },
 	"420": { "basis": ["control", "burst", "combo"], "roles": ["value"], "options": [{ "type": "draw", "value": "X" }], "reward": ["gem"] },
 	"422": { "basis": ["control"], "roles": ["value", "dealer"], "options": [{ "type": "selfdestroy", "value": 1 }, { "type": "draw", "value": 1 }, { "type": "play", "value": 0.5 }], "reward": ["demon"] },
@@ -434,7 +434,7 @@
 	"33": { "basis": ["agro", "control"], "roles": ["control"], "options": [{ "type": "board", "value": 2 }, { "type": "secret", "value": 1 }, { "type": "attack", "value": 2 }, { "type": "disruption", "value": 1 }], "reward": [""] },
 	"36": { "basis": ["midrange"], "roles": ["tempo", "control"], "options": [{ "type": "initiative", "value": 3 }, { "type": "flying", "value": 0.5 }, { "type": "attack", "value": 1 }, { "type": "motion", "value": 2 }], "reward": [""] },
 	"32": { "basis": ["midrange"], "roles": ["tempo"], "options": [{ "type": "frenzy", "value": 1 }, { "type": "heal", "value": 2 }, { "type": "board", "value": 4 }, { "type": "draw", "value": 1 }, { "type": "fury", "value": 1 }, { "type": "selfdamage", "value": 1 }, { "type": "selfdestroy", "value": 1 }], "reward": [""] },
-	"37": { "basis": ["midrange"], "roles": ["value"], "options": [{ "type": "damage", "value": 2 }, { "type": "freeze", "value": 2 }, { "type": "flying", "value": 2 }, { "type": "generate", "value": 3 }, { "type": "motion", "value": 2 }, { "type": "conceal", "value": 1 }, { "type": "board", "value": 0.5 }], "reward": [""] },
+	"37": { "basis": ["combo"], "roles": ["dealer"], "options": [{ "type": "play", "value": 3 }, { "type": "overload", "value": 2 }, { "type": "boost", "value": 3 }, { "type": "generate", "value": 1 }], "reward": [""] },
 	"35": { "basis": ["control"], "roles": ["invest", "value"], "options": [{ "type": "generate", "value": 2 }, { "type": "draw", "value": 3 }, { "type": "enemydraw", "value": 1 }], "reward": ["enemydraw"] },
 	"38": { "basis": ["midrange"], "roles": ["value", "buff"], "options": [{ "type": "draw", "value": 1 }, { "type": "generate", "value": 1 }, { "type": "boost", "value": "X" }], "reward": ["selfdestroy", "draw"] },
 
@@ -582,5 +582,8 @@
 	"494": { "basis": ["agro", "midrange"], "roles": ["buff"], "options": [{ "type": "lastwill", "value": 1 }, { "type": "board", "value": "X" }], "reward": ["board"] },
 	"580": { "basis": ["control"], "roles": ["control"], "options": [{ "type": "damage", "value": "X" }], "reward": ["damage"] },
 	"610": { "basis": ["agro", "burst"], "roles": ["value"], "options": [{ "type": "discard", "value": 1 }, { "type": "draw", "value": 2 }], "reward": ["play"] },
-	"526": { "basis": ["midrange"], "roles": ["tempo", "control"], "options": [{ "type": "board", "value": 1 }, { "type": "destroy", "value": 1 }], "reward": [""] }
+	"526": { "basis": ["midrange"], "roles": ["tempo", "control"], "options": [{ "type": "board", "value": 1 }, { "type": "destroy", "value": 1 }], "reward": [""] },
+
+	"43": { "basis": ["midrange"], "roles": ["value"], "options": [{ "type": "damage", "value": 2 }, { "type": "freeze", "value": 2 }, { "type": "flying", "value": 2 }, { "type": "generate", "value": 3 }, { "type": "motion", "value": 2 }, { "type": "conceal", "value": 1 }, { "type": "board", "value": 0.5 }], "reward": [""] }
+	
 }
