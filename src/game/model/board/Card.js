@@ -79,6 +79,15 @@ export default class Card {
 
 		if (this.location === loc)
 			return;
+		var former = this.location;
+
+		if (this.onBoard && loc instanceof Tile && loc.occupied) {
+			let swapcard = loc.card;
+			loc.card = null;
+			this.goto(loc);
+			swapcard.goto(former);
+			return;
+		}
 
 		if (loc instanceof Court && this.overload)
 			this.lb = this.eff.overload && this.eff.ol && this.eff.ol > this.eff.overload ? Math.floor(this.eff.ol/this.eff.overload) : 0;
@@ -88,7 +97,6 @@ export default class Card {
 		} else if (this.area && this.invisible && (loc.public || (loc.area === this.area && loc !== this.area.deck)))
 			delete this.invisible;
 
-		var former = this.location;
 		this.location = loc;
 		if (former instanceof Tile && !(loc instanceof Tile) && this.activated)
 			this.deactivate();
@@ -104,8 +112,8 @@ export default class Card {
 			this.deactivate();
 			this.activate();
 		}
-		if (this.onBoard)
-			this.location.clearHazards();
+		//if (this.onBoard)
+		//	this.location.clearHazards();
 		if (this.onBoard && former && former.area === this.area.opposite) {
 			this.skillPt = 1;
 			if (this.isType("character"))
@@ -116,7 +124,7 @@ export default class Card {
 		if (location is Tile)
 			lastTileOn = location as Tile;*/
 	}
-
+	
 	resetBody () {
 
 		let wasActivated = this.activated;
@@ -147,6 +155,7 @@ export default class Card {
 		this.targets = [];
 		delete this.variables;
 		delete this.mutatedState;
+		delete this.mutdata;
 		delete this.lastwill;
 		if (this.isType("entity") || this.isType("secret"))
 			this.targets.push(Event.targets.friendlyEmpty);

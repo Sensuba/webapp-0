@@ -470,7 +470,8 @@
 
 .sensuba-tile.sensuba-hazards-fire { background-color: rgba(200, 0, 0, 0.1) }
 .sensuba-tile.sensuba-hazards-water { background-color: rgba(0, 0, 200, 0.1) }
-.sensuba-tile.sensuba-hazards-wind { background-color: rgba(0, 200, 0, 0.1) }
+.sensuba-tile.sensuba-hazards-wind { background-color: rgba(0, 170, 170, 0.1) }
+.sensuba-tile.sensuba-hazards-flowers { background-color: rgba(0, 200, 0, 0.1) }
 .sensuba-tile.sensuba-hazards-portal { background-color: rgba(0, 0, 0, 0.15) }
 
 .sensuba-tile-targetable {
@@ -1030,6 +1031,11 @@
 .sensuba-card-view.glazed {
 
   filter: contrast(1.1);
+}
+
+.sensuba-card-view.concealed.glazed {
+
+  filter: grayscale(1) contrast(1.1);
 }
 
 .sensuba-card-view .sensuba-card-glaze {
