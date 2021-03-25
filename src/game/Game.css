@@ -843,6 +843,13 @@
   to { transform: translateZ(0) }
 }
 
+.sensuba-card-view .sensuba-card-mark.sensuba-card-mark-acceleratorvector {
+
+    background: url('./images/extra/accelerator.png');
+    background-size: 100%;
+    /*animation: sakuramark-rotation 6s alternate infinite ease-in-out;*/
+}
+
 
 .sensuba-card-view .sensuba-card-cover-neighbors {
 
