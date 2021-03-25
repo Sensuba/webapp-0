@@ -213,7 +213,7 @@ export default class PlayPage extends Component {
                 </div>
               </div>
             </div>
-            { /* <div className="rule-part">Jouez contre l'ordinateur</div>
+            <div className="rule-part">Jouez contre l'ordinateur</div>
             <div className="deck-selection-area">
             {
               <div className="deck-selection-memberlist">
@@ -259,7 +259,7 @@ export default class PlayPage extends Component {
                   <h3>Affronter l'ordinateur</h3>
                 </div>
               </div>
-            </div> */ }
+            </div>
           </div>
       	</main>
       </div>

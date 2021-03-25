@@ -209,9 +209,14 @@ export default class Card {
 		return this.hasState("concealed") ? true : false;
 	}
 
+	get immune () {
+
+		return this.hasState("immune") ? true : false;
+	}
+
 	targetableBy (other) {
 
-		return !this.exalted && ((this.area && other.area && this.area === other.area) || !this.concealed);
+		return !this.exalted && !((this.area && other.area && this.area !== other.area) && (this.concealed || this.immune));
 	}
 
 	damage (dmg, src) {

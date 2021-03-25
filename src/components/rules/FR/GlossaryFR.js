@@ -102,7 +102,7 @@ export default class GlossaryFR extends Component {
               <div className="glossary-panel-filter"/>
               <div className="glossary-panel-text">
                 <h3>Camouflage</h3>
-                <p>Ne peut pas être ciblé par des attaques ou des effets de carte. Ne peut pas défendre.</p>
+                <p>Ne peut pas être ciblé par des attaques ou des effets de carte de votre adversaire. Ne peut pas défendre.</p>
                 </div>
           </div>
         </div>
@@ -172,7 +172,7 @@ export default class GlossaryFR extends Component {
               <div className="glossary-panel-filter"/>
               <div className="glossary-panel-text">
                 <h3>Insensible</h3>
-                <p>Ne reçoit aucun dégât.</p>
+                <p>Ne peut pas être ciblé par des effets de carte de votre adversaire. Ne reçoit aucun dégât.</p>
                 </div>
           </div>
         </div>
