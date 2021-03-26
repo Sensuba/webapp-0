@@ -169,7 +169,12 @@ export default (state = new GameBoard(), n) => {
     case "hazards": {
       let tile = state.find(n.src);
       if (tile)
-        tile.changeHazards(n.data[0].value);
+        tile.addHazards(n.data[0].value);
+      break; }
+    case "clearhazards": {
+      let tile = state.find(n.src);
+      if (tile)
+        tile.clearHazards(n.data[0].value);
       break; }
     case "nextcard": {
       let player = state.find(n.src);

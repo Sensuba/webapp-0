@@ -1,3 +1,4 @@
+const HAZARDS_GROUPS = [["fire", "water", "flowers"], ["wind"], ["portal"]]
 
 export default class Tile {
 
@@ -11,6 +12,7 @@ export default class Tile {
 		this.field = field;
 
 		this.card = null;
+		this.hazards = [];
 	}
 
 	get isEmpty () {
@@ -186,17 +188,35 @@ export default class Tile {
 		return Math.ceil(Math.abs(num - numo)/2);
 	}
 
-	changeHazards (hazards) {
+	addHazards (hazards) {
 
-		if (hazards === this.hazards || (!hazards && !this.hazards))
+		if (!hazards || this.hasHazards(hazards))
 			return;
-		if (hazards)
-			this.hazards = hazards;
-		else delete this.hazards;
+		if (this.hazards.length === 0)
+			this.hazards.push(hazards)
+		else {
+			let groupindex = HAZARDS_GROUPS.findIndex(group => group.includes(hazards));
+			let index = this.hazards.findIndex(h => HAZARDS_GROUPS[groupindex].includes(h));
+			if (index > -1)
+				this.hazards[index] = hazards;
+			else this.hazards.push(hazards);
+		}
+		this.area.gameboard.update();
 	}
 
-	clearHazards () {
+	hasHazards (hazards) {
 
-		this.changeHazards();
+		return this.hazards.includes(hazards);
+	}
+
+	clearHazards (hazards) {
+
+		if (!hazards)
+			this.hazards = [];
+		else {
+			let index = this.hazards.indexOf(hazards);
+			if (index > -1)
+			  this.hazards.splice(index, 1);
+		}
 	}
 }
