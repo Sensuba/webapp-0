@@ -468,11 +468,98 @@
 	position: relative;
 }
 
-.sensuba-tile.sensuba-hazards-fire { background-color: rgba(200, 0, 0, 0.1) }
-.sensuba-tile.sensuba-hazards-water { background-color: rgba(0, 0, 200, 0.1) }
-.sensuba-tile.sensuba-hazards-wind { background-color: rgba(0, 170, 170, 0.1) }
-.sensuba-tile.sensuba-hazards-flowers { background-color: rgba(0, 200, 0, 0.1) }
-.sensuba-tile.sensuba-hazards-portal { background-color: rgba(0, 0, 0, 0.15) }
+.sensuba-tile .sensuba-tile-weather, .sensuba-tile .sensuba-tile-portal {
+
+  display: none;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.sensuba-tile .sensuba-tile-weather {
+
+  font-size: 1.5em;
+  filter: blur(0.02em);
+}
+
+.particle {
+   animation: rise 4s ease-in infinite;
+   border-radius: 50%;
+   mix-blend-mode: screen;
+   opacity: 0;
+   position: absolute;
+   bottom: 0;
+   width: 1em;
+   height: 1em;
+}
+
+.sensuba-tile.sensuba-hazards-fire .sensuba-tile-weather { background-color: rgba(200, 0, 0, 0.1); display: inline-block; }
+.sensuba-tile.sensuba-hazards-water .sensuba-tile-weather { background-color: rgba(0, 0, 200, 0.1); display: inline-block; }
+.sensuba-tile.sensuba-hazards-flowers .sensuba-tile-weather { background-color: rgba(0, 200, 0, 0.1); display: inline-block; }
+/*.sensuba-tile.sensuba-hazards-wind .sensuba-tile-weather { background-color: rgba(0, 170, 170, 0.1) }
+.sensuba-tile.sensuba-hazards-portal .sensuba-tile-weather { background-color: rgba(0, 0, 0, 0.15) }*/
+
+.sensuba-tile.sensuba-hazards-fire .sensuba-tile-weather .particle {
+
+   background-image: radial-gradient(#ff5000 20%, rgba(255, 80, 0, 0) 70%);
+}
+
+.sensuba-tile.sensuba-hazards-water .sensuba-tile-weather .particle {
+
+   background-image: radial-gradient(rgb(255 255 255 / 0%) 30%, rgb(49 107 179) 80%);
+}
+
+.sensuba-tile.sensuba-hazards-flowers .sensuba-tile-weather .particle {
+
+   background-image: url('./images/flower.png');
+   background-size: 1em;
+   background-repeat: no-repeat;
+}
+
+.particle:nth-of-type(1) { animation-delay: 0s; left: 1em; bottom: 2em; }
+.particle:nth-of-type(2) { animation-delay: 0.5s; left: 2.5em; bottom: 1em; }
+.particle:nth-of-type(3) { animation-delay: 1s; left: 1em; bottom: 0em; }
+.particle:nth-of-type(4) { animation-delay: 1.5s; left: 2em; bottom: 2em; }
+.particle:nth-of-type(5) { animation-delay: 2s; left: 0em; bottom: 3em; }
+.particle:nth-of-type(6) { animation-delay: 2.5s; left: 0.5em; bottom: 0em; }
+.particle:nth-of-type(7) { animation-delay: 3s; left: 2em; bottom: 0.5em; }
+.particle:nth-of-type(8) { animation-delay: 3.5s; left: 1.5em; bottom: 3em; }
+
+@keyframes rise {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(1);
+  }
+  15% {
+    opacity: 0.5;
+  }
+  60% {
+    opacity: 0;
+    transform: translateY(-3.5em) scale(0);
+  }
+}
+
+.sensuba-tile.sensuba-hazards-portal .sensuba-tile-portal {
+
+  display: inline-block;
+  background: url('./images/portal.png');
+  filter: drop-shadow(0 0 0.2vw #e8feff);
+  background-size: 80%;
+  background-position: center;
+  width: 9.625vw;
+  left: -1.15175vw;
+  background-repeat: no-repeat;
+  animation: silencerotate 8s infinite linear, portalwave 4s infinite ease-in-out alternate;
+}
+
+@keyframes portalwave {
+  from { opacity: 0.1; }
+  to { opacity: 0.6; }
+}
+
+
 
 .sensuba-tile-targetable {
 

@@ -19,6 +19,11 @@ export default class Tile extends Component {
       {
         model.card !== null ? <Card model={model.card} master={master} select={m => master.select(m)}/> : <span/>
       }
+      <div className="sensuba-tile-weather">
+        <div className="particle"/><div className="particle"/><div className="particle"/><div className="particle"/>
+        <div className="particle"/><div className="particle"/><div className="particle"/><div className="particle"/>
+      </div>
+      <div className="sensuba-tile-portal"/>
       </div>
     )
   }
