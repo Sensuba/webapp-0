@@ -30,6 +30,7 @@ class Log {
 			this.history.unshift(entry);
 			break;
 		}
+		case "triggersecret":
 		case "trap": {
 			let src = this.gameboard.find(log.src);
 			entry = {type:"trap", src};

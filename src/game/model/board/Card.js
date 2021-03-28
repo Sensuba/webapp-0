@@ -678,13 +678,13 @@ export default class Card {
 	addShield () {
 
 		this.shield = true;
-		this.update();
+		this.gameboard.update();
 	}
 
 	breakShield () {
 
 		this.shield = false;
-		this.update();
+		this.gameboard.update();
 	}
 
 	get hasShield () {
