@@ -492,6 +492,11 @@ export default class Card {
 		this.originalRange = this.range;
 		this.blueprint = lv.blueprint;
 		this.states = {};
+		this.mutations = [];
+		this.cmutations = [];
+		this.passives = [];
+		this.events = [];
+		this.states = {};
 		this.targets = [Event.targets.friendlyEmpty];
 		this.faculties = [{no: 0, desc: "Crée un réceptacle de mana.", cost: "!"}];
 
