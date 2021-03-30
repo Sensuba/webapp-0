@@ -115,6 +115,7 @@ export default class EditorPage extends Component {
         }
         localStorage.setItem("playdeck", JSON.stringify(pd));
       }
+      delete this.saved;
       this.props.history.push('/cards?mode=custom');
       this.props.updateCustoms();
     })
