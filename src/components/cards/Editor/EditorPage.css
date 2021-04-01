@@ -101,6 +101,12 @@
   max-width: 20em;
   margin-bottom: 1em;
 }
+
+.editor-box .form-card-upload-img {
+
+  margin-top: 0.2em;
+}
+
 /*
 .editor-box select {
 

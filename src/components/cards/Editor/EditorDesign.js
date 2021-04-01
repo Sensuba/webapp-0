@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import Card from '../Card';
 import { Form, Input, FormGroup, Label } from 'reactstrap';
+import Imgbb from 'imgbbjs';
+
+const IMGBB_API_KEY = "b4f9e0c243faf713fe8af060a29a9d8f";
 
 export default class EditorPage extends Component {
 
   state = { level: 1 }
+
+  uploader = new Imgbb({key: IMGBB_API_KEY})
 
   get currentCard() {
 
@@ -85,7 +90,15 @@ export default class EditorPage extends Component {
 
     var editAttribute = attr => (e => {
       this.currentCard[attr] = e.target.value;
-      if (typeof this.currentCard[attr] === 'string') this.currentCard[attr].replace(/[\u0250-\ue007]/g, '');
+      if (typeof this.currentCard[attr] === 'string') {
+        this.currentCard[attr].replace(/[\u0250-\ue007]/g, '');
+        if (this.currentCard[attr].length > 120) {
+          if (attr !== "description")
+            this.currentCard[attr] = this.currentCard[attr].substring(0, 99);
+          else if (this.currentCard[attr].length > 300)
+            this.currentCard[attr] = this.currentCard[attr].substring(0, 299);
+        }
+      }
       this.props.update(this.props.card);
     });
 
@@ -131,6 +144,27 @@ export default class EditorPage extends Component {
     var superCode = window.btoa(JSON.stringify(shadow).replace(/"[^\x00-\x7Fàéçâîôêûöïüëäè]"/g, ""));
 
     var currentLevel = this.currentCard.cardType !== "hero" ? null : (this.state.level === 1 ? this.currentCard : (this.state.level === 2 ? this.currentCard.lv2 : this.currentCard.lvmax));
+
+
+    const handleImage = event => {
+
+      if (event.target.files.length < 1) return;
+      var name = event.target.files[0].name;
+      if (name.length > 25)
+        name = name.substring(0, 24);
+
+      var reader = new FileReader();
+      var that = this;
+      
+      reader.addEventListener("load", function(e) {
+        that.uploader.upload(e.target.result.split(',')[1], name).then(result => {
+          that.currentCard.imgLink = result.data.url;
+          that.props.update(that.props.card);
+        })
+      }); 
+      
+      reader.readAsDataURL( event.target.files[0] );
+    };
 
     return (
       <div className={this.props.className}>
@@ -325,6 +359,9 @@ export default class EditorPage extends Component {
               <FormGroup>
                 <Label for="form-card-img">Lien de l'image</Label>
                 <Input id="form-card-img" type="url" value={this.currentCard.imgLink} onChange={editAttribute("imgLink").bind(this)}/>
+                <div className="form-card-upload-img">
+                  <Input type="file" name="file" onChange={handleImage} />
+                </div>
               </FormGroup>
               <FormGroup>
                 <Label for="form-card-highres">Image en haute résolution</Label>
