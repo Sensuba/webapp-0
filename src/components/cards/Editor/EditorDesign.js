@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import Card from '../Card';
 import { Form, Input, FormGroup, Label } from 'reactstrap';
-import Imgbb from 'imgbbjs';
+const upload = require("imgbb-uploader");
 
 const IMGBB_API_KEY = "b4f9e0c243faf713fe8af060a29a9d8f";
 
 export default class EditorPage extends Component {
 
   state = { level: 1 }
-
-  uploader = new Imgbb({key: IMGBB_API_KEY})
 
   get currentCard() {
 
@@ -155,13 +153,20 @@ export default class EditorPage extends Component {
 
       var reader = new FileReader();
       var that = this;
-      
+
       reader.addEventListener("load", function(e) {
-        that.uploader.upload(e.target.result.split(',')[1], name).then(result => {
-          if (highres) that.currentCard.highRes = result.data.url;
-          else that.currentCard.imgLink = result.data.url;
+
+        const options = {
+          apiKey: IMGBB_API_KEY,
+          name: name,
+          base64string: e.target.result.split(',')[1]
+        }
+
+        upload(options).then(result => {
+          if (highres) that.currentCard.highRes = result.url;
+          else that.currentCard.imgLink = result.url;
           that.props.update(that.props.card);
-        })
+        }).catch((error) => console.error(error))
       }); 
       
       reader.readAsDataURL( event.target.files[0] );
