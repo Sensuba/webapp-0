@@ -146,7 +146,7 @@ export default class EditorPage extends Component {
     var currentLevel = this.currentCard.cardType !== "hero" ? null : (this.state.level === 1 ? this.currentCard : (this.state.level === 2 ? this.currentCard.lv2 : this.currentCard.lvmax));
 
 
-    const handleImage = event => {
+    const handleImage = (event, highres) => {
 
       if (event.target.files.length < 1) return;
       var name = event.target.files[0].name;
@@ -158,7 +158,8 @@ export default class EditorPage extends Component {
       
       reader.addEventListener("load", function(e) {
         that.uploader.upload(e.target.result.split(',')[1], name).then(result => {
-          that.currentCard.imgLink = result.data.url;
+          if (highres) that.currentCard.highRes = result.data.url;
+          else that.currentCard.imgLink = result.data.url;
           that.props.update(that.props.card);
         })
       }); 
@@ -359,13 +360,12 @@ export default class EditorPage extends Component {
               <FormGroup>
                 <Label for="form-card-img">Lien de l'image</Label>
                 <Input id="form-card-img" type="url" value={this.currentCard.imgLink} onChange={editAttribute("imgLink").bind(this)}/>
-                <div className="form-card-upload-img">
-                  <Input type="file" name="file" onChange={handleImage} />
-                </div>
+                <div className="form-upload-img"><Input type="file" name="file" onChange={e => handleImage(e, false)} /></div>
               </FormGroup>
               <FormGroup>
                 <Label for="form-card-highres">Image en haute résolution</Label>
                 <Input id="form-card-highres" type="url" value={this.currentCard.highRes} onChange={editAttribute("highRes").bind(this)}/>
+                <div className="form-upload-img"><Input type="file" name="file" onChange={e => handleImage(e, true)} /></div>
               </FormGroup>
               <FormGroup>
                 <Label for="form-card-illustrator">Illustrateur</Label>
