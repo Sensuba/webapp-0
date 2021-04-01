@@ -197,14 +197,6 @@ export default class EditorPage extends Component {
                   <Label for="artifact-card">Artéfact</Label>
                   <Input id="secret-card" type="radio" name="sensuba-type" onChange={() => this.changeType("secret")} checked={this.currentCard.cardType === "secret"}/>
                   <Label for="secret-card">Secret</Label>
-                  {
-                    this.props.authorization > 3 ?
-                    <span>
-                      <Input id="world-card" type="radio" name="sensuba-type" onChange={() => this.changeType("world")} checked={this.currentCard.cardType === "world"}/>
-                      <Label for="world-card">Monde</Label>
-                    </span>
-                    : <span/>
-                  }
                 </div>
               </FormGroup>
               <FormGroup>
