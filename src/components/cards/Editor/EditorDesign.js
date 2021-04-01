@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Card from '../Card';
 import { Form, Input, FormGroup, Label } from 'reactstrap';
-const upload = require("imgbb-uploader");
 
 const IMGBB_API_KEY = "b4f9e0c243faf713fe8af060a29a9d8f";
 
@@ -156,17 +155,26 @@ export default class EditorPage extends Component {
 
       reader.addEventListener("load", function(e) {
 
-        const options = {
-          apiKey: IMGBB_API_KEY,
-          name: name,
-          base64string: e.target.result.split(',')[1]
-        }
+        let data = new FormData();
+        data.append('image', e.target.result.split(',')[1]);
 
-        upload(options).then(result => {
-          if (highres) that.currentCard.highRes = result.url;
-          else that.currentCard.imgLink = result.url;
-          that.props.update(that.props.card);
-        }).catch((error) => console.error(error))
+        var requestOptions = {
+          method: 'POST',
+          body: data,
+          redirect: 'follow'
+        };
+
+        fetch('https://api.imgbb.com/1/upload?key=' + IMGBB_API_KEY, requestOptions).then(response => response.json())
+        .then(data => {
+          if (data.status === 200) {
+            if (highres) that.currentCard.highRes = data.data.url;
+            else that.currentCard.imgLink = data.data.url;
+            that.props.update(that.props.card);
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
       }); 
       
       reader.readAsDataURL( event.target.files[0] );
