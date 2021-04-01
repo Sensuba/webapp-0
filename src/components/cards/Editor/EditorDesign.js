@@ -360,12 +360,12 @@ export default class EditorPage extends Component {
               <FormGroup>
                 <Label for="form-card-img">Lien de l'image</Label>
                 <Input id="form-card-img" type="url" value={this.currentCard.imgLink} onChange={editAttribute("imgLink").bind(this)}/>
-                <div className="form-upload-img"><Input type="file" name="file" onChange={e => handleImage(e, false)} /></div>
+                <div className="form-upload-img"><Input type="file" accept="image/*" name="imagefile" onChange={e => handleImage(e, false)} /></div>
               </FormGroup>
               <FormGroup>
                 <Label for="form-card-highres">Image en haute résolution</Label>
                 <Input id="form-card-highres" type="url" value={this.currentCard.highRes} onChange={editAttribute("highRes").bind(this)}/>
-                <div className="form-upload-img"><Input type="file" name="file" onChange={e => handleImage(e, true)} /></div>
+                <div className="form-upload-img"><Input type="file" accept="image/*" name="highresfile" onChange={e => handleImage(e, true)} /></div>
               </FormGroup>
               <FormGroup>
                 <Label for="form-card-illustrator">Illustrateur</Label>

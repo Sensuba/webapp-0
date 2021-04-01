@@ -251,7 +251,7 @@
     width: calc(1vw + 4px);
     height: calc(1vw + 4px);
     margin-left: 4px;
-    background-image: url('/game/gem.png');
+    background-image: url('./images/game/gem.png');
     background-size: calc(1vw + 4px);
     animation: gemrotate 4s infinite alternate;
     filter: drop-shadow(2px 2px 2px #404040);
@@ -277,7 +277,7 @@
   position: relative;
 	height: 9.675vw;
 	width: 7.3215vw;
-	background: url("/game/back.png");
+	background: url("./images/game/back.png");
 	background-size: 100%;
   pointer-events: all;
 }
