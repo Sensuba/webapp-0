@@ -79,7 +79,8 @@ export default class Game extends Component {
       messages: [],
       deck: d,
       timer: props.room !== undefined,
-      waiting: true
+      waiting: true,
+      pending: 0
     }
 
     this.socket = this.props.getSocket();
@@ -93,6 +94,8 @@ export default class Game extends Component {
     this.audio.volume = localStorage.getItem('sound.music') !== null ? localStorage.getItem('sound.music') * 0.2 : 0.2;
     this.mute = localStorage.getItem('sound.muted');
     this.audio.muted = this.mute;
+
+    this.userID = Math.floor(Math.random() * 1000000);
 
     this.props.subscribe(() => {
       this.setState({waiting: false});
@@ -113,35 +116,66 @@ export default class Game extends Component {
     }
 
     if (props.room) {
-      this.socket.emit("join", name, avatar, props.room, authorization > 0);
-      this.socket.on('joined', role => this.onJoined(role));
+      this.socket.emit("join", this.userID, name, avatar, props.room, authorization > 0);
     } else if (props.training) {
       var cpudeck = User.getCPU();
       if (cpudeck)
         cpudeck = JSON.parse(cpudeck);
       var cpu = (User.isConnected() && cpudeck) ? cpudeck : this.buildDeck();
-      this.socket.emit("training", name, avatar, d, cpu);
+      this.socket.emit("training", this.userID, name, avatar, d, cpu);
       this.role = "player";
       this.no = 0;
-      this.socket.on('notification',  this.analyse.bind(this));
     } else if (props.mission) {
-      this.socket.emit("mission", name, avatar, props.mission);
+      this.socket.emit("mission", this.userID, name, avatar, props.mission);
       this.role = "player";
       this.no = 0;
-      this.socket.on('notification',  this.analyse.bind(this));
     }
-    this.socket.on('endgame', data => this.onEndgame(data));
-    this.socket.on('info', data => this.onInfo(data));
-    ['disconnect', 'error', 'connect_failed', 'reconnect_failed', 'connect_error', 'reconnect_error'].forEach(trigger => this.socket.on(trigger, () => this.onError(trigger)));
 
-    this.socket.on('chat', data => {
-      if (this.addMessage)
-        this.addMessage(data);
-    });
+    this.setupSocketListeners();
 
     //Library.getCard(d.hero, hero => this.setState({hero}));
 
     this.createParticle = () => {};
+  }
+
+  tryToReconnect () {
+
+    var newsocket = this.props.getSocket();
+    if (this.socket === newsocket) {
+      if (this.state.pending > 5000)
+        this.onError('disconnect');
+      else {
+        this.setState({pending: this.state.pending + 500});
+        setTimeout(() => this.tryToReconnect(), 500);
+      }
+    } else {
+      this.socket = newsocket;
+      this.setState({pending: 0});
+      this.setupSocketListeners();
+      this.socket.emit("reconnectuser", this.userID);
+    }
+  }
+
+  setupSocketListeners () {
+
+      if (this.props.training || this.props.mission || this.role)
+        this.socket.on('notification',  this.analyse.bind(this));
+      else if (this.props.room)
+        this.socket.on('joined', role => this.onJoined(role));
+      this.socket.on('endgame', data => this.onEndgame(data));
+      this.socket.on('info', data => this.onInfo(data));
+      ['disconnect', 'error', 'connect_failed', 'reconnect_failed', 'connect_error', 'reconnect_error'].forEach(trigger => this.socket.on(trigger, () => {
+
+        if (this.state.pending > 0)
+          return;
+        this.setState({pending: 1});
+        setTimeout(() => this.tryToReconnect(), 500);
+      }));
+
+      this.socket.on('chat', data => {
+        if (this.addMessage)
+          this.addMessage(data);
+      });
   }
 
   loopMusic () {
