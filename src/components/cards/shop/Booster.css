@@ -169,8 +169,14 @@
 .sensuba-booster-aquamarine .sensuba-booster-extremum { background: #23674E }
 .sensuba-booster-aquamarine .sensuba-booster-medium { background: white }
 .sensuba-booster-aquamarine .sensuba-booster-name { color: #004040 }
-.sensuba-booster-aquamarine .sensuba-booster-expansion-name { color: white; text-shadow: 0 0 0.25rem #004040 }
-.sensuba-booster-aquamarine .sensuba-booster-filter { background: linear-gradient(#23674E, white 10%, white 15%, transparent 30%, transparent 75%, #23674E) }
+.sensuba-booster-aquamarine .sensuba-booster-expansion-name { color: white; text-shadow: 0 0 0.25rem #004040; font-size: 1.7em; top: 14.2rem; line-height: 1.1em; font-family: MarcellusSC; }
+.sensuba-booster-aquamarine .sensuba-booster-filter { background: linear-gradient(#23674E, #b4eadf 10%, transparent 15%, transparent 30%, transparent 75%, #23674E) }
+.sensuba-booster-aquamarine .sensuba-booster-image-wrap { height: 19.5em; top: 2em; }
+
+@font-face {
+  font-family: MarcellusSC;
+  src: url('../Fonts/MarcellusSC.ttf');
+}
 
 .sensuba-booster-lightpink .sensuba-booster-extremum { background: #D14C5E }
 .sensuba-booster-lightpink .sensuba-booster-medium { background: white }

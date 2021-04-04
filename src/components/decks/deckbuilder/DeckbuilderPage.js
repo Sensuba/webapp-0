@@ -132,6 +132,9 @@ export default class DeckbuilderPage extends Component {
 
   isGhost (card, i) {
 
+    if (!card.idCardmodel)
+      return false;
+
     var dis = this.formats.display.cardlist.find(l => l.idCardmodel.toString() === card.idCardmodel.toString());
     var std = this.formats.standard.cardlist.find(l => l.idCardmodel.toString() === card.idCardmodel.toString());
 
