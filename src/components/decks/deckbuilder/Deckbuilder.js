@@ -170,7 +170,7 @@ export default class Deckbuilder extends Component {
 
     var clist = {};
     clist.hero = this.props.cards.find(c => c.idCardmodel === (this.props.deck.hero.idCardmodel || this.props.deck.hero));
-    clist.cards = this.props.cards.filter(c => c && c.cardType !== "hero" && (c.idColor === 0 || clist.hero && c.idColor === clist.hero.idColor || clist.hero && c.idColor === clist.hero.idColor2) && (c.count !== 1 || !this.props.deck.cards[c.idCardmodel]));
+    clist.cards = this.props.cards.filter(c => c && c.cardType !== "hero" && (c.idColor === 0 || (clist.hero && c.idColor === clist.hero.idColor) || (clist.hero && c.idColor === clist.hero.idColor2)) && (c.count !== 1 || !this.props.deck.cards[c.idCardmodel]));
     sorter.sort(clist.cards, "name");
     return clist;
   }
