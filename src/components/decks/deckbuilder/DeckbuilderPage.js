@@ -135,8 +135,8 @@ export default class DeckbuilderPage extends Component {
     if (!card.idCardmodel)
       return false;
 
-    var dis = this.formats.display.cardlist.find(l => l.idCardmodel.toString() === card.idCardmodel.toString());
-    var std = this.formats.standard.cardlist.find(l => l.idCardmodel.toString() === card.idCardmodel.toString());
+    var dis = this.formats.display.cardlist.find(l => l.idCardmodel && l.idCardmodel.toString() === card.idCardmodel && card.idCardmodel.toString());
+    var std = this.formats.standard.cardlist.find(l => l.idCardmodel &&  l.idCardmodel.toString() === card.idCardmodel && card.idCardmodel.toString());
 
     return dis && (!std || i > std.count);
   }
