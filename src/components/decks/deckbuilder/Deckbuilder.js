@@ -242,7 +242,7 @@ export default class Deckbuilder extends Component {
           :
           <div>
         		<div className="half-section deck-image-preview">
-        			<Deck src={{name: this.props.deck.name, background: this.props.deck.background, idColor: hero.idColor, idColor2: hero.idColor2, format: this.props.deck.format }}/>
+        			<Deck src={{name: this.props.deck.name, background: this.props.deck.background, idColor: hero.idColor || 0, idColor2: hero.idColor2 || 0, format: this.props.deck.format }}/>
         			<button className="menu-button" onClick={this.saveDeck.bind(this)}>{ !this.props.new ? "Modifier" : "Enregistrer" }</button>
               { !this.props.new ? <button className="red menu-button" onClick={this.deleteDeck.bind(this)}>Supprimer</button> : <span/> }
         		</div>
