@@ -41,6 +41,7 @@ var Destroy = require('./Destroy');
 var Discard = require('./Discard');
 var Cast = require('./Cast');
 var AddEffect = require('./AddEffect');
+var MaxHP = require('./MaxHP');
 var Level = require('./Level');
 var LevelUp = require('./LevelUp');
 var SetState = require('./SetState');
@@ -213,6 +214,7 @@ class Reader {
 			case "destroy": bloc = new Destroy(card, ctx); break;
 			case "discard": bloc = new Discard(card, ctx); break;
 			case "cast": bloc = new Cast(card, ctx); break;
+			case "maxhp": bloc = new MaxHP(card, ctx); break;
 			case "level": bloc = new Level(card, ctx); break;
 			case "levelup": bloc = new LevelUp(card, ctx); break;
 			case "addeffect": bloc = new AddEffect(card, ctx); break;

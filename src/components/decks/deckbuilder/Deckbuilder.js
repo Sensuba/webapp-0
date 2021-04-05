@@ -182,7 +182,7 @@ export default class Deckbuilder extends Component {
 		var hero = clist.hero;
 		var cards = clist.cards;
 
-		var listCards = Object.keys(this.props.deck.cards).map(g => this.props.cards.find(c => c.idCardmodel.toString() === g)).filter(c => c !== undefined);
+		var listCards = Object.keys(this.props.deck.cards).map(g => this.props.cards.find(c => c.idCardmodel && c.idCardmodel.toString() === g)).filter(c => c !== undefined);
 		sorter.sort(listCards, "type");
 
 		var colorIdToClassName = colorId => {

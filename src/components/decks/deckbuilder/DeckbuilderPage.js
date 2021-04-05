@@ -10,7 +10,7 @@ export default class DeckbuilderPage extends Component {
   	formats = {
   		standard: { name: "Standard", cardlist: this.props.cards.filter(card => card.idEdition === 1).concat(this.props.collection.map(el => Object.assign({count: el.number}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel)))) },
   		display: { name: "Display", cardlist: this.props.cards },
-  		custom: { name: "Custom", cardlist: this.props.cards.filter(card => card.idEdition === 1).concat(this.props.collection.map(el => Object.assign({count: el.number}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel)))).concat(this.props.customs) }
+  		custom: { name: "Custom", cardlist: this.props.cards.filter(card => card.idEdition === 1).concat(this.props.collection.map(el => Object.assign({id: el.idCardmodel, count: el.number}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel)))).concat(this.props.customs) }
   	}
 
 	constructor (props) {
@@ -135,8 +135,8 @@ export default class DeckbuilderPage extends Component {
     if (!card || !card.idCardmodel)
       return false;
 
-    var dis = this.formats.display.cardlist.find(l => l.idCardmodel && l.idCardmodel.toString() === card.idCardmodel && card.idCardmodel.toString());
-    var std = this.formats.standard.cardlist.find(l => l.idCardmodel &&  l.idCardmodel.toString() === card.idCardmodel && card.idCardmodel.toString());
+    var dis = this.formats.display.cardlist.find(l => l.idCardmodel && card.idCardmodel && l.idCardmodel.toString() === card.idCardmodel.toString());
+    var std = this.formats.standard.cardlist.find(l => l.idCardmodel && card.idCardmodel && l.idCardmodel.toString() === card.idCardmodel.toString());
 
     return dis && (!std || i > std.count);
   }
