@@ -5,6 +5,8 @@ import Nav from '../Nav';
 import User from '../../services/User';
 import Avatar from './Avatar';
 
+const IMGBB_API_KEY = "b4f9e0c243faf713fe8af060a29a9d8f";
+
 export default class ProfilePage extends Component {
 
   sha1 = require('sha1');
@@ -62,7 +64,44 @@ export default class ProfilePage extends Component {
       });
   }
 
-  render() {
+  render() {    
+
+    const handleImage = (event) => {
+
+        if (event.target.files.length < 1) return;
+        var name = event.target.files[0].name;
+        if (name.length > 25)
+          name = name.substring(0, 24);
+
+        var reader = new FileReader();
+        var that = this;
+
+        reader.addEventListener("load", function(e) {
+
+          let data = new FormData();
+          data.append('image', e.target.result.split(',')[1]);
+
+          var requestOptions = {
+            method: 'POST',
+            body: data,
+            redirect: 'follow'
+          };
+
+          fetch('https://api.imgbb.com/1/upload?key=' + IMGBB_API_KEY, requestOptions).then(response => response.json())
+          .then(data => {
+            if (data.status === 200) {
+              document.getElementById("sensuba-profile-avatar").value = data.data.url;
+              that.setState({avatarUrl: data.data.url});
+            }
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+        }); 
+        
+        reader.readAsDataURL( event.target.files[0] );
+      };
+
     return (
       <div>
         <Nav api={this.props.api} history={this.props.history}/>
@@ -85,6 +124,7 @@ export default class ProfilePage extends Component {
                 </div>
                 <div className="two-thirds-section">
                   <Input id="sensuba-profile-avatar" type="text" onChange={ e => this.setState({ avatarUrl: e.target.value }) } defaultValue={ this.state.avatarUrl }/>
+                  <div className="form-upload-img"><Input type="file" accept="image/*" name="imagefile" onChange={e => handleImage(e)} /></div>
                 </div>
               </FormGroup>
               <FormGroup>

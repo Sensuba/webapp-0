@@ -142,3 +142,19 @@
 }
 
 .play-panel.panel-left .play-panel-text { left: 15%; text-align: left; }
+
+.play-panel.panel-lock {
+
+    filter: grayscale(100%);
+    cursor: default;
+}
+
+.play-panel.panel-lock:hover, .play-panel-wrapper:hover .play-panel.panel-lock + .play-panel {
+
+    width: 50% !important;
+}
+
+.play-panel-wrapper .play-panel.panel-lock + .play-panel:hover {
+    
+    width: 100% !important;
+}

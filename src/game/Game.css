@@ -480,6 +480,7 @@
 
 .sensuba-tile .sensuba-tile-weather {
 
+  z-index: 150;
   font-size: 1.5em;
   filter: blur(0.02em);
 }

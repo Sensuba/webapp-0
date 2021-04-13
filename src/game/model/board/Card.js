@@ -485,6 +485,7 @@ export default class Card {
 			return;
 		}
 
+		this.deactivate();
 		this.atk = parseInt(lv.atk, 10);
 		this.range = parseInt(lv.range, 10);
 		this.overload = parseInt(lv.overload, 10);
@@ -510,6 +511,7 @@ export default class Card {
 		if (this.isType("artifact"))
 			this.faculties.push({no: this.faculties.length, desc: "Explose.", cost: "0"});
 		this.gameboard.update();
+		this.activate();
 	}
 
 	levelDown () {

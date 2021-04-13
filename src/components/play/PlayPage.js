@@ -160,6 +160,11 @@ export default class PlayPage extends Component {
         }
       }
 
+    let custom = false;
+    if (this.state.deck)
+      if (isNaN(this.state.deck.hero) || this.state.deck.body.find(c => isNaN(c)))
+        custom = true;
+
     return (
       <div>
         <Nav api={this.props.api} history={this.props.history}/>
@@ -200,7 +205,7 @@ export default class PlayPage extends Component {
             }
             </div>
             <div className="play-panel-wrapper">
-              <div onClick={() => this.seekGame(false)} className="play-panel panel-left">
+              <div onClick={() => { if (!custom) this.seekGame(false);}} className={"play-panel panel-left" + (custom ? " panel-lock" : "")}>
                 <img className="play-panel-background" src="/play1.jpg" alt="bg"/>
                 <div className="play-panel-text">
                   <h3>Partie rapide</h3>
