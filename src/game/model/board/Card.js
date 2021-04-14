@@ -114,7 +114,7 @@ export default class Card {
 		}
 		//if (this.onBoard)
 		//	this.location.clearHazards();
-		if (this.onBoard && former && former.area === this.area.opposite) {
+		if (this.onBoard && former && (former.area === this.area.opposite || former.locationOrder === null || former.locationOrder === undefined)) {
 			this.skillPt = 1;
 			if (this.isType("character"))
 				this.resetSickness();
@@ -391,7 +391,7 @@ export default class Card {
 			this.deactivate();
 		for (var k in data) {
 			this[k] = data[k];
-			if (!isNaN(this[k]))
+			if (!isNaN(this[k]) && this[k] !== false && this[k] !== true)
 				this[k] = parseFloat(this[k], 10);
 		}
 		if (this.idCardmodel)
@@ -413,6 +413,8 @@ export default class Card {
 		this.passives = [];
 		this.mutations = [];
 		this.cmutations = [];
+		if (!data.blueprint)
+			delete this.blueprint;
 		if (data && data.states)
 			this.states = Object.assign({}, data.states);
 		if (data && data.poisondmg)
@@ -438,7 +440,7 @@ export default class Card {
 				overload: this.overload
 			}
 		}
-		if (this.blueprint)
+		if (this.blueprint && !this.silenced)
 			Reader.read(this.blueprint, this);
 		if (this.isType("hero")) {
 			let lvupf = this.faculties.find(f => f.desc.includes("Level Up") || f.desc.includes("Niveau Supérieur"));

@@ -162,7 +162,7 @@ export default class PlayPage extends Component {
 
     let custom = false;
     if (this.state.deck)
-      if (isNaN(this.state.deck.hero) || this.state.deck.body.find(c => isNaN(c)))
+      if (isNaN(this.state.deck.hero) || !this.state.deck.body || this.state.deck.body.find(c => isNaN(c)))
         custom = true;
 
     return (
