@@ -413,7 +413,7 @@ export default class Card {
 		this.passives = [];
 		this.mutations = [];
 		this.cmutations = [];
-		if (!data.blueprint)
+		if (data && !data.blueprint)
 			delete this.blueprint;
 		if (data && data.states)
 			this.states = Object.assign({}, data.states);
