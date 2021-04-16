@@ -93,7 +93,7 @@ export default class AssistantBuilder {
 			var rolevalue = 0;
 			roles.forEach(role => rolevalue += missing.roles[role] / roles.length);
 			var basisvalue = 0;
-			basis.forEach(b => basisvalue += params.type[b] / totalTypes);
+			basis.forEach(b => basisvalue += params.type[b] / totalTypes / 2);
 			var optionsvalue = syn.options.reduce((a, b) => a + this.computeOptionValue(id, b, options, deck), 0);
 			var rewardvalue = syn.reward.reduce((a, b) => a + this.computeRewardValue(b, options) * (syn.reward.length > 1 ? 3/5 : 1), 0);
 			var colorvalue = card.idColor > 0 ? 1 : 0;
@@ -254,12 +254,20 @@ export default class AssistantBuilder {
 			case "discard": options[op.for] += options.discard / 4 * op.count; break;
 			case "heal": options[op.for] += options.heal / 4 * op.count; break;
 			case "shield": options[op.for] += options.shield / 4 * op.count; break;
+			case "fatigue":
+			case "selffatigue":
+			case "fire":
+			case "water":
+			case "flowers": options[op.for] += options[op.using] / 4 * op.count; break;
+			case "range": options[op.for] += options.range / 3 * op.count; break;
 			case "attack": options[op.for] += (2 + options.attack / 4) * op.count; break;
 			case "motion": options[op.for] += options.motion / 3 * op.count; break;
 			case "cover": options[op.for] += (3 + options.cover / 3) * op.count; break;
 			case "push": options[op.for] += (1 + options.push / 3) * op.count; break;
 			case "selfdamage": options[op.for] += (1 + options.selfdamage / 4) * op.count; break;
 			case "selffreeze": options[op.for] += (options.selffreeze / 3 + options.freeze / 6) * op.count; break;
+			case "heroheal": options[op.for] += (options.heroheal / 4 + options.heal / 10) * op.count; break;
+			case "herodamage": options[op.for] += (options.herodamage / 3) * op.count; break;
 			case "flying":
 			case "initiative":
 			case "exaltation":
@@ -280,8 +288,9 @@ export default class AssistantBuilder {
 			heal: 0, silence: 0, damage: 0, selfdamage: 0, destroy: 0, selfdestroy: 0, freeze: 0, flying: 0, lastwill: 0,
 			generate: 0, shield: 0, push: 0, play: 0, lowatk: 0, lowhp: 0, range: 0, bounce: 0, overload: 0, spell: 0,
 			cover: 0, artifact: 0, big: 0, frenzy: 0, beast: 0, cyber: 0, dragon: 0, lolita: 0, demon: 0, "magical girl": 0,
-			enemydraw: 0, highhp: 0, conceal: 0, motion: 0, "selfpoison": 0, "selffreeze": 0, "discard": 0, "steal": 0,
-			poison: 0, specific: 0, secret: 0, attack: 0, disruption: 0, highatk: 0, delay: 0, handbuff: 0
+			enemydraw: 0, highhp: 0, conceal: 0, motion: 0, selfpoison: 0, selffreeze: 0, discard: 0, steal: 0, poison: 0,
+			specific: 0, secret: 0, attack: 0, disruption: 0, highatk: 0, delay: 0, handbuff: 0, fire: 0, water: 0, 
+			flowers: 0, gravity: 0, herodamage: 0, heroheal: 0, fatigue: 0, selffatigue: 0, handcontrol: 0, emptydeck: 0
 		}
 		var cross = [];
 
@@ -301,10 +310,10 @@ export default class AssistantBuilder {
 		Object.keys(options).forEach(k => noptions[k] = options[k] * Math.log2(1+options[k]/totalOptions*110));
 
 		switch (type) {
-		case "boost": return (noptions.boost - 20) / 150 + (noptions.handbuff - 8)/100;
+		case "boost": return (noptions.boost + noptions.flowers/2 - 20) / 150 + (noptions.handbuff - 8)/100;
 		case "board": return (noptions.board - 60) / 180;
 		case "play": return (1 + (noptions.play-40)/120 + (noptions.gem-2)/40 + (noptions.mana-2)/40) * (1 + (noptions.draw-15)/100 + (noptions.generate-10)/180) - 1;
-		case "freeze": return (noptions.freeze - 40) / 100;
+		case "freeze": return (noptions.freeze + noptions.water/2 - 40) / 100;
 		case "selfpoison": return (noptions.selfpoison - 5) / 20 + (noptions.poison - 20) / 80;
 		case "selffreeze": return (noptions.selffreeze - 5) / 20 + (noptions.freeze - 20) / 80;
 		case "shield": return (noptions.shield - 40) / 100;
@@ -315,8 +324,8 @@ export default class AssistantBuilder {
 		case "draw": return (noptions.draw  - 25) / 120;
 		case "enemydraw": return (noptions.enemydraw  - 15) / 60;
 		case "hand": return (noptions.draw  - 25) / 100 + (noptions.generate  - 25) / 100;
-		case "damage": return (noptions.damage + noptions.selfdamage  - 55) / 100;
-		case "selfdamage": return (noptions.selfdamage - 20) / 40 + (noptions.board - 50) / 220 + (noptions.attack - 8)/160 - (noptions.initiative / 20);
+		case "damage": return (noptions.damage + noptions.selfdamage + noptions.herodamage  - 55) / 100;
+		case "selfdamage": return (noptions.selfdamage + noptions.herodamage - 20) / 40 + (noptions.board - 50) / 220 + (noptions.attack - 8)/160 - (noptions.initiative / 20);
 		case "destroy": return (noptions.destroy - 40) / 100;
 		case "selfdestroy": return (noptions.selfdestroy - 6)/25 + (noptions.board - 60) / 250 + (noptions.attack - 8)/160 - (noptions.initiative / 20);
 		case "spell": return (noptions.spell - 50) / 120;
@@ -331,10 +340,19 @@ export default class AssistantBuilder {
 		case "cover": return (noptions.cover - 4)/50 + (noptions.board - 60)/250;
 		case "frenzy": return (noptions.frenzy - 10)/100;
 		case "artifact": return (noptions.artifact - 10)/40;
+		case "handcontrol": return (noptions.handcontrol - 10)/40;
 		case "secret": return (noptions.secret - 10)/40;
 		case "silence": return (noptions.silence - 10)/40;
 		case "lastwill": return (noptions.lastwill - 10)/40;
-		case "heal": return (noptions.heal - 35)/120;
+		case "herodamage": return (noptions.herodamage - 7.5)/30;
+		case "heroheal": return (noptions.herodamage - 15) / 60 + (noptions.heroheal - 10) / 40 + (noptions.heal - 20) / 80;
+		case "emptydeck": return (noptions.emptydeck - 6)/40 + (noptions.draw  - 8) / 240;
+		case "fatigue":
+		case "selffatigue":
+		case "fire": 
+		case "water": 
+		case "flowers": return (noptions[type] - 12)/60;
+		case "heal": return (noptions.heal + noptions.heroheal/2 - 35)/120;
 		case "push": return (noptions.push - 12)/60;
 		case "gem": return (noptions.gem - 10)/40;
 		case "handbuff": return (noptions.handbuff - 10)/40;
@@ -344,7 +362,7 @@ export default class AssistantBuilder {
 		case "attack": return (noptions.attack - 20)/60 + (noptions.board - 60)/400 + (noptions.fury / 160);
 		case "ramp": return (noptions.receptacle - 10) / 40;
 		case "initiative":  return (noptions[type] - 20) / 140;
-		case "flying":
+		case "flying": 
 		case "exaltation":  return (noptions[type] - 20) / 80;
 		case "dragon":
 		case "lolita":
@@ -386,6 +404,7 @@ export default class AssistantBuilder {
 		case "shield":
 		case "heal": return gain - 0.004 * options[type];
 		case "disruption":
+		case "handcontrol":
 		case "cover":
 		case "gem":
 		case "push":
@@ -395,6 +414,7 @@ export default class AssistantBuilder {
 		case "conceal":
 		case "freeze":
 		case "steal":
+		case "attack":
 		case "lowatk":
 		case "lowhp":
 		case "highatk":
@@ -402,9 +422,15 @@ export default class AssistantBuilder {
 		case "play": return gain - 0.04 - 0.002 * options[type];
 		case "motion":
 		case "boost":
+		case "gravity":
 		case "handbuff":
+		case "fatigue":
+		case "selffatigue":
+		case "emptydeck":
+		case "fire":
+		case "water":
+		case "flowers":
 		case "discard":
-		case "attack":
 		case "spell":
 		case "overload": return gain - 0.06 - 0.004 * options[type];
 		case "specific": return gain - 0.08;
