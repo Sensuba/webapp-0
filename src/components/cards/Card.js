@@ -4,6 +4,7 @@ import Figure from './Figure';
 import Spell from './Spell';
 import Secret from './Secret';
 import World from './World';
+import Trial from './Trial';
 import Artifact from './Artifact';
 import './Card.css';
 
@@ -132,6 +133,8 @@ export default class Card extends Component {
       src.lv2 = Object.assign(src.lv2, {htmlDescription: descHTML(src.lv2.description)});
       src.lvmax = Object.assign(src.lvmax, {htmlDescription: descHTML(src.lvmax.description)});
     }
+    if (this.props.src.cardType === "trial")
+      src.htmlDescription2 = descHTML(src.description2);
 
     var holographic = this.props.holographic !== undefined ? this.props.holographic : this.props.src.holographic ;
 
@@ -141,6 +144,7 @@ export default class Card extends Component {
     case "spell": result = <Spell model={this.props.model} holographic={holographic} className={this.props.className} id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
     case "artifact": result = <Artifact model={this.props.model} holographic={holographic} className={this.props.className} id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
     case "secret": result = <Secret model={this.props.model} holographic={holographic} className={this.props.className} id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
+    case "trial": result = <Trial model={this.props.model} holographic={holographic} className={this.props.className} id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
     case "world": result = <World model={this.props.model} holographic={holographic} className={this.props.className} id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
     default: break;
   	}

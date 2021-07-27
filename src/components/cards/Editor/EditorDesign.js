@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Card from '../Card';
+import User from '../../../services/User';
 import { Form, Input, FormGroup, Label } from 'reactstrap';
 
 const IMGBB_API_KEY = "b4f9e0c243faf713fe8af060a29a9d8f";
@@ -66,12 +67,13 @@ export default class EditorPage extends Component {
         }
     };
     switch (newType) {
-    case "figure": filter = ["lv2", "lvmax", "idColor2"]; break;
-    case "hero": filter = ["archetypes", "mana"]; break;
+    case "figure": filter = ["lv2", "lvmax", "idColor2", "description2"]; break;
+    case "hero": filter = ["archetypes", "mana", "description2"]; break;
     case "spell":
     case "secret":
-    case "world": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "hp", "range"]; break;
-    case "artifact": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "range"]; break;
+    case "world": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "hp", "range", "description2"]; break;
+    case "trial": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "hp", "range"]; break;
+    case "artifact": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "range", "description2"]; break;
     default: break;
     }
 
@@ -90,7 +92,7 @@ export default class EditorPage extends Component {
       if (typeof this.currentCard[attr] === 'string') {
         this.currentCard[attr].replace(/[\u0250-\ue007]/g, '');
         if (this.currentCard[attr].length > 120) {
-          if (attr !== "description")
+          if (attr !== "description" && attr !== "description2")
             this.currentCard[attr] = this.currentCard[attr].substring(0, 99);
           else if (this.currentCard[attr].length > 300)
             this.currentCard[attr] = this.currentCard[attr].substring(0, 299);
@@ -130,6 +132,7 @@ export default class EditorPage extends Component {
     delete shadow.idEdition;
     delete shadow.rarity;
     delete shadow.htmlDescription;
+    delete shadow.htmlDescription2;
     delete shadow.author;
     if (shadow.cardType === "hero") {
       if (shadow.lv2)
@@ -197,6 +200,12 @@ export default class EditorPage extends Component {
                   <Label for="artifact-card">Artéfact</Label>
                   <Input id="secret-card" type="radio" name="sensuba-type" onChange={() => this.changeType("secret")} checked={this.currentCard.cardType === "secret"}/>
                   <Label for="secret-card">Secret</Label>
+                  { User.isConnected() ?
+                    <span>
+                      <Input id="trial-card" type="radio" name="sensuba-type" onChange={() => this.changeType("trial")} checked={this.currentCard.cardType === "trial"}/>
+                      <Label for="trial-card">Epreuve</Label>
+                    </span> : ""
+                  }
                 </div>
               </FormGroup>
               <FormGroup>
@@ -343,7 +352,7 @@ export default class EditorPage extends Component {
                 this.currentCard.cardType !== "hero" ?
                 <FormGroup>
                 <div className="two-thirds-section">
-                  <Label for="form-card-description">Description</Label>
+                  <Label for="form-card-description">{ this.currentCard.cardType === "trial" ? "1ère épreuve" : "Description" }</Label>
                   <Input id="form-card-description" rows="4" type="textarea" value={this.currentCard.description} onChange={editAttribute("description").bind(this)}/>
                 </div>
                 <div className="third-section">
@@ -353,6 +362,13 @@ export default class EditorPage extends Component {
                   <Input id="form-card-overload" type="number" min="0" max="10000" step="10" value={this.currentCard.overload} onChange={editAttribute("overload").bind(this)}/>
                 </div>
               </FormGroup> : <span/>
+              }
+              {
+                this.currentCard.cardType === "trial" ?
+                <FormGroup>
+                  <Label for="form-card-description2">2e épreuve</Label>
+                  <Input id="form-card-description2" type="textarea" value={this.currentCard.description2} onChange={editAttribute("description2").bind(this)}/>
+                </FormGroup> : <span/>
               }
               <FormGroup>
                 <Label for="form-card-flavour">Texte d'ambiance</Label>

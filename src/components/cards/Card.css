@@ -225,6 +225,11 @@
     height: 5.5em;
 }
 
+.sensuba-trial .sensuba-card-body {
+
+    height: 7em;
+}
+
 .sensuba-card .sensuba-card-body .sensuba-card-body-header {
 
 	background: rgba(133, 167, 193, 0.8);
@@ -288,7 +293,7 @@
     padding-right: 0.8em;
 }
 
-.sensuba-card .sensuba-card-secret-icon {
+.sensuba-card .sensuba-card-specialtype-icon {
 
     position: absolute;
     text-align: center;
@@ -304,11 +309,16 @@
     -webkit-text-stroke-color: rgba(133, 167, 193, 0.8);
 }
 
-.sensuba-card.white-mana .sensuba-card-secret-icon { -webkit-text-stroke-color: rgba(232, 209, 97, 0.8) }
-.sensuba-card.red-mana .sensuba-card-secret-icon { -webkit-text-stroke-color: rgba(247, 69, 69, 0.8) }
-.sensuba-card.blue-mana .sensuba-card-secret-icon { -webkit-text-stroke-color: rgba(17, 150, 216, 0.8) }
-.sensuba-card.green-mana .sensuba-card-secret-icon { -webkit-text-stroke-color: rgba(142, 197, 102, 0.8) }
-.sensuba-card.black-mana .sensuba-card-secret-icon { -webkit-text-stroke-color: rgba(80, 26, 53, 0.8) }
+.sensuba-card.white-mana .sensuba-card-specialtype-icon { -webkit-text-stroke-color: rgba(232, 209, 97, 0.8) }
+.sensuba-card.red-mana .sensuba-card-specialtype-icon { -webkit-text-stroke-color: rgba(247, 69, 69, 0.8) }
+.sensuba-card.blue-mana .sensuba-card-specialtype-icon { -webkit-text-stroke-color: rgba(17, 150, 216, 0.8) }
+.sensuba-card.green-mana .sensuba-card-specialtype-icon { -webkit-text-stroke-color: rgba(142, 197, 102, 0.8) }
+.sensuba-card.black-mana .sensuba-card-specialtype-icon { -webkit-text-stroke-color: rgba(80, 26, 53, 0.8) }
+
+.sensuba-trial .sensuba-card-specialtype-icon {
+
+    top: 4.95em;
+}
 
 .sensuba-card .sensuba-card-body-main {
 
@@ -415,6 +425,26 @@
     color: blue;
 }
 
+.sensuba-trial .sensuba-trial-part + .sensuba-trial-part {
+
+    border-top: solid #808080 1px;
+    margin-top: 0.2em;
+    padding-top: 0.2em;
+}
+
+.sensuba-trial .sensuba-trial-part-effect {
+
+    display: inline-block;
+    width: 90%;
+}
+
+.sensuba-trial .sensuba-trial-part-icon {
+
+    float: right;
+    width: 10%;
+    text-align: center;
+}
+
 
 .sensuba-card .sensuba-card-flavour {
 
@@ -432,6 +462,11 @@
 .sensuba-spell .sensuba-card-flavour, .sensuba-secret .sensuba-card-flavour, .sensuba-world .sensuba-card-flavour, .sensuba-artifact .sensuba-card-flavour, .sensuba-hero .sensuba-card-flavour {
 
     bottom: -10.7em;
+}
+
+.sensuba-trial .sensuba-card-flavour {
+
+    bottom: -14.5em;
 }
 
 .sensuba-card .sensuba-card-edition {
