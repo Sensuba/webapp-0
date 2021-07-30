@@ -61,7 +61,11 @@ export default class Trial extends Component {
 	        <div className="sensuba-card-body-main">
 	        	<div className="sensuba-card-effect" style={{fontSize: (src.fontSize || 1.3)/2 + 'em'}}>
 	        		<div className="sensuba-trial-part"><div className="sensuba-trial-part-effect" dangerouslySetInnerHTML={{__html: src.htmlDescription}}/><div className="sensuba-trial-part-icon" style={{fontSize: 1.3/(src.fontSize || 1.3) + 'em'}}>🟊</div></div>
-	        		<div className="sensuba-trial-part"><div className="sensuba-trial-part-effect" dangerouslySetInnerHTML={{__html: src.htmlDescription2}}/><div className="sensuba-trial-part-icon" style={{fontSize: 1.3/(src.fontSize || 1.3) + 'em'}}>🟊🟊</div></div>
+	        		{
+	        			src.description2 ?
+	        			<div className="sensuba-trial-part"><div className="sensuba-trial-part-effect" dangerouslySetInnerHTML={{__html: src.htmlDescription2}}/><div className="sensuba-trial-part-icon" style={{fontSize: 1.3/(src.fontSize || 1.3) + 'em'}}>🟊🟊</div></div>
+	        			: ""
+	        		}
 	        	</div>
 	        	<div className="sensuba-card-flavour">{src.flavourText || ""}</div>
 	        	{ src.idEdition > 1 ? <div className={"sensuba-card-edition sensuba-card-edition-" + src.idEdition}/> : <span/> }

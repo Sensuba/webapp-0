@@ -3,6 +3,7 @@ import Hand from './Hand';
 import Tile from './Tile';
 import Deck from './Deck';
 import Court from './Court';
+import HonorBoard from './HonorBoard';
 import Cemetery from './Cemetery';
 import Discard from './Discard';
 import Mutation from './Mutation';
@@ -106,7 +107,7 @@ export default class Card {
 			this.resetBody ();
 		if (loc && !loc.hasCard (this))
 			loc.addCard (this);
-		if (loc instanceof Tile && !(former instanceof Tile) && !this.activated)
+		if ((loc instanceof Tile || loc instanceof HonorBoard) && !(former instanceof Tile) && !this.activated)
 			this.activate();
 		if (former instanceof Tile && loc instanceof Tile && this.activated && former.area !== loc.area) {
 			this.deactivate();
@@ -157,6 +158,7 @@ export default class Card {
 		delete this.mutatedState;
 		delete this.mutdata;
 		delete this.lastwill;
+		delete this.steps;
 		if (this.isType("entity") || this.isType("secret"))
 			this.targets.push(Event.targets.friendlyEmpty);
 		this.clearBoardInstance();
@@ -413,6 +415,7 @@ export default class Card {
 		this.passives = [];
 		this.mutations = [];
 		this.cmutations = [];
+		delete this.steps;
 		if (data && !data.blueprint)
 			delete this.blueprint;
 		if (data && data.states)
@@ -534,6 +537,17 @@ export default class Card {
 
 		if (!this.inHand || !this.canBePaid || !this.area.isPlaying)
 			return false;
+		if (this.isType("trial")) {
+			if (!this.steps) return false;
+			let i = 0;
+			while (i < this.steps.length) {
+				// eslint-disable-next-line
+				if (!this.area.honorboard.cards.some(c => c.model.idCardmodel === this.model.idCardmodel && c.steps[i].completed))
+					return this.steps[i].condition();
+				i++;
+			}
+			return false;
+		}
 		if (this.targets.length === 0)
 			return true;
 
@@ -544,6 +558,17 @@ export default class Card {
 
 		if (!this.canBePaid || !this.area.isPlaying)
 			return false;
+		if (this.isType("trial")) {
+			if (!this.steps) return false;
+			let i = 0;
+			while (i < this.steps.length) {
+				// eslint-disable-next-line
+				if (!this.area.honorboard.cards.some(c => c.model.idCardmodel === this.model.idCardmodel && c.steps[i].completed))
+					return this.steps[i].condition();
+				i++;
+			}
+			return false;
+		}
 		if (this.targets.length === 0)
 			return true;
 		if (targets.length === 0)

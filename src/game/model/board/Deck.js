@@ -19,6 +19,12 @@ export default class Deck {
 		return this.cards[0];
 	}
 
+	lockStartingDeck() {
+
+		this.starting = this.cards.map(card => card.model || { idCardmodel: card.idCardmodel });
+		this.highlander = new Set(this.starting.map(card => card.idCardmodel)).size === this.starting.length;
+	}
+
 	get count () {
 
 		return this.cards.length;

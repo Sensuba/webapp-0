@@ -488,6 +488,11 @@
     bottom: -4.5em;
 }
 
+.sensuba-trial .sensuba-card-edition {
+
+    bottom: -6em;
+}
+
 .sensuba-card .sensuba-card-footer {
 
     z-index: 1;

@@ -3,6 +3,7 @@ import Deck from "./Deck";
 import Field from "./Field";
 import Hand from "./Hand";
 import Court from "./Court";
+import HonorBoard from "./HonorBoard";
 import Cemetery from "./Cemetery";
 import Discard from "./Discard";
 import Capsule from "./Capsule";
@@ -24,6 +25,7 @@ export default class Area {
 		this.hand = new Hand(this);
 		this.manapool = new ManaPool(this);
 		this.court = new Court(this);
+		this.honorboard = new HonorBoard(this);
 		this.cemetery = new Cemetery(this);
 		this.discard = new Discard(this);
 		this.capsule = new Capsule(this);

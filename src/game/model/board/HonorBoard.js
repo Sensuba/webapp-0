@@ -1,14 +1,14 @@
-export default class SecretBox {
+export default class HonorBoard {
 
 	constructor (area) {
 
-		this.id = { type: "secretbox", no: area.id.no };
+		this.id = { type: "honorboard", no: area.id.no };
 		area.gameboard.register(this);
 
 		this.area = area;
 
 		this.locationOrder = 3;
-		this.public = false;
+		this.public = true;
 
 		this.cards = [];
 	}

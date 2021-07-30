@@ -29,6 +29,7 @@ export default class GameBoard {
 	start () {
 
 		this.started = true;
+		this.areas.forEach(area => area.deck.lockStartingDeck());
 	}
 
 	end (state) {

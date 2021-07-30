@@ -47,6 +47,11 @@ export default (state = new GameBoard(), n) => {
       if (card)
         card.cardType = "secret";
       break; }
+    case "trial": {
+      let card = state.find(n.src);
+      if (card && card.steps)
+        card.steps.forEach(step => { if (step.step === n.data[0]) step.completed = true; })
+      break; }
     case "charmove": {
       let card = state.find(n.src);
       if (card)

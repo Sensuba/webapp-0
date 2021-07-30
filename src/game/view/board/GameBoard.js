@@ -3,6 +3,7 @@ import Area from './Area';
 import Hand from './Hand';
 import Deck from './Deck';
 import Field from './Field';
+import HonorBoard from './HonorBoard';
 import GemPool from './GemPool';
 import Row from './Row';
 import Tile from './Tile';
@@ -39,6 +40,7 @@ export default class GameBoard extends Component {
     	<Hand model={model.areas[1-no].hand} master={master}/>
 	    	<Area className="sensuba-area-top" model={model.areas[1-no]} master={master}>
 		    	{ model.areas[1-no].avatar ? <div className="sensuba-avatar-wrapper"><Avatar src={model.areas[1-no].avatar}/></div> : <span/> }
+		    	<HonorBoard model={model.areas[1-no].honorboard} master={master}/>
 		    	<Field model={model.areas[1-no].field} master={master}>
 		    		<Row>
 		    			<Tile model={model.areas[1-no].field.tiles[4]} master={master}/>
@@ -75,6 +77,7 @@ export default class GameBoard extends Component {
 	    	<Area className="sensuba-area-bottom" model={model.areas[no]} master={master}>
 		    	<Court model={model.areas[no].court} master={master}/>
 		    	{ model.areas[no].avatar ? <div className="sensuba-avatar-wrapper" onClick={no !== undefined && master.role === "player" ? this.props.openConcedeWindow : () => {}}><Avatar src={model.areas[no].avatar}/></div> : <div className="sensuba-avatar-wrapper sensuba-blank-avatar-wrapper" onClick={no !== undefined && master.role === "player" ? this.props.openConcedeWindow : () => {}}/> }
+		    	<HonorBoard model={model.areas[no].honorboard} master={master}/>
 		    	<Field model={model.areas[no].field} master={master}>
 		    		<Row>
 		    			<Tile model={model.areas[no].field.tiles[0]} master={master}/>

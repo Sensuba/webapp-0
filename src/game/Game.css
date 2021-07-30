@@ -160,7 +160,7 @@
   position: relative;
 }
 
-/*.sensuba-secretbox {
+.sensuba-honorboard {
 
   position: absolute;
   display: inline-block;
@@ -168,10 +168,10 @@
   margin-left: -10px;
 }
 
-.sensuba-area-top .sensuba-secretbox {
+.sensuba-area-top .sensuba-honorboard {
 
   margin-top: 11vw;
-}*/
+}
 
 .sensuba-field, .sensuba-gauge-wrapper {
 
