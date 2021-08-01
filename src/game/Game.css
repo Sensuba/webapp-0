@@ -468,7 +468,7 @@
 	position: relative;
 }
 
-.sensuba-tile .sensuba-tile-weather, .sensuba-tile .sensuba-tile-portal {
+.sensuba-tile .sensuba-tile-weather, .sensuba-tile .sensuba-tile-magic {
 
   display: none;
   position: absolute;
@@ -550,7 +550,7 @@
   }
 }
 
-.sensuba-tile.sensuba-hazards-portal .sensuba-tile-portal {
+.sensuba-tile.sensuba-hazards-portal .sensuba-tile-magic {
 
   display: inline-block;
   background: url('./images/portal.png');
@@ -566,6 +566,19 @@
 @keyframes portalwave {
   from { opacity: 0.1; }
   to { opacity: 0.6; }
+}
+
+.sensuba-tile.sensuba-hazards-portal .sensuba-tile-magic {
+
+  display: inline-block;
+  background: url('./images/seal.png');
+  filter: drop-shadow(0 0 0.2vw #e8feff);
+  background-size: 80%;
+  background-position: center;
+  width: 9.625vw;
+  left: -1.15175vw;
+  background-repeat: no-repeat;
+  animation: silencerotate 8s infinite linear, portalwave 4s infinite ease-in-out alternate;
 }
 
 
