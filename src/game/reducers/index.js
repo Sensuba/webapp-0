@@ -87,6 +87,11 @@ export default (state = new GameBoard(), n) => {
       if (card)
         card.curePoison(n.data[0]);
       break; }
+    case "charge": {
+      let card = state.find(n.src);
+      if (card)
+        card.charge(n.data[0]);
+      break; }
     case "changecost": {
       let card = state.find(n.src);
       if (card)

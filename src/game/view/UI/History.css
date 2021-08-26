@@ -40,7 +40,7 @@
     right: -0.1vw;
     width: 1.8vw;
     height: 1.8vw;
-    background-image: url('../../images/levelup.png');
+    background-image: url('/images/levelup.png');
     filter: hue-rotate(-30deg);
     background-size: 100%;
 }

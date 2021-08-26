@@ -19,7 +19,7 @@
 	left: 1.5em;
 	width: 12em;
 	height: 12em;
-	background-image: url('../../images/levelup.png');
+	background-image: url('/images/levelup.png');
 	filter: hue-rotate(-30deg);
 	background-size: 100%;
 	animation: card-levelup-opacity 1s 1, card-levelup-transform 1s 1;

@@ -251,7 +251,7 @@
     width: calc(1vw + 4px);
     height: calc(1vw + 4px);
     margin-left: 4px;
-    background-image: url('./images/game/gem.png');
+    background-image: url('/images/game/gem.png');
     background-size: calc(1vw + 4px);
     animation: gemrotate 4s infinite alternate;
     filter: drop-shadow(2px 2px 2px #404040);
@@ -277,7 +277,7 @@
   position: relative;
 	height: 9.675vw;
 	width: 7.3215vw;
-	background: url("./images/game/back.png");
+	background: url("/game/images/game/back.png");
 	background-size: 100%;
   pointer-events: all;
 }
@@ -515,14 +515,14 @@
 
 .sensuba-tile.sensuba-hazards-flowers .sensuba-tile-weather .particle {
 
-   background-image: url('./images/flower.png');
+   background-image: url('/game/images/flower.png');
    background-size: 2vw;
    background-repeat: no-repeat;
 }
 
 .sensuba-tile.sensuba-hazards-butterflies .sensuba-tile-weather .particle {
 
-   background-image: url('./images/butterfly.png');
+   background-image: url('/game/images/butterfly.png');
    background-size: 2vw;
    background-repeat: no-repeat;
 }
@@ -553,7 +553,7 @@
 .sensuba-tile.sensuba-hazards-portal .sensuba-tile-magic {
 
   display: inline-block;
-  background: url('./images/portal.png');
+  background: url('/game/images/portal.png');
   filter: drop-shadow(0 0 0.2vw #e8feff);
   background-size: 80%;
   background-position: center;
@@ -571,7 +571,7 @@
 .sensuba-tile.sensuba-hazards-seal .sensuba-tile-magic {
 
   display: inline-block;
-  background: url('./images/seal.png');
+  background: url('/game/images/seal.png');
   filter: drop-shadow(0 0 0.2vw #e8feff);
   background-size: 80%;
   background-position: center;
@@ -926,7 +926,7 @@
 
 .sensuba-card-view .sensuba-card-mark.sensuba-card-mark-sakuramark {
 
-    background: url('./images/extra/sakura.png');
+    background: url('/game/images/extra/sakura.png');
     background-size: 100%;
     /*animation: sakuramark-rotation 6s alternate infinite ease-in-out;*/
 }
@@ -938,7 +938,7 @@
 
 .sensuba-card-view .sensuba-card-mark.sensuba-card-mark-reipromote {
 
-    background: url('./images/extra/rei.png');
+    background: url('/game/images/extra/rei.png');
     background-size: 100%;
     top: -0.2em;
     left: 13.3em;
@@ -954,7 +954,7 @@
 
 .sensuba-card-view .sensuba-card-mark.sensuba-card-mark-acceleratorvector {
 
-    background: url('./images/extra/accelerator.png');
+    background: url('/game/images/extra/accelerator.png');
     background-size: 100%;
     /*animation: sakuramark-rotation 6s alternate infinite ease-in-out;*/
 }
@@ -977,7 +977,7 @@
     position: absolute;
     top: 0em;
     left: -2.5em;
-    background: url('./images/arrow.png');
+    background: url('/game/images/arrow.png');
     background-size: 100%;
     filter: drop-shadow(0 0 0.4em #efe2a0);
 }
@@ -1026,7 +1026,7 @@
     position: absolute;
     top: 0em;
     left: -2.5em;
-    background: url('./images/lethal.png');
+    background: url('/game/images/lethal.png');
     background-size: 100%;
     animation: lethalopacity 4s infinite, lethalsize 2s infinite alternate, lethalcolor 2s infinite alternate;
 }
@@ -1071,7 +1071,7 @@
     position: absolute;
     top: 0em;
     left: -2.5em;
-    background: url('./images/initiative.png');
+    background: url('/game/images/initiative.png');
     background-size: 100%;
     animation: initiativerotate 10s infinite linear;
 }
@@ -1108,7 +1108,7 @@
   width: 4.5em;
     height: 5em;
     margin: 0.4em auto;
-    background: url('./images/cover.png');
+    background: url('/game/images/cover.png');
     background-size: 100%;
 }
 
@@ -1138,7 +1138,7 @@
   width: 3em;
   height: 4em;
   margin: 0.4em auto;
-  background: url('./images/lastwill.png');
+  background: url('/game/images/lastwill.png');
   background-size: 100%;
   opacity: 0.8;
   filter: drop-shadow(1px 2px 1px #606060);
@@ -1250,7 +1250,7 @@
     position: absolute;
     top: 0em;
     left: -2.5em;
-    background: url('./images/silence.png');
+    background: url('/game/images/silence.png');
     background-size: 100%;
     animation: silencerotate 10s infinite linear;
 }
@@ -1266,7 +1266,7 @@
     top: 4.5em;
     left: 2em;
     transform: translateZ(0.5em);
-    background: url('./images/silence.png');
+    background: url('/game/images/silence.png');
     background-size: 100%;
     animation: silencerotate 10s infinite linear reverse;
 }
@@ -1308,7 +1308,7 @@
 #img-preview-tooltip .img-preview-tooltip-icon.img-preview-icon-attack,
 #img-preview-tooltip .img-preview-tooltip-icon.img-preview-icon-play {
 
-  background: url('./images/targetarrow.png');
+  background: url('/game/images/targetarrow.png');
   background-repeat: no-repeat;
   background-size: 100%;
   filter: drop-shadow(0.2vh 0.2vh 0.2vh #202020F0);
@@ -1317,7 +1317,7 @@
 #img-preview-tooltip .img-preview-tooltip-icon.img-preview-icon-action,
 #img-preview-tooltip .img-preview-tooltip-icon.img-preview-icon-skill {
 
-  background: url('./images/arrow.png');
+  background: url('/game/images/arrow.png');
   background-repeat: no-repeat;
   background-size: 100%;
   transform: scaleX(-1);

@@ -884,6 +884,7 @@
 .sensuba-card .sensuba-card-edition.sensuba-card-edition-3 { background-image: url("Images/guardianstar.png"); }
 .sensuba-card .sensuba-card-edition.sensuba-card-edition-4 { background-image: url("Images/secret.png"); }
 .sensuba-card .sensuba-card-edition.sensuba-card-edition-5 { background-image: url("Images/crossroads.png"); }
+.sensuba-card .sensuba-card-edition.sensuba-card-edition-6 { background-image: url("Images/book.png"); }
 
 .sensuba-card .sensuba-card-invisible {
 
@@ -928,4 +929,30 @@
 @keyframes card-halo-targetable {
   0%   { box-shadow: 0 0 0.8em 0.2em #FF0000; }
   100% { box-shadow: 0 0 0.8em 0.6em #FF0000; }
+}
+
+.sensuba-card-charge {
+
+    display: flex;
+    width: 15em;
+    height: 2.5em;
+    background: #717377;
+    position: absolute;
+    bottom: 0;
+}
+
+.sensuba-card-charge .sensuba-card-charge-count {
+    
+    width: 2.6em;
+    margin: 0.2em;
+    height: 2em;
+    border-radius: 0.5em;
+    background: linear-gradient(40deg, #ffffff80, #ffffff40);
+}
+
+.sensuba-card-charge .sensuba-card-charge-count.sensuba-card-charge-on {
+    
+    background: linear-gradient(40deg, red, orange);
+    box-shadow: inset 0px 0px 2px 0px #808080;
+    border: 1px solid #80808080;
 }

@@ -274,6 +274,12 @@ export default class Card {
 		//this.gameboard.notify("curepoison", this, value);
 	}
 
+	charge (charge) {
+
+		//this.gameboard.notify("charge", this, charge);
+		this.charges = Math.min(5, Math.max(0, (this.charges || 0) + charge));
+	}
+
 	boost (atk, hp, range) {
 
 		if (atk === 0 && hp === 0 && range === 0)

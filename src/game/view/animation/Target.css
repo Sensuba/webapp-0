@@ -4,7 +4,7 @@
     margin-left: -4.0675vw;
     content: "";
     margin-top: 1.3075vw;
-    background: url('../../images/target.png');
+    background: url('/images/target.png');
     background-size: 100%;
     border-radius: 50%;
     position: absolute;
