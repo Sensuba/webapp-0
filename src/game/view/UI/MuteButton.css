@@ -25,14 +25,14 @@
     height: 2.4vw;
     width: 2.4vw;
     border: 0.2vw solid black;
-    background: url('/images/game/sound.png');
+    background: url('/game/images/game/sound.png');
     background-size: 100%;
     cursor: pointer;
 }
 
 .mute-button.muted {
 
-    background: url('/images/game/mute.png');
+    background: url('/game/images/game/mute.png');
     background-size: 100%;
 }
 
