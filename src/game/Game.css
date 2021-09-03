@@ -500,8 +500,7 @@
 .sensuba-tile.sensuba-hazards-water .sensuba-tile-weather { background-color: rgba(0, 0, 200, 0.1); display: inline-block; }
 .sensuba-tile.sensuba-hazards-flowers .sensuba-tile-weather { background-color: rgba(0, 200, 0, 0.1); display: inline-block; }
 .sensuba-tile.sensuba-hazards-butterflies .sensuba-tile-weather { background-color: rgba(120, 0, 200, 0.1); display: inline-block; }
-/*.sensuba-tile.sensuba-hazards-wind .sensuba-tile-weather { background-color: rgba(0, 170, 170, 0.1) }
-.sensuba-tile.sensuba-hazards-portal .sensuba-tile-weather { background-color: rgba(0, 0, 0, 0.15) }*/
+.sensuba-tile.sensuba-hazards-wind .sensuba-tile-weather { background-color: rgba(0, 170, 170, 0.1); display: inline-block; }
 
 .sensuba-tile.sensuba-hazards-fire .sensuba-tile-weather .particle {
 
@@ -523,6 +522,13 @@
 .sensuba-tile.sensuba-hazards-butterflies .sensuba-tile-weather .particle {
 
    background-image: url('/game/images/butterfly.png');
+   background-size: 2vw;
+   background-repeat: no-repeat;
+}
+
+.sensuba-tile.sensuba-hazards-wind .sensuba-tile-weather .particle {
+
+   background-image: url('/game/images/wind.png');
    background-size: 2vw;
    background-repeat: no-repeat;
 }

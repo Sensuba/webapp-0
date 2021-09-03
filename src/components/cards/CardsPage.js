@@ -302,6 +302,7 @@ export default class CardsPage extends Component {
               <div onClick={() => this.buyBooster(3)} className="sensuba-shop-booster"><Booster expansion="Etoile Gardienne" theme="darksky" img="/guardianstar.jpg"/></div>
               <div onClick={() => this.buyBooster(4)} className="sensuba-shop-booster"><Booster expansion="Grand Bal Masqué" theme="hot" img="/masquerade.jpg"/></div>
               <div onClick={() => this.buyBooster(5)} className="sensuba-shop-booster"><Booster expansion="Croisée des Horizons" theme="aquamarine" img="/lands.png"/></div>
+              { /* <div onClick={() => this.buyBooster(6)} className="sensuba-shop-booster"><Booster expansion="Academie Supermagique" theme="purple" img="/magic.jpg"/></div> */ }
             </div>
           </Lightbox> : <span/>
         }
@@ -360,7 +361,7 @@ export default class CardsPage extends Component {
                 <option value="3">Etoile Gardienne</option>
                 <option value="4">Grand Bal Masqué</option>
                 <option value="5">Croisée des Horizons</option>
-                { (() => { if (User.isConnected() && User.getData().authorization > 3) return <option value="6">A venir</option> })() }
+                { (() => { if (User.isConnected() && User.getData().authorization > 3) return <option value="6">Académie Supermagique</option> })() }
               </select>
               <div>
                 { (nocards > 0 ? <b>{ nocards }</b> : "Aucune")}{ " carte" + (nocards > 1 ? "s" : "") + " trouvée" + (nocards > 1 ? "s" : "") }
@@ -509,6 +510,17 @@ export default class CardsPage extends Component {
                   { mode === "collection" && !(card.count === undefined && card.cardType === "hero") && card.count !== 1 ? <div className="sensuba-card-count">{"x" + (card.count || 2)}</div> : <span/> }
                   </a>)
             }
+          </div>
+          <div className="sensuba-search-page sensuba-search-page-bottom">
+           {
+            nocards > displaysize ?
+            <div>
+              <span className={"sensuba-search-page-button" + (page > 0 ? "" : " sensuba-search-page-locked-button")} onClick={page > 0 ? () => goPage(page-1) : () => {}}>&#11164;</span>
+              <span className="sensuba-search-page-text">{ (page + 1) + " / " + (Math.floor((nocards-1) / displaysize + 1)) }</span>
+              <span className={"sensuba-search-page-button" + (page < Math.floor((nocards-1) / displaysize) ? "" : " sensuba-search-page-locked-button")} onClick={page < Math.floor((nocards-1) / displaysize) ? () => goPage(page+1) : () => {}}>&#11166;</span> 
+            </div>
+            : <span/>
+           }
           </div>
           {
             mode === "collection" || (!mode && User.isConnected()) ?

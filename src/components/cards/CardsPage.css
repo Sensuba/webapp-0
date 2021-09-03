@@ -213,6 +213,11 @@
   padding-right: calc(4px + 0.4em);
 }
 
+.sensuba-search-page-bottom {
+
+  margin-top: 1em;
+}
+
 .sensuba-search-page-text {
 
   margin: 0 0.2em;

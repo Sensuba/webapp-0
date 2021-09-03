@@ -186,7 +186,13 @@
 
 .sensuba-booster-purple .sensuba-booster-extremum { background: #1C1442 }
 .sensuba-booster-purple .sensuba-booster-medium { background: #86398E }
+.sensuba-booster-purple .sensuba-booster-expansion-name { color: white; text-shadow: 0 0 0.25rem #004040; font-size: 2.6em; top: 13.8rem; line-height: 0.8em; font-family: EnchantedLand; }
 .sensuba-booster-purple .sensuba-booster-filter { background: linear-gradient(#1C1442, #86398E 10%, #86398E 15%, transparent 30%, transparent 75%, #1C1442) }
+
+@font-face {
+  font-family: EnchantedLand;
+  src: url('../Fonts/EnchantedLand.ttf');
+}
 
 .sensuba-booster-golden .sensuba-booster-extremum { background: darkgoldenrod }
 .sensuba-booster-golden .sensuba-booster-medium { background: lightgoldenrodyellow }
