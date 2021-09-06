@@ -62,8 +62,8 @@ export default class Chatbox extends Component {
 		var el = document.getElementById("sensuba-chat-input");
 		e.preventDefault();
 		var text = el.value;
-		if (text.length <= 0 || text.length >= 100)
-			return;
+		/*if (text.length <= 0 || text.length >= 100)
+			return;*/
 		this.props.master.props.getSocket().emit("chat", el.value);
 		el.value = "";
 	}
@@ -83,7 +83,7 @@ export default class Chatbox extends Component {
     		}
     		</div>
     		<form autoComplete="off" onSubmit={e => this.submit(e)}>
-    			<Input id="sensuba-chat-input" className="sensuba-chat-input" defaultValue=""/>
+    			<Input id="sensuba-chat-input" className="sensuba-chat-input" maxLength="120" defaultValue=""/>
     		</form> 
     	</div>
     )
