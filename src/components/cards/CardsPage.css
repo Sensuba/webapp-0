@@ -191,6 +191,7 @@
   border: 1px solid;
   border-radius: 0.3em;
   cursor: pointer;
+  position: relative;
 }
 
 .sensuba-card-search .colors-group label {
@@ -253,19 +254,25 @@
   padding: 0.375rem;
 }
 
-.colors-group #neutral-mana + label, .colors-group #neutral-mana-2 + label { border-color: rgb(133, 167, 193) }
-.colors-group #white-mana + label, .colors-group #white-mana-2 + label { border-color: rgb(232, 209, 97) }
-.colors-group #red-mana + label, .colors-group #red-mana-2 + label { border-color: rgb(247, 69, 69) }
-.colors-group #blue-mana + label, .colors-group #blue-mana-2 + label { border-color: rgb(17, 150, 216) }
-.colors-group #green-mana + label, .colors-group #green-mana-2 + label { border-color: rgb(142, 197, 102) }
-.colors-group #black-mana + label, .colors-group #black-mana-2 + label { border-color: rgb(80, 26, 53) }
+.colors-group #neutral-mana + label, .colors-group #neutral-mana-2 + label { border-color: rgb(133, 167, 193); }
+.colors-group #neutral-mana + label::before, .colors-group #neutral-mana-2 + label::before { content: ""; position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-size: 100%; background-repeat: no-repeat; background-image: url("/cards/neutral.png"); opacity: 50%; }
+.colors-group #white-mana + label, .colors-group #white-mana-2 + label { border-color: rgb(232, 209, 97); }
+.colors-group #white-mana + label::before, .colors-group #white-mana-2 + label::before { content: ""; position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-size: 100%; background-repeat: no-repeat; background-image: url("/cards/white.png"); opacity: 50%; }
+.colors-group #red-mana + label, .colors-group #red-mana-2 + label { border-color: rgb(247, 69, 69); }
+.colors-group #red-mana + label::before, .colors-group #red-mana-2 + label::before { content: ""; position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-size: 100%; background-repeat: no-repeat; background-image: url("/cards/red.png"); opacity: 50%; }
+.colors-group #blue-mana + label, .colors-group #blue-mana-2 + label { border-color: rgb(17, 150, 216); }
+.colors-group #blue-mana + label::before, .colors-group #blue-mana-2 + label::before { content: ""; position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-size: 100%; background-repeat: no-repeat; background-image: url("/cards/blue.png"); opacity: 50%; }
+.colors-group #green-mana + label, .colors-group #green-mana-2 + label { border-color: rgb(142, 197, 102); }
+.colors-group #green-mana + label::before, .colors-group #green-mana-2 + label::before { content: ""; position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-size: 100%; background-repeat: no-repeat; background-image: url("/cards/green.png"); opacity: 50%; }
+.colors-group #black-mana + label, .colors-group #black-mana-2 + label { border-color: rgb(80, 26, 53); }
+.colors-group #black-mana + label::before, .colors-group #black-mana-2 + label::before { content: ""; position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-size: 100%; background-repeat: no-repeat; background-image: url("/cards/black.png"); opacity: 50%; }
 
-.colors-group #neutral-mana:checked + label, .colors-group #neutral-mana-2:checked + label { background-color: rgb(133, 167, 193) }
-.colors-group #white-mana:checked + label, .colors-group #white-mana-2:checked + label { background-color: rgb(232, 209, 97) }
-.colors-group #red-mana:checked + label, .colors-group #red-mana-2:checked + label { background-color: rgb(247, 69, 69) }
-.colors-group #blue-mana:checked + label, .colors-group #blue-mana-2:checked + label { background-color: rgb(17, 150, 216) }
-.colors-group #green-mana:checked + label, .colors-group #green-mana-2:checked + label { background-color: rgb(142, 197, 102) }
-.colors-group #black-mana:checked + label, .colors-group #black-mana-2:checked + label { background-color: rgb(80, 26, 53) }
+.colors-group #neutral-mana:checked + label, .colors-group #neutral-mana-2:checked + label { background-color: rgb(133, 167, 193); background-size: 100%; background-repeat: no-repeat; background-image: url("/cards/neutral.png"); }
+.colors-group #white-mana:checked + label, .colors-group #white-mana-2:checked + label { background-color: rgb(232, 209, 97); background-size: 100%; background-repeat: no-repeat; background-image: url("/cards/white.png"); }
+.colors-group #red-mana:checked + label, .colors-group #red-mana-2:checked + label { background-color: rgb(247, 69, 69); background-size: 100%; background-repeat: no-repeat; background-image: url("/cards/red.png"); }
+.colors-group #blue-mana:checked + label, .colors-group #blue-mana-2:checked + label { background-color: rgb(17, 150, 216); background-size: 100%; background-repeat: no-repeat; background-image: url("/cards/blue.png"); }
+.colors-group #green-mana:checked + label, .colors-group #green-mana-2:checked + label { background-color: rgb(142, 197, 102); background-size: 100%; background-repeat: no-repeat; background-image: url("/cards/green.png"); }
+.colors-group #black-mana:checked + label, .colors-group #black-mana-2:checked + label { background-color: rgb(80, 26, 53); background-size: 100%; background-repeat: no-repeat; background-image: url("/cards/black.png"); }
 
 .colors-group #collection-check + label { border: none; background: url("./collection.png"); background-repeat: no-repeat; background-size: 100%; }
 .colors-group #collection-check.true + label { background: url("./incollection.png"); background-repeat: no-repeat; background-size: 100%; }

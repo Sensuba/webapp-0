@@ -61,8 +61,8 @@ export default class Chatbox extends Component {
 
 		var el = document.getElementById("sensuba-chat-input");
 		e.preventDefault();
-		var text = el.value;
-		/*if (text.length <= 0 || text.length >= 100)
+		/*var text = el.value;
+		if (text.length <= 0 || text.length >= 100)
 			return;*/
 		this.props.master.props.getSocket().emit("chat", el.value);
 		el.value = "";

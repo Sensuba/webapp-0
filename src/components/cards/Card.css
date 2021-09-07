@@ -565,7 +565,7 @@
 .sensuba-card .sensuba-card-param-hp, .sensuba-card .sensuba-card-param-poison { left: 17.5em }
 
 .sensuba-card.sensuba-hero .sensuba-card-param-atk { left: 12.5em; top: 45em; }
-.sensuba-card.sensuba-hero .sensuba-card-param-hp, .sensuba-card.sensuba-hero .sensuba-card-param-poison { left: 23em; top: 6em; font-weight: bold; }
+.sensuba-card.sensuba-hero .sensuba-card-param-hp, .sensuba-card.sensuba-hero .sensuba-card-param-poison { left: 23em; top: 6.5em; font-weight: bold; }
 
 .sensuba-card.sensuba-artifact .sensuba-card-param-hp { left: 3.5em }
 
@@ -832,6 +832,56 @@
     border-left: 0.02em solid gold;
     border-right: 0.02em solid gold;
 }
+
+.sensuba-card .sensuba-card-rune {
+
+    position: absolute;
+    z-index: 0;
+    height: 1.5em;
+    width: 1.5em;
+    right: 4%;
+    top: 1.8em;
+    margin-left: -0.35em;
+    filter: drop-shadow(0 0 0.05em #00000080);
+}
+
+.sensuba-card.white-mana .sensuba-card-rune { background-size: 50%; background-repeat: no-repeat; background-image: url("/cards/white.png"); }
+.sensuba-card.red-mana .sensuba-card-rune { background-size: 50%; background-repeat: no-repeat; background-image: url("/cards/red.png"); }
+.sensuba-card.blue-mana .sensuba-card-rune { background-size: 50%; background-repeat: no-repeat; background-image: url("/cards/blue.png"); }
+.sensuba-card.green-mana .sensuba-card-rune { background-size: 50%; background-repeat: no-repeat; background-image: url("/cards/green.png"); }
+.sensuba-card.black-mana .sensuba-card-rune { background-size: 50%; background-repeat: no-repeat; background-image: url("/cards/black.png"); }
+
+.sensuba-card.sensuba-hero .sensuba-card-rune {
+
+    right: 9%;
+}
+
+.sensuba-card.sensuba-hero .sensuba-card-rune + .sensuba-card-rune {
+    
+    right: 4%;
+}
+
+.sensuba-card.sensuba-hero.white-mana.red-mana .sensuba-card-rune,
+.sensuba-card.sensuba-hero.white-mana.blue-mana .sensuba-card-rune,
+.sensuba-card.sensuba-hero.white-mana.green-mana .sensuba-card-rune,
+.sensuba-card.sensuba-hero.white-mana.black-mana .sensuba-card-rune { background-size: 55%; background-repeat: no-repeat; background-image: url("/cards/white.png"); }
+.sensuba-card.sensuba-hero.red-mana.blue-mana .sensuba-card-rune,
+.sensuba-card.sensuba-hero.red-mana.green-mana .sensuba-card-rune,
+.sensuba-card.sensuba-hero.red-mana.black-mana .sensuba-card-rune { background-size: 55%; background-repeat: no-repeat; background-image: url("/cards/red.png"); }
+.sensuba-card.sensuba-hero.blue-mana.green-mana .sensuba-card-rune,
+.sensuba-card.sensuba-hero.blue-mana.black-mana .sensuba-card-rune { background-size: 55%; background-repeat: no-repeat; background-image: url("/cards/blue.png"); }
+.sensuba-card.sensuba-hero.green-mana.black-mana .sensuba-card-rune { background-size: 55%; background-repeat: no-repeat; background-image: url("/cards/green.png"); }
+.sensuba-card.sensuba-hero.black-mana.red-mana .sensuba-card-rune + .sensuba-card-rune,
+.sensuba-card.sensuba-hero.black-mana.blue-mana .sensuba-card-rune + .sensuba-card-rune,
+.sensuba-card.sensuba-hero.black-mana.green-mana .sensuba-card-rune + .sensuba-card-rune,
+.sensuba-card.sensuba-hero.black-mana.white-mana .sensuba-card-rune + .sensuba-card-rune { background-size: 55%; background-repeat: no-repeat; background-image: url("/cards/black.png"); }
+.sensuba-card.sensuba-hero.green-mana.blue-mana .sensuba-card-rune + .sensuba-card-rune,
+.sensuba-card.sensuba-hero.green-mana.red-mana .sensuba-card-rune + .sensuba-card-rune,
+.sensuba-card.sensuba-hero.green-mana.white-mana .sensuba-card-rune + .sensuba-card-rune { background-size: 55%; background-repeat: no-repeat; background-image: url("/cards/green.png"); }
+.sensuba-card.sensuba-hero.blue-mana.red-mana .sensuba-card-rune + .sensuba-card-rune,
+.sensuba-card.sensuba-hero.blue-mana.white-mana .sensuba-card-rune + .sensuba-card-rune { background-size: 55%; background-repeat: no-repeat; background-image: url("/cards/blue.png"); }
+.sensuba-card.sensuba-hero.red-mana.white-mana .sensuba-card-rune + .sensuba-card-rune { background-size: 55%; background-repeat: no-repeat; background-image: url("/cards/red.png"); }
+
 
 .sensuba-card .sensuba-frame-icon {
 
