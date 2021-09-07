@@ -843,6 +843,7 @@
     top: 1.8em;
     margin-left: -0.35em;
     filter: drop-shadow(0 0 0.05em #00000080);
+    opacity: 0.9;
 }
 
 .sensuba-card.white-mana .sensuba-card-rune { background-size: 50%; background-repeat: no-repeat; background-image: url("/cards/white.png"); }
