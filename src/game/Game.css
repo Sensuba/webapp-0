@@ -501,6 +501,7 @@
 .sensuba-tile.sensuba-hazards-flowers .sensuba-tile-weather { background-color: rgba(0, 200, 0, 0.1); display: inline-block; }
 .sensuba-tile.sensuba-hazards-butterflies .sensuba-tile-weather { background-color: rgba(120, 0, 200, 0.1); display: inline-block; }
 .sensuba-tile.sensuba-hazards-wind .sensuba-tile-weather { background-color: rgba(0, 170, 170, 0.1); display: inline-block; }
+.sensuba-tile.sensuba-hazards-shadow .sensuba-tile-weather { background-color: rgba(0, 0, 0, 0.2); display: inline-block; }
 
 .sensuba-tile.sensuba-hazards-fire .sensuba-tile-weather .particle {
 
@@ -533,6 +534,13 @@
    background-repeat: no-repeat;
 }
 
+.sensuba-tile.sensuba-hazards-shadow .sensuba-tile-weather .particle {
+
+   background-image: url('/game/images/smoke.png');
+   background-size: 2vw;
+   background-repeat: no-repeat;
+}
+
 .particle:nth-of-type(1) { animation-delay: 0s; left: 2vw; bottom: 4vw; }
 .particle:nth-of-type(2) { animation-delay: 0.5s; left: 5vw; bottom: 2vw; }
 .particle:nth-of-type(3) { animation-delay: 1s; left: 2vw; bottom: 0vw; }
@@ -541,6 +549,16 @@
 .particle:nth-of-type(6) { animation-delay: 2.5s; left: 1vw; bottom: 0vw; }
 .particle:nth-of-type(7) { animation-delay: 3s; left: 4vw; bottom: 1vw; }
 .particle:nth-of-type(8) { animation-delay: 3.5s; left: 3vw; bottom: 6vw; }
+
+.sensuba-hazards-shadow .particle { animation: rise 8s ease-in infinite; }
+.sensuba-hazards-shadow .particle:nth-of-type(1) { animation-delay: 0s; }
+.sensuba-hazards-shadow .particle:nth-of-type(2) { animation-delay: 1s; }
+.sensuba-hazards-shadow .particle:nth-of-type(3) { animation-delay: 2s; }
+.sensuba-hazards-shadow .particle:nth-of-type(4) { animation-delay: 3s; }
+.sensuba-hazards-shadow .particle:nth-of-type(5) { animation-delay: 4s; }
+.sensuba-hazards-shadow .particle:nth-of-type(6) { animation-delay: 5s; }
+.sensuba-hazards-shadow .particle:nth-of-type(7) { animation-delay: 6s; }
+.sensuba-hazards-shadow .particle:nth-of-type(8) { animation-delay: 7s; }
 
 @keyframes rise {
   0% {

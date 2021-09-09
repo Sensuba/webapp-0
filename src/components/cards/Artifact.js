@@ -53,6 +53,7 @@ export default class Artifact extends Component {
 	        	{src.nameCard}
 	        </div>
 	    </div>
+	    <div className="sensuba-card-rune"/>
 	    { src.illustrator ? <div className="sensuba-card-illustrator">Illus: {src.illustrator}</div> : <span/> }
 	    <div className="sensuba-card-body">
 	    	<div className="sensuba-card-body-header">
