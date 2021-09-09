@@ -267,8 +267,11 @@ export default class Game extends Component {
       model.areas[1].name = n.data[3].value;
       model.areas[1].avatar = n.data[4].value;
     }
-    if (n.type === "identify" && this.no !== undefined && n.data[0].cardType === "hero" && this.state.model.areas[this.no].field.tiles[6].occupied && this.state.model.areas[this.no].field.tiles[6].card.id.no === n.data[0].id.no)
-      this.setState({ hero: n.data[0] });
+    if (n.type === "identify" && this.no !== undefined && n.data[0].cardType === "hero" /*&& this.state.model.areas[this.no].field.tiles[6].occupied && this.state.model.areas[this.no].field.tiles[6].card.id.no === n.data[0].id.no*/) {
+      if (this.prevHero)
+        this.setState({ hero: ((this.prevHero.no > n.data[0].no) === (this.no > 0) ? this.prevHero : n.data[0]) });
+      else this.prevHero = n.data[0];
+    }
     this.sequencer.add(n);
   }
 
