@@ -65,7 +65,7 @@ export default class Card {
 	summon (tile) {
 
 		this.skillPt = 1;
-		if (this.destroyed) {console.log("d")
+		if (this.destroyed) {
 			this.goto(this.area.capsule);
 			this.resetBody();
 			this.chp = this.eff.hp;
@@ -403,7 +403,7 @@ export default class Card {
 		this.become(data);
 	}
 
-	become (data) {
+	become (data) {console.log(data);
 
 		let wasActivated = this.activated;
 		if (this.activated)
