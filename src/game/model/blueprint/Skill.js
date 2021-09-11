@@ -19,7 +19,7 @@ class Skill extends Bloc {
 
 		var cpt = this.computeIn();
 		var req = cpt[0];
-		var tar = this.target ? (req ? (src, target) => (req(src, target) && (!target.card || target.card.targetableBy(owner))) : (src, target) => true) : null;
+		var tar = this.target ? (req ? (src, target) => (this.in[0]()(src, target) && (!target.card || target.card.targetableBy(owner))) : (src, target) => true) : null;
 		var costText = cpt[2];
 		if (owner.isType("artifact") && costText > 0)
 			costText = "+" + costText;

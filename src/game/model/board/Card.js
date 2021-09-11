@@ -64,12 +64,19 @@ export default class Card {
 
 	summon (tile) {
 
-		if (this.dying)
-			this.resetBody();
 		this.skillPt = 1;
-		this.chp = this.eff.hp;
-		this.php = { hp: this.hp, chp: this.chp }
-		this.goto(tile);
+		if (this.destroyed) {console.log("d")
+			this.goto(this.area.capsule);
+			this.resetBody();
+			this.chp = this.eff.hp;
+			this.php = { hp: this.hp, chp: this.chp }
+			this.goto(tile);
+		}
+		else {
+			this.chp = this.eff.hp;
+			this.php = { hp: this.hp, chp: this.chp }
+			this.goto(tile);
+		}
 		if (this.isType("character"))
 			this.resetSickness();
 		this.activate();
@@ -103,7 +110,7 @@ export default class Card {
 			this.deactivate();
 		if (former && former.hasCard (this))
 			former.removeCard (this);
-		if (former && (loc === null || former.locationOrder > loc.locationOrder || former.locationOrder === 0))
+		if (former && (loc === null || former.locationOrder > loc.locationOrder || former.locationOrder === 0)) 
 			this.resetBody ();
 		if (loc && !loc.hasCard (this))
 			loc.addCard (this);
@@ -166,6 +173,8 @@ export default class Card {
 			this.activate();
 		if (this.blueprint)
 			Reader.read(this.blueprint, this);
+		if (this.isType("artifact") || this.isType("secret"))
+			this.faculties.push({no: this.faculties.length, desc: "Explose.", cost: 0});
 		if (this.isType("secret")) {
 			if (this.faculties.length === 2)
 				this.secreteffect = 0;
@@ -346,7 +355,9 @@ export default class Card {
 		this.cmutations = [];
 		this.passives = [];
 		this.events = [];
-		this.states = {};
+		if (this.hasState("glazed"))
+			this.states = { glazed: true };
+		else this.states = {};
 		delete this.poisondmg;
 		delete this.blueprint;
 		delete this.lastwill;
@@ -457,7 +468,7 @@ export default class Card {
 				lvupf.show = Object.assign({}, this, { level: this.level === 1 ? 2 : 3 });
 		}
 		if (this.isType("artifact") || this.isType("secret"))
-			this.faculties.push({no: this.faculties.length, desc: "Explose.", cost: "0"});
+			this.faculties.push({no: this.faculties.length, desc: "Explose.", cost: 0});
 		if (this.isType("secret")) {
 			if (this.faculties.length === 2)
 				this.secreteffect = 0;
@@ -519,8 +530,8 @@ export default class Card {
 			if (lvupf)
 				lvupf.show = Object.assign({}, this, { level: this.level === 1 ? 2 : 3 });
 		}
-		if (this.isType("artifact"))
-			this.faculties.push({no: this.faculties.length, desc: "Explose.", cost: "0"});
+		if (this.isType("artifact") || this.isType("secret"))
+			this.faculties.push({no: this.faculties.length, desc: "Explose.", cost: 0});
 		this.gameboard.update();
 		this.activate();
 	}

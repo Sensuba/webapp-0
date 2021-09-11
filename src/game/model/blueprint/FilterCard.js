@@ -7,8 +7,8 @@ class FilterCard extends Bloc {
 
 		super("filtercard", src, ctx);
 		this.f = (src, ins) => [
-			target => target && target === ins[0],
-			target => target !== ins[0],
+			target => target && ins[0] && target.id === ins[0].id,
+			target => (target && ins[0]) ? (target.id !== ins[0].id) : target !== ins[0],
 			target => target && ins[0] && this.compareCards(target, ins[0]),
 			target => target && ins[0] && target.idCardmodel === ins[0].idCardmodel
 		];
