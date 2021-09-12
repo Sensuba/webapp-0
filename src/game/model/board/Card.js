@@ -403,7 +403,7 @@ export default class Card {
 		this.become(data);
 	}
 
-	become (data) {console.log(data);
+	become (data) {
 
 		let wasActivated = this.activated;
 		if (this.activated)

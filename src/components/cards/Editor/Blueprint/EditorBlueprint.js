@@ -146,6 +146,7 @@ const blocks = [
 	{ type: "token", name: "Token", model: [ {inout: "in", type: "int", name: "no"}, {inout: "out", type: "model", name: "model"} ], tooltip: "Récupère le modèle d'un jeton associé à la carte", color: "#670e6b" },
 	{ type: "limitbrk", name: "Limit break", model: [ {inout: "out", type: "int", name: "bonus"} ], tooltip: "Bonus de valeur numérique associé à la surcharge", color: "#670e6b" },
 	{ type: "current", name: "Current player", model: [ {inout: "out", type: "area", name: "player"} ], tooltip: "Joueur dont c'est le tour", color: "#670e6b" },
+	{ type: "source", name: "Source", model: [ {inout: "out", type: "card", name: "src"} ], tooltip: "La carte à qui appartient ce blueprint", color: "#670e6b" },
 	{ type: "manapool", name: "Mana pool", model: [ {inout: "in", type: "area", name: "player"}, {inout: "out", type: "int", name: "mana"}, {inout: "out", type: "int", name: "receptacles"}, {inout: "out", type: "int", name: "gems"} ], tooltip: "Informations sur le mana d'un joueur", color: "#670e6b" },
 	{ type: "highlander", name: "Highlander", model: [ {inout: "in", type: "area", name: "player"}, {inout: "out", type: "bool", name: "highlander"} ], tooltip: "Vérifie si toutes les cartes du deck de départ d'un joueur sont uniques", color: "#670e6b" },
 	{ type: "innerdata", name: "Mutant", model: [ {inout: "out", type: "card", name: "target"} ], tooltip: "Carte pour laquelle s'effectue le calcul de mutation en cours", color: "#670e6b" },
