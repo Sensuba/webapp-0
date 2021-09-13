@@ -987,15 +987,15 @@
     display: flex;
     width: 15em;
     height: 2.5em;
-    background: #717377;
     position: absolute;
-    bottom: 0;
+    top: -0.5em;
 }
 
 .sensuba-card-charge .sensuba-card-charge-count {
     
-    width: 2.6em;
-    margin: 0.2em;
+    transform: skewX(-20deg);
+    width: 2.96em;
+    margin: .02em;
     height: 2em;
     border-radius: 0.5em;
     background: linear-gradient(40deg, #ffffff80, #ffffff40);
@@ -1007,3 +1007,9 @@
     box-shadow: inset 0px 0px 2px 0px #808080;
     border: 1px solid #80808080;
 }
+
+.sensuba-card-charge-count.sensuba-card-charge-on:nth-child(1) { background: linear-gradient(40deg, red, orange); }
+.sensuba-card-charge-count.sensuba-card-charge-on:nth-child(2) { background: linear-gradient(40deg, #ff3f00, #ffd800); }
+.sensuba-card-charge-count.sensuba-card-charge-on:nth-child(3) { background: linear-gradient(40deg, orange, yellow); }
+.sensuba-card-charge-count.sensuba-card-charge-on:nth-child(4) { background: linear-gradient(40deg, #ffe400, #f3ffb7); }
+.sensuba-card-charge-count.sensuba-card-charge-on:nth-child(5) { background: linear-gradient(40deg, #ffff21, white); }
