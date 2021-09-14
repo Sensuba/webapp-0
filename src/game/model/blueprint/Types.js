@@ -18,7 +18,8 @@ var targets = {
 	enemyEmpty: (src, target) => targets.enemy(src, target) && targets.empty(src, target),
 	enemyEntity: (src, target) => targets.enemy(src, target) && targets.entity(src, target),
 	enemyCharacter: (src, target) => targets.enemy(src, target) && targets.character(src, target),
-	enemyFigure: (src, target) => targets.enemy(src, target) && targets.figure(src, target)
+	enemyFigure: (src, target) => targets.enemy(src, target) && targets.figure(src, target),
+	player: (src, target) => target.occupied && target.card.isType("hero")
 };
 
 class Types {
@@ -160,6 +161,7 @@ class Types {
 		case 'enemy entity': return targets.enemyEntity;
 		case 'enemy character': return targets.enemyCharacter;
 		case 'enemy figure': return targets.enemyFigure;
+		case 'player': return targets.player;
 		default: return targets.tile;
 		}
 	}

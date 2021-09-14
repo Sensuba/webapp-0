@@ -35,6 +35,7 @@ export default class Target {
 			case 'enemy entity': return Event.targets.enemyEntity;
 			case 'enemy character': return Event.targets.enemyCharacter;
 			case 'enemy figure': return Event.targets.enemyFigure;
+			case 'player': return Event.targets.enemyFigure;
 			default: return Event.targets.tile;
 			}
 		}
