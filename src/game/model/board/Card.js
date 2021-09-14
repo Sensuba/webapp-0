@@ -362,6 +362,7 @@ export default class Card {
 		delete this.blueprint;
 		delete this.lastwill;
 		delete this.variables;
+		delete this.charges;
 		this.mana = this.originalMana;
 		this.atk = this.originalAtk;
 		this.hp = this.originalHp;
