@@ -292,7 +292,7 @@ export default class CardsPage extends Component {
                   <div className="sensuba-card-focus">{ cf.map((card, i) => <Card switch="manual" key={i} src={card} holographic={mode === "collection" && cards.find(c => c.idCardmodel.toString() === this.props.focus) && cards.find(c => c.idCardmodel.toString() === this.props.focus).holographic === 1}/>) }</div>
                   { shop ? <div className="sensuba-focus-shop">
                     { <div className="sensuba-shop-count">{"x" + shopcount}</div> }
-                    <div onClick={() => this.buyCard(cf[0].idCardmodel, pbuy)} className="shop-button">Acheter <span className="sensuba-credits">{ pbuy }</span></div>
+                    { shopcount < 1 || (shopcount < 2 && cf[0].rarity !== 4) ? <div onClick={() => this.buyCard(cf[0].idCardmodel, pbuy)} className="shop-button">Acheter <span className="sensuba-credits">{ pbuy }</span></div> : <span/> }
                     { shopcount ? <div onClick={() => this.sellCard(cf[0].idCardmodel, psell)} className="shop-button">Vendre <span className="sensuba-credits">{ psell }</span></div> : <span/> }
                   </div> : <span/> }
                 </div>
