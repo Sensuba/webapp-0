@@ -99,7 +99,7 @@ export default class DeckbuilderPage extends Component {
   updateDeck (deck) {
 
   	deck = deck || this.state.deck;
-  	this.setState({cardlist: this.loadCardlist(deck.format), deck});
+  	this.setState({cardlist: this.loadCardlist(deck.format), deck}, () => this.updateFormat(this.findFormat()));
   }
 
   loadCardlist(format) {

@@ -403,3 +403,16 @@
 
   background-color: #55eaea;
 }
+
+.sensuba-shop-count {
+
+  display: inline-block;
+  padding: 0.5em;
+  margin: 0.5em;
+  min-width: 2.5em;
+  background: #C8C8C8C0;
+  border: .05em solid #FFFFFFC0;
+  outline: .05em solid #C8C8C8C0;
+  color: #fff;
+  font-weight: 700;
+}

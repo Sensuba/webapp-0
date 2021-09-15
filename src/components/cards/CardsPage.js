@@ -279,11 +279,21 @@ export default class CardsPage extends Component {
               default: break;
               }
 
+              var shop = false, shopcount = 0;
+
+              if (User.isConnected() && cf[0].rarity && cf[0].idEdition <= 5) {
+                shop = true;
+                let shopcollec = this.props.collection.find(card => card.idCardmodel.toString() === this.props.focus);
+                if (shopcollec)
+                  shopcount = shopcollec.number;
+              }
+
               return <div>
                   <div className="sensuba-card-focus">{ cf.map((card, i) => <Card switch="manual" key={i} src={card} holographic={mode === "collection" && cards.find(c => c.idCardmodel.toString() === this.props.focus) && cards.find(c => c.idCardmodel.toString() === this.props.focus).holographic === 1}/>) }</div>
-                  { User.isConnected() && cf[0].rarity && cf[0].idEdition <= 5 ? <div className="sensuba-focus-shop">
+                  { shop ? <div className="sensuba-focus-shop">
+                    { <div className="sensuba-shop-count">{"x" + shopcount}</div> }
                     <div onClick={() => this.buyCard(cf[0].idCardmodel, pbuy)} className="shop-button">Acheter <span className="sensuba-credits">{ pbuy }</span></div>
-                    { this.props.collection.find(card => card.idCardmodel.toString() === this.props.focus) ? <div onClick={() => this.sellCard(cf[0].idCardmodel, psell)} className="shop-button">Vendre <span className="sensuba-credits">{ psell }</span></div> : <span/> }
+                    { shopcount ? <div onClick={() => this.sellCard(cf[0].idCardmodel, psell)} className="shop-button">Vendre <span className="sensuba-credits">{ psell }</span></div> : <span/> }
                   </div> : <span/> }
                 </div>
             })()

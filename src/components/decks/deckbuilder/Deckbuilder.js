@@ -203,7 +203,7 @@ export default class Deckbuilder extends Component {
       delete copycode.author;
       delete copycode.list;
       delete copycode.supercode;
-      var superCode = window.btoa(JSON.stringify(copycode).replace(/[^\x00-\x7F]/g, ""));
+      var superCode = window.btoa(JSON.stringify(copycode).replace(/"[^\x00-\x7Fàéçâîôêûöïüëäè]"/g, ""));
 
     	//var nbFigures = listCards.filter(c => c.cardType === "figure").map(c => this.props.deck.cards[c.idCardmodel]).reduce((acc, val) => acc + val, 0);
     	//var nbSpells = listCards.filter(c => c.cardType === "spell").map(c => this.props.deck.cards[c.idCardmodel]).reduce((acc, val) => acc + val, 0);

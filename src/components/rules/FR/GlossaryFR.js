@@ -151,7 +151,7 @@ export default class GlossaryFR extends Component {
               <img className="glossary-panel-background" src="/glossary/trap.png" alt="bg"/>
               <div className="glossary-panel-filter"/>
               <div className="glossary-panel-text">
-                <h3>Piège</h3>
+                <h3>Auto</h3>
                 <p>Se lance automatiquement lorsque cette carte est piochée.</p>
                 </div>
           </div>
