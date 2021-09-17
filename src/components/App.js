@@ -25,7 +25,7 @@ import sorter from '../utility/CollectionSorter';
 
 const serverURL = /*process.env.SERVER_URL || 'http://localhost:8080' ||*/ 'https://sensuba.herokuapp.com/';
 
-const nocards = 700;
+const nocards = 850;
 
 export default class App extends Component {
 

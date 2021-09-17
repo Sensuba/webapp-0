@@ -621,7 +621,7 @@
 	"744": { "basis": ["midrange"], "roles": ["tempo", "buff"], "options": [{ "type": "heal", "value": "X" }], "reward": ["board"] },
 	"664": { "basis": ["agro"], "roles": ["value"], "options": [{ "type": "draw", "value": 1.5 }], "reward": [""] },
 	"763": { "basis": ["midrange"], "roles": ["buff", "tempo"], "options": [{ "type": "boost", "value": "X" }], "reward": ["board", "range"] },
-	"773": { "basis": ["control"], "roles": ["value"], "options": [{ "type": "play", "value": 1 }, { "type": "draw", "value": "X" }], "reward": ["heroheal"] },
+	"773": { "basis": ["control"], "roles": ["value"], "options": [{ "type": "play", "value": 1 }, { "type": "exaltation", "value": "1" }, { "type": "draw", "value": "X" }], "reward": ["heroheal"] },
 	"711": { "basis": ["agro"], "roles": ["tempo"], "options": [{ "type": "play", "value": 1 }], "reward": ["secret"] },
 	"697": { "basis": ["agro"], "roles": ["tempo"], "options": [], "reward": ["overload"] },
 	"689": { "basis": ["midrange"], "roles": ["tempo"], "options": [{ "type": "initiative", "value": 0.5 }], "reward": ["cover"] },

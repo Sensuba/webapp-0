@@ -281,7 +281,7 @@ export default class CardsPage extends Component {
 
               var shop = false, shopcount = 0;
 
-              if (User.isConnected() && cf[0].rarity && cf[0].idEdition <= 5) {
+              if (User.isConnected() && cf[0].rarity && cf[0].idEdition <= 6) {
                 shop = true;
                 let shopcollec = this.props.collection.find(card => card.idCardmodel.toString() === this.props.focus);
                 if (shopcollec)
@@ -312,7 +312,7 @@ export default class CardsPage extends Component {
               <div onClick={() => this.buyBooster(3)} className="sensuba-shop-booster"><Booster expansion="Etoile Gardienne" theme="darksky" img="/guardianstar.jpg"/></div>
               <div onClick={() => this.buyBooster(4)} className="sensuba-shop-booster"><Booster expansion="Grand Bal Masqué" theme="hot" img="/masquerade.jpg"/></div>
               <div onClick={() => this.buyBooster(5)} className="sensuba-shop-booster"><Booster expansion="Croisée des Horizons" theme="aquamarine" img="/lands.png"/></div>
-              { /* <div onClick={() => this.buyBooster(6)} className="sensuba-shop-booster"><Booster expansion="Academie Supermagique" theme="purple" img="/magic.jpg"/></div> */ }
+              <div onClick={() => this.buyBooster(6)} className="sensuba-shop-booster"><Booster expansion="Academie Supermagique" theme="purple" img="/magic.jpg"/></div>
             </div>
           </Lightbox> : <span/>
         }
