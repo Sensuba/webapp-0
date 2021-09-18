@@ -10,7 +10,7 @@ class FilterModel extends Bloc {
 			if (!target || !ins[0])
 				return false;
 			if (target.idCardmodel || ins[0].idCardmodel)
-				return target.idCardmodel === ins[0].idCardmodel;console.log(ins[0].parent)
+				return target.idCardmodel === ins[0].idCardmodel;
 			if (target.parent && ins[0].parent)
 				return target.parent === ins[0].parent && target.notoken === ins[0].token;
 			return false;

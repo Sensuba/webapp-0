@@ -162,6 +162,7 @@ export default class Card {
 		this.silenced = false;
 		this.targets = [];
 		delete this.variables;
+		delete this.charges;
 		delete this.mutatedState;
 		delete this.mutdata;
 		delete this.lastwill;
@@ -484,7 +485,7 @@ export default class Card {
 				this.mutatedState.chp = data.php.chp;
 			}
 		}
-		this.update();
+		this.gameboard.update();
 		if (data && data.chp) {
 			this.chp = data.chp;
 			this.update();
