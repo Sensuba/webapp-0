@@ -11,7 +11,7 @@ class Log {
 
 	addEntry (entry) {
 
-		if (entry.src && entry.model && entry.model.idCardmodel)
+		if (entry.src && entry.src.model && (entry.src.model.idCardmodel || entry.src.model.parent))
 			entry.model = entry.src.model;
 		this.history.unshift(entry);
 	}

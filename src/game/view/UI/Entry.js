@@ -52,10 +52,20 @@ export default class Entry extends Component {
       this.hideTooltip();
   }
 
+  compareModels (a, b) {
+
+    if (a.idCardmodel && b.idCardmodel)
+      return a.idCardmodel === b.idCardmodel;
+    else if (!a.idCardmodel && !b.idCardmodel) {
+      return a.parent === b.parent;
+    }
+    else return false;
+  }
+
   render () {
 
     var src = this.props.value.src;
-    if (src && this.props.value.model && this.props.value.src.idCardmodel !== this.props.value.model.idCardmodel)
+    if (src && this.props.value.model && !this.compareModels(this.props.value.src, this.props.value.model))
       src = this.props.value.model;
 
     return (
