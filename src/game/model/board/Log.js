@@ -33,7 +33,7 @@ class Log {
 		case "triggersecret":
 		case "trap": {
 			let src = this.gameboard.find(log.src);
-			entry = {type:"trap", src};
+			entry = {type: log.type === "triggersecret" ? "secret" : "trap", src};
 			let other = log.data[0];
 			if (other) {
 				let tile = this.gameboard.find(other)
@@ -48,6 +48,9 @@ class Log {
 		}
 		case "discardcard":
 			this.history.unshift({type:"discard", src:this.gameboard.find(log.src)});
+			break;
+		case "burncard":
+			this.history.unshift({type:"burn", src:this.gameboard.find(log.src)});
 			break;
 		case "cardfaculty": {
 			entry = {type: log.data[0].value ? "action" : "skill", src:this.gameboard.find(log.src)};
@@ -72,8 +75,8 @@ class Log {
 		case "charattack":
 			this.history.unshift({type:"attack", src:this.gameboard.find(log.src), target:this.gameboard.find(log.data[0])});
 			break;
-		case "endturn":
-			this.history.unshift({type:"endturn"});
+		case "newturn":
+			this.history.unshift({type:"newturn"});
 			break;
 		default: break;
 		}

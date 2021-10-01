@@ -15,9 +15,9 @@ export default class Entry extends Component {
   showTooltip(e, card, left) {
 
   	var tooltip = document.getElementById("img-preview-tooltip");
-    if (e.pageX < 300)
+    if (e.pageX < 400)
       left = false;
-  	tooltip.setAttribute("style", `display: block; top: ${e.pageY > window.innerHeight * 0.74 - 60 + window.scrollY ? window.innerHeight * 0.74 - 60 + window.scrollY : (e.pageY < 80 + window.innerHeight * 0.2 ? 80 + window.innerHeight * 0.2 : e.pageY)}px; left: ${e.pageX}px; margin-left: ${left ? -18 : 4}em;`);
+  	tooltip.setAttribute("style", `display: block; top: ${e.pageY > window.innerHeight * 0.74 - 60 + window.scrollY ? window.innerHeight * 0.74 - 60 + window.scrollY : (e.pageY < 140 + window.innerHeight * 0.2 ? 140 + window.innerHeight * 0.2 : e.pageY)}px; left: ${e.pageX}px; margin-left: ${left ? -18 : 4}em;`);
   	var src = card && card.eff ? card.eff : card;
     var target = this.props.value.target ? (this.props.value.target.eff || this.props.value.target) : undefined;
     if (this.props.value.type === "play" && card.cardType === "secret") {
@@ -25,17 +25,21 @@ export default class Entry extends Component {
       if (!src.nameCard)
         src = SECRET_PREVIEW;
     }
-    var icon = undefined;
+    var icon = undefined, text = this.props.value.text;
     if (target) {
       switch (this.props.value.type) {
       case "play":
       case "action":
-      case "skill":
-      case "attack": icon = this.props.value.type; break;
+      case "skill": icon = this.props.value.type; break;
+      case "attack": icon = this.props.value.type; text = "Attaque"; break;
+      case "discard": text = "Défausse"; break;
+      case "burn": text = "Surpioche"; break;
+      case "secret": text = "Secret"; break;
+      case "trap": text = "Auto"; break;
       default: break;
       }
     }
-    this.props.master.updatePreview({ card: src, target, icon, text: this.props.value.text });
+    this.props.master.updatePreview({ card: src, target, icon, text });
   }
 
   hideTooltip() {

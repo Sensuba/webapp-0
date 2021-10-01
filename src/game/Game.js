@@ -359,6 +359,33 @@ export default class Game extends Component {
     this.setState({preview});
   }
 
+  stateToText (state) {
+
+    switch (state) {
+    case "initiative": return "Initiative";
+    case "rush": return "Hâte";
+    case "fury": return "Furie";
+    case "exaltation": return "Exaltation";
+    case "flying": return "Don du vol";
+    case "lethal": return "Létal";
+    case "frozen": return "Gelé";
+    case "concealed": return "Camouflé";
+    case "cover neighbors": return "Défenseur";
+    case "immune": return "Insensible";
+    case "passive": return "Passif";
+    case "static": return "Statique";
+    case "glazed": return "Verni";
+    case "cannot attack heroes": return "Passif envers héros";
+    case "corruption": return "Corruption";
+    case "vaccinated": return "Vacciné";
+    case "piercing": return "Percée";
+    case "lifelink": return "Lien de vie";
+    case "love": return "Amour";
+    case "will to live": return "Immortel";
+    default: return "?";
+    }
+  }
+
   render() {
     return (
       <div>
@@ -368,10 +395,10 @@ export default class Game extends Component {
           { this.state.model.gamestate > 1 ?
             <div>
               <CardPreview src={this.state.hero} level={1} model={this.state.hero}/>
-              { User.isConnected() && this.state.credit ? <div className="sensuba-endgame-credits">Obtenu: <span className="sensuba-credits">{this.state.credit.gain}</span> | Total: <span className="sensuba-credits">{this.state.credit.total}</span></div> : <span/> }
+              { User.isConnected() && this.state.credit ? <div className="sensuba-endgame-credits">Obtenu: <span className="sensuba-credits">{this.state.credit.gain}</span> | Total: <span className="sensuba-credits">{this.state.credit.total}</span></div> : "" }
             </div> : <span/>
           }
-          { this.props.room ? <Button onClick={() => this.saveReplay()} id="replay-button" className="modern-sensuba-button replay-button">Enregistrer</Button> : <span/> }
+          { this.props.room ? <Button onClick={() => this.saveReplay()} id="replay-button" className="modern-sensuba-button replay-button">Enregistrer</Button> : "" }
           <Button onClick={this.props.quitRoom} className="proceed-button">Continuer</Button>
         </div>
       </Lightbox>
@@ -382,16 +409,17 @@ export default class Game extends Component {
         </div>
       </Lightbox>
       <div id="faculty-tooltip" data-toggle="tooltip" data-placement="right" data-animation="false" data-trigger="manual" /*style={{marginTop: "-" + (this.state.faculties ? this.state.faculties.length-1 : 0) + "em"}}*/>
-        { this.state.faculties && this.state.faculties.length > 0 ? <FacultyBox faculties={ this.state.faculties } secret={this.state.secret} secretcount={this.state.secretcount} select={m => this.manager.select(m)} master={this}/> : <span/> }
+        { this.state.faculties && this.state.faculties.length > 0 ? <FacultyBox faculties={ this.state.faculties } secret={this.state.secret} secretcount={this.state.secretcount} select={m => this.manager.select(m)} master={this}/> : "" }
       </div>
       <div id="deck-count-tooltip" data-toggle="tooltip" data-placement="left" data-animation="false" data-trigger="manual">
         { this.state.deckcount ? (this.state.deckcount.count + " carte" + (this.state.deckcount.count > 1 ? "s" : "") + " restante"  + (this.state.deckcount.count > 1 ? "s" : "") + ".") : "" }
       </div>
       <div id="img-preview-tooltip" data-toggle="tooltip" data-placement="right" src="" alt="preview" data-animation="false" data-trigger="manual">
-        { this.state.preview && this.state.preview.card ? <CardPreview src={this.state.preview.card} level={this.state.preview.card.level} model={this.state.preview.card.model}/> : <span/> }
-        { this.state.preview && this.state.preview.target ? <CardPreview className="img-preview-tooltip-target" src={this.state.preview.target} level={this.state.preview.target.level} model={this.state.preview.target.model}/> : <span/> }
-        { this.state.preview && this.state.preview.icon ? <div className={"img-preview-tooltip-icon img-preview-icon-" + this.state.preview.icon}/> : <span/> }
-        { this.state.preview && this.state.preview.text ? <div className="img-preview-tooltip-text">{ this.state.preview.text }</div> : <span/> }
+        { this.state.preview && this.state.preview.card ? <CardPreview src={this.state.preview.card} level={this.state.preview.card.level} model={this.state.preview.card.model}/> : "" }
+        { this.state.preview && this.state.preview.card && this.state.preview.card.states && Object.keys(this.state.preview.card.states).some(k => this.state.preview.card.states[k]) ? <div className="card-preview-states">{Object.keys(this.state.preview.card.states).filter(k => this.state.preview.card.states[k]).reduce((acc, e) => acc + ", " + this.stateToText(e), "").substring(2)}</div> : "" }
+        { this.state.preview && this.state.preview.target ? <CardPreview className="img-preview-tooltip-target" src={this.state.preview.target} level={this.state.preview.target.level} model={this.state.preview.target.model}/> : "" }
+        { this.state.preview && this.state.preview.icon ? <div className={"img-preview-tooltip-icon img-preview-icon-" + this.state.preview.icon}/> : "" }
+        { this.state.preview && this.state.preview.text ? <div className="img-preview-tooltip-text">{ this.state.preview.text }</div> : "" }
       </div>
       {
         this.state.waiting
@@ -401,7 +429,7 @@ export default class Game extends Component {
             <div className="waiting-text">
               { this.props.room ? "En attente d'un adversaire..." : "En attente du serveur..." }
               <br/><span className="small-text">{ this.props.room ? "Pour affronter un ami, partagez-leur l'url." : "" }</span>
-              { this.props.room ? <span><br/><span className="small-text">{ "Pas d'adversaire ? Venez sur "}<a target="_blank" rel="noopener noreferrer" href="https://discordapp.com/invite/gqRdwg2">notre Discord</a>{"."}</span></span> : <span/> }
+              { this.props.room ? <span><br/><span className="small-text">{ "Pas d'adversaire ? Venez sur "}<a target="_blank" rel="noopener noreferrer" href="https://discordapp.com/invite/gqRdwg2">notre Discord</a>{"."}</span></span> : "" }
             </div>
           </div>
         : <span/>
@@ -411,7 +439,7 @@ export default class Game extends Component {
         <div id="screen-anim" className="screen-anim"><div className="screen-anim-inner"/></div>
       </div>
       <MuteButton switch={() => this.switchMute()} changeVolume={(volume, sfx) => this.changeVolume(volume, sfx)} master={this}/>
-      { this.props.room && !this.state.waiting ? <Chatbox master={this}/> : <span/> }
+      { this.props.room && !this.state.waiting ? <Chatbox master={this}/> : "" }
       <History entries={this.state.model.log.history} master={this}/>
       <div id="newturn-frame">
         <h1 className="big-text">A vous de jouer</h1>

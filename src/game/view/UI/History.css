@@ -20,16 +20,16 @@
     pointer-events: all;
 }
 
-.history-entry.history-endturn { height: 0.5vw; opacity: 0; }
+.history-entry.history-newturn { height: 0.5vw; opacity: 0; }
 
 .history-entry.history-play { border-color: black }
-.history-entry.history-trap { border-color: darkgray }
+.history-entry.history-trap, .history-entry.history-secret { border-color: darkgray }
 .history-entry.history-action { border-color: #d6cc3a }
 .history-entry.history-skill { border-color: #00d1a4 }
 .history-entry.history-attack { border-color: #c71606 }
-.history-entry.history-discard { border-color: #563088 }
+.history-entry.history-discard, .history-entry.history-burn { border-color: #563088 }
 
-.history-entry.history-action, .history-entry.history-skill, .history-entry.history-attack, .history-entry.history-discard { height: 1.6vw }
+.history-entry.history-action, .history-entry.history-skill, .history-entry.history-attack, .history-entry.history-discard, .history-entry.history-burn { height: 1.6vw }
 .history-entry.history-action.option-manaup, .history-entry.history-skill.option-levelup { height: 3vw }
 
 .history-entry.option-levelup::after, .history-entry.option-manaup::after {

@@ -9,9 +9,9 @@ export default class Card extends Component {
 
     var tooltip = document.getElementById("img-preview-tooltip");
     if (e) {
-      if (e.pageX < 300)
+      if (e.pageX < 400)
         left = false;
-      tooltip.setAttribute("style", `display: block; top: ${e.pageY > window.innerHeight * 0.74 - 60 + window.scrollY ? window.innerHeight * 0.74 - 60 + window.scrollY : (e.pageY < 80 + window.innerHeight * 0.2 ? 80 + window.innerHeight * 0.2 : e.pageY)}px; left: ${e.pageX}px; margin-left: ${left ? -18 : 4}em`);
+      tooltip.setAttribute("style", `display: block; top: ${e.pageY > window.innerHeight * 0.74 - 60 + window.scrollY ? window.innerHeight * 0.74 - 60 + window.scrollY : (e.pageY < 140 + window.innerHeight * 0.2 ? 140 + window.innerHeight * 0.2 : e.pageY)}px; left: ${e.pageX}px; margin-left: ${left ? -18 : 4}em`);
     }
     else tooltip.setAttribute("style", `display: block`);
     this.show = true;

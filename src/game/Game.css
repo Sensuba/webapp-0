@@ -1363,6 +1363,24 @@
     filter: drop-shadow(2px 3px 2px #202020A0);
 }
 
+#img-preview-tooltip .card-preview-states {
+
+    position: absolute;
+    font-size: 0.75em;
+    left: 4vh;
+    bottom: 21.5vh;
+    min-height: 1em;
+    width: 40vh;
+    padding: 0.4em 1em;
+    background: #FFFFFF80;
+    filter: drop-shadow(2px 3px 2px #202020A0);
+}
+
+#img-preview-tooltip .sensuba-hero + .card-preview-states {
+
+    bottom: 23vh;
+}
+
 #screen-anim {
 
   position: fixed;

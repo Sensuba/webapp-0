@@ -220,6 +220,11 @@
 	background: #717377;
 }
 
+.dark-theme #img-preview-tooltip .card-preview-states {
+
+	background: #71737780;
+}
+
 .dark-theme .sensuba-tile-targetable {
 
     background-color: rgba(255, 55, 55, 0.2);
