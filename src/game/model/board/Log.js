@@ -9,6 +9,13 @@ class Log {
 		this.history = [];
 	}
 
+	addEntry (entry) {
+
+		if (entry.src && entry.model && entry.model.idCardmodel)
+			entry.model = entry.src.model;
+		this.history.unshift(entry);
+	}
+
 	add (log) {
 
 		this.logs.push(log);
@@ -27,13 +34,13 @@ class Log {
 						entry.target = card;
 				}
 			}
-			this.history.unshift(entry);
+			this.addEntry(entry);
 			break;
 		}
 		case "triggersecret":
 		case "trap": {
 			let src = this.gameboard.find(log.src);
-			entry = {type: log.type === "triggersecret" ? "secret" : "trap", src};
+			entry = {type: log.type === "triggersecret" ? "secret" : "trap", text: log.type === "triggersecret" ? "Secret" : "Auto", src};
 			let other = log.data[0];
 			if (other) {
 				let tile = this.gameboard.find(other)
@@ -43,14 +50,14 @@ class Log {
 						entry.target = card;
 				}
 			}
-			this.history.unshift(entry);
+			this.addEntry(entry);
 			break;
 		}
 		case "discardcard":
-			this.history.unshift({type:"discard", src:this.gameboard.find(log.src)});
+			this.addEntry({type:"discard", text: "Défausse", src:this.gameboard.find(log.src)});
 			break;
 		case "burncard":
-			this.history.unshift({type:"burn", src:this.gameboard.find(log.src)});
+			this.addEntry({type:"burn", text: "Surpioche", src:this.gameboard.find(log.data[0])});
 			break;
 		case "cardfaculty": {
 			entry = {type: log.data[0].value ? "action" : "skill", src:this.gameboard.find(log.src)};
@@ -69,14 +76,14 @@ class Log {
 						entry.target = card;
 				}
 			}
-			this.history.unshift(entry);
+			this.addEntry(entry);
 			break;
 		}
 		case "charattack":
-			this.history.unshift({type:"attack", src:this.gameboard.find(log.src), target:this.gameboard.find(log.data[0])});
+			this.addEntry({type:"attack", src:this.gameboard.find(log.src), text: "Attaque", target:this.gameboard.find(log.data[0])});
 			break;
 		case "newturn":
-			this.history.unshift({type:"newturn"});
+			this.addEntry({type:"newturn"});
 			break;
 		default: break;
 		}

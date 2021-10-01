@@ -30,12 +30,8 @@ export default class Entry extends Component {
       switch (this.props.value.type) {
       case "play":
       case "action":
+      case "attack":
       case "skill": icon = this.props.value.type; break;
-      case "attack": icon = this.props.value.type; text = "Attaque"; break;
-      case "discard": text = "Défausse"; break;
-      case "burn": text = "Surpioche"; break;
-      case "secret": text = "Secret"; break;
-      case "trap": text = "Auto"; break;
       default: break;
       }
     }
@@ -58,13 +54,17 @@ export default class Entry extends Component {
 
   render () {
 
+    var src = this.props.value.src;
+    if (src && this.props.value.model && this.props.value.src.idCardmodel !== this.props.value.model.idCardmodel)
+      src = this.props.value.model;
+
     return (
     	<div
     	className={"history-entry history-" + this.props.value.type + ( this.props.value.option ? (" option-" + this.props.value.option) : "" )}
-        onMouseMove={e => this.showTooltip(e, this.props.value.src, true)}
+        onMouseMove={e => this.showTooltip(e, src, true)}
         onMouseLeave={e => this.hideTooltip()}
         >
-    		{ this.props.value.src ? <img crossOrigin="Anonymous" className="history-entry-bg" src={this.props.value.type === "play" && this.props.value.src.cardType === "secret" ? "/game/secret.png" : (this.props.value.src.imgLink || "/game/back.png")} alt="History card preview"/> : <span/> }
+    		{ src ? <img crossOrigin="Anonymous" className="history-entry-bg" src={this.props.value.type === "play" && src.cardType === "secret" ? "/game/secret.png" : (src.imgLink || "/game/back.png")} alt="History card preview"/> : <span/> }
 		</div>
     )
   }
