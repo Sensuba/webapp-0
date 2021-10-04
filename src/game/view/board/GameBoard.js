@@ -36,8 +36,10 @@ export default class GameBoard extends Component {
 
     return (
     	<div className="sensuba-gameboard" onClick={e => this.unselect(e)} onTouchEnd={e => document.getElementById("img-preview-tooltip").setAttribute("style", `display: none`)} onContextMenu={e => this.unselect(e)}>
-    	<div id="sensuba-board" className="sensuba-board">
     	<Hand model={model.areas[1-no].hand} master={master}/>
+		  <Court model={model.areas[1-no].court} master={master}/>
+		  <Court model={model.areas[no].court} master={master}/>
+    	<div id="sensuba-board" className="sensuba-board">
 	    	<Area className="sensuba-area-top" model={model.areas[1-no]} master={master}>
 		    	{ model.areas[1-no].avatar ? <div className="sensuba-avatar-wrapper"><Avatar src={model.areas[1-no].avatar}/></div> : <span/> }
 		    	<HonorBoard model={model.areas[1-no].honorboard} master={master}/>
@@ -63,7 +65,6 @@ export default class GameBoard extends Component {
 	    			</div>
 	    		</div>
 	    		<GemPool model={model.areas[1-no].manapool} master={master}/>
-		    	<Court model={model.areas[1-no].court} master={master}/>
 	    	</Area>
 	    	<div className="sensuba-gauge-wrapper">
 	    		<Gauge color="#e0000080" value={(model.areas[no].hero ? model.areas[no].hero.chp : 0) || 0} max={model.areas[no].hero ? model.areas[no].hero.hp : 0}/>
@@ -75,7 +76,6 @@ export default class GameBoard extends Component {
 	    		<EndTurn locked={!master.isPlaying} extra={model.areas[no].extraTurns} timer={master.state.timer} endTurn={() => master.manager.endTurn()}/>
 	    	</div>
 	    	<Area className="sensuba-area-bottom" model={model.areas[no]} master={master}>
-		    	<Court model={model.areas[no].court} master={master}/>
 		    	{ model.areas[no].avatar ? <div className="sensuba-avatar-wrapper" onClick={no !== undefined && master.role === "player" ? this.props.openConcedeWindow : () => {}}><Avatar src={model.areas[no].avatar}/></div> : <div className="sensuba-avatar-wrapper sensuba-blank-avatar-wrapper" onClick={no !== undefined && master.role === "player" ? this.props.openConcedeWindow : () => {}}/> }
 		    	<HonorBoard model={model.areas[no].honorboard} master={master}/>
 		    	<Field model={model.areas[no].field} master={master}>
@@ -101,8 +101,8 @@ export default class GameBoard extends Component {
 	    		</div>
 	    		<GemPool model={model.areas[no].manapool} master={master}/>
 	    	</Area>
-    	<Hand model={model.areas[no].hand} master={master}/>
     	</div>
+    	<Hand model={model.areas[no].hand} master={master}/>
     	{ this.props.messages.length > 0 ? <TextBox text={this.props.messages[0].text} unselect={e => this.unselect(e)} master={master}/> : <span/> }
 		{ master.role === "player" ? <Choosebox model={model.areas[no].choosebox} master={master}/> : <span/> }
 

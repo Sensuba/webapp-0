@@ -17,6 +17,6 @@
 
 @keyframes card-burn {
 
-  from {transform: translateZ(0em)}
-  to {transform: translateZ(3em)}
+  from {transform: translateX(0em) translateY(0em)}
+  to {transform: translateX(1em) translateY(-3em)}
 }

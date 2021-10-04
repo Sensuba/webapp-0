@@ -33,6 +33,6 @@
 
 @keyframes card-levelup-transform {
 
-  from { transform: rotateX(-45deg) translateZ(6em) translateY(0em); }
-  to { transform: rotateX(-45deg) translateZ(6em) translateY(-7em); }
+  from { transform: translateY(0em); }
+  to { transform: translateY(-7em); }
 }

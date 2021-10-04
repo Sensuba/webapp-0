@@ -17,6 +17,6 @@
 
 @keyframes card-shuffle {
 
-  from {transform: translateZ(2em)}
-  to {transform: translateZ(0em)}
+  from {transform: translateX(-0.8em) translateY(-2.5em)}
+  to {transform: translateX(0em) translateY(0em)}
 }
