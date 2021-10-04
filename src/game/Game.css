@@ -424,7 +424,7 @@
   background-color: rgba(128, 128, 128, 0.6);
 }
 
-.sensuba-court + .sensuba-avatar-wrapper {
+.sensuba-avatar-wrapper.sensuba-avatar-wrapper-bottom {
 
   top: 2vw;
   bottom: initial;
