@@ -102,6 +102,10 @@ export default class Card {
 
 		if (this.area && loc === this.area.opposite.choosebox) {
 			this.invisible = { for: this.area.id.no };
+		} else if (this.area && this.location === this.area.choosebox && loc === this.area.opposite.deck) {
+			this.invisible = { for : this.area.opposite.id.no };
+		} else if (loc && ((loc instanceof Tile && this.isType("secret")) || loc instanceof Deck)) {
+			this.invisible = { for: loc.area.opposite.id.no };
 		} else if (this.area && this.invisible && (loc.public || (loc.area === this.area && loc !== this.area.deck)))
 			delete this.invisible;
 
