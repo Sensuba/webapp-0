@@ -36,8 +36,8 @@ export default class GameBoard extends Component {
 
     return (
     	<div className="sensuba-gameboard" onClick={e => this.unselect(e)} onTouchEnd={e => document.getElementById("img-preview-tooltip").setAttribute("style", `display: none`)} onContextMenu={e => this.unselect(e)}>
-    	<Hand model={model.areas[1-no].hand} master={master}/>
-		  <Court model={model.areas[1-no].court} master={master}/>
+    	<Hand top={true} model={model.areas[1-no].hand} master={master}/>
+		  <Court top={true} model={model.areas[1-no].court} master={master}/>
 		  <Court model={model.areas[no].court} master={master}/>
     	<div id="sensuba-board" className="sensuba-board">
 	    	<Area className="sensuba-area-top" model={model.areas[1-no]} master={master}>

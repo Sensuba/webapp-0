@@ -8,7 +8,7 @@ export default class Hand extends Component {
   	var count = this.props.model.count;
 
     return (
-      <div className={"sensuba-hand " + (this.props.model.id.no === 1 ? "sensuba-hand-top" : "sensuba-hand-bottom")}>
+      <div className={"sensuba-hand " + (this.props.top ? "sensuba-hand-top" : "sensuba-hand-bottom")}>
       {
       	this.props.model.cards.map((model, i) => {
       		var shift = (-4.1 - (count-1) * (5 - count/7) + i * (10 - count/3.5)) * (this.props.model.id.no === 1 ? 1 : 1.4);
