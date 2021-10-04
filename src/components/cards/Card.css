@@ -343,6 +343,12 @@
     opacity: 1;
 }
 
+@-moz-document url-prefix() {
+  .sensuba-card .sensuba-card-effect .sensuba-card-effect-p {
+    font-size: 0.98em;
+  }
+}
+
 .sensuba-card .sensuba-card-effect .sensuba-card-effect-p + .sensuba-card-effect-p {
 
     margin-top: 0.22em;
