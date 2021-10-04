@@ -70,12 +70,16 @@ export default class PlayPage extends Component {
     if (this.state.seeking)
       return;
     var socket = this.props.getSocket();
+    if (!socket.connected)
+      return;
     socket.emit('seek', prv);
     var history = this.props.history;
     socket.on('assign', function (res) {
-      history.push(`/play/${res.to}`);
+      if (this.state.seeking)
+        history.push(`/play/${res.to}`);
     });
     this.setState({seeking: true});
+    setTimeout(() => this.setState({seeking: false}), 5000)
   }
 
   callAI () {

@@ -38,6 +38,8 @@ export default class App extends Component {
 
     window.disconnect = () => {this.socket.close(); setTimeout(() => this.reconnect(), 500);}
 
+    setInterval(() => { if (!this.socket.connected) this.reconnect(); }, 10000);
+
     setTimeout(() => {
       if (this.socket.connected){
         this.socket.on("disconnect", () => {
