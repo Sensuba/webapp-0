@@ -74,7 +74,7 @@ export default class PlayPage extends Component {
       return;
     socket.emit('seek', prv);
     var history = this.props.history;
-    socket.on('assign', function (res) {
+    socket.on('assign', (res) => {
       if (this.state.seeking)
         history.push(`/play/${res.to}`);
     });
