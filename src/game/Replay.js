@@ -49,6 +49,7 @@ export default class Replay extends Component {
     this.audio.volume = localStorage.getItem('sound.music') !== undefined ? localStorage.getItem('sound.music') * 0.2 : 0.2;
     this.mute = true;
     this.audio.muted = true;
+    this.access = [0, 1];
 
     this.state = {
 
@@ -113,7 +114,7 @@ export default class Replay extends Component {
       return;
     let n = this.replayData[this.index];
     if (!n) {
-      this.end();
+      //this.end();
       return;
     }
     let a = () => {
