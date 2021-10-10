@@ -83,8 +83,11 @@ export default class Replay extends Component {
       model.areas[1].name = n.data[3].value;
       model.areas[1].avatar = n.data[4].value;
     }
-    if (n.type === "identify" && this.no !== undefined && n.data[0].cardType === "hero" && this.state.model.areas[this.no].field.tiles[6].occupied && this.state.model.areas[this.no].field.tiles[6].card.id.no === n.data[0].id.no)
-      this.setState({ hero: n.data[0] });
+    if (n.type === "identify" && this.no !== undefined && n.data[0].cardType === "hero" /*&& this.state.model.areas[this.no].field.tiles[6].occupied && this.state.model.areas[this.no].field.tiles[6].card.id.no === n.data[0].id.no*/) {
+      if (this.prevHero)
+        this.setState({ hero: ((this.prevHero.no > n.data[0].no) === (this.no > 0) ? this.prevHero : n.data[0]) });
+      else this.prevHero = n.data[0];
+    }
     this.sequencer.add(n);
   }
 
@@ -136,18 +139,19 @@ export default class Replay extends Component {
 
   timeFor (n) {
 
-    switch (n.type) {
-    case "newturn":
+    if (n.type !== "command")
+      return 0;
+
+    switch (n.cmd) {
+    case "endturn":
+    case "faculty":
+    case "play":
+    case "concede":
     return 2500;
-    case "cardfaculty":
-    return 2500;
-    case "cardmove":
-    if (n.data[1] && n.data[1].type === "hand" && (n.data[0].type === "tile" || n.data[0].type === "court"))
-      return 2500;
-    return 0;
-    case "charattack":
+    case "attack":
     return 1500;
-    case "charmove":
+    case "move":
+    case "choose":
     return 1000;
     default: return 0;
     }

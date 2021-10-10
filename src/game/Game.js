@@ -310,9 +310,9 @@ export default class Game extends Component {
     this.copyToClipboard(replayUrl);
     this.replaySaved = true;
     document.getElementById("replay-button").classList.add("replay-copied");
-    this.props.api.saveReplay({idRoom: this.props.room, log: JSON.stringify(this.state.model.log.logs)}, response => {
+    /*this.props.api.saveReplay({idRoom: this.props.room, log: JSON.stringify(this.state.model.log.logs)}, response => {
       //this.props.quitRoom();
-    });
+    });*/
   }
 
   copyToClipboard (str) {
