@@ -391,7 +391,7 @@ export default class Game extends Component {
       <div>
       <Lightbox open={this.state.model.gamestate > 0} onClose={this.props.quitRoom}>
         <div id="endgame-window">
-          <h2>{ (["", "", "Egalité !", "Victoire !", "Défaite...", "Erreur de connexion :/", "Erreur interne *-*", "Votre adversaire est parti ._."])[this.state.model.gamestate] }</h2>
+          <h2>{ (["", "", "Egalité !", "Victoire !", "Défaite...", "Erreur de connexion :/", "Erreur interne *-*", "Un joueur est parti ._."])[this.state.model.gamestate] }</h2>
           { this.state.model.gamestate > 1 ?
             <div>
               <CardPreview src={this.state.hero} level={1} model={this.state.hero}/>
