@@ -157,7 +157,10 @@ export default class App extends Component {
         })
         this.socket = socket;
       }
-      else setTimeout(() => this.reconnect(), 10000);
+      else {
+        socket.close();
+        setTimeout(() => this.reconnect(), 10000);
+      }
     }, 500);
   }
 
