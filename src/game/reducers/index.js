@@ -13,10 +13,12 @@ export default (state = new GameBoard(), n) => {
       if (window.resetTimer)
         window.resetTimer();
       break;
-    case "newcard":
-      new Card(n.src.no, state.find(n.data[0]));
+    case "newcard": {
+      var card = new Card(n.src.no, state.find(n.data[0]));
+      if (n.data[1])
+        card.identify(n.data[1]);
       break;
-    case "identify":
+    } case "identify":
       state.find(n.data[0].id).identify(n.data[0]);
       break;
     case "transform":

@@ -88,7 +88,8 @@ export default class Replay extends Component {
         this.setState({ hero: ((this.prevHero.no > n.data[0].no) === (this.no > 0) ? this.prevHero : n.data[0]) });
       else this.prevHero = n.data[0];
     }
-    this.sequencer.add(n);
+    if (!(n.type === 'identify'))
+      this.sequencer.add(n);
   }
 
   quit () {
