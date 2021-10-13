@@ -380,6 +380,7 @@ export default class Game extends Component {
     case "vaccinated": return "Vacciné";
     case "piercing": return "Percée";
     case "lifelink": return "Lien de vie";
+    case "cleave": return "Balayage";
     case "love": return "Amour";
     case "will to live": return "Immortel";
     default: return "?";
