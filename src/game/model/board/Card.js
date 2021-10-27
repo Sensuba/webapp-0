@@ -824,9 +824,9 @@ export default class Card {
 
 	clearMutations () {
 
-		if (!this.mutations)
-			return;
-		this.mutations.forEach(mut => mut.detach(this));
+		if (this.mutations)
+			this.mutations.forEach(mut => mut.detach(this));
+		this.mutations = [];
 	}
 
 	transform (data) {
