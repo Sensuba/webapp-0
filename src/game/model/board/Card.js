@@ -152,7 +152,7 @@ export default class Card {
 		delete this.supercode;
 		this.blueprint = this.modelblueprint;
 		this.faculties = [];
-		this.mutations = [];
+		this.clearMutations();
 		this.cmutations = [];
 		this.passives = [];
 		this.events = [];
@@ -356,7 +356,7 @@ export default class Card {
 
 		this.deactivate();
 		this.faculties = [];
-		this.mutations = [];
+		this.clearMutations();
 		this.cmutations = [];
 		this.passives = [];
 		this.events = [];
@@ -436,7 +436,7 @@ export default class Card {
 		this.targets = [];
 		this.faculties = [];
 		this.passives = [];
-		this.mutations = [];
+		this.clearMutations();
 		this.cmutations = [];
 		delete this.steps;
 		if (data && !data.blueprint)
@@ -521,7 +521,7 @@ export default class Card {
 		this.originalRange = this.range;
 		this.blueprint = lv.blueprint;
 		this.states = {};
-		this.mutations = [];
+		this.clearMutations();
 		this.cmutations = [];
 		this.passives = [];
 		this.events = [];
@@ -820,6 +820,13 @@ export default class Card {
 				unsub();
 			});
 		this.gameboard.update();
+	}
+
+	clearMutations () {
+
+		if (!this.mutations)
+			return;
+		this.mutations.forEach(mut => mut.detach(this));
 	}
 
 	transform (data) {
