@@ -62,6 +62,7 @@ export default class Card extends Component {
           emph += x.charAt(i);
         return `<span class="sensuba-card-effect-show">${emph}</span>`
       });
+      desc = desc.replace(/\&#039;/g,`<span class="sensuba-card-effect-apostrophe"></span>`);
       if (this.props.src.lb || (this.props.src.ol && this.props.src.overload && this.props.src.ol >= this.props.src.overload))
         desc = desc.replace(/[^>]\d+[^<]/g, x => {
           let before = "", number = "", after = "";
