@@ -34,23 +34,13 @@ export default class App extends Component {
     super(props);
     this.state = { browser: this.checkBrowser() };
 
-    this.socket = io(serverURL);
+    this.socket = { connected: false, removeAllListeners: () => {} };
 
-    window.disconnect = () => {this.socket.close(); setTimeout(() => this.reconnect(), 500);}
+    window.disconnect = () => { this.socket.close(); /*setTimeout(() => this.reconnect(), 500);*/}
 
     setInterval(() => { if (!this.socket.connected) this.reconnect(); }, 10000);
 
-    setTimeout(() => {
-      if (this.socket.connected){
-        this.socket.on("disconnect", () => {
-
-          console.log("Disconnected from server");
-          this.socket.close();
-          this.reconnect();
-        })
-      }
-      else setTimeout(() => this.reconnect(), 10000);
-    }, 500);
+    this.reconnect();
 
     if (User.isConnected()) {
 
@@ -144,22 +134,21 @@ export default class App extends Component {
 
   reconnect () {
 
+    if (this.socket.connected)
+      return;
+    
     var socket = io(serverURL);
 
     setTimeout(() => {
       if (socket.connected) {
-        console.log("Reconnected to server");
-        socket.on("disconnect", () => {
+        console.log("Connected to server");
+        this.socket = socket;
+        this.socket.on("disconnect", () => {
 
           console.log("Disconnected from server");
           this.socket.close();
           this.reconnect();
         })
-        this.socket = socket;
-      }
-      else {
-        socket.close();
-        setTimeout(() => this.reconnect(), 10000);
       }
     }, 500);
   }
