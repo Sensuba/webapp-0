@@ -137,12 +137,11 @@ export default class App extends Component {
     if (this.socket.connected)
       return;
 
-    var socket = io(serverURL);
+    this.socket = io(serverURL);
 
     setTimeout(() => {
-      if (socket.connected) {
+      if (this.socket.connected) {
         console.log("Connected to server");
-        this.socket = socket;
         this.socket.on("disconnect", () => {
 
           console.log("Disconnected from server");
