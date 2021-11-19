@@ -34,7 +34,7 @@ export default class App extends Component {
     super(props);
     this.state = { browser: this.checkBrowser() };
 
-    this.socket = { connected: false, removeAllListeners: () => {}, emit: () => {} };
+    this.socket = { connected: false, removeAllListeners: () => {}, emit: () => {}, on: () => {} };
 
     window.disconnect = () => { this.socket.close(); /*setTimeout(() => this.reconnect(), 500);*/}
 
