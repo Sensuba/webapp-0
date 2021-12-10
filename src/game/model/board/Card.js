@@ -68,12 +68,12 @@ export default class Card {
 		if (this.destroyed) {
 			this.goto(this.area.capsule);
 			this.resetBody();
-			this.chp = this.eff.hp;
+			this.chp = this.hp;
 			this.php = { hp: this.hp, chp: this.chp }
 			this.goto(tile);
 		}
 		else {
-			this.chp = this.eff.hp;
+			this.chp = this.hp;
 			this.php = { hp: this.hp, chp: this.chp }
 			this.goto(tile);
 		}
@@ -927,9 +927,10 @@ export default class Card {
 		res = Object.assign({}, this);
 		res.isEff = true;
 		res.original = this;
+		res.area = this.area;
 		res.states = Object.assign({}, this.states);
 		let updatephp = () => {
-			if (this.isType("character") && this.onBoard) {
+			if (this.isType("character") && this.onBoard && !isNaN(this.chp)) {
 				this.php = this.php || { hp: this.hp, chp: this.chp };
 				var plushp = Math.max (res.negativehpmodifier || 0, res.hp - this.php.hp);
 				this.chp = Math.min(res.hp, (this.chp || this.hp) + plushp);
