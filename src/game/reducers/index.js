@@ -162,6 +162,11 @@ export default (state = new GameBoard(), n) => {
       if (card)
         card.setVariable(n.data[0].value, n.data[1]);
       break; }
+    case "clearvar": {
+      let card = state.find(n.src);
+      if (card)
+        card.clearVariable(n.data[0].value, n.data[1]);
+      break; }
     case "addmut": {
       let card = state.find(n.src);
       let mutsrc = state.find(n.data[0]);

@@ -863,6 +863,12 @@ export default class Card {
 		return this.variables ? this.variables[name] : undefined;
 	}
 
+	clearVariable (name) {
+
+		if (this.variables)
+			delete this.variables[name];
+	}
+
 	activate () {
 
 		if (this.activated)
