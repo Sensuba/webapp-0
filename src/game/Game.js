@@ -382,7 +382,8 @@ export default class Game extends Component {
     case "lifelink": return "Lien de vie";
     case "cleave": return "Balayage";
     case "love": return "Amour";
-    case "will to live": return "Immortel";
+    case "immortal": return "Immortel";
+    case "poisoned": return "Empoisonné";
     default: return "?";
     }
   }

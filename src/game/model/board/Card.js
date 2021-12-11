@@ -865,8 +865,10 @@ export default class Card {
 
 	clearVariable (name) {
 
-		if (this.variables)
+		if (this.variables) {
 			delete this.variables[name];
+			this.gameboard.update();
+		}
 	}
 
 	activate () {
