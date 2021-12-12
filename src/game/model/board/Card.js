@@ -302,8 +302,10 @@ export default class Card {
 
 		this.atk += atk;
 		this.hp += hp;
-		if (hp < 0 && !this.isType("artifact"))
+		if (hp < 0 && !this.isType("artifact")) {
+			this.chp += hp;
 			this.chp = Math.min(this.chp, this.eff.hp);
+		}
 		this.range += range;
 		this.update();
 		//this.gameboard.notify("boostcard", this.id, atk, hp, range);
