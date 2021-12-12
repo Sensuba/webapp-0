@@ -159,6 +159,7 @@ export default class EditorPage extends Component {
     case "hero": filter = ["archetypes", "mana"]; break;
     case "spell": filter = ["idColor2", "archetypes", "atk", "hp", "range"]; break;
     case "trap": filter = ["idColor2", "archetypes", "atk", "hp", "range"]; break;
+    case "seal": filter = ["idColor2", "archetypes", "atk", "hp", "range", "mana"]; break;
     case "artifact": filter = ["idColor2", "archetypes", "atk", "range"]; break;
     default: break;
     }

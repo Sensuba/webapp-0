@@ -71,8 +71,8 @@ export default class EditorPage extends Component {
     case "hero": filter = ["archetypes", "mana"]; break;
     case "spell":
     case "secret":
-    case "seal":
     case "world": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "hp", "range"]; break;
+    case "seal": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "hp", "range", "mana"]; break;
     case "artifact": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "range"]; break;
     default: break;
     }
@@ -244,11 +244,12 @@ export default class EditorPage extends Component {
                   </div>
                 </div>
                 {
-                  this.currentCard.cardType !== "hero" ?
+                  this.currentCard.cardType !== "hero" ? (
+                      this.currentCard.cardType !== "seal" ? 
                     <div className="half-section">
                       <Label for="form-card-mana">Mana</Label>
                       <Input id="form-card-mana" type="number" min="0" max="9" value={this.currentCard.mana} onChange={editAttribute("mana").bind(this)}/>
-                    </div>
+                    </div> : "")
                     :
                     <div className="half-section">
                       <Label>Couleur 2</Label>

@@ -127,6 +127,11 @@
     border-style: outset;
 }
 
+.sensuba-card.sensuba-seal .sensuba-card-title {
+
+    left: 5%;
+}
+
 .sensuba-card .sensuba-card-title.sensuba-card-long-title {
 
     top: /*0.50625em*/0.45em;
