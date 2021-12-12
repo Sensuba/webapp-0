@@ -563,17 +563,6 @@ export default class Card {
 
 		if (!this.inHand || !this.canBePaid || !this.area.isPlaying)
 			return false;
-		if (this.isType("trial")) {
-			if (!this.steps) return false;
-			let i = 0;
-			while (i < this.steps.length) {
-				// eslint-disable-next-line
-				if (!this.area.honorboard.cards.some(c => c.model.idCardmodel === this.model.idCardmodel && c.steps[i].completed))
-					return this.steps[i].condition();
-				i++;
-			}
-			return false;
-		}
 		if (this.targets.length === 0)
 			return true;
 
@@ -584,17 +573,6 @@ export default class Card {
 
 		if (!this.canBePaid || !this.area.isPlaying)
 			return false;
-		if (this.isType("trial")) {
-			if (!this.steps) return false;
-			let i = 0;
-			while (i < this.steps.length) {
-				// eslint-disable-next-line
-				if (!this.area.honorboard.cards.some(c => c.model.idCardmodel === this.model.idCardmodel && c.steps[i].completed))
-					return this.steps[i].condition();
-				i++;
-			}
-			return false;
-		}
 		if (this.targets.length === 0)
 			return true;
 		if (targets.length === 0)

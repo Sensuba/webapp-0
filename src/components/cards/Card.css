@@ -219,15 +219,10 @@
     height: 5.5em;
 }
 
-.sensuba-spell .sensuba-card-body, .sensuba-secret .sensuba-card-body, .sensuba-artifact .sensuba-card-body {
+.sensuba-spell .sensuba-card-body, .sensuba-secret .sensuba-card-body, .sensuba-seal .sensuba-card-body, .sensuba-artifact .sensuba-card-body {
 
     top: 14em;
     height: 5.5em;
-}
-
-.sensuba-trial .sensuba-card-body {
-
-    height: 7em;
 }
 
 .sensuba-card .sensuba-card-body .sensuba-card-body-header {
@@ -309,16 +304,16 @@
     -webkit-text-stroke-color: rgba(133, 167, 193, 0.8);
 }
 
+.sensuba-card.sensuba-seal .sensuba-card-specialtype-icon {
+
+    -webkit-text-stroke-width: 0.01em;
+}
+
 .sensuba-card.white-mana .sensuba-card-specialtype-icon { -webkit-text-stroke-color: rgba(232, 209, 97, 0.8) }
 .sensuba-card.red-mana .sensuba-card-specialtype-icon { -webkit-text-stroke-color: rgba(247, 69, 69, 0.8) }
 .sensuba-card.blue-mana .sensuba-card-specialtype-icon { -webkit-text-stroke-color: rgba(17, 150, 216, 0.8) }
 .sensuba-card.green-mana .sensuba-card-specialtype-icon { -webkit-text-stroke-color: rgba(142, 197, 102, 0.8) }
 .sensuba-card.black-mana .sensuba-card-specialtype-icon { -webkit-text-stroke-color: rgba(80, 26, 53, 0.8) }
-
-.sensuba-trial .sensuba-card-specialtype-icon {
-
-    top: 4.95em;
-}
 
 .sensuba-card .sensuba-card-body-main {
 
@@ -436,26 +431,6 @@
     color: blue;
 }
 
-.sensuba-trial .sensuba-trial-part + .sensuba-trial-part {
-
-    border-top: solid #808080 1px;
-    margin-top: 0.2em;
-    padding-top: 0.2em;
-}
-
-.sensuba-trial .sensuba-trial-part-effect {
-
-    display: inline-block;
-    width: 90%;
-}
-
-.sensuba-trial .sensuba-trial-part-icon {
-
-    float: right;
-    width: 10%;
-    text-align: center;
-}
-
 
 .sensuba-card .sensuba-card-flavour {
 
@@ -470,14 +445,9 @@
     margin: 0 10%;
 }
 
-.sensuba-spell .sensuba-card-flavour, .sensuba-secret .sensuba-card-flavour, .sensuba-world .sensuba-card-flavour, .sensuba-artifact .sensuba-card-flavour, .sensuba-hero .sensuba-card-flavour {
+.sensuba-spell .sensuba-card-flavour, .sensuba-secret .sensuba-card-flavour, .sensuba-seal .sensuba-card-flavour, .sensuba-world .sensuba-card-flavour, .sensuba-artifact .sensuba-card-flavour, .sensuba-hero .sensuba-card-flavour {
 
     bottom: -10.7em;
-}
-
-.sensuba-trial .sensuba-card-flavour {
-
-    bottom: -14.5em;
 }
 
 .sensuba-card .sensuba-card-edition {
@@ -494,14 +464,9 @@
     background-image: url("Images/classic.png");
 }
 
-.sensuba-spell .sensuba-card-edition, .sensuba-secret .sensuba-card-edition, .sensuba-world .sensuba-card-edition, .sensuba-artifact .sensuba-card-edition, .sensuba-hero .sensuba-card-edition {
+.sensuba-spell .sensuba-card-edition, .sensuba-secret .sensuba-card-edition, .sensuba-seal .sensuba-card-edition, .sensuba-world .sensuba-card-edition, .sensuba-artifact .sensuba-card-edition, .sensuba-hero .sensuba-card-edition {
 
     bottom: -4.5em;
-}
-
-.sensuba-trial .sensuba-card-edition {
-
-    bottom: -6em;
 }
 
 .sensuba-card .sensuba-card-footer {
@@ -694,7 +659,7 @@
     text-shadow: 1px 1px 1px blue;
 }
 
-.sensuba-card.sensuba-spell .sensuba-card-overload, .sensuba-card.sensuba-secret .sensuba-card-overload, .sensuba-card.sensuba-world .sensuba-card-overload, .sensuba-card.sensuba-artifact .sensuba-card-overload { top: 18.3em }
+.sensuba-card.sensuba-spell .sensuba-card-overload, .sensuba-card.sensuba-secret .sensuba-card-overload, .sensuba-card.sensuba-seal .sensuba-card-overload, .sensuba-card.sensuba-world .sensuba-card-overload, .sensuba-card.sensuba-artifact .sensuba-card-overload { top: 18.3em }
 .sensuba-card.sensuba-artifact .sensuba-card-overload { left: 1.2em; right: unset; }
 
 .sensuba-card .sensuba-card-overload::before {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class Trial extends Component {
+export default class Seal extends Component {
 
 	constructor (props) {
 
@@ -24,7 +24,7 @@ export default class Trial extends Component {
   	
     return (
       <div id={this.id}
-      className={"sensuba-card sensuba-trial " + this.props.classColor + " " + rarityclass(src.rarity, src.idEdition) + " " + (this.props.holographic ? "sensuba-card-holographic " : " ") + this.props.className}
+      className={"sensuba-card sensuba-seal " + this.props.classColor + " " + rarityclass(src.rarity, src.idEdition) + " " + (this.props.holographic ? "sensuba-card-holographic " : " ") + this.props.className}
       onMouseMove={e => {
       		if (this.props.holographic) {
       			var el = document.getElementById(this.id);
@@ -55,23 +55,16 @@ export default class Trial extends Component {
 	    { src.illustrator ? <div className="sensuba-card-illustrator">Illus: {src.illustrator}</div> : <span/> }
 	    <div className="sensuba-card-body">
 	    	<div className="sensuba-card-body-header">
-	        	<span className="sensuba-card-type">Epreuve</span>
+	        	<span className="sensuba-card-type">Sceau</span>
 	        	<span className="sensuba-card-anime">{src.anime}</span>
 	        </div>
 	        <div className="sensuba-card-body-main">
-	        	<div className="sensuba-card-effect" style={{fontSize: (src.fontSize || 1.3)/2 + 'em'}}>
-	        		<div className="sensuba-trial-part"><div className="sensuba-trial-part-effect" dangerouslySetInnerHTML={{__html: src.htmlDescription}}/><div className="sensuba-trial-part-icon" style={{fontSize: 1.3/(src.fontSize || 1.3) + 'em'}}>🟊</div></div>
-	        		{
-	        			src.description2 ?
-	        			<div className="sensuba-trial-part"><div className="sensuba-trial-part-effect" dangerouslySetInnerHTML={{__html: src.htmlDescription2}}/><div className="sensuba-trial-part-icon" style={{fontSize: 1.3/(src.fontSize || 1.3) + 'em'}}>🟊🟊</div></div>
-	        			: ""
-	        		}
-	        	</div>
+	        	<div className="sensuba-card-effect" style={{fontSize: (src.fontSize || 1.3)/2 + 'em'}} dangerouslySetInnerHTML={{__html: src.htmlDescription}}/>
 	        	<div className="sensuba-card-flavour">{src.flavourText || ""}</div>
 	        	{ src.idEdition > 1 ? <div className={"sensuba-card-edition sensuba-card-edition-" + src.idEdition}/> : <span/> }
 	        </div>
 	    </div>
-	    <span className="sensuba-card-specialtype-icon">!</span>
+	    <span className="sensuba-card-specialtype-icon">&#10022;</span>
 	    { src.overload && src.overload > 0 ? <div className={"sensuba-card-overload" + (src.ol && src.ol > src.overload ? " sensuba-card-overload-limit-break" : "")}>{src.overload}</div> : <span/> }
 	    <div className="sensuba-card-frame">
 	    	<div className="sensuba-frame-icon"/>
