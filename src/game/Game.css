@@ -166,11 +166,19 @@
   display: inline-block;
   vertical-align: middle;
   margin-left: -10px;
+  pointer-events: all;
 }
 
 .sensuba-area-top .sensuba-honorboard {
 
   margin-top: 11vw;
+}
+
+.sensuba-honorboard.sensuba-seal-icon {
+
+  pointer-events: all;
+  display: inline-block;
+  position: absolute;
 }
 
 .sensuba-field, .sensuba-gauge-wrapper {

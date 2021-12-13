@@ -67,13 +67,13 @@ export default class EditorPage extends Component {
         }
     };
     switch (newType) {
-    case "figure": filter = ["lv2", "lvmax", "idColor2"]; break;
-    case "hero": filter = ["archetypes", "mana"]; break;
+    case "figure": filter = ["lv2", "lvmax", "idColor2", "icon"]; break;
+    case "hero": filter = ["archetypes", "mana", "icon"]; break;
     case "spell":
     case "secret":
-    case "world": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "hp", "range"]; break;
+    case "world": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "hp", "range", "icon"]; break;
     case "seal": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "hp", "range", "mana"]; break;
-    case "artifact": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "range"]; break;
+    case "artifact": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "range", "icon"]; break;
     default: break;
     }
 
@@ -145,7 +145,7 @@ export default class EditorPage extends Component {
     var currentLevel = this.currentCard.cardType !== "hero" ? null : (this.state.level === 1 ? this.currentCard : (this.state.level === 2 ? this.currentCard.lv2 : this.currentCard.lvmax));
 
 
-    const handleImage = (event, highres) => {
+    const handleImage = (event, imgtype) => {
 
       if (event.target.files.length < 1) return;
       var name = event.target.files[0].name;
@@ -169,8 +169,7 @@ export default class EditorPage extends Component {
         fetch('https://api.imgbb.com/1/upload?key=' + IMGBB_API_KEY, requestOptions).then(response => response.json())
         .then(data => {
           if (data.status === 200) {
-            if (highres) that.currentCard.highRes = data.data.url;
-            else that.currentCard.imgLink = data.data.url;
+            that.currentCard[imgtype] = data.data.url;
             that.props.update(that.props.card);
           }
         })
@@ -370,13 +369,21 @@ export default class EditorPage extends Component {
               <FormGroup>
                 <Label for="form-card-img">Lien de l'image</Label>
                 <Input id="form-card-img" type="url" value={this.currentCard.imgLink} onChange={editAttribute("imgLink").bind(this)}/>
-                <div className="form-upload-img"><Input type="file" accept="image/*" name="imagefile" onChange={e => handleImage(e, false)} /></div>
+                <div className="form-upload-img"><Input type="file" accept="image/*" name="imagefile" onChange={e => handleImage(e, "imgLink")} /></div>
               </FormGroup>
               <FormGroup>
                 <Label for="form-card-highres">Image en haute résolution</Label>
                 <Input id="form-card-highres" type="url" value={this.currentCard.highRes} onChange={editAttribute("highRes").bind(this)}/>
-                <div className="form-upload-img"><Input type="file" accept="image/*" name="highresfile" onChange={e => handleImage(e, true)} /></div>
+                <div className="form-upload-img"><Input type="file" accept="image/*" name="highresfile" onChange={e => handleImage(e, "highRes")} /></div>
               </FormGroup>
+              {
+                this.currentCard.cardType === "seal" ?
+                <FormGroup>
+                  <Label for="form-card-icon">Icone du sceau</Label>
+                  <Input id="form-card-icon" type="url" value={this.currentCard.icon} onChange={editAttribute("icon").bind(this)}/>
+                  <div className="form-upload-img"><Input type="file" accept="image/*" name="iconfile" onChange={e => handleImage(e, "icon")} /></div>
+                </FormGroup> : ""
+              }
               <FormGroup>
                 <Label for="form-card-illustrator">Illustrateur</Label>
                 <Input id="form-card-illustrator" type="text" value={this.currentCard.illustrator || ""} onChange={editAttribute("illustrator").bind(this)}/>
@@ -387,6 +394,14 @@ export default class EditorPage extends Component {
         <div className="half-section">
           <div className="editor-card-visual">
             <Card id="card-preview" level={this.state.level} src={this.currentCard}/>
+            {
+              this.currentCard.cardType === "seal" ?
+                <div className="seal-preview">
+                  <div className="sensuba-seal-icon">
+                    <img id={this.currentCard.id + "-icon"} crossOrigin="Anonymous" className="sensuba-seal-icon-img" src={this.currentCard.icon || '/cards/neutralblack.png'} alt={this.currentCard.nameCard + " icon"}/>
+                  </div>
+                </div> : ""
+            }
             { this.props.token.length === 0 ? <button className="menu-button" onClick={() => this.props.save()}>{ this.props.isEdit ? "Modifier" : "Enregistrer" }</button> : <span/> }
             { this.props.card.idCardmodel !== undefined || this.props.token.length > 0 ? <button className="red menu-button" onClick={() => this.props.delete()}>Supprimer</button> : <span/> }
             <div className="editor-box">

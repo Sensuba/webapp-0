@@ -994,3 +994,29 @@
 .sensuba-card-charge-count.sensuba-card-charge-on:nth-child(3) { background: linear-gradient(40deg, orange, yellow); }
 .sensuba-card-charge-count.sensuba-card-charge-on:nth-child(4) { background: linear-gradient(40deg, #ffe400, #f3ffb7); }
 .sensuba-card-charge-count.sensuba-card-charge-on:nth-child(5) { background: linear-gradient(40deg, #ffff21, white); }
+
+
+.sensuba-seal-icon {
+
+    height: 4em;
+    width: 4em;
+    margin: auto;
+}
+
+.sensuba-seal-icon .sensuba-seal-icon-img {
+
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    animation: sealshine alternate ease-in-out 3s infinite, sealrotate alternate ease-in-out 8s infinite;
+}
+
+@keyframes sealshine {
+from { filter: drop-shadow(0em 0em 0.1em white) blur(0.03em) brightness(0.9); }
+to { filter: drop-shadow(0em 0em 0.25em white) blur(0.03em) brightness(1.1); }
+}
+
+@keyframes sealrotate {
+from { transform: rotateZ(5deg); }
+to { transform: rotateZ(-5deg); }
+}
