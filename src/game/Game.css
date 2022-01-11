@@ -1230,8 +1230,6 @@
     height: 20em;
     overflow: hidden;
     margin: 0.4em;
-    opacity: 0.4;
-    border: solid #f4d8ffa0 0.3em;
     border-radius: 0.3em;
     animation: temporary-color 7s infinite linear, temporary-border 4s infinite alternate;
 }
@@ -1257,6 +1255,7 @@
     left: 0em;
     width: 30em;
     height: 20em;
+    opacity: 0.3;
     background: linear-gradient(155deg, #808080, #2a1540, #808080, #2a1540, #808080, #2a1540, #808080, #2a1540, #808080, #2a1540);
     filter: sepia(0.2) contrast(1.5);
     background-size: 100%;
