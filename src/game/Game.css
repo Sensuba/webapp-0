@@ -1271,7 +1271,20 @@
     height: 20em;
     overflow: hidden;
     margin: 0.4em;
-    opacity: 0.4;
+    animation: bonus-color 7s infinite linear, bonus-border 4s infinite alternate;
+}
+
+@keyframes bonus-color {
+  0% { background: rgba(175, 255, 255, 0.25); }
+  20% { background: rgba(220, 255, 255, 0.4); }
+  50% { background: rgba(175, 255, 255, 0.25); }
+  80% { background: rgba(130, 255, 255, 0.4); }
+  100% { background: rgba(175, 255, 255, 0.25); }
+}
+
+@keyframes bonus-border {
+  from { box-shadow: inset 0 0 1.5em 0.7em rgba(98, 0, 192, 0.6), 0 0 1em 0.4em rgba(98, 0, 192, 0.6); }
+  to { box-shadow: inset 0 0 2em 1em rgba(55, 0, 128, 0.8), 0 0 1.2em 0.5em rgba(55, 0, 128, 0.8); }
 }
 
 .sensuba-card-view .sensuba-card-bonus::before {
@@ -1282,7 +1295,7 @@
     left: 0em;
     width: 30em;
     height: 20em;
-    opacity: 0.8;
+    opacity: 0.3;
     background: linear-gradient(155deg, #ff0000, #e800ff, #4300ff, #0085ff, #00ffd9, #00ff5c, #96ff00, #ffd800, #ff0000);
     filter: sepia(0.2) contrast(1.5);
     background-size: 100%;
