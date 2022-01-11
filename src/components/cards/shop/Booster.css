@@ -205,3 +205,15 @@
 .sensuba-booster-hot .sensuba-booster-title { color: #880808 }
 .sensuba-booster-hot .sensuba-booster-expansion-name { top: 15.8rem; font-size: 1.5em; font-family: Parkavenue; text-decoration: underline; color: white; text-shadow: 0 0 0.25rem #886608 }
 .sensuba-booster-hot .sensuba-booster-filter { background: linear-gradient(#b84b0b, #faecd2 10%, #faecd2 15%, transparent 30%, transparent 75%, #b84b0b) }
+
+.sensuba-booster-holy .sensuba-booster-extremum { background: #4d1005 }
+.sensuba-booster-holy .sensuba-booster-medium { background: white }
+.sensuba-booster-holy .sensuba-booster-name { color: #f7f2dc }
+.sensuba-booster-holy .sensuba-booster-expansion-name { color: white; text-shadow: 0 0 0.25rem #962a09; font-size: 2em; top: 13.6rem; line-height: 1.1em; font-family: Immortal; word-spacing: -0.3em; }
+.sensuba-booster-holy .sensuba-booster-filter { background: linear-gradient(#4d1005, #ccc093 10%, transparent 15%, transparent 30%, transparent 75%, #4d1005) }
+.sensuba-booster-holy .sensuba-booster-image-wrap { height: 19.5em; top: 2em; }
+
+@font-face {
+  font-family: Immortal;
+  src: url('../Fonts/IMMORTAL.ttf');
+}

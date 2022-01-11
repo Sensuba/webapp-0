@@ -384,6 +384,8 @@ export default class Game extends Component {
     case "love": return "Amour";
     case "immortal": return "Immortel";
     case "poisoned": return "Empoisonné";
+    case "bonus": return "Transformiste";
+    case "temporary": return "Volatile";
     default: return "?";
     }
   }

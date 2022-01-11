@@ -8,3 +8,14 @@
   50% { box-shadow: 0 0 1.5em 0.5em rgba(207, 38, 0, 0.5); }
   100%   { box-shadow: 0 0 0 0 rgba(207, 38, 0, 0.5); }
 }
+
+.dark-theme.sensuba-card.sensuba-card-blink {
+
+  animation: dark-card-blink 0.8s 1;
+}
+
+@keyframes dark-card-blink {
+  0%   { box-shadow: 0 0 0 0 rgba(100, 20, 0, 0.8); }
+  50% { box-shadow: 0 0 1.5em 0.5em rgba(100, 20, 0, 0.8); }
+  100%   { box-shadow: 0 0 0 0 rgba(100, 20, 0, 0.8); }
+}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import View from '../../../components/cards/Card';
 
-const marks = ["sakuramark", "reipromote", "acceleratorvector"];
+const marks = ["sakuramark", "reipromote", "acceleratorvector", "chiseenchant"];
 
 export default class Card extends Component {
 
@@ -45,7 +45,7 @@ export default class Card extends Component {
         style={this.props.style}
         onMouseMove={visible ? e => this.showTooltip(e, model, true, false/*model && model.inHand*/) : e => {}}
         onMouseLeave={visible ? e => this.hideTooltip() : e => {}}
-        className={"sensuba-card-view" + (model.hasState("flying") ? " flying" : "") + (visible && model.hasState("glazed") ? " glazed" : "") + (model.concealed ? " concealed" : "") /*+ (model.firstTurn && !model.hasState("rush") && model.area.isPlaying ? " firstturn" : "")*/ + (this.props.hidden ? " invisible" : "")}
+        className={"sensuba-card-view" + (model.hasState("flying") ? " flying" : "") + (visible && model.hasState("glazed") ? " glazed" : "") + (model.concealed ? " concealed" : "") + (visible && model.hasState("temporary") ? " temporary" : "") /*+ (model.firstTurn && !model.hasState("rush") && model.area.isPlaying ? " firstturn" : "")*/ + (this.props.hidden ? " invisible" : "")}
         onTouchEnd={e => this.touched = !this.show || !this.props.master.state.preview || this.props.master.state.preview.id !== this.props.model.id }
         onClick={e => {
           if (this.touched) {
@@ -60,22 +60,24 @@ export default class Card extends Component {
         }}>
           <div className="sensuba-card-container">
       	   <View model={model.model} level={model.level} src={visible ? model.eff : null} className={master.manager ? master.manager.controller.haloFor(model) : ""}/>
-          { model.lastwill && model.onBoard ? <div className="sensuba-card-lastwill"/> : <span/> }
-          { model.concealed && model.onBoard ? <div className="sensuba-card-conceal"/> : <span/> }
-          { model.hasState("fury") && model.onBoard ? <div className="sensuba-card-fury"/> : <span/> }
-          { model.exalted && model.onBoard ? <div className="sensuba-card-exalt"/> : <span/> }
-          { visible && model.hasState("glazed") ? <div className="sensuba-card-glaze"/> : <span/> }
-          { model.hasState("static") && model.onBoard && (!master.props.mission || master.props.mission.mission !== "tutorial") ? <div className="sensuba-card-static"/> : <span/> }
-          { visible && model.hasState("immune") && model.onBoard ? <div className="sensuba-card-immune"/> : <span/> }
-          { model.frozen && model.onBoard ? <div className="sensuba-card-freeze"/> : <span/> }
-          { model.hasShield && model.onBoard ? <div className="sensuba-card-shield"/> : <span/> }
-          { model.hasState("initiative") && model.onBoard ? <div className="sensuba-card-initiative"/> : <span/> }
-          { model.hasState("lethal") && model.onBoard ? <div className="sensuba-card-lethal"/> : <span/> }
-          { model.silenced && model.onBoard ? <div className="sensuba-card-silence"/> : <span/> }
-          { model.hasState("cover neighbors") && model.onBoard ? <div className="sensuba-card-cover-neighbors"/> : <span/> }
-          { model.charges !== undefined && model.charges !== null ? <div className="sensuba-card-charge">{[1,2,3,4,5].map(i => <div key={i} className={"sensuba-card-charge-count " + (model.charges >= i ? "sensuba-card-charge-on" : "")}/>)}</div> : <span/> }
-          { model.variables && marks.find(m => model.variables[m]) ? <div className={"sensuba-card-mark sensuba-card-mark-" + marks.find(m => model.variables[m])}/> : <span/> }
-          <div className="sensuba-card-covers">{ model.covered ? <div className="sensuba-card-cover"/> : <span/> }{ model.isCovered(true) ? <div className="sensuba-card-cover sensuba-card-cover-air"/> : <span/> }</div>
+          { model.lastwill && model.onBoard ? <div className="sensuba-card-lastwill"/> : "" }
+          { model.concealed && model.onBoard ? <div className="sensuba-card-conceal"/> : "" }
+          { model.hasState("fury") && model.onBoard ? <div className="sensuba-card-fury"/> : "" }
+          { model.exalted && model.onBoard ? <div className="sensuba-card-exalt"/> : "" }
+          { visible && model.hasState("glazed") ? <div className="sensuba-card-glaze"/> : "" }
+          { visible && model.hasState("temporary") ? <div className="sensuba-card-temporary"/> : "" }
+          { visible && model.hasState("bonus") ? <div className="sensuba-card-bonus"/> : "" }
+          { model.hasState("static") && model.onBoard && (!master.props.mission || master.props.mission.mission !== "tutorial") ? <div className="sensuba-card-static"/> : "" }
+          { visible && model.hasState("immune") && model.onBoard ? <div className="sensuba-card-immune"/> : "" }
+          { model.frozen && model.onBoard ? <div className="sensuba-card-freeze"/> : "" }
+          { model.hasShield && model.onBoard ? <div className="sensuba-card-shield"/> : "" }
+          { model.hasState("initiative") && model.onBoard ? <div className="sensuba-card-initiative"/> : "" }
+          { model.hasState("lethal") && model.onBoard ? <div className="sensuba-card-lethal"/> : "" }
+          { model.silenced && model.onBoard ? <div className="sensuba-card-silence"/> : "" }
+          { model.hasState("cover neighbors") && model.onBoard ? <div className="sensuba-card-cover-neighbors"/> : "" }
+          { model.charges !== undefined && model.charges !== null ? <div className="sensuba-card-charge">{[1,2,3,4,5].map(i => <div key={i} className={"sensuba-card-charge-count " + (model.charges >= i ? "sensuba-card-charge-on" : "")}/>)}</div> : "" }
+          { model.variables && marks.find(m => model.variables[m]) ? <div className={"sensuba-card-mark sensuba-card-mark-" + marks.find(m => model.variables[m])}/> : "" }
+          <div className="sensuba-card-covers">{ model.covered ? <div className="sensuba-card-cover"/> : "" }{ model.isCovered(true) ? <div className="sensuba-card-cover sensuba-card-cover-air"/> : "" }</div>
           </div>
         <div className="sensuba-card-animmask"/><div className="sensuba-card-digitanim"/>
       </div>
