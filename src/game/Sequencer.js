@@ -103,6 +103,8 @@ export default class Sequencer {
 	  		break;*/
 	  	case "wait":
     		return new Wait(this.master, n.data[0].value);
+    	case "show":
+    		return new Spell(this.master);
 	  	case "message": {
 	  		this.master.setState({"messages": this.master.state.messages.concat([{text: n.data[0].value}])});
 	  		break;
