@@ -39,6 +39,9 @@ export default class Figure extends Component {
   		if (src.archetypes && src.archetypes.length > 1)
   			ct += ", " + capitalize(archetypeTranslation(src.archetypes[1]))
   	}
+
+  	let poisoned = src.hasOwnProperty('poisondmg') && src.poisondmg;
+  	let armored = src.armor || 0;
   	
     return (
       <div id={this.id}
@@ -89,15 +92,22 @@ export default class Figure extends Component {
 		   	<div className={"sensuba-card-param-value" + (src.atk < src.originalAtk ? " sensuba-card-param-malus" : (src.atk > src.originalAtk ? " sensuba-card-param-bonus" : ""))}>{src.atk}</div>
 		  </div>
 		  <span className="sensuba-card-param-separator">/</span>
-		  <div className={"sensuba-card-param sensuba-card-param-hp" + (src.hasOwnProperty('poisondmg') && src.poisondmg ? " sensuba-card-althp" : "")}>
+		  <div className={"sensuba-card-param sensuba-card-param-hp" + (poisoned || armored ? " sensuba-card-althp" : "") + (poisoned && armored ? " sensuba-card-althp2" : "")}>
 		    <div className="sensuba-card-param-name">PV</div>
 	   	    <div className={"sensuba-card-param-value" + (src.hasOwnProperty('chp') && src.chp < src.hp ? " sensuba-card-param-malus" : (src.hp > src.originalHp ? " sensuba-card-param-bonus" : ""))}>{src.chp || src.hp}</div>
 		  </div>
 		  {
-		  	src.hasOwnProperty('poisondmg') && src.poisondmg ?
-			<div className="sensuba-card-param sensuba-card-param-poison">
+		  	poisoned ?
+			<div className={"sensuba-card-param sensuba-card-param-poison" + (armored ? " sensuba-card-altpa" : "")}>
 		    <div className="sensuba-card-param-name">PSN</div>
 		      <div className="sensuba-card-param-value">{src.poisondmg}</div>
+			</div> : <span/>
+		  }
+		  {
+		  	armored ?
+			<div className={"sensuba-card-param sensuba-card-param-armor" + (poisoned ? " sensuba-card-altpa" : "")}>
+		    <div className="sensuba-card-param-name">ARM</div>
+		      <div className="sensuba-card-param-value">{armored}</div>
 			</div> : <span/>
 		  }
 		</div>

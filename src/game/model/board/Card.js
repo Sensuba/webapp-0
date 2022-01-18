@@ -171,6 +171,8 @@ export default class Card {
 		delete this.mutdata;
 		delete this.lastwill;
 		delete this.steps;
+		delete this.finalMana;
+		delete this.finalOverload;
 		if (this.isType("entity") || this.isType("secret"))
 			this.targets.push(Event.targets.friendlyEmpty);
 		this.clearBoardInstance();
@@ -267,6 +269,7 @@ export default class Card {
 			return;
 
 		this.poisondmg = (this.poisondmg || 0) + psn;
+		this.states.poisoned = this.poisoned;
 		this.update();
 		//this.gameboard.notify("poisoncard", this, psn);
 	}
@@ -415,6 +418,7 @@ export default class Card {
 	become (data) {
 
 		let wasActivated = this.activated;
+		delete this.mutatedState;
 		if (this.activated)
 			this.deactivate();
 		for (var k in data) {
@@ -583,7 +587,7 @@ export default class Card {
 		return targets.every((t, i) => this.targets[i](this, t));
 	}
 
-	play (targets) {
+	finalize (mana, overload) {
 
 		/*this.area.manapool.use(this.mana);console.log(this.overload);
 		switch(this.cardType) {
@@ -600,6 +604,8 @@ export default class Card {
 			break;
 		default: break;
 		}*/
+		this.finalMana = mana;
+		this.finalOverload = overload;
 		this.gameboard.update();
 	}
 
@@ -943,6 +949,8 @@ export default class Card {
 			this.mutatedState = res;
 		this.mutatedState.states = Object.assign({}, res.states);
 		res = this.mutations.reduce((card, mut) => mut.apply(card), res);
+		if (this.finalMana !== undefined) res.mana = this.finalMana;
+		if (this.finalOverload !== undefined) res.ol = this.finalOverload;
 		updatephp();
 		if (this.states && this.states.frozen && !this.frozen)
 			this.states.frozen = false;

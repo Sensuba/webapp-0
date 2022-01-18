@@ -327,6 +327,21 @@
   display: flex;
 }
 
+.sensuba-shop-box ::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.sensuba-shop-box ::-webkit-scrollbar-track {
+  background: #00000000; 
+}
+ 
+/* Handle */
+.sensuba-shop-box ::-webkit-scrollbar-thumb {
+  background: #80808080; 
+  border-radius: 5px;
+}
+
 .sensuba-shop-box .sensuba-shop-booster {
 
   display: inline-block;

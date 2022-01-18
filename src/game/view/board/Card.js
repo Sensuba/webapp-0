@@ -63,6 +63,7 @@ export default class Card extends Component {
           { model.lastwill && model.onBoard ? <div className="sensuba-card-lastwill"/> : "" }
           { model.concealed && model.onBoard ? <div className="sensuba-card-conceal"/> : "" }
           { model.hasState("fury") && model.onBoard ? <div className="sensuba-card-fury"/> : "" }
+          { model.eff.armor && model.onBoard ? <div className="sensuba-card-armor"/> : "" }
           { model.exalted && model.onBoard ? <div className="sensuba-card-exalt"/> : "" }
           { visible && model.hasState("glazed") ? <div className="sensuba-card-glaze"/> : "" }
           { visible && model.hasState("temporary") ? <div className="sensuba-card-temporary"/> : "" }

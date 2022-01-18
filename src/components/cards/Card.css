@@ -543,14 +543,14 @@
 }
 
 .sensuba-card .sensuba-card-param-atk { left: 2.5em }
-.sensuba-card .sensuba-card-param-hp, .sensuba-card .sensuba-card-param-poison { left: 17.5em }
+.sensuba-card .sensuba-card-param-hp, .sensuba-card .sensuba-card-param-poison, .sensuba-card .sensuba-card-param-armor { left: 17.5em }
 
 .sensuba-card.sensuba-hero .sensuba-card-param-atk { left: 12.5em; top: 45em; }
-.sensuba-card.sensuba-hero .sensuba-card-param-hp, .sensuba-card.sensuba-hero .sensuba-card-param-poison { left: 23em; top: 6.5em; font-weight: bold; }
+.sensuba-card.sensuba-hero .sensuba-card-param-hp, .sensuba-card.sensuba-hero .sensuba-card-param-poison, .sensuba-card.sensuba-hero .sensuba-card-param-armor { left: 23em; top: 6.5em; font-weight: bold; }
 
 .sensuba-card.sensuba-artifact .sensuba-card-param-hp { left: 3.5em }
 
-.sensuba-card .sensuba-card-param-poison {
+.sensuba-card .sensuba-card-param-poison, .sensuba-card .sensuba-card-param-armor {
 
     opacity: 0;
 }
@@ -562,8 +562,15 @@
     text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.8);
 }
 
+.sensuba-card .sensuba-card-param-armor .sensuba-card-param-value, .sensuba-card.sensuba-hero .sensuba-card-param.sensuba-card-param-armor .sensuba-card-param-value {
+
+    color: lightgray;
+    font-weight: bold;
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.8);
+}
+
 #img-preview-tooltip .sensuba-card-althp { animation: altprm infinite alternate 3s linear }
-#img-preview-tooltip .sensuba-card-param-poison { animation: altsec infinite alternate 3s linear }
+#img-preview-tooltip .sensuba-card-param-poison, #img-preview-tooltip .sensuba-card-param-armor { animation: altsec infinite alternate 3s linear }
 
 @keyframes altprm {
     0%   { opacity: 1 }
@@ -577,6 +584,35 @@
     60%  { opacity: 0 }
     70%  { opacity: 1 }
     100% { opacity: 1 }
+}
+
+#img-preview-tooltip .sensuba-card-althp.sensuba-card-althp2 { animation: altprm2 infinite 5s linear }
+#img-preview-tooltip .sensuba-card-param-poison.sensuba-card-altpa { animation: altter1 infinite 5s linear }
+#img-preview-tooltip .sensuba-card-param-armor.sensuba-card-altpa { animation: altter2 infinite 5s linear }
+
+@keyframes altprm2 {
+    0%   { opacity: 1 }
+    40%  { opacity: 1 }
+    50%  { opacity: 0 }
+    90%  { opacity: 0 }
+    100% { opacity: 1 }
+}
+
+@keyframes altter1 {
+    0%   { opacity: 0 }
+    40%  { opacity: 0 }
+    50%  { opacity: 1 }
+    65%  { opacity: 1 }
+    75%  { opacity: 0 }
+    100% { opacity: 0 }
+}
+
+@keyframes altter2 {
+    0%   { opacity: 0 }
+    65%  { opacity: 0 }
+    75%  { opacity: 1 }
+    90%  { opacity: 1 }
+    100% { opacity: 0 }
 }
 
 .sensuba-card .sensuba-card-level {
@@ -824,7 +860,7 @@
     top: 1.8em;
     margin-left: -0.35em;
     filter: drop-shadow(0 0 0.05em #00000080);
-    opacity: 0.9;
+    opacity: 0.95;
 }
 
 .sensuba-card.white-mana .sensuba-card-rune { background-size: 50%; background-repeat: no-repeat; background-image: url("/cards/white.png"); }

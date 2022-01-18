@@ -861,6 +861,34 @@
   100% { background: rgba(255, 255, 255, 0); box-shadow: 0px 0px 1em 0.4em rgba(225,225,225,0); }
 }
 
+.sensuba-card-view .sensuba-card-armor {
+
+  position: absolute;
+  top: 0.4em;
+  left: 0.4em;
+  font-size: 1em;
+  height: 20em;
+  width: 15em;
+  animation: armor 7s infinite linear;
+  overflow: hidden;
+  box-shadow: 0px 0px 0.3em 0.1em rgba(255, 255, 255, 40%), 0px 0px 1em 0.2em rgba(255, 255, 255, 40%);
+}
+
+.sensuba-card-view .sensuba-card-armor::before {
+
+    content: "";
+    position: absolute;
+    top: 0em;
+    left: 0em;
+    width: 30em;
+    height: 20em;
+    opacity: 0.5;
+    background: linear-gradient(155deg, #606060, #606060, #606060, #E0E0E0, #606060, #606060, #606060);
+    filter: sepia(0.2) contrast(1.5);
+    background-size: 100%;
+    animation: glazetranslate 6s infinite alternate ease-in-out;
+}
+
 
 .sensuba-card-view.firstturn {
 
@@ -992,7 +1020,12 @@
 
     background: url('/game/images/extra/chise.png');
     background-size: 100%;
-    /*animation: sakuramark-rotation 6s alternate infinite ease-in-out;*/
+    animation: chiseenchant-color 6s alternate infinite ease-in-out;
+}
+
+@keyframes chiseenchant-color {
+  from { filter: drop-shadow(0 0 0.1em #ed9d85) hue-rotate(-40deg); }
+  to { filter: drop-shadow(0 0 0.1em #ed9d85) hue-rotate(40deg); }
 }
 
 

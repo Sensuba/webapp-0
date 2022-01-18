@@ -24,6 +24,9 @@ export default class Hero extends Component {
   	var level = this.props.level || this.state.level;
   	var eff = src.isEff;
 
+  	let poisoned = src.hasOwnProperty('poisondmg') && src.poisondmg;
+  	let armored = src.armor || 0;
+
     return (
       <div id={this.id}
       className={"sensuba-card sensuba-hero " + this.props.classColor.color1 + " " + this.props.classColor.color2 + (this.props.switch === "manual" ? " editable " : " ") + (this.props.holographic ? "sensuba-card-holographic " : " ") + (this.props.className || "")}
@@ -80,15 +83,22 @@ export default class Hero extends Component {
 		   	<div className={"sensuba-card-param-value" + (level !== 2 || eff ? " sensuba-card-invisible" : "") + (src.atk < src.originalAtk ? " sensuba-card-param-malus" : (src.atk > src.originalAtk ? " sensuba-card-param-bonus" : ""))}>{src.lv2.atk}</div>
 		   	<div className={"sensuba-card-param-value" + (level !== 3 || eff ? " sensuba-card-invisible" : "") + (src.atk < src.originalAtk ? " sensuba-card-param-malus" : (src.atk > src.originalAtk ? " sensuba-card-param-bonus" : ""))}>{src.lvmax.atk}</div>
 		</div>
-		<div className={"sensuba-card-param sensuba-card-param-hp" + (src.hasOwnProperty('poisondmg') && src.poisondmg ? " sensuba-card-althp" : "")}>
+		<div className={"sensuba-card-param sensuba-card-param-hp" + (poisoned || armored ? " sensuba-card-althp" : "") + (poisoned && armored ? " sensuba-card-althp2" : "")}>
 		    <div className="sensuba-card-param-name">PV</div>
 	   	    <div className={"sensuba-card-param-value" + (src.hasOwnProperty('chp') && src.chp < src.hp ? " sensuba-card-param-malus" : "") + (src.hasOwnProperty('chp') ? (src.chp < src.hp ? " sensuba-card-param-malus" : (src.hp > src.originalHp ? " sensuba-card-param-bonus" : "")) : "")}>{src.chp || src.hp}</div>
 		</div>
 		  {
-		  	src.hasOwnProperty('poisondmg') && src.poisondmg ?
-			<div className="sensuba-card-param sensuba-card-param-poison">
+		  	poisoned ?
+			<div className={"sensuba-card-param sensuba-card-param-poison" + (armored ? " sensuba-card-altpa" : "")}>
 		    <div className="sensuba-card-param-name">PSN</div>
 		      <div className="sensuba-card-param-value">{src.poisondmg}</div>
+			</div> : <span/>
+		  }
+		  {
+		  	armored ?
+			<div className={"sensuba-card-param sensuba-card-param-armor" + (poisoned ? " sensuba-card-altpa" : "")}>
+		    <div className="sensuba-card-param-name">ARM</div>
+		      <div className="sensuba-card-param-value">{armored}</div>
 			</div> : <span/>
 		  }
 		<div className={"sensuba-card-range" + (level !== 1 && !eff ? " sensuba-card-invisible" : "") + (src.range < src.originalRange ? " sensuba-card-param-malus" : (src.range > src.originalRange ? " sensuba-card-param-bonus" : ""))}>

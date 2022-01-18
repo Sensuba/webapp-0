@@ -32,6 +32,8 @@ export default class Choosebox {
 
 	open () {
 
+		console.log(this.cards);
+
 		this.opened = true;
 	}
 
