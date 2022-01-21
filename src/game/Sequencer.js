@@ -23,6 +23,7 @@ import BreakShield from './view/animation/BreakShield';
 import GainEffect from './view/animation/GainEffect';
 import ExtraTurn from './view/animation/ExtraTurn';
 import Wait from './view/animation/Wait';
+import LensFlare from './view/animation/LensFlare';
 //import Quake from './view/animation/Quake';
 
 export default class Sequencer {
@@ -232,6 +233,12 @@ export default class Sequencer {
 	    case "extraturn":
 	    	this.extraturns[n.src.no]++;
 	    	return null;
+	    case "animation": {
+	    	switch (n.data[0].value) {
+	    	case "lensflare": return new LensFlare(this.master);
+	    	default: return null;
+	    	}
+	    }
 	    default: return null;
 	    }
 	}

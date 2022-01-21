@@ -841,7 +841,6 @@ export default class Card {
 		default: break;
 		}
 		this.variables[name] = value;
-		this.gameboard.update();
 	}
 
 	getVariable (name) {
