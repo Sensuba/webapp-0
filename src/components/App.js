@@ -37,6 +37,7 @@ export default class App extends Component {
     this.socket = { connected: false, removeAllListeners: () => {}, emit: () => {}, on: () => {} };
 
     window.disconnect = () => { this.socket.close(); /*setTimeout(() => this.reconnect(), 500);*/}
+    window.reconnect = () => { this.reconnect(); }
 
     setInterval(() => { if (!this.socket.connected) this.reconnect(); }, 10000);
 
@@ -137,17 +138,21 @@ export default class App extends Component {
     if (this.socket.connected)
       return;
 
-    this.socket = io(serverURL);
+    this.socket = io.connect(serverURL);
 
     setTimeout(() => {
       if (this.socket.connected) {
         console.log("Connected to server");
-        this.socket.on("disconnect", () => {
+        ['disconnect', 'error', 'connect_failed', 'reconnect_failed', 'connect_error', 'reconnect_error'].forEach(trigger => this.socket.io.on(trigger, () => {
 
           console.log("Disconnected from server");
           this.socket.close();
           this.reconnect();
-        })
+        }));
+      } else {
+        if (this.socket.close)
+          this.socket.close();
+        this.socket = { connected: false, removeAllListeners: () => {}, emit: () => {}, on: () => {} };
       }
     }, 500);
   }
