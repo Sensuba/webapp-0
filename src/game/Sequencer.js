@@ -133,9 +133,9 @@ export default class Sequencer {
 	    	break; }
 	    case "playcard": {
 	    	let card = this.model.find(n.src);
-		    if (card.cardType === "spell" || card.cardType === "trial") {
-		    	if (n.data[0])
-		    		new Target(this.master, n.data[0].no).start();
+		    if (card.cardType === "spell") {
+		    	if (n.data[1])
+		    		new Target(this.master, n.data[1].no).start();
 		    	return new Spell(this.master);
 		    } else if (card.cardType === "figure") {
 		    	if (n.data[1]) {

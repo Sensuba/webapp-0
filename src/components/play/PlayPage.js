@@ -65,21 +65,38 @@ export default class PlayPage extends Component {
     };
 	}
 
-  seekGame (prv) {
+  seekGame (prv, auto) {
 
     if (this.state.seeking)
       return;
     var socket = this.props.getSocket();
-    if (!socket.connected)
+    if (!socket.connected) {
+      if (!auto) {
+        window.reconnect();
+        setTimeout(() => this.seekGame(prv, true), 800)
+      }
       return;
+    }
+    console.log('Seeking ' + (prv ? 'private' : 'public') + ' game');
     socket.emit('seek', prv);
     var history = this.props.history;
     socket.on('assign', (res) => {
-      if (this.state.seeking)
+      if (this.state.seeking) {
+        this.setState({seeking: false});
         history.push(`/play/${res.to}`);
+      }
     });
     this.setState({seeking: true});
-    setTimeout(() => this.setState({seeking: false}), 5000)
+    setTimeout(() => {
+      if (this.state.seeking) {
+        if (!auto && socket.connected && socket === this.props.getSocket()) {
+          window.disconnect();
+          window.reconnect();
+          setTimeout(() => { this.setState({seeking: false}); this.seekGame(prv, true); this.setState({seeking: true}); }, 800)
+        } else
+          this.setState({seeking: false})
+      }
+    }, 1000)
   }
 
   callAI () {

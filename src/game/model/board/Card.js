@@ -852,7 +852,6 @@ export default class Card {
 
 		if (this.variables) {
 			delete this.variables[name];
-			this.gameboard.update();
 		}
 	}
 

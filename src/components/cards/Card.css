@@ -570,19 +570,19 @@
 }
 
 #img-preview-tooltip .sensuba-card-althp { animation: altprm infinite alternate 3s linear }
-#img-preview-tooltip .sensuba-card-param-poison, #img-preview-tooltip .sensuba-card-param-armor { animation: altsec infinite alternate 3s linear }
+#img-preview-tooltip .sensuba-card-param-poison, #img-preview-tooltip .sensuba-card-param-armor { animation: altsec infinite alternate 2.5s linear }
 
 @keyframes altprm {
     0%   { opacity: 1 }
-    60%  { opacity: 1 }
-    70%  { opacity: 0 }
+    45%  { opacity: 1 }
+    55%  { opacity: 0 }
     100% { opacity: 0 }
 }
 
 @keyframes altsec {
     0%   { opacity: 0 }
-    60%  { opacity: 0 }
-    70%  { opacity: 1 }
+    45%  { opacity: 0 }
+    55%  { opacity: 1 }
     100% { opacity: 1 }
 }
 
@@ -592,25 +592,25 @@
 
 @keyframes altprm2 {
     0%   { opacity: 1 }
-    40%  { opacity: 1 }
-    50%  { opacity: 0 }
+    24%  { opacity: 1 }
+    34%  { opacity: 0 }
     90%  { opacity: 0 }
     100% { opacity: 1 }
 }
 
 @keyframes altter1 {
     0%   { opacity: 0 }
-    40%  { opacity: 0 }
-    50%  { opacity: 1 }
-    65%  { opacity: 1 }
-    75%  { opacity: 0 }
+    24%  { opacity: 0 }
+    34%  { opacity: 1 }
+    57%  { opacity: 1 }
+    67%  { opacity: 0 }
     100% { opacity: 0 }
 }
 
 @keyframes altter2 {
     0%   { opacity: 0 }
-    65%  { opacity: 0 }
-    75%  { opacity: 1 }
+    57%  { opacity: 0 }
+    67%  { opacity: 1 }
     90%  { opacity: 1 }
     100% { opacity: 0 }
 }

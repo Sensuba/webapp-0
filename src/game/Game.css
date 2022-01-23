@@ -1365,6 +1365,36 @@
   to {top: 18em;}
 }
 
+
+.sensuba-card-view .sensuba-card-poisoned {
+
+    position: absolute;
+    top: 0em;
+    left: 0em;
+    width: 15em;
+    height: 20em;
+    overflow: hidden;
+    margin: 0.4em;
+}
+
+.sensuba-card-view .sensuba-card-poisoned::before {
+
+    content: "";
+    position: absolute;
+    top: 0em;
+    left: 0em;
+    width: 15em;
+    height: 40em;
+    background: linear-gradient(transparent, rgba(50, 200, 50, 0.15), rgba(0, 160, 0, 0.4), rgba(0, 160, 0, 0.4), rgba(50, 200, 50, 0.15), transparent);
+    background-size: 100%;
+    animation: psntranslate 4s infinite alternate ease-in-out;
+}
+
+@keyframes psntranslate {
+  from {top: -25em;}
+  to {top: 5em;}
+}
+
 .sensuba-card-view .sensuba-card-static {
 
     position: absolute;

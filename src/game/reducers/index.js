@@ -235,6 +235,7 @@ export default (state = new GameBoard(), n) => {
     case "extraturn":
       state.areas[n.src.no].extraTurn();
       break;
+    case "endeffect":
     case "cleanup":
       state.update();
       break;
