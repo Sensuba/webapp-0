@@ -91,7 +91,9 @@ export default class PlayPage extends Component {
       if (this.state.seeking) {
         if (!auto && socket.connected && socket === this.props.getSocket()) {
           window.disconnect();
-          window.reconnect();
+          if (window.reconnect)
+            window.reconnect();
+          else this.setState({seeking: false})
           setTimeout(() => { this.setState({seeking: false}); this.seekGame(prv, true); this.setState({seeking: true}); }, 800)
         } else
           this.setState({seeking: false})

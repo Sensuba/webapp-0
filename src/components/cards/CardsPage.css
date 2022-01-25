@@ -226,24 +226,34 @@
 
 .sensuba-search-page-button {
 
-  cursor: pointer;
   transition: margin 0.3s;
+}
+
+.sensuba-search-page-button-wrapper {
+
+  display: inline-block;
+  width: 2em;
+  cursor: pointer;
 }
 
 .sensuba-search-page-locked-button {
 
-  margin: 0 !important;
-  color: darkgray;
   cursor: default;
 }
 
-.sensuba-search-page-button:hover {
+.sensuba-search-page-locked-button .sensuba-search-page-button {
+
+  margin: 0 !important;
+  color: darkgray;
+}
+
+.sensuba-search-page-button-wrapper:hover .sensuba-search-page-button {
 
   margin-right: calc(2px + 0.2em);
   margin-left: calc(-2px - 0.2em);
 }
 
-.sensuba-search-page-text + .sensuba-search-page-button:hover {
+.sensuba-search-page-text + .sensuba-search-page-button-wrapper:hover .sensuba-search-page-button {
 
   margin-right: calc(-2px - 0.2em);
   margin-left: calc(2px + 0.2em);

@@ -401,9 +401,9 @@ export default class CardsPage extends Component {
                {
                 nocards > displaysize ?
                 <div>
-                  <span className={"sensuba-search-page-button" + (page > 0 ? "" : " sensuba-search-page-locked-button")} onClick={page > 0 ? () => goPage(page-1) : () => {}}>&#11164;</span>
+                  <div className={"sensuba-search-page-button-wrapper" + (page > 0 ? "" : " sensuba-search-page-locked-button")} onClick={page > 0 ? () => goPage(page-1) : () => {}}><span className="sensuba-search-page-button">&#11164;</span></div>
                   <span className="sensuba-search-page-text">{ (page + 1) + " / " + (Math.floor((nocards-1) / displaysize + 1)) }</span>
-                  <span className={"sensuba-search-page-button" + (page < Math.floor((nocards-1) / displaysize) ? "" : " sensuba-search-page-locked-button")} onClick={page < Math.floor((nocards-1) / displaysize) ? () => goPage(page+1) : () => {}}>&#11166;</span> 
+                  <div className={"sensuba-search-page-button-wrapper" + (page < Math.floor((nocards-1) / displaysize) ? "" : " sensuba-search-page-locked-button")} onClick={page < Math.floor((nocards-1) / displaysize) ? () => goPage(page+1) : () => {}}><span className="sensuba-search-page-button">&#11166;</span></div>
                 </div>
                 : <span/>
                }
@@ -527,9 +527,9 @@ export default class CardsPage extends Component {
            {
             nocards > displaysize ?
             <div>
-              <span className={"sensuba-search-page-button" + (page > 0 ? "" : " sensuba-search-page-locked-button")} onClick={page > 0 ? () => goPage(page-1) : () => {}}>&#11164;</span>
+              <div className={"sensuba-search-page-button-wrapper" + (page > 0 ? "" : " sensuba-search-page-locked-button")} onClick={page > 0 ? () => goPage(page-1) : () => {}}><span className="sensuba-search-page-button">&#11164;</span></div>
               <span className="sensuba-search-page-text">{ (page + 1) + " / " + (Math.floor((nocards-1) / displaysize + 1)) }</span>
-              <span className={"sensuba-search-page-button" + (page < Math.floor((nocards-1) / displaysize) ? "" : " sensuba-search-page-locked-button")} onClick={page < Math.floor((nocards-1) / displaysize) ? () => goPage(page+1) : () => {}}>&#11166;</span> 
+              <div className={"sensuba-search-page-button-wrapper" + (page < Math.floor((nocards-1) / displaysize) ? "" : " sensuba-search-page-locked-button")} onClick={page < Math.floor((nocards-1) / displaysize) ? () => goPage(page+1) : () => {}}><span className="sensuba-search-page-button">&#11166;</span></div>
             </div>
             : <span/>
            }

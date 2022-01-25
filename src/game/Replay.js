@@ -13,6 +13,7 @@ import CardPreview from '../components/cards/Card';
 import Loader from '../components/utility/Loader';
 //import FacultyBox from './view/UI/FacultyBox';
 import History from './view/UI/History';
+import PlayButton from './view/UI/PlayButton';
 import MuteButton from './view/UI/MuteButton';
 //import Lightbox from '../components/utility/Lightbox';import
 //import { Button } from 'reactstrap';
@@ -43,6 +44,7 @@ export default class Replay extends Component {
     });
 
 
+    this.paused = false;
     this.volume = localStorage.getItem('sound.sfx') !== undefined ? localStorage.getItem('sound.sfx') : 1;
     var music = Math.random() < 0.33 ? "virgocluster" : (Math.random() < 0.5 ? "planemo" : "auroraborealis");
     this.audio = new Audio("/audio/" + music + ".mp3");
@@ -67,8 +69,9 @@ export default class Replay extends Component {
 
   loopMusic () {
 
-      if (this.unmounted)
+      if (this.unmounted || this.mute)
         return;
+      this.audio.hasStarted = true;
       this.audio.currentTime = 0;
       this.audio.play();
       setTimeout(() => this.loopMusic(), this.audio.duration*1000);
@@ -120,6 +123,10 @@ export default class Replay extends Component {
     let a = () => {
       if (this.stopped)
         return;
+      if (this.paused) {
+        this.pausedAction = a;
+        return;
+      }
       this.analyse(n);
       this.index++;
       this.next();
@@ -187,6 +194,18 @@ export default class Replay extends Component {
 
     this.mute = !this.mute;
     this.audio.muted = this.mute;
+    if (!this.mute && !this.audio.hasStarted)
+      this.loopMusic();
+  }
+
+  switchPlay () {
+
+    this.paused = !this.paused;
+    if (!this.paused && this.pausedAction) {
+      let pa = this.pausedAction;
+      delete this.pausedAction;
+      pa();
+    }
   }
 
   changeVolume (vol, sfx) {
@@ -234,6 +253,7 @@ export default class Replay extends Component {
         <div id="screen-anim" className="screen-anim"><div className="screen-anim-inner"/></div>
       </div>
       <MuteButton switch={() => this.switchMute()} changeVolume={(volume, sfx) => this.changeVolume(volume, sfx)} defaultMute={true} master={this}/>
+      <PlayButton switch={() => this.switchPlay()} master={this}/>
       <History entries={this.state.model.log.history} master={this}/>
       <div id="newturn-frame">
         <h1 className="big-text">A vous de jouer</h1>
