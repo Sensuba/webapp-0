@@ -25,7 +25,7 @@ import sorter from '../utility/CollectionSorter';
 
 const serverURL = /*process.env.SERVER_URL || 'http://localhost:8080' ||*/ 'https://sensuba.herokuapp.com/';
 
-const nocards = 850;
+const nocards = 1000;
 
 export default class App extends Component {
 
@@ -34,7 +34,7 @@ export default class App extends Component {
     super(props);
     this.state = { browser: this.checkBrowser() };
 
-    this.socket = { connected: false, removeAllListeners: () => {}, emit: () => {}, on: () => {} };
+    this.socket = { connected: false, removeAllListeners: () => {}, emit: () => {}, on: () => {}, close: () => {} };
 
     window.disconnect = () => { this.socket.close(); /*setTimeout(() => this.reconnect(), 500);*/}
     window.reconnect = () => { this.reconnect(); }
@@ -152,7 +152,7 @@ export default class App extends Component {
       } else {
         if (this.socket.close)
           this.socket.close();
-        this.socket = { connected: false, removeAllListeners: () => {}, emit: () => {}, on: () => {} };
+        this.socket = { connected: false, removeAllListeners: () => {}, emit: () => {}, on: () => {}, close: () => {} };
       }
     }, 500);
   }
