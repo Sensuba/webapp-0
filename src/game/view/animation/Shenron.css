@@ -35,7 +35,7 @@
   z-index: 1;
   filter: drop-shadow(0em 0em 0.8vw orange);
   opacity: 0;
-  animation: shenron-opacity 4.5s ease-in-out, dragonball-move 1s ease-out 1.8s, dragonball-move-out 1s ease-in 3.5s;
+  animation: shenron-opacity 4.5s ease-in-out, dragonball-move 1s ease-out 1.7s, dragonball-move-out 1s ease-in 3.5s;
 }
 
 .dragonballs {
