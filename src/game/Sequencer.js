@@ -24,7 +24,9 @@ import GainEffect from './view/animation/GainEffect';
 import ExtraTurn from './view/animation/ExtraTurn';
 import Wait from './view/animation/Wait';
 import LensFlare from './view/animation/LensFlare';
+import Shenron from './view/animation/Shenron';
 //import Quake from './view/animation/Quake';
+
 
 export default class Sequencer {
 
@@ -236,6 +238,7 @@ export default class Sequencer {
 	    case "animation": {
 	    	switch (n.data[0].value) {
 	    	case "lensflare": return new LensFlare(this.master);
+	    	case "shenron": return new Shenron(this.master);
 	    	default: return null;
 	    	}
 	    }

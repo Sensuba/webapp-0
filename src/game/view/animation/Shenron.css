@@ -1,0 +1,170 @@
+#screen-anim.shenron-animation {
+
+	display: block;
+	animation: shenron-darken 4.5s 1;
+}
+
+@keyframes shenron-darken {
+
+	0% { background-color: #00000000 }
+	20% { background-color: #000000D0 }
+	80% { background-color: #000000D0 }
+	0% { background-color: #00000000 }
+}
+
+#screen-anim.lens-flare-animation .screen-anim-inner {
+
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0px;
+    height: 0px;
+    margin: 0;
+}
+
+.shenron {
+
+  position: absolute;
+  background: url('/game/images/extra/shenron.png');
+  background-repeat: no-repeat;
+  background-size: 1OOvw;
+  background-position: center;
+  top: -50%;
+  height: 200%;
+  width: 100%;
+  z-index: 1;
+  filter: drop-shadow(0em 0em 0.8vw orange);
+  opacity: 0;
+  animation: shenron-opacity 4.5s ease-in-out, dragonball-move 1s ease-out 1.8s, dragonball-move-out 1s ease-in 3.5s;
+}
+
+.dragonballs {
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.dragonball {
+
+	position: absolute;
+  top: calc(50% - 5vw);
+  left: calc(50% - 5vw);
+  height: 10vw;
+  width: 10vw;
+  filter: drop-shadow(0em 0em 0.6vw orange);
+  animation: dragonball-move 1s ease-out, dragonball-stay 4s, dragonball-opacity 2.5s ease-out;
+  opacity: 0;
+  transform: translateY(100vh);
+}
+
+.dragonball.one {
+
+  background: url('/game/images/extra/dragonball-1.png');
+  object-fit: cover;
+  background-repeat: no-repeat;
+  background-size: cover;
+  top: -23vw;
+  left: -13.68vw;
+}
+
+.dragonball.two {
+
+  background: url('/game/images/extra/dragonball-2.png');
+  object-fit: cover;
+  background-repeat: no-repeat;
+  background-size: cover;
+  top: -23vw;
+  left: 3.68vw;
+  animation-delay: 0.2s;
+}
+
+.dragonball.three {
+
+  background: url('/game/images/extra/dragonball-3.png');
+  object-fit: cover;
+  background-repeat: no-repeat;
+  background-size: cover;
+  top: -9.45vw;
+  left: 14.5vw;
+  animation-delay: 0.4s;
+}
+
+.dragonball.four {
+
+  background: url('/game/images/extra/dragonball-4.png');
+  object-fit: cover;
+  background-repeat: no-repeat;
+  background-size: cover;
+  top: 7.46vw;
+  left: 10.62vw;
+  animation-delay: 0.6s;
+}
+
+.dragonball.five {
+
+  background: url('/game/images/extra/dragonball-5.png');
+  object-fit: cover;
+  background-repeat: no-repeat;
+  background-size: cover;
+  top: 15vw;
+  left: -5vw;
+  animation-delay: 0.8s;
+}
+
+.dragonball.six {
+
+  background: url('/game/images/extra/dragonball-6.png');
+  object-fit: cover;
+  background-repeat: no-repeat;
+  background-size: cover;
+  top: 7.46vw;
+  left: -20.62vw;
+  animation-delay: 1s;
+}
+
+.dragonball.seven {
+
+  background: url('/game/images/extra/dragonball-7.png');
+  object-fit: cover;
+  background-repeat: no-repeat;
+  background-size: cover;
+  top: -9.45vw;
+  left: -24.5vw;
+  animation-delay: 1.2s;
+}
+
+@keyframes dragonball-move {
+
+	0% { transform: translateY(100vh); }
+	100% { transform: translateY(0); }
+}
+
+@keyframes dragonball-stay {
+
+  0% {  }
+  25% { transform: translateY(0); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes dragonball-move-out {
+
+  0% { transform: translateY(0vh); }
+  100% { transform: translateY(-100vh); }
+}
+
+@keyframes dragonball-opacity {
+
+  0% { opacity: 1 }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes shenron-opacity {
+
+  0% { opacity: 0 }
+  40% { opacity: 0 }
+  42% { opacity: 1 }
+  98% { opacity: 1 }
+  100% { opacity: 0 }
+}
