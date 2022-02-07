@@ -141,7 +141,7 @@ export default class Game extends Component {
   tryToReconnect () {
 
     var newsocket = this.props.getSocket();
-    if (this.socket === newsocket) {console.log(this.state.pending);
+    if (this.socket === newsocket) {
       if (this.state.pending > 5000)
         this.onError('disconnect');
       else {
