@@ -25,12 +25,17 @@ export default class EndTurn extends Component {
 
   decrement () {
 
+    let ctime = this.state.timer;
+    if (this.props.master.setTimer !== undefined) {
+      ctime = this.props.master.setTimer;
+      delete this.props.master.setTimer;
+    }
     if (!this.state.timer) {
       if (this.interval)
         clearInterval(this.interval);
       return;
     }
-    this.setState({timer: this.state.timer-1});
+    this.setState({timer: ctime-1});
   }
 
   render () {

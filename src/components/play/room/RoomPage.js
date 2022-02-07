@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './RoomPage.css';
+import Loader from '../../utility/Loader';
 import Nav from '../../Nav';
 import Game from '../../../game/Game';
 import Library from '../../../services/Library';
@@ -9,7 +10,7 @@ export default class RoomPage extends Component {
   constructor (props) {
 
     super(props);
-    this.state = { heroes: {}, vsstate: 0 };
+    this.state = { heroes: {}, vsstate: 0, syncstate: "sync" };
     this.subscribers = [[], []];
   }
 
@@ -19,10 +20,14 @@ export default class RoomPage extends Component {
     Library.getCard(opponent, hero => this.setState({heroes: Object.assign(this.state.heroes, {opponent: hero.highRes || hero.imgLink})}));
     //this.setState({heroes: {you, opponent}});
 
-    this.setState({ vsstate: 1 });
+    if (this.state.vsstate < 3)
+      this.setState({ vsstate: 1 });
     this.subscribers[0].forEach(f => f());
     setTimeout(() => this.subscribers[1].forEach(f => f()), 3700);
+    if (this.state.vsstate < 3)
     setTimeout(() => {
+      if (this.state.vsstate >= 3)
+        return;
       this.setState({ vsstate: 2 });
       setTimeout(() => this.setState({ vsstate: 3 }), 2000);
     }, 4500);
@@ -38,7 +43,7 @@ export default class RoomPage extends Component {
         <Nav api={this.props.api} history={this.props.history}/>
         <main id="room-page">
           { 
-            this.state.vsstate > 0 && this.state.vsstate < 3 ? 
+            this.state.vsstate > 0 && this.state.vsstate < 3 && this.state.syncstate === "sync" ? 
             <div className={"room-vs-wrapper" + (this.state.vsstate === 2 ? " vs-screen-open" : "")}>
               <div className="room-vs-screen">
                 { this.state.heroes && this.state.heroes.you ? <img crossOrigin="Anonymous" className="room-background-hero" src={this.state.heroes.you} alt={""}/> : <span/> }
@@ -47,11 +52,19 @@ export default class RoomPage extends Component {
               </div>
             </div> : <span/>
           }
+          { 
+            this.state.syncstate === "async" ? 
+            <div className="reconnect-room">
+              <div className="vertical-middle">
+                <Loader type="grid"/>
+              </div>
+            </div> : <span/>
+          }
           <div className="room-background">
             { this.state.heroes && this.state.heroes.you ? <img crossOrigin="Anonymous" className="room-background-hero" src={this.state.heroes.you} alt={""}/> : <span/> }
             { this.state.heroes && this.state.heroes.opponent ? <img crossOrigin="Anonymous" className="room-background-hero" src={this.state.heroes.opponent} alt={""}/> : <span/> }
           </div>
-          <Game subscribe={(f, i) => this.subscribers[i].push(f)} api={this.props.api} room={this.props.room} getSocket={() => this.props.getSocket()} updateHeroes={this.changeBackground.bind(this)} quitRoom = {() => this.props.history.push("/play")}/>
+          <Game refresh={() => this.props.history.go(0)} setSync={(state) => this.setState({ vsstate: 3, syncstate: state }) } subscribe={(f, i) => this.subscribers[i].push(f)} api={this.props.api} room={this.props.room} getSocket={() => this.props.getSocket()} updateHeroes={this.changeBackground.bind(this)} quitRoom = {() => this.props.history.push("/play")}/>
         </main>
       </div>
     );

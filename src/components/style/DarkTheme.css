@@ -17,7 +17,7 @@
 
 .dark-theme .loader .lds-ring div {
 
-	border-color: #989ca0;
+	border-color: #989ca0 transparent transparent transparent;
 }
 
 .dark-theme .lightbox-container .lightbox-inner .lightbox {
@@ -39,6 +39,11 @@
 .dark-theme .room-vs-wrapper {
 
 	background: black;
+}
+
+.dark-theme .reconnect-room {
+
+	background-color: #36393F;
 }
 
 .dark-theme .colors-group #neutral-mana + label, .dark-theme .colors-group #neutral-mana-2 + label { background-color: rgba(133, 167, 193, 0.2) }

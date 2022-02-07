@@ -95,7 +95,7 @@ export default class Game extends Component {
     this.mute = localStorage.getItem('sound.muted');
     this.audio.muted = this.mute;
 
-    this.userID = Math.floor(Math.random() * 1000000);
+    this.userID = User.getSession();
 
     this.props.subscribe(() => {
       this.setState({waiting: false});
@@ -141,11 +141,11 @@ export default class Game extends Component {
   tryToReconnect () {
 
     var newsocket = this.props.getSocket();
-    if (this.socket === newsocket) {
+    if (this.socket === newsocket) {console.log(this.state.pending);
       if (this.state.pending > 5000)
         this.onError('disconnect');
       else {
-        this.setState({pending: this.state.pending + 500});
+        this.setState({pending: (this.state.pending || 0) + 500});
         setTimeout(() => this.tryToReconnect(), 500);
       }
     } else {
@@ -209,6 +209,8 @@ export default class Game extends Component {
         this.socket.emit('prepare', User.isConnected() ? User.getData().token : "Anonymous", this.state.deck);
       }
 
+      this.socket.on('state', state => { this.syncstate = state; this.props.setSync(state); });
+      this.socket.on('time', time => this.setTimer = time );
       this.socket.on('notification',  this.analyse.bind(this));
   }
 
@@ -219,14 +221,17 @@ export default class Game extends Component {
       User.updateCredit(credit);
       this.setState({credit: {gain: data.credit, total: credit}});
     }
+    this.ended = true;
     this.sequencer.add({type: "end", src: 0, data: [{type: "int", no: data.state}]});
   }
 
   onError (trigger) {
 
-    if (this.state.model.started)
-      this.sequencer.add({type: "end", src: 0, data: [{type: "int", no: trigger === 'disconnect' ? 5 : 6}]});
-    else
+    if (this.state.model.started && !this.ended){console.log("tryrefresh")
+      this.props.refresh();
+    }
+      //this.sequencer.add({type: "end", src: 0, data: [{type: "int", no: trigger === 'disconnect' ? 5 : 6}]});
+    else if (!this.ended)
       this.props.quitRoom();
   }
 
@@ -272,7 +277,9 @@ export default class Game extends Component {
         this.setState({ hero: ((this.prevHero.no > n.data[0].no) === (this.no > 0) ? this.prevHero : n.data[0]) });
       else this.prevHero = n.data[0];
     }
-    this.sequencer.add(n);
+    if (this.syncstate === "async")
+      this.store.dispatch(n);
+    else this.sequencer.add(n);
   }
 
   command (command) {

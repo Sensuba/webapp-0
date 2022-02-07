@@ -6,7 +6,7 @@
 	position: absolute;
 }
 
-.page-wrapper .vertical-middle {
+.vertical-middle {
 
 	display: table-cell;
 	vertical-align: middle;

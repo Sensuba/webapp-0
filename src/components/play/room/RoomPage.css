@@ -32,7 +32,7 @@
 	outline: 0;
 }
 
-.room-background, .room-vs-wrapper, .room-vs-screen {
+.room-background, .room-vs-wrapper, .room-vs-screen, .reconnect-room {
 
 	position: absolute;
 	top: 0;
@@ -41,7 +41,12 @@
 	height: 100%;
 }
 
-.room-vs-wrapper {
+.reconnect-room {
+	
+	display: table;
+}
+
+.room-vs-wrapper, .reconnect-room {
 
 	background: white;
 	z-index: 1000;

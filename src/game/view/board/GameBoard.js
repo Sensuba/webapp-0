@@ -73,7 +73,7 @@ export default class GameBoard extends Component {
 	    		<Gauge inverted color="#1e90ff80" value={model.areas[1-no].manapool.mana + model.areas[1-no].manapool.extramana} max={model.areas[1-no].manapool.maxMana}/>
 	    	</div>
 	    	<div className={"sensuba-end-turn-wrapper " + (master.manager ? "" : "hidden")}>
-	    		<EndTurn locked={!master.isPlaying} extra={model.areas[no].extraTurns} timer={master.state.timer} endTurn={() => master.manager.endTurn()}/>
+	    		<EndTurn master={master} locked={!master.isPlaying} extra={model.areas[no].extraTurns} timer={master.state.timer} endTurn={() => master.manager.endTurn()}/>
 	    	</div>
 	    	<Area className="sensuba-area-bottom" model={model.areas[no]} master={master}>
 		    	{ model.areas[no].avatar ? <div className="sensuba-avatar-wrapper sensuba-avatar-wrapper-bottom" onClick={no !== undefined && master.role === "player" ? this.props.openConcedeWindow : () => {}}><Avatar src={model.areas[no].avatar}/></div> : <div className="sensuba-avatar-wrapper sensuba-blank-avatar-wrapper" onClick={no !== undefined && master.role === "player" ? this.props.openConcedeWindow : () => {}}/> }

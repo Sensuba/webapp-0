@@ -5,13 +5,25 @@ var User = (() => {
 	var connect = (save) => {
 
 		localStorage.setItem("user.shadow", JSON.stringify(save));
+		updateSession();
 	}
 
 	var disconnect = then => {
 
 		localStorage.removeItem("user.shadow");
 		localStorage.removeItem("playdeck");
+		updateSession();
 		Library.clearAll(then);
+	}
+
+	var updateSession = () => {
+
+		sessionStorage.setItem("session", 1+Math.floor(Math.random() * (Number.MAX_SAFE_INTEGER-1)));
+	}
+
+	var getSession = () => {
+
+		return sessionStorage.getItem("session");
 	}
 
 	var updateProfile = profile => {
@@ -62,7 +74,7 @@ var User = (() => {
 		return localStorage.getItem("cpupartnerdeck");
 	}
 
-	return { connect, disconnect, getData, isConnected, updateDeck, updateCPU, getDeck, getCPU, updateProfile, updateCredit }
+	return { connect, disconnect, updateSession, getSession, getData, isConnected, updateDeck, updateCPU, getDeck, getCPU, updateProfile, updateCredit }
 })();
 
 export default User;

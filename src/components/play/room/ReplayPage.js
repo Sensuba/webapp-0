@@ -26,10 +26,10 @@ export default class ReplayPage extends Component {
       this.setState({ vsstate: 2 });
       setTimeout(() => this.setState({ vsstate: 3 }), 2000);
     }, 4500);
-    var audio = new Audio("/audio/cinematic.ogg");
+    /*var audio = new Audio("/audio/cinematic.ogg");
     audio.volume = localStorage.getItem('sound.sfx') !== undefined ? localStorage.getItem('sound.sfx') : 1;
     if (!localStorage.getItem('sound.muted'))
-      audio.play();
+      audio.play();*/
   }
   
   render() {

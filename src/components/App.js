@@ -43,6 +43,9 @@ export default class App extends Component {
 
     this.reconnect();
 
+    if (!User.getSession())
+      User.updateSession();
+
     if (User.isConnected()) {
 
       var user = User.getData();

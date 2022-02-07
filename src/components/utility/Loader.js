@@ -10,9 +10,12 @@ export default class Loader extends Component {
   	var result = <span/>;
 
   	switch (type) {
-  	case "connect":
-  		result = <div className="connect-loader loader"><div className="lds-ripple"><div></div><div></div></div></div>;
-  		break;
+    case "connect":
+      result = <div className="connect-loader loader"><div className="lds-ripple"><div></div><div></div></div></div>;
+      break;
+    case "grid":
+      result = <div className="connect-loader loader"><div className="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>;
+      break;
   	default: 
   		result = <div className="default-loader loader"><div className="lds-ring"><div></div><div></div><div></div><div></div></div></div>;
   		break;
