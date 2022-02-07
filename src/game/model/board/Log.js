@@ -25,7 +25,7 @@ class Log {
 		case "playcard": {
 			let src = this.gameboard.find(log.src);
 			entry = {type:"play", src};
-			let other = src.isType("entity") ? log.data[1] : log.data[0];
+			let other = log.data[1];
 			if (other) {
 				let tile = this.gameboard.find(other)
 				if (tile) {
@@ -41,7 +41,7 @@ class Log {
 		case "trap": {
 			let src = this.gameboard.find(log.src);
 			entry = {type: log.type === "triggersecret" ? "secret" : "trap", text: log.type === "triggersecret" ? "Secret" : "Auto", src};
-			let other = log.data[0];
+			let other = log.data[1];
 			if (other) {
 				let tile = this.gameboard.find(other)
 				if (tile) {
