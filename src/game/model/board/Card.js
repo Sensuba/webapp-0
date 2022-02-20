@@ -938,7 +938,8 @@ export default class Card {
 			if (this.location.hasHazards("wind")) {
 				res.states = res.states || {};
 				res.states.initiative = true;
-			} else if (this.location.hasHazards("shadow")) {
+			} 
+			if (this.location.hasHazards("shadow")) {
 				res.states = res.states || {};
 				res.states.concealed = true;
 			}
