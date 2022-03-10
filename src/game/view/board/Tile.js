@@ -24,6 +24,7 @@ export default class Tile extends Component {
         <div className="particle"/><div className="particle"/><div className="particle"/><div className="particle"/>
       </div>
       <div className="sensuba-tile-magic"/>
+      <div className="sensuba-tile-bonus"/>
       </div>
     )
   }

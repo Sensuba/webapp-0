@@ -93,7 +93,7 @@ export default class CardSearch extends Component {
                 <option value="4">Grand Bal Masqué</option>
                 <option value="5">Croisée des Horizons</option>
                 <option value="6">Académie Supermagique</option>
-                { (() => { if (User.isConnected() && User.getData().authorization > 3) return <option value="7">A venir</option> })() }
+                { (() => { if (User.isConnected() && User.getData().authorization > 3) return <option value="7">Chemin de Vérité</option> })() }
               </select>
               <div>
                 { (this.props.count > 0 ? <b>{ this.props.count }</b> : "Aucune")}{ " carte" + (this.props.count > 1 ? "s" : "") + " trouvée" + (this.props.count > 1 ? "s" : "") }
