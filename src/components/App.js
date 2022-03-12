@@ -265,10 +265,48 @@ export default class App extends Component {
 
     this.props.options.api.getMyDecks(decks => {
       var d = decks.map(deck => this.readObject(deck));
+      this.tryUpdateDecks(d);      
+    }, err => this.setState({decks: []}));
+  }
+
+  tryUpdateDecks (d) {
+
+    if (!this.state.cards || !this.state.collection || !this.state.customs) {
+      setTimeout(() => this.tryUpdateDecks(d), 500);
+      return;
+    }
+
+    core = this.state.cards.filter(card => card.core)
+
+      formats = {
+        standard: { name: "Standard", cardlist: this.core.concat(this.state.collection.map(el => Object.assign({count: el.number}, this.state.cards.find(card => card.idCardmodel === el.idCardmodel))).filter(el => !this.core.find(cc => cc.idCardmodel === el.idCardmodel))) },
+        display: { name: "Display", cardlist: this.state.cards },
+        custom: { name: "Custom", cardlist: this.core.concat(this.state.collection.map(el => Object.assign({id: el.idCardmodel, count: el.number}, this.state.cards.find(card => card.idCardmodel === el.idCardmodel)))).filter(el => !this.core.find(cc => cc.idCardmodel === el.idCardmodel)).concat(this.state.customs) }
+      }
+
+      d.forEach(deck => deck.format = this.findFormat(formats, deck))
+
       let sortDecks = (a, b) => a.name < b.name ? -1 : (a.name > b.name ? 1 : 0);
       this.setState({decks: d.sort(sortDecks)});
       Library.updateDecks(d);
-    }, err => this.setState({decks: []}));
+  }
+
+  findFormat (avformats, deck) {
+
+    var formats = [];
+    Object.keys(avformats).forEach(k => formats.push(k));
+
+    var c = Object.keys(deck.cards);
+    c.push(deck.hero);
+    c.forEach (card => {
+      formats.slice().forEach(f => {
+        var cc = avformats[f].cardlist.find(l => l.idCardmodel && l.idCardmodel.toString() === card.toString());
+        if (!cc || (cc.count === 1 && deck.cards[card] > 1))
+          formats.splice(formats.indexOf(f), 1);
+      })
+    })
+
+    return formats[0] || "display";
   }
 
   getSocket () {

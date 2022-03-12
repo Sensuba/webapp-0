@@ -167,7 +167,7 @@ export default class PlayPage extends Component {
         else
           this.setState({cpu: res});
       }
-    } else {console.log(res)
+    } else {
       User.updateDeck(res);
       if (setState) {
         if (creating)
