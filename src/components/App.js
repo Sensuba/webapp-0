@@ -271,7 +271,7 @@ export default class App extends Component {
 
   tryUpdateDecks (d) {
 
-    if (!this.state.cards || !this.state.collection || !this.state.customs) {
+    if (!this.state.cards || !this.state.collection || !this.state.customCards) {
       setTimeout(() => this.tryUpdateDecks(d), 500);
       return;
     }
@@ -281,7 +281,7 @@ export default class App extends Component {
     var formats = {
       standard: { name: "Standard", cardlist: core.concat(this.state.collection.map(el => Object.assign({count: el.number}, this.state.cards.find(card => card.idCardmodel === el.idCardmodel))).filter(el => !core.find(cc => cc.idCardmodel === el.idCardmodel))) },
       display: { name: "Display", cardlist: this.state.cards },
-      custom: { name: "Custom", cardlist: core.concat(this.state.collection.map(el => Object.assign({id: el.idCardmodel, count: el.number}, this.state.cards.find(card => card.idCardmodel === el.idCardmodel)))).filter(el => !core.find(cc => cc.idCardmodel === el.idCardmodel)).concat(this.state.customs) }
+      custom: { name: "Custom", cardlist: core.concat(this.state.collection.map(el => Object.assign({id: el.idCardmodel, count: el.number}, this.state.cards.find(card => card.idCardmodel === el.idCardmodel)))).filter(el => !core.find(cc => cc.idCardmodel === el.idCardmodel)).concat(this.state.customCards) }
     }
 
     d.forEach(deck => deck.format = this.findFormat(formats, deck))
