@@ -8,10 +8,13 @@ import MuteButton from '../../game/view/UI/MuteButton';
 
 export default class PlayPage extends Component {
 
+    core = this.props.cards.filter(card => card.core)
+
+
   formats = {
-      standard: { name: "Standard", cardlist: this.props.cards.filter(card => card.idEdition === 1).concat((this.props.collection || []).map(el => Object.assign({count: el.number}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel)))) },
+      standard: { name: "Standard", cardlist: this.core.concat((this.props.collection || []).map(el => Object.assign({count: el.number}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel))).filter(el => !this.core.find(cc => cc.idCardmodel === el.idCardmodel))) },
       display: { name: "Vitrine", cardlist: this.props.cards },
-      custom: { name: "Personnalisé", cardlist: this.props.cards.filter(card => card.idEdition === 1).concat((this.props.collection || []).map(el => Object.assign({count: el.number}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel)))).concat(this.props.customs) }
+      custom: { name: "Personnalisé", cardlist: this.core.concat((this.props.collection || []).map(el => Object.assign({count: el.number}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel))).filter(el => !this.core.find(cc => cc.idCardmodel === el.idCardmodel))).concat(this.props.customs) }
     }
 
 	constructor (props) {
