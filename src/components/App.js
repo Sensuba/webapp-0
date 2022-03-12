@@ -276,19 +276,19 @@ export default class App extends Component {
       return;
     }
 
-    core = this.state.cards.filter(card => card.core)
+    var core = this.state.cards.filter(card => card.core)
 
-      formats = {
-        standard: { name: "Standard", cardlist: this.core.concat(this.state.collection.map(el => Object.assign({count: el.number}, this.state.cards.find(card => card.idCardmodel === el.idCardmodel))).filter(el => !this.core.find(cc => cc.idCardmodel === el.idCardmodel))) },
-        display: { name: "Display", cardlist: this.state.cards },
-        custom: { name: "Custom", cardlist: this.core.concat(this.state.collection.map(el => Object.assign({id: el.idCardmodel, count: el.number}, this.state.cards.find(card => card.idCardmodel === el.idCardmodel)))).filter(el => !this.core.find(cc => cc.idCardmodel === el.idCardmodel)).concat(this.state.customs) }
-      }
+    var formats = {
+      standard: { name: "Standard", cardlist: core.concat(this.state.collection.map(el => Object.assign({count: el.number}, this.state.cards.find(card => card.idCardmodel === el.idCardmodel))).filter(el => !core.find(cc => cc.idCardmodel === el.idCardmodel))) },
+      display: { name: "Display", cardlist: this.state.cards },
+      custom: { name: "Custom", cardlist: core.concat(this.state.collection.map(el => Object.assign({id: el.idCardmodel, count: el.number}, this.state.cards.find(card => card.idCardmodel === el.idCardmodel)))).filter(el => !core.find(cc => cc.idCardmodel === el.idCardmodel)).concat(this.state.customs) }
+    }
 
-      d.forEach(deck => deck.format = this.findFormat(formats, deck))
+    d.forEach(deck => deck.format = this.findFormat(formats, deck))
 
-      let sortDecks = (a, b) => a.name < b.name ? -1 : (a.name > b.name ? 1 : 0);
-      this.setState({decks: d.sort(sortDecks)});
-      Library.updateDecks(d);
+    let sortDecks = (a, b) => a.name < b.name ? -1 : (a.name > b.name ? 1 : 0);
+    this.setState({decks: d.sort(sortDecks)});
+    Library.updateDecks(d);
   }
 
   findFormat (avformats, deck) {
