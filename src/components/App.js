@@ -27,6 +27,8 @@ const serverURL = /*process.env.SERVER_URL || 'http://localhost:8080' ||*/ 'http
 
 const nocards = 1000;
 
+const version = 1
+
 export default class App extends Component {
 
   constructor (props) {
@@ -43,13 +45,18 @@ export default class App extends Component {
 
     this.reconnect();
 
+    User.setVersion(version);
+
     if (!User.getSession())
       User.updateSession();
 
     if (User.isConnected()) {
 
       var user = User.getData();
-      this.state.theme = user.theme;
+      if (!user.version || user.version < version)
+        User.disconnect(() => window.location.reload());
+      else
+        this.state.theme = user.theme;
     }
 
     this.readObject = obj => Object.assign(obj, JSON.parse(window.atob(obj.supercode)));
@@ -65,6 +72,7 @@ export default class App extends Component {
     Library.instantiate(() => {
 
       var f = () => {
+
         Library.getCardList(list => {
 
           if (list && list.length && list.length >= nocards) {
@@ -73,6 +81,16 @@ export default class App extends Component {
           }
           else
             this.updateCardlist();
+        })
+        
+        Library.getCommonDeckList(list => {
+
+          if (list && list.length && list.length > 0) {
+            sorter.sort(list, "type");
+            this.setState({cdecks: list});
+          }
+          else
+            this.updateCommonDecks();
         })
 
         if (User.isConnected()) {
@@ -213,6 +231,19 @@ export default class App extends Component {
     });
   }
 
+  updateCommonDecks () {
+
+    this.props.options.api.getCommonDecks(decks => {
+      if (decks && decks.length > 0) {
+        var d = decks.map(deck => this.readObject(deck));
+        d.forEach(deck => deck.format = "common")
+        sorter.sort(d, "type");
+        this.setState({cdecks: d});
+        Library.updateCommonDecks(d);
+      } else this.updateCommonDecks();
+    });
+  }
+
   updateCustoms () {
 
     this.props.options.api.getCustomCards(cards => {
@@ -263,7 +294,7 @@ export default class App extends Component {
               <Route path="/cards/editor/:card" component={({ match, history }) => (User.isConnected() ? <Editor updateCustoms={this.updateCustoms.bind(this)} idmodel={match.params.card} card={this.state.customCards.find(card => card.idCardmodel.toString() === match.params.card)} history={history} api={this.props.options.api}/> : <Redirect to="/cards"/>)}/>
               <Route exact path="/solo" component={({ match, history }) => (<Solo getSocket={() => this.getSocket()} history={history} api={this.props.options.api}/>)}/>
               <Route exact path="/solo/mission/:mission/:chapter" component={({ match, history }) => (<Mission mission={{mission: match.params.mission, chapter: match.params.chapter}} getSocket={() => this.getSocket()} history={history} api={this.props.options.api}/>)}/>
-              <Route exact path="/play" component={({ match, history }) => (<Play cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} decks={this.state.decks} getSocket={() => this.getSocket()} history={history} api={this.props.options.api}/>)}/>
+              <Route exact path="/play" component={({ match, history }) => (<Play cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} decks={this.state.decks} cdecks={this.state.cdecks} getSocket={() => this.getSocket()} history={history} api={this.props.options.api}/>)}/>
               <Route path="/play/:room" component={({ match, history }) => (<Room getSocket={() => this.getSocket()} room={match.params.room} history={history} api={this.props.options.api}/>)}/>
               <Route path="/replay/:room" component={({ match, history }) => (<Replay getSocket={() => this.getSocket()} room={match.params.room} history={history} api={this.props.options.api}/>)}/>
               <Route path="/training" component={({ match, history }) => (<Mission cards={this.state.cards} getSocket={() => this.getSocket()} training={1} history={history} api={this.props.options.api}/>)}/>

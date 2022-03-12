@@ -37,7 +37,10 @@ export default class CardsPage extends Component {
     var mode = url.searchParams.get("mode");
     switch (mode) {
       case "custom": return this.props.customs;
-      case "collection": return this.props.cards.filter(card => card.idEdition === 1).concat(this.props.collection.map(el => Object.assign({count: el.number, holographic: el.holographic}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel))));
+      case "collection": {
+        let core = this.props.cards.filter(card => card.core)
+        return core.concat(this.props.collection.map(el => Object.assign({count: el.number, holographic: el.holographic}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel))).filter(el => !core.find(cc => cc.idCardmodel === el.idCardmodel)));
+      }
       default: return this.props.cards;
     }
   }
@@ -200,9 +203,9 @@ export default class CardsPage extends Component {
 
     if (User.isConnected() && this.props.collection && this.filter.collection) {
       if (this.filter.collection === "true")
-        cards = cards.filter(card => card.idEdition === 1 || this.props.collection.find(c => card.idCardmodel.toString() === c.idCardmodel.toString()));
+        cards = cards.filter(card => card.core || this.props.collection.find(c => card.idCardmodel.toString() === c.idCardmodel.toString()));
       else
-        cards = cards.filter(card => !(card.idEdition === 1 || this.props.collection.find(c => card.idCardmodel.toString() === c.idCardmodel.toString())));
+        cards = cards.filter(card => !(card.core || this.props.collection.find(c => card.idCardmodel.toString() === c.idCardmodel.toString())));
     }
     
     window.result = cards;
@@ -294,6 +297,7 @@ export default class CardsPage extends Component {
                     { <div className="sensuba-shop-count">{"x" + shopcount}</div> }
                     { shopcount < 1 || (shopcount < 2 && cf[0].rarity !== 4) ? <div onClick={() => this.buyCard(cf[0].idCardmodel, pbuy)} className="shop-button">Acheter <span className="sensuba-credits">{ pbuy }</span></div> : <span/> }
                     { shopcount ? <div onClick={() => this.sellCard(cf[0].idCardmodel, psell)} className="shop-button">Vendre <span className="sensuba-credits">{ psell }</span></div> : <span/> }
+                    { cf[0].core ? <div className="sensuba-shop-count">Core</div> : "" }
                   </div> : <span/> }
                 </div>
             })()
@@ -367,7 +371,8 @@ export default class CardsPage extends Component {
               <Label for="sensuba-search-edition" className="sensuba-search-select-label">Edition</Label>
               <select value={this.filter.edition} id="sensuba-search-edition" onChange={editFilter("edition").bind(this)}>
                 <option value="">---</option>
-                <option value="1">Basique</option>
+                <option value="0">Core</option>
+                <option value="1">Origine</option>
                 <option value="2">Classique</option>
                 <option value="3">Etoile Gardienne</option>
                 <option value="4">Grand Bal Masqué</option>
@@ -519,7 +524,7 @@ export default class CardsPage extends Component {
                 :
                 cards.map((card, i) => <a className="sensuba-card-link" key={card.idCardmodel} onClick={() => this.focus(card.idCardmodel)}>
                   <Card switch="timer" src={card} holographic={card.holographic === 1}/>
-                  { mode === "collection" && !(card.count === undefined && card.cardType === "hero") && card.count !== 1 ? <div className="sensuba-card-count">{"x" + (card.count || 2)}</div> : <span/> }
+                  { mode === "collection" && !(card.count === undefined && card.cardType === "hero") && card.count !== 1 ? <div className="sensuba-card-count">{card.count ? "x" + card.count : "★"}</div> : <span/> }
                   </a>)
             }
           </div>

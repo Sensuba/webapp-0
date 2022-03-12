@@ -213,7 +213,7 @@ export default (() => {
 			cards = cards.filter(card => directsearch(andsearch(minussearch(orsearch(specsearch(searchFunction)))))(fullsearch, card));
 		}
 		if (f.edition && f.edition !== "")
-			cards = cards.filter(card => card.idEdition === parseInt(f.edition, 10));
+			cards = cards.filter(card => f.edition === "0" ? card.core : card.idEdition === parseInt(f.edition, 10));
 		if (f.type && f.type !== "")
 			cards = cards.filter(card => card.cardType === f.type);
 		if (f.rarity && f.rarity !== "")

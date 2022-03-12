@@ -31,6 +31,38 @@ export default class Deckbuilder extends Component {
     return this.props.type === "miracle";
   }
 
+  get filter () {
+
+    var url = new URL(window.location.href);
+
+    var colors = url.searchParams.get("colors");
+    colors = colors ? colors.split(",").filter(color => !isNaN(color)).map(color => parseInt(color, 10)) : [];
+
+    return {
+      mode: url.searchParams.get("mode") || "",
+      orderBy: url.searchParams.get("orderBy") || "type",
+      colors: colors,
+      search: url.searchParams.get("search") || "",
+      archetype: url.searchParams.get("archetype") || "",
+      type: url.searchParams.get("type") || "",
+      edition: url.searchParams.get("edition") || "",
+      name: url.searchParams.get("name") || "",
+      description: url.searchParams.get("description") || "",
+      anime: url.searchParams.get("anime") || "",
+      flavour: url.searchParams.get("flavour") || "",
+      rarity: url.searchParams.get("rarity") || "",
+      mana: url.searchParams.get("mana") || "",
+      manaop: url.searchParams.get("manaop") || "",
+      atk: url.searchParams.get("atk") || "",
+      atkop: url.searchParams.get("atkop") || "",
+      hp: url.searchParams.get("hp") || "",
+      hpop: url.searchParams.get("hpop") || "",
+      range: url.searchParams.get("range") || "",
+      rangeop: url.searchParams.get("rangeop") || "",
+      collection: url.searchParams.get("collection") || ""
+    };
+  }
+
   generateMiracleChoice (cards) {
 
     var pickRandomCard = list => list[Math.floor(Math.random()*list.length)];

@@ -18,12 +18,13 @@ export default class PlayPage extends Component {
 
 		super(props);
 
-    var decklist = User.isConnected() ? (User.getData().authorization >= 4 ? this.props.decks : this.props.decks.filter(d => this.findFormat(d) !== "display").filter(d => Object.values(d.cards).reduce((a, b) => a + b, 0) === 30)) : undefined;
+    var decklist = User.isConnected() ? (User.getData().authorization >= 4 ? this.props.decks : this.props.decks.filter(d => this.findFormat(d) !== "display").filter(d => Object.values(d.cards).reduce((a, b) => a + b, 0) === 30)) : [];
+    decklist = decklist.concat(this.props.cdecks)
+
+    this.state = { cards: this.props.cards.concat(this.props.customs) }
     
     var deck = User.getDeck();
-    if (!User.isConnected())
-      deck = null;
-    else if (deck) {
+    if (deck) {
       deck = JSON.parse(deck);
       if (deck.id === undefined) {
         if (decklist && decklist.length > 0)
@@ -31,7 +32,7 @@ export default class PlayPage extends Component {
       }
     }
     else if (decklist && decklist.length > 0) {
-      this.setDeck(decklist[0], false);
+      this.setDeck(decklist[0], true, false, true);
       deck = decklist[0];
     }
     else
@@ -48,21 +49,20 @@ export default class PlayPage extends Component {
       }
     }
     else if (decklist && decklist.length > 0) {
-      this.setDeck(decklist[0], false, true);
+      this.setDeck(decklist[0], true, true, true);
       cpu = decklist[0];
     }
     else
       cpu = null;
 
-    this.state = {
-      cards: this.props.cards.concat(this.props.customs),
-      decklist: decklist,
-      seeking: false,
-      deck: deck,
-      cpu: cpu,
-      filter: "",
-      filterCPU: ""
-    };
+    this.state.seeking = false;
+    this.state.decklist = decklist;
+    if (!this.state.deck)
+      this.state.deck = deck;
+    if (!this.state.cpu)
+      this.state.cpu = cpu;
+    this.state.filter = "";
+    this.state.filterCPU = "";
 	}
 
   seekGame (prv, auto) {
@@ -139,7 +139,7 @@ export default class PlayPage extends Component {
     return formats[0] || "display";
   }
 
-  setDeck (deck, setState = true, cpu = false) {
+  setDeck (deck, setState = true, cpu = false, creating = false) {
 
     var listsrc = setState ? this.state.cards : this.props.cards.concat(this.props.customs);
     var res = { id: deck.idDeck, hero: deck.hero, body: [] };
@@ -159,12 +159,24 @@ export default class PlayPage extends Component {
     })
     if (cpu) {
       User.updateCPU(res);
-      if (setState)
-        this.setState({cpu: res});
-    } else {
+      if (setState) {
+        if (creating)
+          /* eslint-disable */
+          this.state.cpu = res;
+          /* eslint-enable */
+        else
+          this.setState({cpu: res});
+      }
+    } else {console.log(res)
       User.updateDeck(res);
-      if (setState)
-        this.setState({deck: res});
+      if (setState) {
+        if (creating)
+          /* eslint-disable */
+          this.state.deck = res;
+          /* eslint-enable */
+        else
+          this.setState({deck: res});
+      }
     }
   }
 
@@ -213,7 +225,7 @@ export default class PlayPage extends Component {
                         if (hero)
                         return (
                           <div key={i} className={"sensuba-deckbuilder-tag " + colorIdToClassName(hero.idColor) + " " + colorIdToClassName(hero.idColor2)} onClick={() => this.choice(c.idDeck)}>
-                            <div className="sensuba-deckbuilder-tag-name">{c.name}</div>
+                            <div className="sensuba-deckbuilder-tag-name">{(c.format === "common" ? "🔰 " : "") + c.name}</div>
                             <img className="sensuba-deckbuilder-tag-img" src={c.background} alt={c.name}/>
                           </div>
                         )

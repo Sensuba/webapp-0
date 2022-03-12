@@ -1,9 +1,17 @@
 import Library from './Library';
 
+var version = 0;
+
 var User = (() => {
+
+	var setVersion = (v) => {
+
+		version = v;
+	}
 
 	var connect = (save) => {
 
+		save.version = version;
 		localStorage.setItem("user.shadow", JSON.stringify(save));
 		updateSession();
 	}
@@ -74,7 +82,7 @@ var User = (() => {
 		return localStorage.getItem("cpupartnerdeck");
 	}
 
-	return { connect, disconnect, updateSession, getSession, getData, isConnected, updateDeck, updateCPU, getDeck, getCPU, updateProfile, updateCredit }
+	return { setVersion, connect, disconnect, updateSession, getSession, getData, isConnected, updateDeck, updateCPU, getDeck, getCPU, updateProfile, updateCredit }
 })();
 
 export default User;

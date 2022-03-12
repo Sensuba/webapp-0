@@ -6,7 +6,7 @@ var Library = (() => {
 	var db;
 	var instantiated = false;
 
-	var version = 2;
+	var version = 3;
 
 	var instantiate = then => {
 
@@ -20,6 +20,9 @@ var Library = (() => {
 			}
 			if (evt.oldVersion < 2) {
 			    evt.currentTarget.result.createObjectStore('collection', { keyPath: 'idCardmodel' });
+			}
+			if (evt.oldVersion < 3) {
+			    evt.currentTarget.result.createObjectStore('cdecks', { keyPath: 'idDeck' });
 			}
 		}).then(() => {
 			instantiated = true;
@@ -96,6 +99,18 @@ var Library = (() => {
 		if (instantiated) f(db); else instantiate(f);
 	}
 
+	var updateCommonDecks = (data, then) => {
+
+		let f = db => db.openDatabase(version, evt => {}).then(() => {
+			db.clear('cdecks');
+			data.forEach(card => db.add('cdecks', card));
+			if (then)
+				then();
+		});
+
+		if (instantiated) f(db); else instantiate(f);
+	}
+
 	var getCardList = then => {
 
 		let f = db => db.openDatabase(version, evt => {}).then(() => {
@@ -147,6 +162,15 @@ var Library = (() => {
 		if (instantiated) f(db); else instantiate(f);
 	}
 
+	var getCommonDeckList = then => {
+
+		let f = db => db.openDatabase(version, evt => {}).then(() => {
+			db.getAll('cdecks').then(then);
+		});
+
+		if (instantiated) f(db); else instantiate(f);
+	}
+
 	var clear = then => {
 
 		let f = db => db.openDatabase(version, evt => {}).then(() => {
@@ -189,7 +213,7 @@ var Library = (() => {
 		clear(() => clearDecks(() => clearCustoms(() => clearCollection(then))));
 	}
 
-	return { instantiate, upToDate, update, updateCollection, updateCustoms, updateDecks, getCard, getCollection, getCardList, getCustomCardList, getDeckList, clear, clearCustoms, clearDecks, clearCollection, clearAll }
+	return { instantiate, upToDate, update, updateCollection, updateCustoms, updateDecks, updateCommonDecks, getCard, getCollection, getCardList, getCustomCardList, getDeckList, getCommonDeckList, clear, clearCustoms, clearDecks, clearCollection, clearAll }
 })();
 
 export default Library;

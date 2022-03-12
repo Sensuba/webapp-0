@@ -95,6 +95,15 @@ export default class Api {
     });
   }
 
+  getCommonDecks (callback, error) {
+
+    if (User.isConnected())
+      this.addAuthorizationHeader();
+    this.client.get("/vault/decks")
+    .then(response => callback(response.data))
+    .catch(this.error(error));
+  }
+
   saveDeck (params, callback, error) {
 
     if (!User.isConnected()) {

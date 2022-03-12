@@ -24,38 +24,6 @@ import reducers from './reducers';
 
 import Assistant from '../components/decks/deckbuilder/AssistantBuilder';
 
-const defaultDecks = [{
-  hero: 1,
-  body: [
-    103, 103, 105, 105, 117,
-    117, 126, 126, 130, 130,
-    132, 132, 150, 150, 325,
-    325, 157, 157, 160, 160,
-    177, 177, 108, 108, 302,
-    302, 328, 328, 336, 336
-  ]
-}, {
-  hero: 2,
-  body: [
-    101, 101, 103, 103, 105,
-    105, 115, 115, 226, 226,
-    137, 137, 165, 165, 167,
-    167, 169, 169, 185, 185,
-    212, 212, 340, 340, 232,
-    232, 233, 233, 318, 318
-  ]
-}, {
-  hero: 3,
-  body: [
-    103, 103, 105, 105, 110,
-    110, 112, 112, 124, 124,
-    104, 104, 131, 131, 136,
-    136, 145, 145, 152, 152,
-    156, 156, 167, 167, 192,
-    192, 173, 173, 320, 320
-  ]
-}];
-
 export default class Game extends Component {
 
   constructor (props) {
@@ -70,7 +38,7 @@ export default class Game extends Component {
     var myDeck = User.getDeck();
     if (myDeck)
       myDeck = JSON.parse(myDeck);
-    var d = (User.isConnected() && myDeck) ? myDeck : this.getDefaultDeck();
+    var d = myDeck ? myDeck : this.getDefaultDeck();
     var authorization = User.isConnected() ? (User.getData().authorization || 0) : 0;
 
     this.state = {
@@ -259,7 +227,7 @@ export default class Game extends Component {
 
   getDefaultDeck () {
 
-    return defaultDecks[Math.floor(Math.random()*defaultDecks.length)];
+    return null;
   }
 
   analyse (n) {
