@@ -522,11 +522,64 @@
     transform: skew(0deg, -30deg) rotate(30deg);
 }
 
-.sensuba-card.white-mana .sensuba-card-footer, .sensuba-card.white-mana.sensuba-artifact .sensuba-card-footer::before { background: rgba(232, 209, 97, 0.8) }
-.sensuba-card.red-mana .sensuba-card-footer, .sensuba-card.red-mana.sensuba-artifact .sensuba-card-footer::before { background: rgba(247, 69, 69, 0.8) }
-.sensuba-card.blue-mana .sensuba-card-footer, .sensuba-card.blue-mana.sensuba-artifact .sensuba-card-footer::before { background: rgba(17, 150, 216, 0.8) }
-.sensuba-card.green-mana .sensuba-card-footer, .sensuba-card.green-mana.sensuba-artifact .sensuba-card-footer::before { background: rgba(142, 197, 102, 0.8) }
-.sensuba-card.black-mana .sensuba-card-footer, .sensuba-card.black-mana.sensuba-artifact .sensuba-card-footer::before { background: rgba(80, 26, 53, 0.8) }
+.sensuba-card.white-mana .sensuba-card-footer, .sensuba-card.white-mana.sensuba-artifact .sensuba-card-footer::before, .sensuba-card.white-mana.sensuba-artifact .sensuba-card-mech-info::before { background: rgba(232, 209, 97, 0.8) }
+.sensuba-card.red-mana .sensuba-card-footer, .sensuba-card.red-mana.sensuba-artifact .sensuba-card-footer::before, .sensuba-card.red-mana.sensuba-artifact .sensuba-card-mech-info::before { background: rgba(247, 69, 69, 0.8) }
+.sensuba-card.blue-mana .sensuba-card-footer, .sensuba-card.blue-mana.sensuba-artifact .sensuba-card-footer::before, .sensuba-card.blue-mana.sensuba-artifact .sensuba-card-mech-info::before { background: rgba(17, 150, 216, 0.8) }
+.sensuba-card.green-mana .sensuba-card-footer, .sensuba-card.green-mana.sensuba-artifact .sensuba-card-footer::before, .sensuba-card.green-mana.sensuba-artifact .sensuba-card-mech-info::before { background: rgba(142, 197, 102, 0.8) }
+.sensuba-card.black-mana .sensuba-card-footer, .sensuba-card.black-mana.sensuba-artifact .sensuba-card-footer::before, .sensuba-card.black-mana.sensuba-artifact .sensuba-card-mech-info::before { background: rgba(80, 26, 53, 0.8) }
+
+.sensuba-card.sensuba-artifact .sensuba-card-mech-info {
+
+    z-index: 1;
+    font-family: "Lucida Bright";
+    font-size: 0.2em;
+    line-height: 1em;
+    position: absolute;
+    height: 15em;
+    margin: 0 7%;
+    color: white;
+    top: 64.85em;
+    left: 0em;
+    width: 40em;
+    margin: 0 7%;
+    background: none !important;
+    border: none;
+    border-radius: 0em;
+    box-shadow: none;
+    /*transform: skew(0deg, -30deg);*/
+}
+.sensuba-card.sensuba-artifact .sensuba-card-mech-info::before {
+
+    content: "";
+    position: absolute;
+    left: -2.5em;
+    top: 0;
+    background: rgba(133, 167, 193, 0.8);
+    border-radius: 0em;
+    border: solid white 0.25em;
+    box-shadow: 0px 0.5em 4em 0px rgba(0, 0, 0, 0.5) inset;
+    color: white;
+    width: 42.6em;
+    height: 5em;
+    box-shadow: 0px 0.5em 4em 0px rgba(0, 0, 0, 0.5) inset;
+    transform: skew(0deg, -30deg) rotate(30deg);
+}
+
+.sensuba-card.sensuba-artifact .sensuba-card-mech-info .sensuba-card-param .sensuba-card-param-name {
+
+    font-size: 2em;
+}
+
+.sensuba-card.sensuba-artifact .sensuba-card-mech-info .sensuba-card-param .sensuba-card-param-value {
+
+    right: -4.2em;
+}
+
+.sensuba-card.sensuba-artifact .sensuba-card-mech-info .sensuba-card-param:nth-child(2) {
+
+    left: 50%;
+}
+
 
 .sensuba-card .sensuba-card-param {
 

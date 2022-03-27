@@ -1,5 +1,8 @@
 //import Card from "./Card";
 
+const CURSE_DAMAGE = 500;
+const CURSE_INC = 100;
+
 export default class Deck {
 
 	constructor (area) {
@@ -10,6 +13,7 @@ export default class Deck {
 		this.locationOrder = 1;
 
 		this.area = area;
+		this.curse = CURSE_DAMAGE;
 
 		this.cards = [];
 	}
@@ -17,6 +21,11 @@ export default class Deck {
 	draw() {
 
 		return this.cards[0];
+	}
+
+	fatigue() {
+
+		this.curse += CURSE_INC;
 	}
 
 	lockStartingDeck() {

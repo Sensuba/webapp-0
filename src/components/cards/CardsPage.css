@@ -265,17 +265,17 @@
 }
 
 .colors-group #neutral-mana + label, .colors-group #neutral-mana-2 + label { border-color: rgb(133, 167, 193); }
-.colors-group #neutral-mana + label::before, .colors-group #neutral-mana-2 + label::before { content: ""; position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-size: 100%; background-repeat: no-repeat; background-image: url("/cards/neutralcolor.png"); opacity: 0.5; }
+.colors-group #neutral-mana + label::before, .colors-group #neutral-mana-2 + label::before { content: ""; position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-size: 100%; background-repeat: no-repeat; background-image: url("/cards/neutral.png"); opacity: 0.5; }
 .colors-group #white-mana + label, .colors-group #white-mana-2 + label { border-color: rgb(232, 209, 97); }
-.colors-group #white-mana + label::before, .colors-group #white-mana-2 + label::before { content: ""; position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-size: 100%; background-repeat: no-repeat; background-image: url("/cards/whitecolor.png"); opacity: 0.5; }
+.colors-group #white-mana + label::before, .colors-group #white-mana-2 + label::before { content: ""; position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-size: 100%; background-repeat: no-repeat; background-image: url("/cards/white.png"); opacity: 0.5; }
 .colors-group #red-mana + label, .colors-group #red-mana-2 + label { border-color: rgb(247, 69, 69); }
-.colors-group #red-mana + label::before, .colors-group #red-mana-2 + label::before { content: ""; position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-size: 100%; background-repeat: no-repeat; background-image: url("/cards/redcolor.png"); opacity: 0.5; }
+.colors-group #red-mana + label::before, .colors-group #red-mana-2 + label::before { content: ""; position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-size: 100%; background-repeat: no-repeat; background-image: url("/cards/red.png"); opacity: 0.5; }
 .colors-group #blue-mana + label, .colors-group #blue-mana-2 + label { border-color: rgb(17, 150, 216); }
-.colors-group #blue-mana + label::before, .colors-group #blue-mana-2 + label::before { content: ""; position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-size: 100%; background-repeat: no-repeat; background-image: url("/cards/bluecolor.png"); opacity: 0.5; }
+.colors-group #blue-mana + label::before, .colors-group #blue-mana-2 + label::before { content: ""; position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-size: 100%; background-repeat: no-repeat; background-image: url("/cards/blue.png"); opacity: 0.5; }
 .colors-group #green-mana + label, .colors-group #green-mana-2 + label { border-color: rgb(142, 197, 102); }
-.colors-group #green-mana + label::before, .colors-group #green-mana-2 + label::before { content: ""; position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-size: 100%; background-repeat: no-repeat; background-image: url("/cards/greencolor.png"); opacity: 0.5; }
+.colors-group #green-mana + label::before, .colors-group #green-mana-2 + label::before { content: ""; position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-size: 100%; background-repeat: no-repeat; background-image: url("/cards/green.png"); opacity: 0.5; }
 .colors-group #black-mana + label, .colors-group #black-mana-2 + label { border-color: rgb(80, 26, 53); }
-.colors-group #black-mana + label::before, .colors-group #black-mana-2 + label::before { content: ""; position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-size: 100%; background-repeat: no-repeat; background-image: url("/cards/blackcolor.png"); opacity: 0.5; }
+.colors-group #black-mana + label::before, .colors-group #black-mana-2 + label::before { content: ""; position: absolute; top: 0; left: 0; height: 100%; width: 100%; background-size: 100%; background-repeat: no-repeat; background-image: url("/cards/black.png"); opacity: 0.5; }
 
 .colors-group #neutral-mana:checked + label, .colors-group #neutral-mana-2:checked + label { background-color: rgb(133, 167, 193); background-size: 100%; background-repeat: no-repeat; background-image: url("/cards/neutral.png"); }
 .colors-group #white-mana:checked + label, .colors-group #white-mana-2:checked + label { background-color: rgb(232, 209, 97); background-size: 100%; background-repeat: no-repeat; background-image: url("/cards/white.png"); }

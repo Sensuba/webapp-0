@@ -14,6 +14,7 @@ class Frenzy extends Bloc {
 
 	setup (owner, image) {
 
+		owner.frenzy = true;
 		/*var that = this;
 		owner.passives.push(new Listener(owner, () => that.src.gameboard.subscribe("damagecard", (t,s,d) => {
 			if (d[1] === owner && owner.onBoard && s.chp !== undefined && s.chp <= 0) {

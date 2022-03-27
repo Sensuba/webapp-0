@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Card from '../Card';
-//import User from '../../../services/User';
+import User from '../../../services/User';
 import { Form, Input, FormGroup, Label } from 'reactstrap';
 
 const IMGBB_API_KEY = "b4f9e0c243faf713fe8af060a29a9d8f";
@@ -67,13 +67,14 @@ export default class EditorPage extends Component {
         }
     };
     switch (newType) {
-    case "figure": filter = ["lv2", "lvmax", "idColor2", "icon"]; break;
-    case "hero": filter = ["archetypes", "mana", "icon"]; break;
+    case "figure": filter = ["lv2", "lvmax", "idColor2", "icon", "mecha"]; break;
+    case "hero": filter = ["archetypes", "mana", "icon", "mecha"]; break;
     case "spell":
     case "secret":
-    case "world": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "hp", "range", "icon"]; break;
-    case "seal": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "hp", "range", "mana"]; break;
-    case "artifact": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "range", "icon"]; break;
+    case "world": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "hp", "range", "icon", "mecha"]; break;
+    case "seal": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "hp", "range", "mana", "mecha"]; break;
+    case "artifact": filter = this.currentCard.mecha ? ["lv2", "lvmax", "idColor2", "archetypes", "icon"]
+      : ["lv2", "lvmax", "idColor2", "archetypes", "atk", "range", "icon"]; break;
     default: break;
     }
 
@@ -339,8 +340,40 @@ export default class EditorPage extends Component {
               {
                 this.currentCard.cardType === "artifact" ?
                 <FormGroup>
+                  <div className="two-thirds-section">
                     <Label for="form-card-hp">Durabilité</Label>
                     <Input id="form-card-hp" type="number" min="100" max="9999" step="100" value={this.currentCard.hp} onChange={editAttribute("hp").bind(this)}/>
+                  </div>
+                  <div className="third-section">
+                  { User.isConnected() && User.getData().authorization >= 4 ?
+                    <div>
+                    <Label for="form-card-mecha">Mech</Label>
+                    <div>
+                      <Input id="form-card-mecha" className="form-card-checkbox" type="checkbox" checked={this.currentCard.mecha === true} onChange={() => {
+                        this.currentCard.mecha = !this.currentCard.mecha;
+                        if (this.currentCard.mecha) {
+                          this.currentCard.atk = "200";
+                          this.currentCard.range = "1";
+                        }
+                        this.props.update(this.props.card);
+                      }}/>
+                    </div>
+                    </div> : ""
+                  }
+                  </div>
+                </FormGroup> : <span/>
+              }
+              {
+                this.currentCard.cardType === "artifact" && this.currentCard.mecha ?
+                <FormGroup>
+                  <div className="half-section">
+                    <Label for="form-card-atk">ATK</Label>
+                    <Input id="form-card-atk" type="number" min="100" max="9999" step="100" value={this.currentCard.atk} onChange={editAttribute("atk").bind(this)}/>
+                  </div>
+                  <div className="half-section">
+                    <Label for="form-card-range">Portée</Label>
+                    <Input id="form-card-range" type="number" min="1" max="3" value={this.currentCard.range} onChange={editAttribute("range").bind(this)}/>
+                  </div>
                 </FormGroup> : <span/>
               }
               {

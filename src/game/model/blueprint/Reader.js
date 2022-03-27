@@ -107,6 +107,7 @@ var CardToTileFilter = require('./CardToTileFilter');
 var DoesCover = require('./DoesCover');
 var IsCovered = require('./IsCovered');
 var Poisoned = require('./Poisoned');
+var CurseDamage = require('./CurseDamage');
 var ChargeCount = require('./ChargeCount');
 var MergeMutations = require('./MergeMutations');
 var ConditionalMutation = require('./ConditionalMutation');
@@ -290,6 +291,7 @@ class Reader {
 			case "ctotfilter": bloc = new CardToTileFilter(card, ctx); break;
 			case "cover": bloc = new DoesCover(card, ctx); break;
 			case "poisoned": bloc = new Poisoned(card, ctx); break;
+			case "cursedmg": bloc = new CurseDamage(card, ctx); break;
 			case "chargecount": bloc = new ChargeCount(card, ctx); break;
 			case "covered": bloc = new IsCovered(card, ctx); break;
 			case "mergemut": bloc = new MergeMutations(card, ctx); break;

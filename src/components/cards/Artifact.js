@@ -57,7 +57,7 @@ export default class Artifact extends Component {
 	    { src.illustrator ? <div className="sensuba-card-illustrator">Illus: {src.illustrator}</div> : <span/> }
 	    <div className="sensuba-card-body">
 	    	<div className="sensuba-card-body-header">
-	        	<span className="sensuba-card-type">Artéfact</span>
+	        	<span className="sensuba-card-type">{"Artéfact" + (src.mecha ? ": Mech" : "")}</span>
 	        	<span className="sensuba-card-anime">{src.anime}</span>
 	        </div>
 	        <div className="sensuba-card-body-main">
@@ -69,9 +69,21 @@ export default class Artifact extends Component {
 		<div className="sensuba-card-footer">
 		  <div className="sensuba-card-param sensuba-card-param-hp">
 		    <div className="sensuba-card-param-name">DUR</div>
-	   	    <div className="sensuba-card-param-value">{src.chp || src.hp}</div>
+	   	  <div className="sensuba-card-param-value">{src.chp || src.hp}</div>
 		  </div>
 		</div>
+		{ src.mecha ?
+			<div className="sensuba-card-mech-info">
+			  <div className="sensuba-card-param sensuba-card-param-atk">
+			    <div className="sensuba-card-param-name">ATK</div>
+		   	  <div className="sensuba-card-param-value">{src.atk}</div>
+			  </div>
+			  <div className="sensuba-card-param sensuba-card-param-range">
+			    <div className="sensuba-card-param-name">PORTEE</div>
+		   	  <div className="sensuba-card-param-value">{src.range}</div>
+			  </div>
+			</div> : ""
+		}
 	    { src.overload && src.overload > 0 ? <div className={"sensuba-card-overload" + (src.ol && src.ol > src.overload ? " sensuba-card-overload-limit-break" : "")}>{src.overload}</div> : <span/> }
 	    <div className="sensuba-card-frame">
 	    	<div className="sensuba-frame-icon"/>

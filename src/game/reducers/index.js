@@ -226,6 +226,9 @@ export default (state = new GameBoard(), n) => {
     case "usegem":
       state.areas[n.src.no].manapool.useGem();
       break;
+    case "fatigue":
+      state.areas[n.src.no].deck.fatigue();
+      break;
     case "openchoosebox":
       state.areas[n.src.no].choosebox.open();
       break;

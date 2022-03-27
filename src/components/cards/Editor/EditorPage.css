@@ -88,6 +88,15 @@
   font-size: 1em;
 }
 
+.editor-box .form-card-checkbox {
+
+  height: 1.4em;
+  width: 1.4em;
+  cursor: pointer;
+  display: block;
+  margin-left: 1.2em;
+}
+
 .token-menu {
 
   display: flex;

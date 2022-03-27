@@ -5,7 +5,7 @@ export default class Fatigue extends Animation {
 
 	constructor (master, area) {
 
-		super(master, 0);
+		super(master, 800);
 		this.area = area;
 		//this.loadAudio("fatigue");
 	}
