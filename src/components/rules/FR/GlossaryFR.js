@@ -158,11 +158,11 @@ export default class GlossaryFR extends Component {
         </div>
         <div className="quarter-section">
           <div className="glossary-panel">
-              <img className="glossary-panel-background" src="/glossary/glazed.jpg" alt="bg"/>
+              <img className="glossary-panel-background" src="https://i.ibb.co/XxrS8y5/yukine.png" alt="bg"/>
               <div className="glossary-panel-filter"/>
               <div className="glossary-panel-text">
-                <h3>Vernissage</h3>
-                <p>Une carte vernie peut pas être copiée vers la main ou le deck.</p>
+                <h3>Enrager</h3>
+                <p>Fait attaquer une figure ou un artéfact, choisi aléatoirement parmi les cibles valides.</p>
                 </div>
           </div>
         </div>
@@ -173,6 +173,36 @@ export default class GlossaryFR extends Component {
               <div className="glossary-panel-text">
                 <h3>Insensible</h3>
                 <p>Ne peut pas être ciblé par des effets de carte de votre adversaire. Ne reçoit aucun dégât.</p>
+                </div>
+          </div>
+        </div>
+        <div className="quarter-section">
+          <div className="glossary-panel">
+              <img className="glossary-panel-background" src="https://i.ibb.co/ypL2XdD/71e3563f6ba3.png" alt="bg"/>
+              <div className="glossary-panel-filter"/>
+              <div className="glossary-panel-text">
+                <h3>Contact</h3>
+                <p>Effet déclenché après combat impliquant ce personnage.</p>
+                </div>
+          </div>
+        </div>
+        <div className="quarter-section">
+          <div className="glossary-panel">
+              <img className="glossary-panel-background" src="https://i.ibb.co/hWL7J06/bd2cbb430886.png" alt="bg"/>
+              <div className="glossary-panel-filter"/>
+              <div className="glossary-panel-text">
+                <h3>Sillage</h3>
+                <p>Effet déclenché sur la case d'où se retire ce personnage lorsqu'il se déplace.</p>
+                </div>
+          </div>
+        </div>
+        <div className="quarter-section">
+          <div className="glossary-panel">
+              <img className="glossary-panel-background" src="/glossary/glazed.jpg" alt="bg"/>
+              <div className="glossary-panel-filter"/>
+              <div className="glossary-panel-text">
+                <h3>Vernissage</h3>
+                <p>Une carte vernie peut pas être copiée vers la main ou le deck.</p>
                 </div>
           </div>
         </div>
