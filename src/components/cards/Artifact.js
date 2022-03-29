@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Figure from './Figure';
 
 export default class Artifact extends Component {
 
@@ -11,6 +12,9 @@ export default class Artifact extends Component {
   render() {
 
   	var src = this.props.src;
+
+  	if (src.mecha && this.props.activated)
+  		return <Figure model={this.props.model} holographic={this.props.holographic} className={this.props.className} id={this.props.id} src={Object.assign({}, src, src.activated, {archetypes:['mech']})} classColor={this.props.classColor}/>;
 
   	var rarityclass = (rarity, edition) => {
 
@@ -79,8 +83,12 @@ export default class Artifact extends Component {
 		   	  <div className="sensuba-card-param-value">{src.atk}</div>
 			  </div>
 			  <div className="sensuba-card-param sensuba-card-param-range">
-			    <div className="sensuba-card-param-name">PORTEE</div>
+			    <div className="sensuba-card-param-name">PRT</div>
 		   	  <div className="sensuba-card-param-value">{src.range}</div>
+			  </div>
+			  <div className="sensuba-card-param sensuba-card-param-range">
+			    <div className="sensuba-card-param-name">ACT</div>
+		   	  <div className="sensuba-card-param-value">{src.activation}</div>
 			  </div>
 			</div> : ""
 		}

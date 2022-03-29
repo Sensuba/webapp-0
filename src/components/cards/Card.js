@@ -130,9 +130,13 @@ export default class Card extends Component {
       src.lv2 = { atk: 200, range: 1, description: "", fontSize: 1.3, overload: 0 }
     if (src.cardType === "hero" && !src.lvmax)
       src.lvmax = { atk: 200, range: 1, description: "", fontSize: 1.3, overload: 0 }
+    if (src.cardType === "artifact" && src.mecha && !src.activated)
+      src.activated = { description: "", fontSize: 1.3, overload: 0 }
     if (this.props.src.cardType === "hero") {
       src.lv2 = Object.assign(src.lv2, {htmlDescription: descHTML(src.lv2.description)});
       src.lvmax = Object.assign(src.lvmax, {htmlDescription: descHTML(src.lvmax.description)});
+    } else if (this.props.src.cardType === "artifact" && this.props.src.mecha) {
+      src.activated = Object.assign(src.activated, {htmlDescription: descHTML(src.activated.description)});
     }
 
     var holographic = this.props.holographic !== undefined ? this.props.holographic : this.props.src.holographic ;
@@ -141,7 +145,7 @@ export default class Card extends Component {
     case "hero": result = <Hero model={this.props.model} holographic={holographic} className={this.props.className} level={this.props.level} switch={this.props.switch} id={this.props.id} src={src} classColor={{color1: colorIdToClassName(this.props.src.idColor), color2: colorIdToClassName(this.props.src.idColor2)}}/>; break;
   	case "figure": result = <Figure model={this.props.model} holographic={holographic} className={this.props.className} id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
     case "spell": result = <Spell model={this.props.model} holographic={holographic} className={this.props.className} id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
-    case "artifact": result = <Artifact model={this.props.model} holographic={holographic} className={this.props.className} id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
+    case "artifact": result = <Artifact model={this.props.model} holographic={holographic} className={this.props.className} activated={this.props.activated} id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
     case "secret": result = <Secret model={this.props.model} holographic={holographic} className={this.props.className} id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
     case "seal": result = <Seal model={this.props.model} holographic={holographic} className={this.props.className} id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;
     case "world": result = <World model={this.props.model} holographic={holographic} className={this.props.className} id={this.props.id} src={src} classColor={colorIdToClassName(this.props.src.idColor)}/>; break;

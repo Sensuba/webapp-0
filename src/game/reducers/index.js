@@ -229,6 +229,9 @@ export default (state = new GameBoard(), n) => {
     case "fatigue":
       state.areas[n.src.no].deck.fatigue();
       break;
+    case "editfatigue":
+      state.areas[n.src.no].deck.editFatigue(n.data[0].value, n.data[1].value);
+      break;
     case "openchoosebox":
       state.areas[n.src.no].choosebox.open();
       break;

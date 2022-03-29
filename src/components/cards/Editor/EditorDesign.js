@@ -51,6 +51,7 @@ export default class EditorPage extends Component {
         atk: "200",
         hp: "200",
         range: "1",
+        activation: "1",
         lv2: {
           atk: "200",
           range: "1",
@@ -67,14 +68,14 @@ export default class EditorPage extends Component {
         }
     };
     switch (newType) {
-    case "figure": filter = ["lv2", "lvmax", "idColor2", "icon", "mecha"]; break;
-    case "hero": filter = ["archetypes", "mana", "icon", "mecha"]; break;
+    case "figure": filter = ["lv2", "lvmax", "idColor2", "icon", "activation", "activated", "mecha"]; break;
+    case "hero": filter = ["archetypes", "mana", "icon", "activation", "activated", "mecha"]; break;
     case "spell":
     case "secret":
-    case "world": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "hp", "range", "icon", "mecha"]; break;
-    case "seal": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "hp", "range", "mana", "mecha"]; break;
+    case "world": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "hp", "range", "icon", "activation", "activated", "mecha"]; break;
+    case "seal": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "hp", "range", "mana", "activation", "activated", "mecha"]; break;
     case "artifact": filter = this.currentCard.mecha ? ["lv2", "lvmax", "idColor2", "archetypes", "icon"]
-      : ["lv2", "lvmax", "idColor2", "archetypes", "atk", "range", "icon"]; break;
+      : ["lv2", "lvmax", "idColor2", "archetypes", "atk", "range", "activation", "activated", "icon"]; break;
     default: break;
     }
 
@@ -140,10 +141,14 @@ export default class EditorPage extends Component {
       if (shadow.lvmax)
         delete shadow.lvmax.htmlDescription;
     }
+    if (shadow.cardType === "artifact" && shadow.mecha) {
+      if (shadow.activated)
+        delete shadow.activated.htmlDescription;
+    }
 
     var superCode = window.btoa(JSON.stringify(shadow).replace(/"[^\x00-\x7Fàéçâîôêûöïüëäè]"/g, ""));
 
-    var currentLevel = this.currentCard.cardType !== "hero" ? null : (this.state.level === 1 ? this.currentCard : (this.state.level === 2 ? this.currentCard.lv2 : this.currentCard.lvmax));
+    var currentLevel = this.currentCard.cardType !== "hero" ? (this.currentCard.cardType === "artifact" && this.currentCard.mecha ? (this.state.level === 1 ? this.currentCard : this.currentCard.activated) : null) : (this.state.level === 1 ? this.currentCard : (this.state.level === 2 ? this.currentCard.lv2 : this.currentCard.lvmax));
 
 
     const handleImage = (event, imgtype) => {
@@ -354,6 +359,12 @@ export default class EditorPage extends Component {
                         if (this.currentCard.mecha) {
                           this.currentCard.atk = "200";
                           this.currentCard.range = "1";
+                          this.currentCard.activation = "1";
+                          this.currentCard.activated = {
+                            description: "",
+                            fontSize: 1.3,
+                            overload: 0
+                          }
                         }
                         this.props.update(this.props.card);
                       }}/>
@@ -366,18 +377,47 @@ export default class EditorPage extends Component {
               {
                 this.currentCard.cardType === "artifact" && this.currentCard.mecha ?
                 <FormGroup>
-                  <div className="half-section">
+                  <div className="third-section">
                     <Label for="form-card-atk">ATK</Label>
                     <Input id="form-card-atk" type="number" min="100" max="9999" step="100" value={this.currentCard.atk} onChange={editAttribute("atk").bind(this)}/>
                   </div>
-                  <div className="half-section">
+                  <div className="third-section">
                     <Label for="form-card-range">Portée</Label>
                     <Input id="form-card-range" type="number" min="1" max="3" value={this.currentCard.range} onChange={editAttribute("range").bind(this)}/>
+                  </div>
+                  <div className="third-section">
+                    <Label for="form-card-range">Activation</Label>
+                    <Input id="form-card-range" type="number" min="1" max="99" value={this.currentCard.activation} onChange={editAttribute("activation").bind(this)}/>
                   </div>
                 </FormGroup> : <span/>
               }
               {
-                this.currentCard.cardType !== "hero" ?
+                this.currentCard.cardType === "artifact" && this.currentCard.mecha ?
+                <div className="editor-menu">
+                  <div className="editor-menu-tabs">
+                    <Input id="base-tab" type="radio" onChange={() => this.setState({level: 1})} checked={this.state.level === 1}/>
+                    <Label for="base-tab">Base</Label>
+                    <Input id="activated-tab" type="radio" onChange={() => this.setState({level: 2})} checked={this.state.level === 2}/>
+                    <Label for="activated-tab">Activé</Label>
+                  </div>
+                  <div className="editor-box">
+                    <FormGroup>
+                      <div className="two-thirds-section">
+                        <Label for="form-card-description">Description</Label>
+                        <Input id="form-card-description" rows="4" type="textarea" value={currentLevel.description} onChange={e => editLevelAttribute("description")(e, currentLevel)}/>
+                      </div>
+                      <div className="third-section">
+                        <Label for="form-card-font-size">Taille du texte</Label>
+                        <Input id="form-card-font-size" type="number" min="0.95" max="1.3" step="0.05" value={currentLevel.fontSize} onChange={e => editLevelAttribute("fontSize")(e, currentLevel)}/>
+                        <Label for="form-card-overload">Limite</Label>
+                        <Input id="form-card-overload" type="number" min="0" max="10000" step="10" value={currentLevel.overload} onChange={e => editLevelAttribute("overload")(e, currentLevel)}/>
+                      </div>
+                    </FormGroup>
+                  </div>
+                </div> : <span/>
+              }
+              {
+                this.currentCard.cardType !== "hero" && !this.currentCard.mecha ?
                 <FormGroup>
                 <div className="two-thirds-section">
                   <Label for="form-card-description">Description</Label>
@@ -426,7 +466,7 @@ export default class EditorPage extends Component {
         </div>
         <div className="half-section">
           <div className="editor-card-visual">
-            <Card id="card-preview" level={this.state.level} src={this.currentCard}/>
+            <Card id="card-preview" level={this.state.level} activated={this.state.level === 2} src={this.currentCard}/>
             {
               this.currentCard.cardType === "seal" ?
                 <div className="seal-preview">

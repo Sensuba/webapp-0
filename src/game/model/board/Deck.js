@@ -14,6 +14,7 @@ export default class Deck {
 
 		this.area = area;
 		this.curse = CURSE_DAMAGE;
+		this.curseInc = CURSE_INC;
 
 		this.cards = [];
 	}
@@ -25,7 +26,15 @@ export default class Deck {
 
 	fatigue() {
 
-		this.curse += CURSE_INC;
+		this.curse += this.curseInc;
+	}
+
+	editFatigue (damage, increment) {
+
+		if (damage !== null && damage !== undefined)
+			this.curse = damage;
+		if (increment !== null && increment !== undefined)
+			this.curseInc = increment;
 	}
 
 	lockStartingDeck() {
