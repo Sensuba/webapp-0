@@ -219,7 +219,7 @@ var Library = (() => {
 
 	var clearAll = then => {
 
-		clear(() => clearDecks(() => clearDecks(() => clearCustoms(() => clearCollection(then)))));
+		clear(() => clearDecks(() => clearCommonDecks(() => clearCustoms(() => clearCollection(then)))));
 	}
 
 	return { instantiate, upToDate, update, updateCollection, updateCustoms, updateDecks, updateCommonDecks, getCard, getCollection, getCardList, getCustomCardList, getDeckList, getCommonDeckList, clear, clearCustoms, clearDecks, clearCollection, clearCommonDecks, clearAll }
