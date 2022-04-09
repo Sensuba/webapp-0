@@ -475,7 +475,7 @@ export default class Card {
 		}
 		if (this.mecha) {
 			this.faculties.push({no: this.faculties.length, desc: "Charge.", cost: 1});
-			this.faculties.push({no: this.faculties.length, desc: "Embarque un pilote.", cost: 0, target: (src, target) => src.pilot ? targets.friendly(src, target) && targets.figure(src, target) : false});
+			this.faculties.push({no: this.faculties.length, desc: "Embarque un pilote.", cost: 0, target: (src, target) => src.pilot ? src.area === target.area && target.occupied && target.card.isType("figure") : false});
 		}
 		if (this.blueprint && !this.silenced)
 			Reader.read(this.blueprint, this);
