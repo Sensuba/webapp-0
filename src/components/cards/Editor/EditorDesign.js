@@ -68,14 +68,14 @@ export default class EditorPage extends Component {
         }
     };
     switch (newType) {
-    case "figure": filter = ["lv2", "lvmax", "idColor2", "icon", "activation", "activated", "mecha"]; break;
-    case "hero": filter = ["archetypes", "mana", "icon", "activation", "activated", "mecha"]; break;
+    case "figure": filter = ["lv2", "lvmax", "idColor2", "icon", "activation", "mechactive", "mecha"]; break;
+    case "hero": filter = ["archetypes", "mana", "icon", "activation", "mechactive", "mecha"]; break;
     case "spell":
     case "secret":
-    case "world": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "hp", "range", "icon", "activation", "activated", "mecha"]; break;
-    case "seal": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "hp", "range", "mana", "activation", "activated", "mecha"]; break;
+    case "world": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "hp", "range", "icon", "activation", "mechactive", "mecha"]; break;
+    case "seal": filter = ["lv2", "lvmax", "idColor2", "archetypes", "atk", "hp", "range", "mana", "activation", "mechactive", "mecha"]; break;
     case "artifact": filter = this.currentCard.mecha ? ["lv2", "lvmax", "idColor2", "archetypes", "icon"]
-      : ["lv2", "lvmax", "idColor2", "archetypes", "atk", "range", "activation", "activated", "icon"]; break;
+      : ["lv2", "lvmax", "idColor2", "archetypes", "atk", "range", "activation", "mechactive", "icon"]; break;
     default: break;
     }
 
@@ -142,13 +142,13 @@ export default class EditorPage extends Component {
         delete shadow.lvmax.htmlDescription;
     }
     if (shadow.cardType === "artifact" && shadow.mecha) {
-      if (shadow.activated)
-        delete shadow.activated.htmlDescription;
+      if (shadow.mechactive)
+        delete shadow.mechactive.htmlDescription;
     }
 
     var superCode = window.btoa(JSON.stringify(shadow).replace(/"[^\x00-\x7Fàéçâîôêûöïüëäè]"/g, ""));
 
-    var currentLevel = this.currentCard.cardType !== "hero" ? (this.currentCard.cardType === "artifact" && this.currentCard.mecha ? (this.state.level === 1 ? this.currentCard : this.currentCard.activated) : null) : (this.state.level === 1 ? this.currentCard : (this.state.level === 2 ? this.currentCard.lv2 : this.currentCard.lvmax));
+    var currentLevel = this.currentCard.cardType !== "hero" ? (this.currentCard.cardType === "artifact" && this.currentCard.mecha ? (this.state.level === 1 ? this.currentCard : this.currentCard.mechactive) : null) : (this.state.level === 1 ? this.currentCard : (this.state.level === 2 ? this.currentCard.lv2 : this.currentCard.lvmax));
 
 
     const handleImage = (event, imgtype) => {
@@ -360,7 +360,7 @@ export default class EditorPage extends Component {
                           this.currentCard.atk = "200";
                           this.currentCard.range = "1";
                           this.currentCard.activation = "1";
-                          this.currentCard.activated = {
+                          this.currentCard.mechactive = {
                             description: "",
                             fontSize: 1.3,
                             overload: 0
@@ -466,7 +466,7 @@ export default class EditorPage extends Component {
         </div>
         <div className="half-section">
           <div className="editor-card-visual">
-            <Card id="card-preview" level={this.state.level} activated={this.state.level === 2} src={this.currentCard}/>
+            <Card id="card-preview" level={this.state.level} mechactive={this.state.level === 2} src={this.currentCard}/>
             {
               this.currentCard.cardType === "seal" ?
                 <div className="seal-preview">

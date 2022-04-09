@@ -189,6 +189,22 @@ export default (state = new GameBoard(), n) => {
           card.lastwill = true;
       }
       break; }
+    case "chargemech": {
+      let card = state.find(n.src);
+      if (card)
+        card.chargeMech(n.data[0].value);
+      break; }
+    case "loadpilot": {
+      let card = state.find(n.src),
+          pilot = state.find(n.data[0]);
+      if (card && pilot)
+        card.loadPilot(pilot);
+      break; }
+    case "activatemech": {
+      let card = state.find(n.src);
+      if (card)
+        card.activateMech();
+      break; }
     case "hazards": {
       let tile = state.find(n.src);
       if (tile)

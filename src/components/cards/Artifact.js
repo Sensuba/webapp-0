@@ -13,8 +13,8 @@ export default class Artifact extends Component {
 
   	var src = this.props.src;
 
-  	if (src.mecha && this.props.activated)
-  		return <Figure model={this.props.model} holographic={this.props.holographic} className={this.props.className} id={this.props.id} src={Object.assign({}, src, src.activated, {archetypes:['mech']})} classColor={this.props.classColor}/>;
+  	if (src.mecha && this.props.mechactive)
+  		return <Figure model={this.props.model} holographic={this.props.holographic} className={this.props.className} id={this.props.id} src={Object.assign({}, src, src.mechactive, {archetypes:['mech']})} classColor={this.props.classColor}/>;
 
   	var rarityclass = (rarity, edition) => {
 

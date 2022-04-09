@@ -473,6 +473,10 @@ export default class Card {
 				overload: this.overload
 			}
 		}
+		if (this.mecha) {
+			this.faculties.push({no: this.faculties.length, desc: "Charge.", cost: 1});
+			this.faculties.push({no: this.faculties.length, desc: "Embarque un pilote.", cost: 0, target: (src, target) => src.pilot ? targets.friendly(src, target) && targets.figure(src, target) : false});
+		}
 		if (this.blueprint && !this.silenced)
 			Reader.read(this.blueprint, this);
 		if (this.isType("hero")) {
@@ -539,7 +543,7 @@ export default class Card {
 		if (this.blueprint)
 			Reader.read(this.blueprint, this);
 		if (this.isType("hero")) {
-			let lvupf = this.faculties.find(f => f.desc.includes("Level Up") || f.desc.includes("Niveau Supérieur"));
+			let lvupf = this.faculties.find(f => f.desc.includes("Niveau Supérieur"));
 			if (lvupf)
 				lvupf.show = Object.assign({}, this, { level: this.level === 1 ? 2 : 3 });
 		}
@@ -794,6 +798,47 @@ export default class Card {
 				this.furyState = 0;
 			}
 		}
+	}
+
+	chargeMech (charge) {
+
+		if (!this.mecha)
+			return;
+		this.activationPt = (this.activationPt || 0) + charge;
+	}
+
+	activateMech () {
+
+		if (!this.mecha)
+			return;
+
+		this.deactivate();
+		this.atk = parseInt(this.mechactive.atk, 10);
+		this.range = parseInt(this.mechactive.range, 10);
+		this.overload = parseInt(this.mechactive.overload, 10);
+		this.originalAtk = this.atk;
+		this.originalRange = this.range;
+		this.blueprint = this.mechactive.blueprint;
+		this.states = {};
+		this.clearMutations();
+		this.cmutations = [];
+		this.passives = [];
+		this.events = [];
+		this.states = {};
+		this.targets = [Event.targets.friendlyEmpty];
+		this.faculties = [];
+
+		if (this.blueprint)
+			Reader.read(this.blueprint, this);
+		this.gameboard.update();
+		this.activate()
+	}
+
+	loadPilot (pilot) {
+
+		if (!this.mecha)
+			return;
+		this.pilot = pilot;
 	}
 
 	mutate (effect, end) {
