@@ -827,11 +827,13 @@ export default class Card {
 		this.states = {};
 		this.targets = [Event.targets.friendlyEmpty];
 		this.faculties = [];
+		this.cardType = "figure";
 
 		if (this.blueprint)
 			Reader.read(this.blueprint, this);
+		this.refresh();
+		this.activate();
 		this.gameboard.update();
-		this.activate()
 	}
 
 	loadPilot (pilot) {
