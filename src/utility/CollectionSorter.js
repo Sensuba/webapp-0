@@ -117,7 +117,7 @@ export default (() => {
       }
 	}
 
-	var archetypeFilter = archetype => card => card.archetypes && (card.archetypes.filter(arc => archetypeTranslation(arc).toLowerCase().includes(archetype.toLowerCase())).length > 0 || (card.mecha && "mecha".includes(archetype.toLowerCase())));
+	var archetypeFilter = archetype => card => (card.archetypes && card.archetypes.filter(arc => archetypeTranslation(arc).toLowerCase().includes(archetype.toLowerCase())).length > 0 || (card.mecha && "mecha".includes(archetype.toLowerCase())));
 
 	var descriptionFilter = description => card => card.description.toLowerCase().includes(description.toLowerCase());
 
@@ -204,7 +204,7 @@ export default (() => {
 			 		return true;
 			 	if ((card.lv2 && searchFunction(s,card.lv2)) || (card.lvmax && searchFunction(s, card.lvmax)))
 			 		return true;
-			 	if (card.archetypes && (card.archetypes.filter(arc => archetypeTranslation(arc).toLowerCase().includes(s.toLowerCase())).length > 0 || (card.mecha && "mecha".includes(s.toLowerCase()))))
+			 	if ((card.archetypes && card.archetypes.filter(arc => archetypeTranslation(arc).toLowerCase().includes(s.toLowerCase())).length > 0 || (card.mecha && "mecha".includes(s.toLowerCase()))))
 			 		return true;
 			 	if (card.tokens && card.tokens.some(token => searchFunction(s, token)))
 			 		return true;
