@@ -480,6 +480,8 @@ export default class Card {
 
 	isArchetype (arc) {
 
+		if (arc === "mech" && this.mecha)
+			return true;
 		return this.archetypes && this.archetypes.includes(arc);
 	}
 
