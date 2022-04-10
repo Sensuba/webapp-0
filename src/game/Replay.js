@@ -19,6 +19,7 @@ import MuteButton from './view/UI/MuteButton';
 //import { Button } from 'reactstrap';
 //import files from '../utility/FileManager';
 
+import compute from './Computer';
 import { createStore } from 'redux';
 import reducers from './reducers';
 
@@ -57,7 +58,7 @@ export default class Replay extends Component {
 
       model: this.store.getState()
     }
-    this.sequencer = new Sequencer(this, this.state.model, this.store.dispatch);
+    this.sequencer = new Sequencer(this, this.state.model, this.dispatch.bind(this));
     this.props.subscribe(() => {
       setTimeout(() => this.sequencer.setState(1), 1000);
     }, 0);
@@ -86,6 +87,8 @@ export default class Replay extends Component {
       model.areas[0].avatar = n.data[1].value;
       model.areas[1].name = n.data[3].value;
       model.areas[1].avatar = n.data[4].value;
+      model.areas[0].player = true;
+      model.areas[1].player = true;
     }
     if (n.type === "identify" && this.no !== undefined && n.data[0].cardType === "hero" /*&& this.state.model.areas[this.no].field.tiles[6].occupied && this.state.model.areas[this.no].field.tiles[6].card.id.no === n.data[0].id.no*/) {
       if (this.prevHero)
@@ -94,6 +97,30 @@ export default class Replay extends Component {
     }
     if (!(n.type === 'identify'))
       this.sequencer.add(n);
+  }
+
+  dispatch (n) {
+
+    if (this.dispatching) {
+      if (this.nqueue === undefined)
+        this.nqueue = [];
+      this.nqueue.push(n);
+    }
+    else
+      this.sendToStore(n);
+  }
+
+  sendToStore (n) {
+
+    this.dispatching = true;
+    compute(this.store.getState(), n, a => {
+      this.store.dispatch(a);
+      if (this.nqueue && this.nqueue.length > 0) {
+        this.sendToStore(this.nqueue.shift());
+      }
+      else
+        this.dispatching = false;
+    });
   }
 
   quit () {

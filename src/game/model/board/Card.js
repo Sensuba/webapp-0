@@ -911,7 +911,7 @@ export default class Card {
 		this.cmutations = [];
 		this.passives = [];
 		this.events = [];
-		this.states = {};
+		this.states = { glazed: this.hasState("glazed") };
 		this.targets = [Event.targets.friendlyEmpty];
 		this.faculties = [];
 		this.cardType = "figure";
