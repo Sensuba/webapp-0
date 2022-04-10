@@ -256,7 +256,7 @@ export default class Card {
 			this.activate();
 		if (this.mecha && this.isType("artifact")) {
 			this.faculties.push({no: this.faculties.length, desc: "Charge.", cost: 1});
-			this.faculties.push({no: this.faculties.length, desc: "Embarque un pilote.", cost: 0, target: (src, target) => src.pilot ? false : (src.area === target.area && target.occupied && target.card.isType("figure") && !target.card.mecha)});
+			this.faculties.push({no: this.faculties.length, desc: "Embarque un pilote.", cost: 0, target: (src, target) => src.pilot ? false : (src.area === target.area && target.occupied && target.card.isType("figure") && !target.card.mecha && !target.card.outOfMecha)});
 		}
 		if (this.blueprint)
 			Reader.read(this.blueprint, this);
@@ -563,7 +563,7 @@ export default class Card {
 		}
 		if (this.mecha && this.isType("artifact")) {
 			this.faculties.push({no: this.faculties.length, desc: "Charge.", cost: 1});
-			this.faculties.push({no: this.faculties.length, desc: "Embarque un pilote.", cost: 0, target: (src, target) => src.pilot ? false : (src.area === target.area && target.occupied && target.card.isType("figure") && !target.card.mecha)});
+			this.faculties.push({no: this.faculties.length, desc: "Embarque un pilote.", cost: 0, target: (src, target) => src.pilot ? false : (src.area === target.area && target.occupied && target.card.isType("figure") && !target.card.mecha && !target.card.outOfMecha)});
 		}
 		if (this.blueprint && !this.silenced)
 			Reader.read(this.blueprint, this);
@@ -885,6 +885,7 @@ export default class Card {
 				this.motionPt = 1;
 				this.firstTurn = false;
 				this.furyState = 0;
+				delete this.outOfMecha;
 			}
 		}
 	}
@@ -928,6 +929,7 @@ export default class Card {
 		if (!this.mecha)
 			return;
 		this.pilot = pilot;
+		this.pilot.outOfMecha = true;
 	}
 
 	mutate (effect, end) {
