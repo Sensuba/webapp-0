@@ -109,6 +109,7 @@ var IsCovered = require('./IsCovered');
 var Poisoned = require('./Poisoned');
 var CurseDamage = require('./CurseDamage');
 var ChargeCount = require('./ChargeCount');
+var Pilot = require('./Pilot');
 var MergeMutations = require('./MergeMutations');
 var ConditionalMutation = require('./ConditionalMutation');
 var ConditionalTarget = require('./ConditionalTarget');
@@ -293,6 +294,7 @@ class Reader {
 			case "poisoned": bloc = new Poisoned(card, ctx); break;
 			case "cursedmg": bloc = new CurseDamage(card, ctx); break;
 			case "chargecount": bloc = new ChargeCount(card, ctx); break;
+			case "pilot": bloc = new Pilot(card, ctx); break;
 			case "covered": bloc = new IsCovered(card, ctx); break;
 			case "mergemut": bloc = new MergeMutations(card, ctx); break;
 			case "conditionmut": bloc = new ConditionalMutation(card, ctx); break;
@@ -394,6 +396,10 @@ class Reader {
 			case "createreceptacle-data": bloc = new Data(el.type, card, ctx, d => [d.src.area]); break;
 			case "levelup-trigger": bloc = new Trigger(el.type, card, ctx, "levelup"); break;
 			case "levelup-data": bloc = new Data(el.type, card, ctx, d => [d.src, d.src.level]); break;
+			case "loadpilot-trigger": bloc = new Trigger(el.type, card, ctx, "loadpilot"); break;
+			case "loadpilot-data": bloc = new Data(el.type, card, ctx, d => [d.src, d.data[0]]); break;
+			case "activate-trigger": bloc = new Trigger(el.type, card, ctx, "activatemech"); break;
+			case "activate-data": bloc = new Data(el.type, card, ctx, d => [d.src]); break;
 			case "secret-trigger": bloc = new Trigger(el.type, card, ctx, "triggersecret"); break;
 			case "secret-data": bloc = new Data(el.type, card, ctx, d => [d.src]); break;
 			case "hazards-trigger": bloc = new Trigger(el.type, card, ctx, "hazards"); break;
