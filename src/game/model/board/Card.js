@@ -130,6 +130,10 @@ export default class Card {
 			this.skillPt = 1;
 			if (this.isType("character")) {
 				this.resetSickness();
+				if (this.outOfMecha) {
+					this.skillPt = 0;
+					this.actionPt = 0;
+				}
 				this.update();
 			}
 		}
