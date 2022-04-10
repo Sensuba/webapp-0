@@ -46,7 +46,10 @@ export default class Spell extends Component {
 	    	<div className={"sensuba-card-mana" + (src.mana < src.originalMana ? " sensuba-card-param-bonus" : (src.mana > src.originalMana ? " sensuba-card-param-malus" : ""))}>{src.mana}</div>
 	        <div className={"sensuba-card-title" +
 	        	(src.nameCard.length >= 25 ?
-	        		(src.nameCard.length >= 30 ? " sensuba-card-very-long-title" : " sensuba-card-long-title")
+	        		(src.nameCard.length >= 29 ?
+		        		(src.nameCard.length >= 32 ? " sensuba-card-very-very-long-title" : " sensuba-card-very-long-title")
+		        		: " sensuba-card-long-title"
+		        	)
 	        		: ""
 	        	)}>
 	        	{src.nameCard}

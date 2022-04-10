@@ -19,6 +19,7 @@ import Lightbox from '../components/utility/Lightbox';
 import { Button } from 'reactstrap';
 //import files from '../utility/FileManager';
 
+import compute from './Computer';
 import { createStore } from 'redux';
 import reducers from './reducers';
 
@@ -54,7 +55,7 @@ export default class Game extends Component {
     this.socket = this.props.getSocket();
 
     this.manager = new Manager(this.state.model, this.command.bind(this), state => state ? this.setState(state) : this.forceUpdate());
-    this.sequencer = new Sequencer(this, this.state.model, this.store.dispatch);
+    this.sequencer = new Sequencer(this, this.state.model, this.dispatch.bind(this));
 
     this.volume = localStorage.getItem('sound.sfx') !== undefined ? localStorage.getItem('sound.sfx') : 1;
     var music = Math.random() < 0.33 ? "virgocluster" : (Math.random() < 0.5 ? "planemo" : "auroraborealis");
@@ -195,7 +196,7 @@ export default class Game extends Component {
 
   onError (trigger) {
 
-    if (this.state.model.started && !this.ended){console.log("tryrefresh")
+    if (this.state.model.started && !this.ended){
       this.props.refresh();
     }
       //this.sequencer.add({type: "end", src: 0, data: [{type: "int", no: trigger === 'disconnect' ? 5 : 6}]});
@@ -239,6 +240,7 @@ export default class Game extends Component {
       model.areas[0].avatar = n.data[1].value;
       model.areas[1].name = n.data[3].value;
       model.areas[1].avatar = n.data[4].value;
+      model.areas[this.no].player = true;
     }
     if (n.type === "identify" && this.no !== undefined && n.data[0].cardType === "hero" /*&& this.state.model.areas[this.no].field.tiles[6].occupied && this.state.model.areas[this.no].field.tiles[6].card.id.no === n.data[0].id.no*/) {
       if (this.prevHero)
@@ -246,8 +248,32 @@ export default class Game extends Component {
       else this.prevHero = n.data[0];
     }
     if (this.syncstate === "async")
-      this.store.dispatch(n);
+      this.dispatch(n);
     else this.sequencer.add(n);
+  }
+
+  dispatch (n) {
+
+    if (this.dispatching) {
+      if (this.nqueue === undefined)
+        this.nqueue = [];
+      this.nqueue.push(n);
+    }
+    else
+      this.sendToStore(n);
+  }
+
+  sendToStore (n) {
+
+    this.dispatching = true;
+    compute(this.store.getState(), n, a => {
+      this.store.dispatch(a);
+      if (this.nqueue && this.nqueue.length > 0) {
+        this.sendToStore(this.nqueue.shift());
+      }
+      else
+        this.dispatching = false;
+    });
   }
 
   command (command) {

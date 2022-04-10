@@ -21,6 +21,8 @@ import Poison from './view/animation/Poison';
 import LevelUp from './view/animation/LevelUp';
 import BreakShield from './view/animation/BreakShield';
 import GainEffect from './view/animation/GainEffect';
+import Activate from './view/animation/Activate';
+import Load from './view/animation/Load';
 import ExtraTurn from './view/animation/ExtraTurn';
 import Wait from './view/animation/Wait';
 import LensFlare from './view/animation/LensFlare';
@@ -206,6 +208,8 @@ export default class Sequencer {
 	    	break; }
 	    case "breakshield": return new BreakShield(this.master, n.src.no);
 	    case "fatigue": return new Fatigue(this.master, n.src.no);
+	    case "activatemech": return new Activate(this.master, n.src.no);
+	    case "loadpilot": return new Load(this.master, n.data[0].no);
 	    case "burncard": return new Burn(this.master, n.data[0].no);
 	    case "addmut":
 	    case "addeffect": {

@@ -1,0 +1,9 @@
+.sensuba-card-load .sensuba-card-container {
+
+	animation: card-load 0.3s 1;
+}
+
+@keyframes card-load {
+  0% {transform: rotateZ(0deg) scale(1.0); opacity: 1;}
+  100% {transform: rotateZ(270deg) scale(0); opacity: 0;}
+}

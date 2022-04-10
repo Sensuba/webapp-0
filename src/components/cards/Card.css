@@ -146,11 +146,24 @@
 .sensuba-card .sensuba-card-title.sensuba-card-very-long-title {
 
     top: 0.45em;
+    padding-left: 0.4em;
     height: 1.584em;
     line-height: 1.3333em;
     font-size: 0.75em;
     border: solid white 0.1333em;
     border-radius: 0.2933em;
+    border-style: outset;
+}
+
+.sensuba-card .sensuba-card-title.sensuba-card-very-very-long-title {
+
+    top: 0.45em;
+    padding-left: 0.8em;
+    height: 1.697em;
+    line-height: 1.428em;
+    font-size: 0.7em;
+    border: solid white 0.1428em;
+    border-radius: 0.314em;
     border-style: outset;
 }
 
@@ -1101,6 +1114,24 @@
 .sensuba-card-charge-count.sensuba-card-charge-on:nth-child(3) { background: linear-gradient(40deg, orange, yellow); }
 .sensuba-card-charge-count.sensuba-card-charge-on:nth-child(4) { background: linear-gradient(40deg, #ffe400, #f3ffb7); }
 .sensuba-card-charge-count.sensuba-card-charge-on:nth-child(5) { background: linear-gradient(40deg, #ffff21, white); }
+
+
+.sensuba-card-activation {
+
+    width: 3em;
+    height: 1em;
+    position: absolute;
+    line-height: 0.9em;
+    top: -0.1em;
+    font-size: 4em;
+    text-shadow: 0 0 0.15em white;
+    font-weight: bold;
+    -webkit-text-stroke-color: rgba(0, 0, 0,.8);
+    -webkit-text-fill-color: #fff;
+    -webkit-text-stroke-width: 0.06em;
+    border-radius: 0.1em;
+    background: linear-gradient(40deg, #ffffff80, #ffffff40);
+}
 
 
 .sensuba-seal-icon {

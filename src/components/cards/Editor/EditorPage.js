@@ -210,8 +210,8 @@ export default class EditorPage extends Component {
         delete shadow.lvmax.htmlDescription;
     }
     if (shadow.cardType === "artifact" && shadow.mecha) {
-      if (shadow.activated)
-        delete shadow.activated.htmlDescription;
+      if (shadow.mechactive)
+        delete shadow.mechactive.htmlDescription;
     }
     if (shadow.supercode)
       delete shadow.supercode;
@@ -244,7 +244,7 @@ export default class EditorPage extends Component {
           default: break;
           }
         } else if (this.currentCard.cardType === "artifact" && this.currentCard.mecha && this.refs.design.state.level === 2)
-          this.currentCard.activated.blueprint = bp;
+          this.currentCard.mechactive.blueprint = bp;
         else 
           this.currentCard.blueprint = bp;
         this.setState({card: this.state.card, tab: "design"});

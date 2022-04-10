@@ -76,7 +76,7 @@ export default class GameBoard extends Component {
 	    		<EndTurn master={master} locked={!master.isPlaying} extra={model.areas[no].extraTurns} timer={master.state.timer} endTurn={() => master.manager.endTurn()}/>
 	    	</div>
 	    	<Area className="sensuba-area-bottom" model={model.areas[no]} master={master}>
-		    	{ model.areas[no].avatar ? <div className="sensuba-avatar-wrapper sensuba-avatar-wrapper-bottom" onClick={no !== undefined && master.role === "player" ? this.props.openConcedeWindow : () => {}}><Avatar src={model.areas[no].avatar}/></div> : <div className="sensuba-avatar-wrapper sensuba-blank-avatar-wrapper" onClick={no !== undefined && master.role === "player" ? this.props.openConcedeWindow : () => {}}/> }
+		    	{ model.areas[no].avatar ? <div className="sensuba-avatar-wrapper sensuba-avatar-wrapper-bottom" onClick={no !== undefined && master.role === "player" ? this.props.openConcedeWindow : () => {}}><Avatar src={model.areas[no].avatar}/></div> : <div className="sensuba-avatar-wrapper sensuba-avatar-wrapper-bottom sensuba-blank-avatar-wrapper" onClick={no !== undefined && master.role === "player" ? this.props.openConcedeWindow : () => {}}/> }
 		    	<HonorBoard model={model.areas[no].honorboard} master={master}/>
 		    	<Field model={model.areas[no].field} master={master}>
 		    		<Row>

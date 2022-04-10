@@ -100,7 +100,7 @@ export default class Card {
 		if (loc instanceof Court && this.overload)
 			this.lb = this.eff.overload && this.eff.ol && this.eff.ol > this.eff.overload ? Math.floor(this.eff.ol/this.eff.overload) : 0;
 
-		if (this.area && loc === this.area.opposite.choosebox) {
+		if (this.area && (loc === this.area.opposite.choosebox)) {
 			this.invisible = { for: this.area.id.no };
 		} else if (this.area && this.location === this.area.choosebox && loc === this.area.opposite.deck) {
 			this.invisible = { for : this.area.opposite.id.no };
@@ -128,13 +128,83 @@ export default class Card {
 		//	this.location.clearHazards();
 		if (this.onBoard && former && (former.area === this.area.opposite || former.locationOrder === null || former.locationOrder === undefined)) {
 			this.skillPt = 1;
-			if (this.isType("character"))
+			if (this.isType("character")) {
 				this.resetSickness();
+				this.update();
+			}
 		}
 		/*if (former != null && !destroyed)
 			Notify ("card.move", former, value);
 		if (location is Tile)
 			lastTileOn = location as Tile;*/
+	}
+
+	clear () {
+
+		this.faculties = [];
+		this.clearMutations();
+		this.cmutations = [];
+		this.passives = [];
+		this.events = [];
+		this.states = {};
+		this.originalMana = this.mana;
+		this.originalAtk = this.atk;
+		this.originalHp = this.hp;
+		this.originalRange = this.range;
+		delete this.poisondmg;
+		delete this.blueprint;
+		this.shield = false;
+		this.silenced = false;
+		this.targets = [];
+		delete this.nameCard;
+		delete this.author;
+		delete this.cardType;
+		delete this.archetypes;
+		delete this.atk;
+		delete this.hp;
+		delete this.range;
+		delete this.variables;
+		delete this.charges;
+		delete this.mutatedState;
+		delete this.mutdata;
+		delete this.lastwill;
+		delete this.steps;
+		delete this.finalMana;
+		delete this.finalOverload;
+		delete this.wasActivated;
+		delete this.activationPt;
+		delete this.pilot;
+		delete this.php;
+		delete this.furyState;
+		delete this.idCardmodel;
+		delete this.ol;
+		delete this.overload;
+		delete this.skillPt;
+		delete this.actionPt;
+		delete this.motionPt;
+		delete this.mecha;
+		delete this.firstTurn;
+		delete this.flavourText;
+		delete this.anime;
+		delete this.description;
+		delete this.chp;
+		delete this.activated;
+		delete this.activation;
+		delete this.fontSize;
+		delete this.idColor;
+		delete this.idEdition;
+		delete this.illustrator;
+		delete this.imgLink;
+		delete this.highRes;
+		delete this.mana;
+		delete this.mechactive;
+		delete this.originalAtk;
+		delete this.originalHp;
+		delete this.originalMana;
+		delete this.originalRange;
+		delete this.originallevel;
+		delete this.rarity;
+		this.update();
 	}
 	
 	resetBody () {
@@ -144,9 +214,13 @@ export default class Card {
 			this.passives.forEach(passive => passive.deactivate());
 		if (this.activated)
 			this.deactivate();
+		if (this.location && !this.area.player && (this.location === this.area.deck || this.location === this.area.hand) ) {
+			this.clear();
+			return;
+		}
 		for (var k in this.model) {
 			this[k] = this.model[k];
-			if (!isNaN(this[k]))
+			if (typeof this[k] === 'string' && !isNaN(this[k]))
 				this[k] = parseFloat(this[k], 10);
 		}
 		delete this.supercode;
@@ -173,11 +247,17 @@ export default class Card {
 		delete this.steps;
 		delete this.finalMana;
 		delete this.finalOverload;
+		delete this.activationPt;
+		delete this.pilot;
 		if (this.isType("entity") || this.isType("secret"))
 			this.targets.push(Event.targets.friendlyEmpty);
 		this.clearBoardInstance();
 		if (wasActivated)
 			this.activate();
+		if (this.mecha && this.isType("artifact")) {
+			this.faculties.push({no: this.faculties.length, desc: "Charge.", cost: 1});
+			this.faculties.push({no: this.faculties.length, desc: "Embarque un pilote.", cost: 0, target: (src, target) => src.pilot ? false : (src.area === target.area && target.occupied && target.card.isType("figure") && !target.card.mecha)});
+		}
 		if (this.blueprint)
 			Reader.read(this.blueprint, this);
 		if (this.isType("artifact") || this.isType("secret"))
@@ -412,22 +492,28 @@ export default class Card {
 
 		if (this.nameCard)
 			return;
-		this.become(data);
+		return this.become(data);
 	}
 
 	become (data) {
 
 		let wasActivated = this.activated;
+		let callback = undefined;
 		delete this.mutatedState;
 		if (this.activated)
 			this.deactivate();
 		for (var k in data) {
+			if (k === "model")
+				continue;
 			this[k] = data[k];
 			if (!isNaN(this[k]) && this[k] !== false && this[k] !== true)
 				this[k] = parseFloat(this[k], 10);
 		}
 		if (this.idCardmodel)
-			Library.getCard(this.idCardmodel, card => this.model = card);
+			/*callback = cb => */Library.getCard(this.idCardmodel, card => {
+				this.model = card;
+				//cb();
+			});
 		else
 			this.model = data;
 		if (data && data.blueprint)
@@ -473,9 +559,9 @@ export default class Card {
 				overload: this.overload
 			}
 		}
-		if (this.mecha) {
+		if (this.mecha && this.isType("artifact")) {
 			this.faculties.push({no: this.faculties.length, desc: "Charge.", cost: 1});
-			this.faculties.push({no: this.faculties.length, desc: "Embarque un pilote.", cost: 0, target: (src, target) => src.pilot ? src.area === target.area && target.occupied && target.card.isType("figure") : false});
+			this.faculties.push({no: this.faculties.length, desc: "Embarque un pilote.", cost: 0, target: (src, target) => src.pilot ? false : (src.area === target.area && target.occupied && target.card.isType("figure") && !target.card.mecha)});
 		}
 		if (this.blueprint && !this.silenced)
 			Reader.read(this.blueprint, this);
@@ -505,6 +591,7 @@ export default class Card {
 			this.chp = data.chp;
 			this.update();
 		}
+		return callback;
 	}
 
 	levelUp (level) {
@@ -813,8 +900,6 @@ export default class Card {
 			return;
 
 		this.deactivate();
-		this.atk = parseInt(this.mechactive.atk, 10);
-		this.range = parseInt(this.mechactive.range, 10);
 		this.overload = parseInt(this.mechactive.overload, 10);
 		this.originalAtk = this.atk;
 		this.originalRange = this.range;
@@ -831,7 +916,7 @@ export default class Card {
 
 		if (this.blueprint)
 			Reader.read(this.blueprint, this);
-		this.refresh();
+		this.resetSickness();
 		this.activate();
 		this.gameboard.update();
 	}

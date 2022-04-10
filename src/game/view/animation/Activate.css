@@ -1,0 +1,17 @@
+.sensuba-card-activate .sensuba-card-container {
+
+	animation: card-activate 1s 1, card-activate-opacity 1s 1;
+}
+
+@keyframes card-activate {
+  0% {transform: rotateY(0deg)}
+  20% {transform: rotateY(0deg)}
+  80% {transform: rotateY(360deg)}
+  100% {transform: rotateY(360deg)}
+}
+
+@keyframes card-activate-opacity {
+  0% {opacity: 1}
+  50% {opacity: 0.4}
+  100% {opacity: 1}
+}
