@@ -64,7 +64,7 @@ export default class Artifact extends Component {
 	    { src.illustrator ? <div className="sensuba-card-illustrator">Illus: {src.illustrator}</div> : <span/> }
 	    <div className="sensuba-card-body">
 	    	<div className="sensuba-card-body-header">
-	        	<span className="sensuba-card-type">{"Artéfact" + (src.mecha ? ": Mech" : "")}</span>
+	        	<span className="sensuba-card-type">{"Artéfact" + (src.mecha ? ": Mecha" : "")}</span>
 	        	<span className="sensuba-card-anime">{src.anime}</span>
 	        </div>
 	        <div className="sensuba-card-body-main">

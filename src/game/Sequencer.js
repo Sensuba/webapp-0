@@ -23,6 +23,7 @@ import BreakShield from './view/animation/BreakShield';
 import GainEffect from './view/animation/GainEffect';
 import Activate from './view/animation/Activate';
 import Load from './view/animation/Load';
+import Eject from './view/animation/Eject';
 import ExtraTurn from './view/animation/ExtraTurn';
 import Wait from './view/animation/Wait';
 import LensFlare from './view/animation/LensFlare';
@@ -210,6 +211,11 @@ export default class Sequencer {
 	    case "fatigue": return new Fatigue(this.master, n.src.no);
 	    case "activatemech": return new Activate(this.master, n.src.no);
 	    case "loadpilot": return new Load(this.master, n.data[0].no);
+	    case "ejectpilot": {
+	    	if (n.data[1])
+	    		return new Eject(this.master, n.data[0].no);
+	    	break;
+	    }
 	    case "burncard": return new Burn(this.master, n.data[0].no);
 	    case "addmut":
 	    case "addeffect": {
