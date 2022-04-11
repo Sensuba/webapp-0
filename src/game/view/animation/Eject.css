@@ -4,6 +4,6 @@
 }
 
 @keyframes card-eject {
-  0% {transform: rotateZ(-270deg) scale(1.0); opacity: 0;}
-  100% {transform: rotateZ(0deg) scale(0); opacity: 1;}
+  0% {transform: rotateZ(-270deg) scale(0); opacity: 0;}
+  100% {transform: rotateZ(0deg) scale(1.0); opacity: 1;}
 }
