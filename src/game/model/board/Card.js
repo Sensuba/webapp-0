@@ -148,6 +148,7 @@ export default class Card {
 		this.faculties = [];
 		this.clearMutations();
 		this.cmutations = [];
+		this.pmutations = [];
 		this.passives = [];
 		this.events = [];
 		this.states = {};
@@ -232,6 +233,7 @@ export default class Card {
 		this.faculties = [];
 		this.clearMutations();
 		this.cmutations = [];
+		this.pmutations = [];
 		this.passives = [];
 		this.events = [];
 		this.states = {};
@@ -448,6 +450,7 @@ export default class Card {
 		this.faculties = [];
 		this.clearMutations();
 		this.cmutations = [];
+		this.pmutations = [];
 		this.passives = [];
 		this.events = [];
 		if (this.hasState("glazed"))
@@ -537,6 +540,7 @@ export default class Card {
 		this.passives = [];
 		this.clearMutations();
 		this.cmutations = [];
+		this.pmutations = [];
 		delete this.steps;
 		if (data && !data.blueprint)
 			delete this.blueprint;
@@ -627,6 +631,7 @@ export default class Card {
 		this.states = {};
 		this.clearMutations();
 		this.cmutations = [];
+		this.pmutations = [];
 		this.passives = [];
 		this.events = [];
 		this.states = {};
@@ -911,9 +916,12 @@ export default class Card {
 		this.originalAtk = this.atk;
 		this.originalRange = this.range;
 		this.blueprint = this.mechactive.blueprint;
+		this.fontSize = this.mechactive.fontSize;
+		this.description = this.mechactive.description;
 		this.states = {};
 		this.clearMutations();
 		this.cmutations = [];
+		this.pmutations = [];
 		this.passives = [];
 		this.events = [];
 		this.states = { glazed: this.hasState("glazed") };
@@ -1074,6 +1082,8 @@ export default class Card {
 			if (aura.applicable(this))
 				res = aura.apply(res);
 		});
+		if (res.pilot && res.pilot.pmutations)
+			res.pilot.pmutations.forEach(pm => pm(res));
 		if (this.onBoard) {
 			if (this.location.hasHazards("wind")) {
 				res.states = res.states || {};

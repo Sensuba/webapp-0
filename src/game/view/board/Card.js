@@ -15,7 +15,7 @@ export default class Card extends Component {
     }
     else tooltip.setAttribute("style", `display: block`);
     this.show = true;
-    this.props.master.updatePreview({ card: card.eff });
+    this.props.master.updatePreview({ card: card.eff, target: card.pilot ? card.pilot.eff : undefined });
     //setState({preview: card.eff});
   }
 
@@ -80,6 +80,7 @@ export default class Card extends Component {
           { model.charges !== undefined && model.charges !== null ? <div className="sensuba-card-charge">{[1,2,3,4,5].map(i => <div key={i} className={"sensuba-card-charge-count " + (model.charges >= i ? "sensuba-card-charge-on" : "")}/>)}</div> : "" }
           { model.isType("artifact") && model.mecha && model.onBoard ? <div className="sensuba-card-activation">{(model.activationPt || 0) + "/" + model.activation}</div> : "" }
           { model.variables && marks.find(m => model.variables[m]) ? <div className={"sensuba-card-mark sensuba-card-mark-" + marks.find(m => model.variables[m])}/> : "" }
+          { model.isType("figure") && model.mecha && model.onBoard && model.pilot ? <div className="sensuba-card-piloted"/> : "" }
           <div className="sensuba-card-covers">{ model.covered ? <div className="sensuba-card-cover"/> : "" }{ model.isCovered(true) ? <div className="sensuba-card-cover sensuba-card-cover-air"/> : "" }</div>
           </div>
         <div className="sensuba-card-animmask"/><div className="sensuba-card-digitanim"/>

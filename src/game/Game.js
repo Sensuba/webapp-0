@@ -367,6 +367,7 @@ export default class Game extends Component {
     case "rush": return "Hâte";
     case "fury": return "Furie";
     case "exaltation": return "Exaltation";
+    case "agility": return "Agilité";
     case "flying": return "Don du vol";
     case "lethal": return "Létal";
     case "frozen": return "Gelé";
