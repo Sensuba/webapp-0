@@ -1004,11 +1004,11 @@
     background-size: 100%;
     background-repeat: no-repeat;
 }
-.sensuba-card-view .white-mana+.sensuba-card-piloted { filter: brightness(2.5) hue-rotate(180deg) drop-shadow(0 0 0.3em #efe2a0); }
-.sensuba-card-view .red-mana+.sensuba-card-piloted { filter: brightness(1.5) hue-rotate(140deg) drop-shadow(0 0 0.3em #efe2a0); }
-.sensuba-card-view .blue-mana+.sensuba-card-piloted { filter: brightness(2.5) hue-rotate(320deg) drop-shadow(0 0 0.3em #efe2a0); }
-.sensuba-card-view .green-mana+.sensuba-card-piloted { filter: brightness(1.5) hue-rotate(270deg) drop-shadow(0 0 0.3em #efe2a0); }
-.sensuba-card-view .black-mana+.sensuba-card-piloted { filter: hue-rotate(75deg) drop-shadow(0 0 0.3em #efe2a0); }
+.sensuba-card-view .white-mana~.sensuba-card-piloted { filter: brightness(2.5) hue-rotate(180deg) drop-shadow(0 0 0.3em #efe2a0); }
+.sensuba-card-view .red-mana~.sensuba-card-piloted { filter: brightness(1.5) hue-rotate(140deg) drop-shadow(0 0 0.3em #efe2a0); }
+.sensuba-card-view .blue-mana~.sensuba-card-piloted { filter: brightness(2.5) hue-rotate(320deg) drop-shadow(0 0 0.3em #efe2a0); }
+.sensuba-card-view .green-mana~.sensuba-card-piloted { filter: brightness(1.5) hue-rotate(270deg) drop-shadow(0 0 0.3em #efe2a0); }
+.sensuba-card-view .black-mana~.sensuba-card-piloted { filter: hue-rotate(75deg) drop-shadow(0 0 0.3em #efe2a0); }
 
 .sensuba-card-view .sensuba-card-mark {
 
