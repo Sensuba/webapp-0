@@ -217,3 +217,13 @@
   font-family: Immortal;
   src: url('../Fonts/IMMORTAL.ttf');
 }
+
+.sensuba-booster-space .sensuba-booster-extremum { background: #0c0b2e }
+.sensuba-booster-space .sensuba-booster-medium { background: #453d75 }
+.sensuba-booster-space .sensuba-booster-expansion-name { color: white; text-shadow: 0 0 0.25rem #004040; font-size: 1.6em; top: 15rem; line-height: 0.9em; font-family: Airstrike; }
+.sensuba-booster-space .sensuba-booster-filter { background: linear-gradient(#0c0b2e, #453d75 10%, #453d75 15%, transparent 30%, transparent 75%, #0c0b2e) }
+
+@font-face {
+  font-family: Airstrike;
+  src: url('../Fonts/airstrike.ttf');
+}

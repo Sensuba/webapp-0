@@ -924,6 +924,7 @@ export default class Card {
 		this.pmutations = [];
 		this.passives = [];
 		this.events = [];
+		this.archetypes = ['mecha'];
 		this.states = { glazed: this.hasState("glazed") };
 		this.targets = [Event.targets.friendlyEmpty];
 		this.faculties = [];
