@@ -945,6 +945,11 @@ export default class Card {
 		this.pilot.outOfMecha = true;
 	}
 
+	isLeftRight (left, right) {
+
+		return (!left || (this.location.firstCard === this)) && (!right || (this.location.lastCard === this))
+	}
+
 	mutate (effect, end) {
 
 		var mut = new Mutation(effect);

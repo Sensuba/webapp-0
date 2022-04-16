@@ -33,6 +33,16 @@ export default class Court {
 		return this.card ? [this.card] : [];
 	}
 
+	get firstCard () {
+
+		return this.isEmpty ? null : this.card;
+	}
+
+	get lastCard () {
+
+		return this.isEmpty ? null : this.card;
+	}
+
 	place (card) {
 
 		if (this.card !== null)

@@ -43,6 +43,16 @@ export default class Deck {
 		this.highlander = new Set(this.starting.map(card => card.idCardmodel)).size === this.starting.length;
 	}
 
+	get firstCard () {
+
+		return this.isEmpty ? null : this.cards[0];
+	}
+
+	get lastCard () {
+
+		return this.isEmpty ? null : this.cards[this.count-1];
+	}
+
 	get count () {
 
 		return this.cards.length;
