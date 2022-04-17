@@ -295,6 +295,12 @@
 .sensuba-deck-size6 { box-shadow: 0px 0px 0px 0px #282a2d }
 .sensuba-deck-size7 { background: none }
 
+
+.sensuba-deck .sensuba-card-view.top-deck:not(.sensuba-card-burn):not(.sensuba-card-shuffle) {
+
+  transform: translateX(-8em) translateY(-3em) scale(0.8);
+}
+
 #deck-count-tooltip {
     position: absolute;
     z-index: 10;

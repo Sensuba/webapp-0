@@ -181,6 +181,11 @@ class Types {
 		}
 	}
 
+	static visibility (value, src) {
+
+		return value;
+	}
+
 	static state (value, src) {
 
 		return value;

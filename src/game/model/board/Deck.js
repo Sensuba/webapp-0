@@ -11,6 +11,7 @@ export default class Deck {
 		area.gameboard.register(this);
 
 		this.locationOrder = 1;
+		this.public = false;
 
 		this.area = area;
 		this.curse = CURSE_DAMAGE;
@@ -66,11 +67,6 @@ export default class Deck {
 	get opposite () {
 
 		return this.area.opposite.deck;
-	}
-
-	get public () {
-
-		return false;
 	}
 
 	addCard (card) {

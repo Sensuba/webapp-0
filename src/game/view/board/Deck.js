@@ -24,7 +24,7 @@ export default class Deck extends Component {
         onMouseLeave={this.props.model ? e => this.hideTooltip() : e => {}}
       >
       {
-      	this.props.model.cards.map(model => <Card hidden key={model.id.no} model={model} master={this.props.master}/>)
+      	this.props.model.cards.map((model, i) => <Card className="top-deck" hidden={!this.props.visible || i !== 0} key={model.id.no} model={model} master={this.props.master}/>)
       }
       <div className="fatigue-mark"/>
       </div>

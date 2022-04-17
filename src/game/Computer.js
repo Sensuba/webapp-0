@@ -223,6 +223,12 @@ export default (state, n, callback) => {
       let mut = mutsrc.mutdata[n.data[1].value].getMutation();
       player.addAspect(mut.effect, mut.targets, mut.end);
       break; }
+    case "topdeck": {
+      let deck = state.find(n.src);
+      let card = state.find(n.data[0]);
+      if (deck.hasCard(card))
+        deck.cards.sort(function(x,y){ return x === card ? -1 : y === card ? 1 : 0; });
+      break; }
     case "createmana":
       state.areas[n.src.no].manapool.createReceptacle(n.data[0].value);
       break;
@@ -254,7 +260,9 @@ export default (state, n, callback) => {
       state.areas[n.src.no].choosebox.open();
       break;
     case "visibilityloc": {
-      state.find(n.src).public = n.data[0].value;
+      let loc = state.find(n.src);
+      loc.public = n.data[0].value === "public";
+      loc.private = n.data[0].value === "private";
       break; }
     case "extraturn":
       state.areas[n.src.no].extraTurn();

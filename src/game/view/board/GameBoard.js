@@ -94,7 +94,7 @@ export default class GameBoard extends Component {
 		    		</Row>
 		    	</Field>
 		    	<div className="sensuba-deck-wrapper">
-	    			<Deck model={model.areas[no].deck} master={master}/>
+	    			<Deck visible={model.areas[no].deck.private} model={model.areas[no].deck} master={master}/>
 	    			<div className="sensuba-username-wrapper">
 	    				<div className={"sensuba-username" + (model.areas[no].name && model.areas[no].name.length > 7 ? (model.areas[no].name.length > 10 ? " sensuba-username-extra-small" : " sensuba-username-small") : "")}>{model.areas[no].name || ""}</div>
 	    			</div>
