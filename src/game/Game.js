@@ -247,6 +247,9 @@ export default class Game extends Component {
         this.setState({ hero: ((this.prevHero.no > n.data[0].no) === (this.no > 0) ? this.prevHero : n.data[0]) });
       else this.prevHero = n.data[0];
     }
+    if (n.type === "newturn")
+      if (window.resetTimer)
+        window.resetTimer();
     if (this.syncstate === "async")
       this.dispatch(n);
     else this.sequencer.add(n);

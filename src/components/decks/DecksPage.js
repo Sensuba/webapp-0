@@ -36,9 +36,9 @@ export default class DecksPage extends Component {
 	            	<FormGroup row>
 			          <Input type="select" name="select" id="form-deckbuilder-type" defaultValue="builder" onChange={e => this.deckbuilderType = e.target.value}>
 			            <option value="builder">Standard</option>
-			            <option value="miracle">Miracle</option>
-			            <option value="custom">Personnalisé</option>
 			            <option value="display">Vitrine</option>
+			            <option value="custom">Personnalisé</option>
+			            <option value="draft">Draft</option>
 			          </Input>
 			        </FormGroup>
 	            </div>

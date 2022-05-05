@@ -23,7 +23,7 @@
 .history-entry.history-newturn { height: 0.5vw; opacity: 0; }
 
 .history-entry.history-play { border-color: black }
-.history-entry.history-trap, .history-entry.history-secret { border-color: darkgray }
+.history-entry.history-trap, .history-entry.history-show, .history-entry.history-secret { border-color: darkgray }
 .history-entry.history-action { border-color: #d6cc3a }
 .history-entry.history-skill { border-color: #00d1a4 }
 .history-entry.history-attack { border-color: #c71606 }

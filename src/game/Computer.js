@@ -10,8 +10,6 @@ export default (state, n, callback) => {
       break;
     case "newturn":
       state.newTurn(n.src.no);
-      if (window.resetTimer)
-        window.resetTimer();
       break;
     case "newcard": {
       var card = new Card(n.src.no, state.find(n.data[0]));

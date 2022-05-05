@@ -29,7 +29,7 @@ export default class DeckbuilderPage extends Component {
 	  	switch (this.props.type) {
 	  	case "standard": type = "Deck Standard"; format = this.props.type; break;
 	  	case "display": type = "Deck Vitrine"; format = this.props.type; break;
-	  	case "miracle": type = "Deck Miracle"; format = "standard"; break;
+	  	case "draft": type = "Deck Draft"; format = "standard"; break;
 	  	case "custom": type = "Deck Personnalisé"; format = this.props.type; break;
 	  	default: type = "Nouveau deck"; format = "display"; break;
 	  	}
@@ -48,9 +48,9 @@ export default class DeckbuilderPage extends Component {
 	  	this.state.cardlist = this.loadCardlist();
 	}
 
-  get miracle () {
+  get draft () {
 
-    return this.props.type === "miracle";
+    return this.props.type === "draft";
   }
 
   get custom () {
@@ -98,17 +98,17 @@ export default class DeckbuilderPage extends Component {
   	this.setState({cardlist: cl, deck: d});
   }
 
-  updateDeck (deck) {
+  updateDeck (deck, update=false) {
 
   	deck = deck || this.state.deck;
-  	this.setState({cardlist: this.loadCardlist(deck.format), deck}, () => this.updateFormat(this.findFormat()));
+  	this.setState({cardlist: this.loadCardlist(deck.format), deck}, update ? () => this.updateFormat(this.findFormat()) : undefined);
   }
 
   loadCardlist(format) {
 
   	format = format || this.state.deck.format || this.findFormat();
 
-  	if (format === "miracle")
+  	if (format === "draft")
   		format = "standard";
 
   	return this.formats[format].cardlist;
@@ -158,7 +158,7 @@ export default class DeckbuilderPage extends Component {
 	      			:
 	      			<Selector onSelect={hero => {
 	      				this.setState({deck: Object.assign(this.state.deck, { hero: hero, background: this.state.cardlist.find(c => c.idCardmodel === hero).imgLink })});
-	      			}} cards={this.state.cardlist} miracle={this.miracle}/>
+	      			}} cards={this.state.cardlist} draft={this.draft}/>
 	      		}
 	      	</main>
 	    </div>

@@ -44,7 +44,7 @@
 .sensuba-deckbuilder-search .sensuba-deckbuilder-search-list {
 
 	overflow-y: scroll;
-	height: calc(100% - 8.2em);
+	height: calc(100% - 2em); /* calc(100% - 8.2em); */
 }
 
 .sensuba-deckbuilder-list-cards {

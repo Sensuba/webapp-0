@@ -269,7 +269,7 @@ export default class Card {
 		if (this.isType("artifact") || this.isType("secret"))
 			this.faculties.push({no: this.faculties.length, desc: "Explose.", cost: 0});
 		if (this.isType("secret")) {
-			if (this.faculties.length === 2)
+			if (this.faculties.length >= 1)
 				this.secreteffect = 0;
 			else delete this.secreteffect;
 			this.secretcount = 1;
@@ -756,6 +756,8 @@ export default class Card {
 		if (eff.firstTurn && !this.hasState("rush") && !(this.hasState("agility") && !target.isType("hero")))
 			return false;
 		if (!eff.actionPt && (!this.hasState("fury") || eff.furyState !== 1))
+			return false;
+		if (eff.firstTurn && this.hasState("rush") && this.hasState("fury") && eff.furyState === 1 && target.isType("hero"))
 			return false;
 		if (target.isType("hero") && this.hasState("cannot attack heroes"))
 			return false;

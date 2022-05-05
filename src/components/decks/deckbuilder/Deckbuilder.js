@@ -15,20 +15,20 @@ export default class Deckbuilder extends Component {
 		super(props);
 
     var choices;
-    if (this.miracle) {
-      this.miracleColorList = this.getColorList();
-      choices = this.generateMiracleChoice(this.miracleColorList.cards);
+    if (this.draft) {
+      this.draftColorList = this.getColorList();
+      choices = this.generateDraftChoice(this.draftColorList.cards);
     }
 
     this.assistant = new Assistant(this.props.cards);
-		this.state = { filter: "", preview: null, miracle: this.miracle, suggestions: this.assistant.suggest(this.getColorList(), this.props.deck, 3), choices };
+		this.state = { filter: "", preview: null, draft: this.draft, suggestions: this.assistant.suggest(this.getColorList(), this.props.deck, 3), choices };
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
 	}
 
-  get miracle () {
+  get draft () {
 
-    return this.props.type === "miracle";
+    return this.props.type === "draft";
   }
 
   get filter () {
@@ -63,24 +63,24 @@ export default class Deckbuilder extends Component {
     };
   }
 
-  generateMiracleChoice (cards) {
+  generateDraftChoice (cards) {
 
     var pickRandomCard = list => list[Math.floor(Math.random()*list.length)];
 
-      var miraclelist = [];
+      var draftlist = [];
       for (let i = 0; i < 3;) {
-        let miraclenew = pickRandomCard(cards);
+        let draftnew = pickRandomCard(cards);
 
-        if (miraclelist.some(card => card === miraclenew))
+        if (draftlist.some(card => card === draftnew))
           continue;
-        if (miraclenew.idColor === 0 && Math.random() < 0.5)
+        if (draftnew.idColor === 0 && Math.random() < 0.5)
           continue;
-        if (this.props.deck.cards[miraclenew.idCardmodel] && this.props.deck.cards[miraclenew.idCardmodel] >= Math.min(2, miraclenew.count || 2))
+        if (this.props.deck.cards[draftnew.idCardmodel] && this.props.deck.cards[draftnew.idCardmodel] >= Math.min(2, draftnew.count || 2))
           continue;
-        miraclelist.push(miraclenew);
+        draftlist.push(draftnew);
         i++;
       }
-      return miraclelist;
+      return draftlist;
   }
 
 	get count () {
@@ -102,13 +102,13 @@ export default class Deckbuilder extends Component {
     this.setState({ suggestions: this.assistant.suggest(this.getColorList(), this.props.deck, 3) });
   }
 
-  addMiracleCard (id) {
+  addDraftCard (id) {
 
     var end = this.count >= 29;
     var c = this.props.deck.cards;
     c[id] = (c[id] || 0) + 1;
     this.props.updateDeck();
-    this.setState({choices: this.generateMiracleChoice(this.miracleColorList.cards), miracle: !end});
+    this.setState({choices: this.generateDraftChoice(this.draftColorList.cards), draft: !end});
   }
 
   removeCard(id) {
@@ -258,14 +258,14 @@ export default class Deckbuilder extends Component {
 				{ this.state.preview ? <Card src={this.state.preview}/> : <span/> }
 			</div>
         {
-          this.state.miracle ?
+          this.state.draft ?
           <div>
           <h1 className="big-text">Choisissez une carte</h1>
             <div className="hero-selector">
               <div className="hero-list">
               {
                 this.state.choices.map((h, i) => <div key={i} className="select-hero-card main-hero-card" onClick={() => {
-                  this.addMiracleCard(h.idCardmodel);
+                  this.addDraftCard(h.idCardmodel);
                 }}><Card src={h}/></div>)
               }
               </div>
@@ -294,7 +294,7 @@ export default class Deckbuilder extends Component {
   	                <Input id="deck-supercode-form" type="textarea" rows="4" value={superCode} onChange={ e => {
   	                    try {
   	                        var d = JSON.parse(window.atob(e.target.value));
-  	                        this.props.updateDeck(d);
+  	                        this.props.updateDeck(d, true);
   	                    } catch (e) { }
   	                } }/>
         			</div>
@@ -312,28 +312,28 @@ export default class Deckbuilder extends Component {
       							while (j++ < this.props.deck.cards[model.idCardmodel])
       								arr.push(j);
 
-      							return <div key={i} className="sensuba-deckbuilder-list-group" onClick={this.state.miracle ? () => {} : () => this.removeCard(model.idCardmodel)}>{arr.map(i => <Card className={this.props.isGhost(model, i) ? "sensuba-deckbuilder-ghost-card" : ""} key={i} src={model}/>)}</div>;
+      							return <div key={i} className="sensuba-deckbuilder-list-group" onClick={this.state.draft ? () => {} : () => this.removeCard(model.idCardmodel)}>{arr.map(i => <Card className={this.props.isGhost(model, i) ? "sensuba-deckbuilder-ghost-card" : ""} key={i} src={model}/>)}</div>;
       						})
       					}
       				</div>
       				<div className="sensuba-deckbuilder-list-count">{this.count}</div>
       			</div>
             {
-            this.state.miracle ?
+            this.state.draft ?
             <span/>
             :
       			<div className="sensuba-deckbuilder-search">
       				<Input type="text" placeholder="Recherche" className="sensuba-deckbuilder-search-input" value={this.state.filter} onChange={e => this.setState({filter: e.target.value})}/>
       				<div className="sensuba-deckbuilder-search-list">
       				{
-      					cards.filter(c => c.nameCard.toLowerCase().includes(this.state.filter.toLowerCase())).map((c, i) =>
+      					cards.filter(c => c.nameCard.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(this.state.filter.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""))).map((c, i) =>
       						<div key={i} className={"sensuba-deckbuilder-tag " + colorIdToClassName(c.idColor)} onMouseMove={e => this.showTooltip(e, c, true)} onMouseLeave={e => this.hideTooltip()} onClick={() => this.addCard(c.idCardmodel)}>
       							<div className="sensuba-deckbuilder-tag-name">{c.nameCard}</div>
       							<img className="sensuba-deckbuilder-tag-img" src={c.imgLink} alt={c.nameCard}/>
       						</div>)
       				}
       				</div>
-              <div className="sensuba-deckbuilder-suggestions-header">Suggestions</div>
+              { /* <div className="sensuba-deckbuilder-suggestions-header">Suggestions</div>
               <div className="sensuba-deckbuilder-suggestions">
               {
                 this.state.suggestions.filter(c => c).map((c, i) =>
@@ -342,7 +342,7 @@ export default class Deckbuilder extends Component {
                     <img className="sensuba-deckbuilder-tag-img" src={c.imgLink} alt={c.nameCard}/>
                   </div>)
               }
-              </div>
+              </div> */ }
       			</div>
             }
       		</div>

@@ -117,14 +117,14 @@ export default (() => {
       }
 	}
 
-	var archetypeFilter = archetype => card => (card.archetypes && card.archetypes.filter(arc => archetypeTranslation(arc).toLowerCase().includes(archetype.toLowerCase())).length > 0) || (card.mecha && "mecha".includes(archetype.toLowerCase()));
+	var archetypeFilter = archetype => card => (card.archetypes && card.archetypes.filter(arc => archetypeTranslation(arc).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(archetype.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""))).length > 0) || (card.mecha && "mecha".includes(archetype.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")));
 
-	var descriptionFilter = description => card => card.description.toLowerCase().includes(description.toLowerCase());
+	var descriptionFilter = description => card => card.description.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(description.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
 
 	var filter = (cards, f) => {
 
 		if (f.search && f.search !== "") {
-			var fullsearch = f.search.toLowerCase();
+			var fullsearch = f.search.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 			var directsearch = f => (s, card) => {
 				var splits = s.split("\"");
 				if (splits.length < 3)
@@ -155,7 +155,7 @@ export default (() => {
 				var splits = s.split(":");
 				if (splits.length === 1)
 					return f(s, card);
-				var spec = splits[0].toLowerCase(), value = splits[1].toLowerCase();
+				var spec = splits[0].toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""), value = splits[1].toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 				var specNum = (stat, value, card) => {
 					if (card[stat] === undefined || !/^\d+[+-]?$/.test(value))
 						return false;
@@ -168,7 +168,7 @@ export default (() => {
 				}
 				switch (spec) {
 				case "type": return card.cardType === value;
-				case "anime": return card.anime.toLowerCase().includes(value)
+				case "anime": return card.anime.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(value)
 				case "rarity": return rarityFilter(value)(card);
 				case "archetype": return archetypeFilter(value)(card);
 				case "edition": return specNum("idEdition", value, card);
@@ -200,11 +200,11 @@ export default (() => {
 				}
 			}
 			var searchFunction = (s, card) => {
-				if ((card.nameCard && card.nameCard.toLowerCase().includes(s)) || (card.anime && card.anime.toLowerCase().includes(s)) || (card.description && card.description.toLowerCase().includes(s)))
+				if ((card.nameCard && card.nameCard.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(s)) || (card.anime && card.anime.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(s)) || (card.description && card.description.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(s)))
 			 		return true;
 			 	if ((card.lv2 && searchFunction(s,card.lv2)) || (card.lvmax && searchFunction(s, card.lvmax)))
 			 		return true;
-			 	if ((card.archetypes && card.archetypes.filter(arc => archetypeTranslation(arc).toLowerCase().includes(s.toLowerCase())).length > 0) || (card.mecha && "mecha".includes(s.toLowerCase())))
+			 	if ((card.archetypes && card.archetypes.filter(arc => archetypeTranslation(arc).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""))).length > 0) || (card.mecha && "mecha".includes(s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""))))
 			 		return true;
 			 	if (card.tokens && card.tokens.some(token => searchFunction(s, token)))
 			 		return true;
@@ -223,13 +223,13 @@ export default (() => {
 		if (f.archetype && f.archetype !== "")
 			cards = cards.filter(archetypeFilter(f.archetype));
 		if (f.name && f.name !== "")
-			cards = cards.filter(card => card.nameCard.toLowerCase().includes(f.name.toLowerCase()));
+			cards = cards.filter(card => card.nameCard.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(f.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")));
 		if (f.description && f.description !== "")
 			cards = cards.filter(descriptionFilter(f.description));
 		if (f.anime && f.anime !== "")
-			cards = cards.filter(card => card.anime.toLowerCase().includes(f.anime.toLowerCase()));
+			cards = cards.filter(card => card.anime.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(f.anime.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")));
 		if (f.flavour && f.flavour !== "")
-			cards = cards.filter(card => card.flavourText.toLowerCase().includes(f.flavour.toLowerCase()));
+			cards = cards.filter(card => card.flavourText.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(f.flavour.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")));
 		if (f.mana && !isNaN(f.mana) && f.manaop && f.manaop !== "")
 			cards = cards.filter(opFilter("mana", parseInt(f.mana, 10), f.manaop));
 		if (f.atk && !isNaN(f.atk) && f.atkop && f.atkop !== "")

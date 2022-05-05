@@ -399,7 +399,6 @@ export default class CardsPage extends Component {
               <Label for="sensuba-search-rarity" className="sensuba-search-select-label">Rareté</Label>
               <select value={this.filter.rarity} id="sensuba-search-rarity" onChange={editFilter("rarity").bind(this)}>
                 <option value="">---</option>
-                <option value="basic">Basique</option>
                 <option value="common">Commune</option>
                 <option value="uncommon">Insolite</option>
                 <option value="rare">Rare</option>

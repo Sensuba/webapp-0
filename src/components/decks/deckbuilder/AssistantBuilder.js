@@ -228,6 +228,9 @@ export default class AssistantBuilder {
 			options.secret += count;
 		} else if (card.cardType === "artifact") {
 			options.artifact += count;
+		} else if (card.cardType === "hero") {
+			if (card.lv2 && card.lv2.atk >= 600)
+				options.heroatk++;
 		}
 
 		var syn = synergies[id];
@@ -256,6 +259,7 @@ export default class AssistantBuilder {
 			case "shield": options[op.for] += options.shield / 4 * op.count; break;
 			case "fatigue":
 			case "selffatigue":
+			case "heroatk":
 			case "fire":
 			case "water":
 			case "flowers": options[op.for] += options[op.using] / 4 * op.count; break;
@@ -290,7 +294,8 @@ export default class AssistantBuilder {
 			cover: 0, artifact: 0, big: 0, frenzy: 0, beast: 0, cyber: 0, dragon: 0, lolita: 0, demon: 0, "magical girl": 0,
 			enemydraw: 0, highhp: 0, conceal: 0, motion: 0, selfpoison: 0, selffreeze: 0, discard: 0, steal: 0, poison: 0,
 			specific: 0, secret: 0, attack: 0, disruption: 0, highatk: 0, delay: 0, handbuff: 0, fire: 0, water: 0, 
-			flowers: 0, gravity: 0, herodamage: 0, heroheal: 0, fatigue: 0, selffatigue: 0, handcontrol: 0, emptydeck: 0
+			flowers: 0, gravity: 0, herodamage: 0, heroheal: 0, fatigue: 0, selffatigue: 0, handcontrol: 0, emptydeck: 0,
+			heroatk: 0, enemyattack: 0, casino: 0
 		}
 		var cross = [];
 
@@ -333,9 +338,11 @@ export default class AssistantBuilder {
 		case "big": return (noptions.big - 10) / 80 - Math.max(0, (noptions.board - 10) / 120);
 		case "bounce": return noptions.bounce < 0 ? noptions.bounce : Math.pow((noptions.bounce - 6)/60, 0.6);
 		case "overload": return (noptions.overload - 20) / 150;
+		case "heroatk": return (noptions.heroatk - 4)/60;
 		case "lowatk": return (noptions.lowatk - 4)/60;
 		case "lowhp": return (noptions.lowhp - 4)/60 + (noptions.damage - 40)/250;
 		case "highhp": return (noptions.highhp - 4)/60;
+		case "enemyattack": return (noptions.enemyattack - 4)/50;
 		case "highatk": return (noptions.highatk - 4)/50 + (noptions.boost - 10) / 250;
 		case "cover": return (noptions.cover - 4)/50 + (noptions.board - 60)/250;
 		case "frenzy": return (noptions.frenzy - 10)/100;
@@ -349,6 +356,7 @@ export default class AssistantBuilder {
 		case "emptydeck": return (noptions.emptydeck - 6)/40 + (noptions.draw  - 8) / 240;
 		case "fatigue":
 		case "selffatigue":
+		case "casino": 
 		case "fire": 
 		case "water": 
 		case "flowers": return (noptions[type] - 12)/60;
@@ -415,6 +423,7 @@ export default class AssistantBuilder {
 		case "freeze":
 		case "steal":
 		case "attack":
+		case "enemyattack":
 		case "lowatk":
 		case "lowhp":
 		case "highatk":
@@ -424,9 +433,11 @@ export default class AssistantBuilder {
 		case "boost":
 		case "gravity":
 		case "handbuff":
+		case "casino":
 		case "fatigue":
 		case "selffatigue":
 		case "emptydeck":
+		case "heroatk":
 		case "fire":
 		case "water":
 		case "flowers":

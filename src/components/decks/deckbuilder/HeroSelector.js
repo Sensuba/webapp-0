@@ -11,38 +11,38 @@ export default class HeroSelector extends Component {
 
     var heroes = sorter.filter(this.props.cards, { type: "hero", orderBy: "name" });
 
-    if (this.miracle) 
-      heroes = this.generateMiracleChoice(heroes);
+    if (this.draft) 
+      heroes = this.generateDraftChoice(heroes);
 
     this.state = { heroes: heroes }
 	}
 
-  get miracle () {
+  get draft () {
 
-    return this.props.miracle;
+    return this.props.draft;
   }
 
-  generateMiracleChoice (heroes) {
+  generateDraftChoice (heroes) {
 
     var pickRandomHero = list => list[Math.floor(Math.random()*list.length)];
 
-      var miraclelist = [];
+      var draftlist = [];
       for (let i = 0; i < 3;) {
-        let miraclenew = pickRandomHero(heroes);
+        let draftnew = pickRandomHero(heroes);
 
-        if (miraclelist.some(other => (other.idColor === miraclenew.idColor || other.idColor === miraclenew.idColor2) && (other.idColor2 === miraclenew.idColor || other.idColor2 === miraclenew.idColor2)))
+        if (draftlist.some(other => (other.idColor === draftnew.idColor || other.idColor === draftnew.idColor2) && (other.idColor2 === draftnew.idColor || other.idColor2 === draftnew.idColor2)))
           continue;
 
-        miraclelist.push(miraclenew);
+        draftlist.push(draftnew);
         i++;
       }
-      return miraclelist;
+      return draftlist;
   }
 
   componentDidMount () {
 
     if (this.state.heroes.length > 0) {
-      if (this.miracle)
+      if (this.draft)
         this.setFocus(1)
       else
         this.setFocus(Math.floor(Math.random() * Math.floor(this.state.heroes.length)));
@@ -83,11 +83,11 @@ export default class HeroSelector extends Component {
 
     if (hero.length === 0)
       return;
-    var index = this.state.heroes.findIndex(h => h.nameCard.toLowerCase().startsWith(hero.toLowerCase()));
+    var index = this.state.heroes.findIndex(h => h.nameCard.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").startsWith(hero.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")));
     if (index >= 0) 
       this.setFocus(index);
     else {
-      index = this.state.heroes.findIndex(h => h.nameCard.toLowerCase().includes(hero.toLowerCase()));
+      index = this.state.heroes.findIndex(h => h.nameCard.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(hero.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")));
       if (index >= 0)
         this.setFocus(index);
     }
@@ -110,7 +110,7 @@ export default class HeroSelector extends Component {
         }
         </div>
         {
-          this.miracle ?
+          this.draft ?
           <span/>
           :
           <div className="search-hero-wrapper">

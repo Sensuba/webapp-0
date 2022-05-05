@@ -37,10 +37,13 @@ class Log {
 			this.addEntry(entry);
 			break;
 		}
+		case "show":
 		case "triggersecret":
 		case "trap": {
 			let src = this.gameboard.find(log.src);
-			entry = {type: log.type === "triggersecret" ? "secret" : "trap", text: log.type === "triggersecret" ? "Secret" : "Auto", src};
+			if (log.type === "show") entry = {type:"play", src};
+			else if (log.type === "triggersecret") entry = {type:"secret", text: log.data[0], src};
+			else if (log.type === "trap") entry = {type: "trap", text: "Auto", src};
 			let other = log.data[1];
 			if (other) {
 				let tile = this.gameboard.find(other)
