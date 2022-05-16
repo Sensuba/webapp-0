@@ -7,6 +7,7 @@ export default class Load extends Animation {
 
 		super(master, 300);
 		this.card = card;
+		this.loadAudio("pilot");
 	}
 
 	run () {

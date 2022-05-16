@@ -7,6 +7,7 @@ export default class Activate extends Animation {
 
 		super(master, 500);
 		this.card = card;
+		this.loadAudio("activate");
 	}
 
 	run () {

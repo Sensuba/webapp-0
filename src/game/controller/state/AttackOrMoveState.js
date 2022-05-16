@@ -17,6 +17,8 @@ export default class AttackOrMoveState {
 		
 		if (target.id.type === "faculty") {
 			var faculty = this.card.faculties[target.id.no];
+			if (!this.card.canUse(faculty))
+				return;
 			if (this.card.isType("secret")){
 				if (faculty.no === this.card.faculties.length-1)
 					this.manager.command({ type: "param", id: this.card.id, option: "destroy" });

@@ -73,7 +73,7 @@
 
     .history-entry.history-endturn { height: 0.5vw }
 
-    .history-entry.history-action, .history-entry.history-skill, .history-entry.history-attack { height: 3vw }
+    .history-entry.history-action, .history-entry.history-skill, .history-entry.history-attack, .history-entry.history-show { height: 3vw }
     .history-entry.history-action.option-manaup, .history-entry.history-skill.option-levelup { height: 6vw }
 
     .history .history-entry .history-entry-bg {

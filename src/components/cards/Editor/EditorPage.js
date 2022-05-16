@@ -235,7 +235,7 @@ export default class EditorPage extends Component {
     var blueprint =
     <Blueprint
       key={JSON.stringify(this.state.token)}
-      save={bp => {
+      save={(bp, schematics) => {
         if (this.currentCard.cardType === "hero") {
           switch (this.refs.design.state.level) {
           case 1: this.currentCard.blueprint = bp; break;

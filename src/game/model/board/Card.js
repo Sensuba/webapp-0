@@ -381,7 +381,7 @@ export default class Card {
 
 		//this.gameboard.notify("charge", this, charge);
 		this.charges = Math.min(5, Math.max(0, (this.charges || 0) + charge));
-		this.update();
+		this.gameboard.update();
 	}
 
 	boost (atk, hp, range) {
@@ -744,7 +744,13 @@ export default class Card {
 			return false;
 		if (this.isType("secret"))
 			return this.secreteffect !== faculty.no;
-		return (this.skillPt && !isNaN(faculty.cost) && (this.isType("artifact") ? this.eff.chp >= -faculty.cost : this.area.manapool.usableMana >= faculty.cost)) || (this.actionPt && isNaN(faculty.cost) && !this.firstTurn);
+		if (!((this.skillPt && !isNaN(faculty.cost) && (this.isType("artifact") ? this.eff.chp >= -faculty.cost : this.area.manapool.usableMana >= faculty.cost)) || (this.actionPt && isNaN(faculty.cost) && !this.firstTurn)))
+			return false;
+		if (faculty.target && !this.area.gameboard.tiles.find(t => faculty.target(this, t)))
+			return false;
+		if (faculty.condition && !faculty.condition(this))
+			return false;
+		return true;
 	}
 
 	canAttack (target) {

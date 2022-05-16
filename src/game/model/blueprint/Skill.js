@@ -26,6 +26,9 @@ class Skill extends Bloc {
 		var skill = {no: owner.faculties.length, desc: cpt[1], cost: costText};
 		if (this.target) 
 			skill.target = tar;
+		if (!this.target && this.in && this.in[0] && this.in[0]()) {
+			skill.condition = (src) => this.in[0]()(src);
+		}
 		owner.faculties.push(skill);
 	}
 }

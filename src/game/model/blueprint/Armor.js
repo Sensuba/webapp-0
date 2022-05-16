@@ -12,8 +12,8 @@ class Armor extends Bloc {
 
 	setup () {
 
-		var cpt = this.computeIn();
-		this.src.armor = (this.src.armor || 0) + cpt[0];
+		//var cpt = this.computeIn();
+		//this.src.armor = (this.src.armor || 0) + cpt[0];
 	}
 }
 

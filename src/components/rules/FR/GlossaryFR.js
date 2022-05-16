@@ -78,11 +78,21 @@ export default class GlossaryFR extends Component {
         </div>
         <div className="half-section">
           <div className="glossary-panel">
-              <img className="glossary-panel-background" src="/glossary/flying.jpg" alt="bg"/>
+              <img className="glossary-panel-background" src="https://i.ibb.co/Q8T3fH3/a37ddaf89997.jpg" alt="bg"/>
               <div className="glossary-panel-filter"/>
               <div className="glossary-panel-text">
                 <h3>Don du Vol</h3>
                 <p>Un personnage au sol ignore la défense des personnages volants. Un personnage volant ignore la défense des personnages au sol.<br/>Il faut +1 de portée à un personnage au sol pour atteindre un personnage volant.</p>
+                </div>
+          </div>
+        </div>
+        <div className="quarter-section">
+          <div className="glossary-panel">
+              <img className="glossary-panel-background" src="https://i.ibb.co/hyhq729/wind.jpg" alt="bg"/>
+              <div className="glossary-panel-filter"/>
+              <div className="glossary-panel-text">
+                <h3>Agilité</h3>
+                <p>Peut attaquer dès son tour d'invocation, excepté pour cibler un héros.</p>
                 </div>
           </div>
         </div>
@@ -93,16 +103,6 @@ export default class GlossaryFR extends Component {
               <div className="glossary-panel-text">
                 <h3>Gel</h3>
                 <p>Ne peut pas utiliser d'action, de compétence, ou se déplacer.<br/>N'est plus gelé la fin de votre tour si ce personnage était déjà gelé au début.</p>
-                </div>
-          </div>
-        </div>
-        <div className="quarter-section">
-          <div className="glossary-panel">
-              <img className="glossary-panel-background" src="/glossary/conceal.jpg" alt="bg"/>
-              <div className="glossary-panel-filter"/>
-              <div className="glossary-panel-text">
-                <h3>Camouflage</h3>
-                <p>Ne peut pas être ciblé par des attaques ou des effets de carte de votre adversaire. Ne peut pas défendre.</p>
                 </div>
           </div>
         </div>
@@ -138,6 +138,16 @@ export default class GlossaryFR extends Component {
         </div>
         <div className="quarter-section">
           <div className="glossary-panel">
+              <img className="glossary-panel-background" src="/glossary/conceal.jpg" alt="bg"/>
+              <div className="glossary-panel-filter"/>
+              <div className="glossary-panel-text">
+                <h3>Camouflage</h3>
+                <p>Ne peut pas être ciblé par des attaques ou des effets de carte de votre adversaire. Ne peut pas défendre.</p>
+                </div>
+          </div>
+        </div>
+        <div className="quarter-section">
+          <div className="glossary-panel">
               <img className="glossary-panel-background" src="/glossary/poison.png" alt="bg"/>
               <div className="glossary-panel-filter"/>
               <div className="glossary-panel-text">
@@ -148,21 +158,21 @@ export default class GlossaryFR extends Component {
         </div>
         <div className="quarter-section">
           <div className="glossary-panel">
-              <img className="glossary-panel-background" src="/glossary/trap.png" alt="bg"/>
-              <div className="glossary-panel-filter"/>
-              <div className="glossary-panel-text">
-                <h3>Auto</h3>
-                <p>Se lance automatiquement lorsque cette carte est piochée.</p>
-                </div>
-          </div>
-        </div>
-        <div className="quarter-section">
-          <div className="glossary-panel">
               <img className="glossary-panel-background" src="https://i.ibb.co/XxrS8y5/yukine.png" alt="bg"/>
               <div className="glossary-panel-filter"/>
               <div className="glossary-panel-text">
                 <h3>Enrager</h3>
                 <p>Fait attaquer une figure ou un artéfact, choisi aléatoirement parmi les cibles valides.</p>
+                </div>
+          </div>
+        </div>
+        <div className="quarter-section">
+          <div className="glossary-panel">
+              <img className="glossary-panel-background" src="/glossary/trap.png" alt="bg"/>
+              <div className="glossary-panel-filter"/>
+              <div className="glossary-panel-text">
+                <h3>Auto</h3>
+                <p>Se lance automatiquement lorsque cette carte est piochée.</p>
                 </div>
           </div>
         </div>

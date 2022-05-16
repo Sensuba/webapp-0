@@ -7,6 +7,7 @@ export default class Eject extends Animation {
 
 		super(master, 300);
 		this.card = card;
+		this.loadAudio("pilot");
 	}
 
 	run () {

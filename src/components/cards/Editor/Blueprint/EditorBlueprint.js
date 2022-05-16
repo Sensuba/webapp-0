@@ -4,6 +4,8 @@ import './Blueprint.css';
 import * as SRD from "storm-react-diagrams";
 import Tray from './TrayWidget';
 import Node from './NodeModel';
+import Port from './PortModel';
+import Link from './LinkModel';
 import NodeFactory from './NodeFactory';
 import LinkFactory from './LinkFactory';
 require("storm-react-diagrams/dist/style.min.css");
@@ -107,7 +109,7 @@ const blocks = [
 	{ type: "counttiles", name: "Count tiles", model: [ {inout: "in", type: "locations", name: "area"}, {inout: "in", type: "tilefilter", name: "filter"}, {inout: "out", type: "int", name: "count"} ], tooltip: "Compte les cases conformes à un filtre dans une zone", color: "#89BC62" },
 	{ type: "mergeloc", name: "Merge locations", model: [ {inout: "in", type: "locations", name: "locations 1"}, {inout: "in", type: "locations", name: "locations 2"}, {inout: "out", type: "locations", name: "or"}, {inout: "out", type: "locations", name: "and"} ], tooltip: "Fusionne deux zones en une nouvelle", color: "#89BC62" },
 	{ type: "editloc", name: "Edit locations", model: [ {inout: "in", type: "locations", name: "area"}, {inout: "in", type: "location", name: "location"}, {inout: "out", type: "locations", name: "add"}, {inout: "out", type: "locations", name: "remove"} ], tooltip: "Ajoute ou supprime un emplacement à une zone", color: "#89BC62" },
-	{ type: "findnear", name: "Find Near", model: [ {inout: "in", type: "location", name: "tile"}, {inout: "out", type: "location", name: "nearest"} ], tooltip: "Trouve la case vide la plus proche d'une case donnée", color: "#73BEC8" },
+	{ type: "findnear", name: "Find Near", model: [ {inout: "in", type: "location", name: "tile"}, {inout: "out", type: "location", name: "nearest"} ], tooltip: "Trouve la case vide la plus proche d'une case donnée", color: "#89BC62" },
 	{ type: "checkcard", name: "Check card", model: [ {inout: "in", type: "card", name: "card"}, {inout: "in", type: "cardfilter", name: "filter"}, {inout: "out", type: "bool", name: "checked"}, {inout: "out", type: "bool", name: "exists"} ], tooltip: "Vérifie si une carte existe ou est conforme à un filtre", color: "#89BC62" },
 	{ type: "checktile", name: "Check tile", model: [ {inout: "in", type: "location", name: "tile"}, {inout: "in", type: "tilefilter", name: "filter"}, {inout: "out", type: "bool", name: "checked"} ], tooltip: "Vérifie si une case est conforme à un filtre", color: "#89BC62" },
 	{ type: "checkmodel", name: "Check model", model: [ {inout: "in", type: "model", name: "model"}, {inout: "in", type: "modelfilter", name: "filter"}, {inout: "out", type: "bool", name: "checked"} ], tooltip: "Vérifie si un modèle est conforme à un filtre", color: "#89BC62" },
@@ -138,7 +140,7 @@ const blocks = [
 	{ type: "conditionmut", name: "Conditional mutation", model: [ {inout: "in", type: "mutation", name: "mutation"}, {inout: "in", type: "bool", name: "condition"}, {inout: "out", type: "mutation", name: "result"} ], tooltip: "Applique une mutation sous une condition donnée", color: "#89BC62" },
 	{ type: "conditiontarget", name: "Conditional target", model: [ {inout: "in", type: "tilefilter", name: "filter"}, {inout: "in", type: "bool", name: "condition"}, {inout: "out", type: "tilefilter", name: "result"} ], tooltip: "Invalide toute case cible tant qu'une condition n'est pas remplie", color: "#89BC62" },
 	{ type: "level", name: "Level", model: [ {inout: "in", type: "card", name: "hero"}, {inout: "out", type: "int", name: "level"} ], tooltip: "Récupère le niveau d'un héros", color: "#89BC62" },
-	{ type: "getcolors", name: "Get Colors", model: [ {inout: "in", type: "card", name: "card"}, {inout: "out", type: "cardfilter", name: "color1"}, {inout: "out", type: "cardfilter", name: "color2"} ], tooltip: "Récupère les couleurs d'une carte", color: "#89BC62" },
+	{ type: "getcolors", name: "Get Colors", model: [ {inout: "in", type: "card", name: "card"}, {inout: "out", type: "color", name: "color1"}, {inout: "out", type: "color", name: "color2"} ], tooltip: "Récupère les couleurs d'une carte", color: "#89BC62" },
 	{ type: "points", name: "Points", model: [ {inout: "in", type: "card", name: "entity"}, {inout: "out", type: "int", name: "action"}, {inout: "out", type: "int", name: "skill"}, {inout: "out", type: "int", name: "motion"} ], tooltip: "Récupère les points d'une entité", color: "#89BC62" },
 	{ type: "maxhp", name: "Max HP", model: [ {inout: "in", type: "card", name: "character"}, {inout: "out", type: "int", name: "max hp"} ], tooltip: "Récupère les PV maximum d'un personnage", color: "#89BC62" },
 	{ type: "chargecount", name: "Charge count", model: [ {inout: "in", type: "card", name: "card"}, {inout: "out", type: "int", name: "charges"} ], tooltip: "Récupère le nombre de charges d'une carte", color: "#89BC62" },
@@ -230,31 +232,42 @@ export default class EditorBlueprint extends Component {
 
 		super(props);
 
+		window.setModel = model => this.loadModel(model);
+		window.printModel = () => this.storeModel();
+
 		var engine = new SRD.DiagramEngine();
 		engine.installDefaultFactories();
 		engine.registerNodeFactory(new NodeFactory());
 		engine.registerLinkFactory(new LinkFactory());
 
-		var model = new SRD.DiagramModel();
+		let preloaded = false;
+
+		model = preloaded ? this.loadModel(model) : new SRD.DiagramModel();
 
 		engine.setDiagramModel(model);
 
-		var basisModel = [
-			{inout: "in", type: "effect", name: " "},
-			{inout: "in", type: "effect", name: " "},
-			{inout: "in", type: "effect", name: " "},
-			{inout: "in", type: "effect", name: " "},
-			{inout: "in", type: "effect", name: " "} ];
+		if (!preloaded) {
 
-		var node = new Node("basis", "Base", "#C0C0C0");
-		node.remove = () => {};
-		node.model = model;
-		node.x = 650;
-		node.y = 150;
+			var basisModel = [
+				{inout: "in", type: "effect", name: " "},
+				{inout: "in", type: "effect", name: " "},
+				{inout: "in", type: "effect", name: " "},
+				{inout: "in", type: "effect", name: " "},
+				{inout: "in", type: "effect", name: " "},
+				{inout: "in", type: "effect", name: " "},
+				{inout: "in", type: "effect", name: " "},
+				{inout: "in", type: "effect", name: " "} ];
 
-		basisModel.forEach(inout => node.addInPort(inout.type, inout.name));
-		model.addNode(node);
-		node.forceUpdate = () => this.forceUpdate();
+			var node = new Node("basis", "Base", "#C0C0C0");
+			node.remove = () => {};
+			node.model = model;
+			node.x = 650;
+			node.y = 150;
+
+			basisModel.forEach(inout => node.addInPort(inout.type, inout.name));
+			model.addNode(node);
+			node.forceUpdate = () => this.forceUpdate();
+		}
 
 		this.engine = engine;
 		this.state = { model, filter: "" }
@@ -346,6 +359,96 @@ export default class EditorBlueprint extends Component {
 	  	tooltip.setAttribute("style", `display: none`);
 	}
 
+	schematicsModel () {
+
+		var copy = Object.assign({}, this.state.model);
+		copy.nodes = Object.assign({}, copy.nodes);
+		Object.keys(copy.nodes).forEach(k => {
+			copy.nodes[k] = Object.assign({}, copy.nodes[k]);
+			let n = copy.nodes[k];
+			n.selected = false;
+			delete n.forceupdate;
+			n.listeners = {};
+			if (typeof n.model === 'object')
+				delete n.model;
+			n.ports = Object.assign({}, n.ports);
+			Object.keys(n.ports).forEach(k2 => {
+				n.ports[k2] = Object.assign({}, n.ports[k2]);
+				let p = n.ports[k2];
+				p.selected = false;
+				p.listeners = {};
+				if (p.parent && p.parent.id)
+					p.parent = p.parent.id;
+				p.links = Object.keys(p.links);
+			})
+		})
+		copy.links = Object.assign({}, copy.links);
+		Object.keys(copy.links).forEach(k => {
+			copy.links[k] = Object.assign({}, copy.links[k]);
+			let l = copy.links[k];
+			l.selected = false;
+			delete l.listeners;
+			l.points = l.points.map(p => Object.assign({}, p));
+			l.points.forEach(p => {
+				p.parent = p.parent.id;
+				p.selected = false;
+			});
+			if (l.sourcePort)
+				l.sourcePort = l.sourcePort.id;
+			if (l.targetPort)
+				l.targetPort = l.targetPort.id;
+		})
+
+		return copy;
+	}
+
+	loadModel (model) {
+
+		let newmodel = new SRD.DiagramModel();
+		Object.assign(newmodel, model);
+
+		let ports = {}
+		Object.keys(newmodel.nodes).forEach(k => {
+			let n = new Node();
+			Object.assign(n, newmodel.nodes[k]);
+			newmodel.nodes[k] = n;
+			n.forceUpdate = () => this.forceUpdate();
+			if (n.defaultNodeType === "basis")
+				n.model = newmodel;
+			Object.keys(n.ports).forEach(k2 => {
+				let p = new Port();
+				Object.assign(p, n.ports[k2]);
+				n.ports[k2] = p;
+				ports[p.id] = p;
+				p.parent = n;
+			})
+		})
+		Object.keys(newmodel.links).forEach(k => {
+			let l = new Link();
+			Object.assign(l, newmodel.links[k]);
+			newmodel.links[k] = l;
+			let points = [];
+			l.points.forEach(p => {
+				let npoint = new SRD.PointModel(l, this.engine.getRelativeMousePoint({clientX:0, clientY:0}));
+				Object.assign(npoint, p);
+				npoint.parent = l;
+				points.push(npoint);
+			});
+			l.points = points;
+			if (l.sourcePort)
+				l.sourcePort = ports[l.sourcePort];
+			if (l.targetPort)
+				l.targetPort = ports[l.targetPort];
+		})
+		Object.keys(ports).forEach(k => {
+			let links = {};
+			ports[k].links.forEach(l => links[l] = newmodel.links[l]);
+			ports[k].links = links;
+		})
+
+		return newmodel;
+	}
+
 	render () {
 
 		return (
@@ -392,7 +495,7 @@ export default class EditorBlueprint extends Component {
 				>
   				<SRD.DiagramWidget diagramEngine={this.engine} />
   			</div>
-  			<div onClick={() => this.props.save(this.blueprint())} className="blueprint-save">Save</div>
+  			<div onClick={() => this.props.save(this.blueprint(), this.schematicsModel())} className="blueprint-save">Save</div>
       	</div>
       	);
 	}
