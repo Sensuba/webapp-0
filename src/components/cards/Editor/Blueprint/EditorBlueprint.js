@@ -242,7 +242,7 @@ export default class EditorBlueprint extends Component {
 
 		let preloaded = false;
 
-		model = preloaded ? this.loadModel(model) : new SRD.DiagramModel();
+		var model = preloaded ? this.loadModel(model) : new SRD.DiagramModel();
 
 		engine.setDiagramModel(model);
 
