@@ -240,7 +240,8 @@ export default class Game extends Component {
       model.areas[0].avatar = n.data[1].value;
       model.areas[1].name = n.data[3].value;
       model.areas[1].avatar = n.data[4].value;
-      model.areas[this.no].player = true;
+      if (model.areas[this.no])
+        model.areas[this.no].player = true;
     }
     if (n.type === "identify" && this.no !== undefined && n.data[0].cardType === "hero" /*&& this.state.model.areas[this.no].field.tiles[6].occupied && this.state.model.areas[this.no].field.tiles[6].card.id.no === n.data[0].id.no*/) {
       if (this.prevHero)
