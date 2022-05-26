@@ -284,7 +284,7 @@ export default class CardsPage extends Component {
 
               var shop = false, shopcount = 0;
 
-              if (User.isConnected() && cf[0].rarity && cf[0].idEdition <= 7) {
+              if (User.isConnected() && cf[0].rarity && cf[0].idEdition <= 8) {
                 shop = true;
                 let shopcollec = this.props.collection.find(card => card.idCardmodel.toString() === this.props.focus);
                 if (shopcollec)
