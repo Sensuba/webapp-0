@@ -318,6 +318,7 @@ export default class CardsPage extends Component {
               <div onClick={() => this.buyBooster(5)} className="sensuba-shop-booster"><Booster expansion="Croisée des Horizons" theme="aquamarine" img="/lands.png"/></div>
               <div onClick={() => this.buyBooster(6)} className="sensuba-shop-booster"><Booster expansion="Academie Supermagique" theme="purple" img="/magic.jpg"/></div>
               <div onClick={() => this.buyBooster(7)} className="sensuba-shop-booster"><Booster expansion="Nouvelle Destinée" theme="holy" img="/path.png"/></div>
+              <div onClick={() => this.buyBooster(8)} className="sensuba-shop-booster"><Booster expansion="Seigneur des Galaxies" theme="space" img="/galaxy.jpg"/></div>
             </div>
           </Lightbox> : <span/>
         }
