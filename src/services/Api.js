@@ -13,11 +13,17 @@ export default class Api {
 
   getCards (callback, error) {
 
+    let step = 0, data = [];
     if (User.isConnected())
       this.addAuthorizationHeader();
-  	this.client.get("/vault/cardmodels")
-  	.then(response => callback(response.data))
-  	.catch(this.error(error));
+  	[1, 2].forEach(n => this.client.get("/vault/cardmodels?part=" + n)
+  	.then(response => {
+      step++;
+      data = data.concat(response.data);
+      if (step === 2)
+        callback(data)
+    })
+  	.catch(this.error(error)));
   }
 
   saveCustomCards (params, callback, error) {
