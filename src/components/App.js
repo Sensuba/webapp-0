@@ -95,13 +95,13 @@ export default class App extends Component {
 
         if (User.isConnected()) {
 
-          Library.getCollection(list => {
+          /*Library.getCollection(list => {
 
             if (list && list.length)
               this.setState({collection: list});
             else
               this.updateCollection();
-          })
+          })*/
 
           Library.getCustomCardList(list => {
 
@@ -253,13 +253,13 @@ export default class App extends Component {
     }, err => this.setState({customCards: []}));
   }
 
-  updateCollection () {
+  /*updateCollection () {
 
     this.props.options.api.getCollection(cards => {
       this.setState({collection: cards});
       Library.updateCollection(cards);
     }, err => this.setState({collection: []}));
-  }
+  }*/
 
   updateDecks () {
 
@@ -271,17 +271,17 @@ export default class App extends Component {
 
   tryUpdateDecks (d) {
 
-    if (!this.state.cards || !this.state.collection || !this.state.customCards) {
+    if (!this.state.cards/* || !this.state.collection*/ || !this.state.customCards) {
       setTimeout(() => this.tryUpdateDecks(d), 500);
       return;
     }
 
-    var core = this.state.cards.filter(card => card.core)
+    //var core = this.state.cards.filter(card => card.core)
 
     var formats = {
-      standard: { name: "Standard", cardlist: core.concat(this.state.collection.map(el => Object.assign({count: el.number}, this.state.cards.find(card => card.idCardmodel === el.idCardmodel))).filter(el => !core.find(cc => cc.idCardmodel === el.idCardmodel))) },
+      standard: { name: "Standard", cardlist: /*core.concat(this.state.collection.map(el => Object.assign({count: el.number}, this.state.cards.find(card => card.idCardmodel === el.idCardmodel))).filter(el => !core.find(cc => cc.idCardmodel === el.idCardmodel)))*/this.state.cards },
       display: { name: "Display", cardlist: this.state.cards },
-      custom: { name: "Custom", cardlist: core.concat(this.state.collection.map(el => Object.assign({id: el.idCardmodel, count: el.number}, this.state.cards.find(card => card.idCardmodel === el.idCardmodel)))).filter(el => !core.find(cc => cc.idCardmodel === el.idCardmodel)).concat(this.state.customCards) }
+      custom: { name: "Custom", cardlist: /*core.concat(this.state.collection.map(el => Object.assign({id: el.idCardmodel, count: el.number}, this.state.cards.find(card => card.idCardmodel === el.idCardmodel)))).filter(el => !core.find(cc => cc.idCardmodel === el.idCardmodel)).concat(this.state.customCards)*/this.state.cards.concat(this.state.customCards) }
     }
 
     d.forEach(deck => deck.format = this.findFormat(formats, deck))
@@ -316,7 +316,7 @@ export default class App extends Component {
 
   render() {
 
-    if (!this.state.cards || (User.isConnected() && (!this.state.decks || !this.state.customCards || !this.state.collection)))
+    if (!this.state.cards || (User.isConnected() && (!this.state.decks || !this.state.customCards/* || !this.state.collection*/)))
       return <Loading className={(this.state.theme ? this.state.theme + "-theme" : "")}/>;
 
     return (
@@ -325,9 +325,9 @@ export default class App extends Component {
             <Switch>
               <Route exact path="/" component={({ match, history }) => (<Redirect to="/home"/>)}/>
               <Route exact path="/home" component={({ match, history }) => (<Home history={history} api={this.props.options.api}/>)}/>
-              <Route exact path="/cards" component={({ match, history }) => (<Cards cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateCollection={this.updateCollection.bind(this)} history={history} api={this.props.options.api}/>)}/>
-              <Route path="/cards/focus/:focus" component={({ match, history }) => (<Cards focus={match.params.focus} cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateCollection={this.updateCollection.bind(this)} history={history} api={this.props.options.api}/>)}/>
-              <Route path="/cards/shop" component={({ match, history }) => <Cards cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateCollection={this.updateCollection.bind(this)} shop={true} history={history} api={this.props.options.api}/>}/>
+              <Route exact path="/cards" component={({ match, history }) => (<Cards cards={this.state.cards} customs={this.state.customCards} collection={null/*this.state.collection*/} updateCollection={null/*this.updateCollection.bind(this)*/} history={history} api={this.props.options.api}/>)}/>
+              <Route path="/cards/focus/:focus" component={({ match, history }) => (<Cards focus={match.params.focus} cards={this.state.cards} customs={this.state.customCards} collection={null/*this.state.collection*/} updateCollection={null/*this.updateCollection.bind(this)*/} history={history} api={this.props.options.api}/>)}/>
+              { /*<Route path="/cards/shop" component={({ match, history }) => <Cards cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateCollection={this.updateCollection.bind(this)} shop={true} history={history} api={this.props.options.api}/>}/>*/ }
               <Route exact path="/cards/editor" component={({ match, history }) => <Editor history={history} updateCustoms={this.updateCustoms.bind(this)} api={this.props.options.api}/>}/>
               <Route path="/cards/editor/:card" component={({ match, history }) => (User.isConnected() ? <Editor updateCustoms={this.updateCustoms.bind(this)} idmodel={match.params.card} card={this.state.customCards.find(card => card.idCardmodel.toString() === match.params.card)} history={history} api={this.props.options.api}/> : <Redirect to="/cards"/>)}/>
               <Route exact path="/solo" component={({ match, history }) => (<Solo getSocket={() => this.getSocket()} history={history} api={this.props.options.api}/>)}/>
@@ -341,7 +341,7 @@ export default class App extends Component {
               <Route exact path="/decks/builder" component={({ match, history }) => (<Deckbuilder cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateDecks={this.updateDecks.bind(this)} history={history} api={this.props.options.api} type="standard"/>)}/>
               <Route exact path="/decks/draft" component={({ match, history }) => (<Deckbuilder cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateDecks={this.updateDecks.bind(this)} history={history} api={this.props.options.api} type="draft"/>)}/>
               <Route exact path="/decks/custom" component={({ match, history }) => (<Deckbuilder cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateDecks={this.updateDecks.bind(this)} history={history} api={this.props.options.api} type="custom"/>)}/>
-              <Route exact path="/decks/display" component={({ match, history }) => (<Deckbuilder cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateDecks={this.updateDecks.bind(this)} history={history} api={this.props.options.api} type="display"/>)}/>
+              <Route exact path="/decks/display" component={({ match, history }) => (<Deckbuilder cards={this.state.cards} customs={this.state.customCards} collection={null/*this.state.collection*/} updateDecks={this.updateDecks.bind(this)} history={history} api={this.props.options.api} type="display"/>)}/>
               <Route path="/decks/builder/:deck" component={({ match, history }) => (User.isConnected() ? <Deckbuilder cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateDecks={this.updateDecks.bind(this)} deck={this.state.decks.find(deck => deck.idDeck.toString() === match.params.deck)} history={history} api={this.props.options.api}/> : <Redirect to="/decks"/>)}/>
               <Route exact path="/rules" component={({ match, history }) => (<Rules history={history} api={this.props.options.api}/>)}/>
               { /* <Route path="/rules/:lang" component={({ match, history }) => (<Rules lang={match.params.lang} history={history} api={this.props.options.api}/>)}/> */ }

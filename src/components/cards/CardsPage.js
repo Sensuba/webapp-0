@@ -8,7 +8,7 @@ import Library from '../../services/Library';
 import sorter from '../../utility/CollectionSorter';
 import Lightbox from '../utility/Lightbox';
 import Loader from '../utility/Loader';
-import Booster from './shop/Booster';
+//import Booster from './shop/Booster';
 
 const PAGE_SIZE = 50;
 
@@ -37,10 +37,10 @@ export default class CardsPage extends Component {
     var mode = url.searchParams.get("mode");
     switch (mode) {
       case "custom": return this.props.customs;
-      case "collection": {
+      /*case "collection": {
         let core = this.props.cards.filter(card => card.core)
         return core.concat(this.props.collection.map(el => Object.assign({count: el.number, holographic: el.holographic}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel))).filter(el => !core.find(cc => cc.idCardmodel === el.idCardmodel)));
-      }
+      }*/
       default: return this.props.cards;
     }
   }
@@ -73,7 +73,7 @@ export default class CardsPage extends Component {
       hpop: url.searchParams.get("hpop") || "",
       range: url.searchParams.get("range") || "",
       rangeop: url.searchParams.get("rangeop") || "",
-      collection: url.searchParams.get("collection") || ""
+      //collection: url.searchParams.get("collection") || ""
     };
   }
 
@@ -105,10 +105,10 @@ export default class CardsPage extends Component {
     this.props.history.push(`/cards${card ? "/focus/" + card : ""}${new URL(window.location.href).search}`);
   }
 
-  shop (value) {
+  /*shop (value) {
 
     this.props.history.push(`/cards${value ? "/shop" : ""}${new URL(window.location.href).search}`);
-  }
+  }*/
 
   reload () {
 
@@ -137,7 +137,7 @@ export default class CardsPage extends Component {
         suf += param + "=" + encodeURIComponent(filter[param]);
       }
     }
-    ["mode", "search", "archetype", "colors", "edition", "type", "name", "description", "anime", "flavour", "rarity", "mana", "manaop", "atk", "atkop", "hp", "hpop", "range", "rangeop", "orderBy", "page", "display", "collection"].forEach(param => addFilter(param));
+    ["mode", "search", "archetype", "colors", "edition", "type", "name", "description", "anime", "flavour", "rarity", "mana", "manaop", "atk", "atkop", "hp", "hpop", "range", "rangeop", "orderBy", "page", "display"/*, "collection"*/].forEach(param => addFilter(param));
     /*if (customs) {
         suf += suf.length === 0 ? "?" : "&";
         suf += "customs=1";
@@ -147,7 +147,7 @@ export default class CardsPage extends Component {
     this.props.history.push(`/cards${suf}${suf[suf.length-1] === ' ' ? "&" : ""}`);
   }
 
-  buyBooster (edition) {
+  /*buyBooster (edition) {
 
     if (this.state.waiting || User.getData().credit < 100)
       return;
@@ -193,7 +193,7 @@ export default class CardsPage extends Component {
       this.props.updateCollection();
       User.updateCredit(User.getData().credit + price);
     }, () => this.setState({waiting: false}))
-  }
+  }*/
   
   render() {
 
@@ -201,12 +201,12 @@ export default class CardsPage extends Component {
     var cards = this.cardlist;
     cards = this.filterCards(cards);
 
-    if (User.isConnected() && this.props.collection && this.filter.collection) {
+    /*if (User.isConnected() && this.props.collection && this.filter.collection) {
       if (this.filter.collection === "true")
         cards = cards.filter(card => card.core || this.props.collection.find(c => card.idCardmodel.toString() === c.idCardmodel.toString()));
       else
         cards = cards.filter(card => !(card.core || this.props.collection.find(c => card.idCardmodel.toString() === c.idCardmodel.toString())));
-    }
+    }*/
     
     window.result = cards;
     var nocards = cards.length;
@@ -273,7 +273,7 @@ export default class CardsPage extends Component {
               }
               addTokens(cf[0]);
 
-              var pbuy = 0, psell = 0;
+              /*var pbuy = 0, psell = 0;
               switch (cf[0].rarity) {
               case 1: pbuy = 25; psell = 4; break;
               case 2: pbuy = 50; psell = 8; break;
@@ -289,21 +289,21 @@ export default class CardsPage extends Component {
                 let shopcollec = this.props.collection.find(card => card.idCardmodel.toString() === this.props.focus);
                 if (shopcollec)
                   shopcount = shopcollec.number;
-              }
+              }*/
 
               return <div>
                   <div className="sensuba-card-focus">{ cf.map((card, i) => <Card switch="manual" key={i} src={card} holographic={mode === "collection" && cards.find(c => c.idCardmodel.toString() === this.props.focus) && cards.find(c => c.idCardmodel.toString() === this.props.focus).holographic === 1}/>) }</div>
-                  { shop ? <div className="sensuba-focus-shop">
+                  { /*shop ? <div className="sensuba-focus-shop">
                     { <div className="sensuba-shop-count">{"x" + shopcount}</div> }
                     { shopcount < 1 || (shopcount < 2 && cf[0].rarity !== 4) ? <div onClick={() => this.buyCard(cf[0].idCardmodel, pbuy)} className="shop-button">Acheter <span className="sensuba-credits">{ pbuy }</span></div> : <span/> }
                     { shopcount ? <div onClick={() => this.sellCard(cf[0].idCardmodel, psell)} className="shop-button">Vendre <span className="sensuba-credits">{ psell }</span></div> : <span/> }
                     { cf[0].core ? <div className="sensuba-shop-count">Core</div> : "" }
-                  </div> : <span/> }
+                  </div> : <span/> */}
                 </div>
             })()
           }
         </Lightbox>
-        {
+        {/*
           User.isConnected() ?
           <Lightbox className="sensuba-shop-box" open={this.props.shop === true} onClose={() => this.shop(false)}>
             <h2>Améliorez votre collection !</h2>
@@ -320,9 +320,9 @@ export default class CardsPage extends Component {
               <div onClick={() => this.buyBooster(7)} className="sensuba-shop-booster"><Booster expansion="Nouvelle Destinée" theme="holy" img="/path.png"/></div>
               <div onClick={() => this.buyBooster(8)} className="sensuba-shop-booster"><Booster expansion="Seigneur des Galaxies" theme="space" img="/galaxy.jpg"/></div>
             </div>
-          </Lightbox> : <span/>
+          </Lightbox> : <span/>*/
         }
-        {
+        {/*
           this.state.opening ?
           <div id="opening-cards-container" className="lightbox-container">
             <div className="lightbox-inner">
@@ -340,7 +340,7 @@ export default class CardsPage extends Component {
                 }
               </div>
             </div>
-          </div> : <span/>
+          </div> : <span/>*/
         }
         {
           this.state.waiting ?
@@ -358,8 +358,8 @@ export default class CardsPage extends Component {
               <div className="vintage-radio">
                 <Input id="official-card-collection" type="radio" name="card-collection" onChange={() => this.changeMode()} defaultChecked={mode === undefined || mode === null} value={mode === undefined || mode === null}/>
                 <Label for="official-card-collection">Officiel</Label>
-                <Input id="collection-card-collection" type="radio" name="card-collection" onChange={() => this.changeMode("collection")} defaultChecked={mode === "collection"} value={mode === "collection"}/>
-                <Label for="collection-card-collection">Collection</Label>
+                {/*<Input id="collection-card-collection" type="radio" name="card-collection" onChange={() => this.changeMode("collection")} defaultChecked={mode === "collection"} value={mode === "collection"}/>
+                <Label for="collection-card-collection">Collection</Label>*/}
                 <Input id="custom-card-collection" type="radio" name="card-collection" onChange={() => this.changeMode("custom")} defaultChecked={mode === "custom"} value={mode === "custom"}/>
                 <Label for="custom-card-collection">Personnalisé</Label>
               </div>
@@ -430,13 +430,13 @@ export default class CardsPage extends Component {
                 <Label for="green-mana"/>
                 <Input id="black-mana" type="checkbox" checked={this.filter.colors.includes(5)} name="sensuba-color" onChange={colorFilter(5)}/>
                 <Label for="black-mana"/>
-                {
+                {/*
                   User.isConnected() ?
                   <div>
                   <Input id="collection-check" type="checkbox" className={this.filter.collection} name="sensuba-color" onChange={e => this.search(Object.assign(this.filter, {collection: this.filter.collection ? (this.filter.collection === "true" ? "false" : undefined) : "true"}), mode)}/>
                   <Label for="collection-check"/>
                   </div> : <span/>
-                }
+                */}
                 
               </div>
               <Label for="sensuba-search-orderby" className="sensuba-search-select-label">Trier par</Label>
@@ -526,7 +526,7 @@ export default class CardsPage extends Component {
                 :
                 cards.map((card, i) => <a className="sensuba-card-link" key={card.idCardmodel} onClick={() => this.focus(card.idCardmodel)}>
                   <Card switch="timer" src={card} holographic={card.holographic === 1}/>
-                  { mode === "collection" && !(card.count === undefined && card.cardType === "hero") && card.count !== 1 ? <div className="sensuba-card-count">{card.count ? "x" + card.count : "★"}</div> : <span/> }
+                  {/* mode === "collection" && !(card.count === undefined && card.cardType === "hero") && card.count !== 1 ? <div className="sensuba-card-count">{card.count ? "x" + card.count : "★"}</div> : <span/> */}
                   </a>)
             }
           </div>
@@ -541,14 +541,14 @@ export default class CardsPage extends Component {
             : <span/>
            }
           </div>
-          {
+          {/*
             mode === "collection" || (!mode && User.isConnected()) ?
             <button className="editor-button" onClick={() => this.shop(true)}>
               <img className="editor-button-img" src="/shop.png" alt="shop-chan"/>
               <div className="editor-button-text">Acheter des cartes</div>
             </button>
             : <span/>
-          }
+          */}
           {
             isCustoms ?
             <button className="editor-button" onClick={() => this.props.history.push('/cards/editor')}>

@@ -288,7 +288,7 @@ export default class Deckbuilder extends Component {
                 <Input type="select" id="deck-format-form" value={this.props.deck.format} onChange={e => this.props.updateFormat(e.target.value)}>
                   <option value="standard">Standard</option>
                   <option value="custom">Personnalisé</option>
-                  <option value="display">Vitrine</option>
+                  {/*<option value="display">Vitrine</option>*/}
                 </Input>
                 <Label for="deck-supercode-form">Supercode</Label>
   	                <Input id="deck-supercode-form" type="textarea" rows="4" value={superCode} onChange={ e => {
