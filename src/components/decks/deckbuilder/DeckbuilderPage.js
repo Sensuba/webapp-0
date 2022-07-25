@@ -73,7 +73,7 @@ export default class DeckbuilderPage extends Component {
   		})
   	})
 
-  	return formats[0] || "display";
+  	return formats[0] || "standard";
   }
 
   updateFormat (format) {
@@ -134,13 +134,14 @@ export default class DeckbuilderPage extends Component {
 
   isGhost (card, i) {
 
-    if (!card || !card.idCardmodel)
+  	return false;
+    /*if (!card || !card.idCardmodel)
       return false;
 
     var dis = this.formats.display.cardlist.find(l => l.idCardmodel && card.idCardmodel && l.idCardmodel.toString() === card.idCardmodel.toString());
     var std = this.formats.standard.cardlist.find(l => l.idCardmodel && card.idCardmodel && l.idCardmodel.toString() === card.idCardmodel.toString());
 
-    return dis && (!std || i > std.count);
+    return dis && (!std || i > std.count);*/
   }
 
 	render () {
