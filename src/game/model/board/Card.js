@@ -219,7 +219,7 @@ export default class Card {
 			this.passives.forEach(passive => passive.deactivate());
 		if (this.activated)
 			this.deactivate();
-		if (this.location && !this.area.player && (this.location === this.area.deck || this.location === this.area.hand) ) {
+		if (this.location && this.area.opposite.player && !this.area.player && (this.location === this.area.deck || this.location === this.area.hand) ) {
 			this.clear();
 			return;
 		}

@@ -26,6 +26,8 @@ export default class Entry extends Component {
         src = SECRET_PREVIEW;
     }
     var icon = undefined, text = this.props.value.text;
+    if (text && text.value)
+      text = text.value;
     if (target) {
       switch (this.props.value.type) {
       case "play":
