@@ -178,9 +178,9 @@ var Library = (() => {
 				localStorage.removeItem("library.date");
 				db.clear('cards').then(then);
 			});
-		} catch (e) {}
 
-		if (instantiated) f(db); else instantiate(f);
+			if (instantiated) f(db); else instantiate(f);
+		} catch (e) { then() }
 	}
 
 	var clearDecks = then => {
@@ -189,9 +189,9 @@ var Library = (() => {
 			let f = db => db.openDatabase(version, evt => {}).then(() => {
 				db.clear('decks').then(then);
 			});
-		} catch (e) {}
 
-		if (instantiated) f(db); else instantiate(f);
+			if (instantiated) f(db); else instantiate(f);
+		} catch (e) { then() }
 	}
 
 	var clearCommonDecks = then => {
@@ -200,9 +200,9 @@ var Library = (() => {
 			let f = db => db.openDatabase(version, evt => {}).then(() => {
 				db.clear('cdecks').then(then);
 			});
-		} catch (e) {}
 
-		if (instantiated) f(db); else instantiate(f);
+			if (instantiated) f(db); else instantiate(f);
+		} catch (e) { then() }
 	}
 
 	var clearCustoms = then => {
@@ -211,9 +211,9 @@ var Library = (() => {
 			let f = db => db.openDatabase(version, evt => {}).then(() => {
 				db.clear('customcards').then(then);
 			});
-		} catch (e) {}
 
-		if (instantiated) f(db); else instantiate(f);
+			if (instantiated) f(db); else instantiate(f);
+		} catch (e) { then() }
 	}
 
 	var clearCollection = then => {
@@ -222,9 +222,9 @@ var Library = (() => {
 			let f = db => db.openDatabase(version, evt => {}).then(() => {
 				db.clear('collection').then(then);
 			});
-		} catch (e) {}
 
-		if (instantiated) f(db); else instantiate(f);
+			if (instantiated) f(db); else instantiate(f);
+		} catch (e) { then() }
 	}
 
 	var clearAll = then => {
