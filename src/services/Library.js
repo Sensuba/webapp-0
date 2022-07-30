@@ -173,58 +173,48 @@ var Library = (() => {
 
 	var clear = then => {
 
-		try {
-			let f = db => db.openDatabase(version, evt => {}).then(() => {
-				localStorage.removeItem("library.date");
-				db.clear('cards').then(then);
-			});
+		let f = db => db.openDatabase(version, evt => {}).then(() => {
+			localStorage.removeItem("library.date");
+			db.clear('cards').then(then);
+		});
 
-			if (instantiated) f(db); else instantiate(f);
-		} catch (e) { then() }
+		if (instantiated) f(db); else instantiate(f);
 	}
 
 	var clearDecks = then => {
 
-		try {
-			let f = db => db.openDatabase(version, evt => {}).then(() => {
-				db.clear('decks').then(then);
-			});
+		let f = db => db.openDatabase(version, evt => {}).then(() => {
+			db.clear('decks').then(then);
+		});
 
-			if (instantiated) f(db); else instantiate(f);
-		} catch (e) { then() }
+		if (instantiated) f(db); else instantiate(f);
 	}
 
 	var clearCommonDecks = then => {
 
-		try {
-			let f = db => db.openDatabase(version, evt => {}).then(() => {
-				db.clear('cdecks').then(then);
-			});
+		let f = db => db.openDatabase(version, evt => {}).then(() => {
+			db.clear('cdecks').then(then);
+		});
 
-			if (instantiated) f(db); else instantiate(f);
-		} catch (e) { then() }
+		if (instantiated) f(db); else instantiate(f);
 	}
 
 	var clearCustoms = then => {
 
-		try {
-			let f = db => db.openDatabase(version, evt => {}).then(() => {
-				db.clear('customcards').then(then);
-			});
+		let f = db => db.openDatabase(version, evt => {}).then(() => {
+			db.clear('customcards').then(then);
+		});
 
-			if (instantiated) f(db); else instantiate(f);
-		} catch (e) { then() }
+		if (instantiated) f(db); else instantiate(f);
 	}
 
 	var clearCollection = then => {
 
-		try {
-			let f = db => db.openDatabase(version, evt => {}).then(() => {
-				db.clear('collection').then(then);
-			});
+		let f = db => db.openDatabase(version, evt => {}).then(() => {
+			db.clear('collection').then(then);
+		});
 
-			if (instantiated) f(db); else instantiate(f);
-		} catch (e) { then() }
+		if (instantiated) f(db); else instantiate(f);
 	}
 
 	var clearAll = then => {
