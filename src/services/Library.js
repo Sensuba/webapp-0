@@ -173,6 +173,9 @@ var Library = (() => {
 
 	var clear = then => {
 
+		if( !db.objectStoreNames.contains('cards') )
+			return;
+
 		let f = db => db.openDatabase(version, evt => {}).then(() => {
 			localStorage.removeItem("library.date");
 			db.clear('cards').then(then);
