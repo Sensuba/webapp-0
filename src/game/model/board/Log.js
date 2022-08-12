@@ -45,6 +45,7 @@ class Log {
 			if (log.type === "show") entry = {type:"play", src};
 			else if (log.type === "triggersecret") entry = {type:"secret", text: log.data[0], src};
 			else if (log.type === "trap") entry = {type: "trap", text: "Auto", src};
+			else if (log.type === "autocast") entry = {type: "trap", text: "Auto", src};
 			let other = log.data[1];
 			if (other) {
 				let tile = this.gameboard.find(other)
