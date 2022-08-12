@@ -39,6 +39,7 @@ class Log {
 		}
 		case "show":
 		case "triggersecret":
+	    case "autocast": 
 		case "trap": {
 			let src = this.gameboard.find(log.src);
 			if (log.type === "show") entry = {type:"play", src};

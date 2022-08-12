@@ -44,6 +44,11 @@ export default (state, n, callback) => {
       if (card)
         card.finalize(n.data[1], n.data[2]);
       break; }
+    case "autocast": {
+      let card = state.find(n.src);
+      if (card)
+        card.finalize(n.data[1], n.data[2]);
+      break; }
     case "summon": {
       let card = state.find(n.src),
           loc = state.find(n.data[0]);

@@ -151,6 +151,7 @@ export default class Sequencer {
 		    break;
 		}
 	    case "trap": 
+	    case "autocast": 
 	    case "triggersecret": {
 	    	if (n.data[0])
 		    	new Target(this.master, n.data[0].no).start();
