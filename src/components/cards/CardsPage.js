@@ -372,8 +372,6 @@ export default class CardsPage extends Component {
               <Label for="sensuba-search-edition" className="sensuba-search-select-label">Edition</Label>
               <select value={this.filter.edition} id="sensuba-search-edition" onChange={editFilter("edition").bind(this)}>
                 <option value="">---</option>
-                <option value="0">Core</option>
-                <option value="1">Origine</option>
                 <option value="2">Classique</option>
                 <option value="3">Etoile Gardienne</option>
                 <option value="4">Grand Bal Masqué</option>
