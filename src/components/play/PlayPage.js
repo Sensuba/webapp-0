@@ -13,6 +13,7 @@ export default class PlayPage extends Component {
 
   formats = {
       standard: { name: "Standard", cardlist: /*this.core.concat(this.props.collection.map(el => Object.assign({count: el.number}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel))).filter(el => !this.core.find(cc => cc.idCardmodel === el.idCardmodel)))*/this.props.cards },
+      highlander: { name: "Highlander", cardlist: this.props.cards.filter(card => card.idCardmodel !== 787) },
       display: { name: "Display", cardlist: this.props.cards },
       custom: { name: "Custom", cardlist: /*this.core.concat(this.props.collection.map(el => Object.assign({id: el.idCardmodel, count: el.number}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel)))).filter(el => !this.core.find(cc => cc.idCardmodel === el.idCardmodel)).concat(this.props.customs)*/this.props.cards.concat(this.props.customs) }
     }
@@ -138,7 +139,9 @@ export default class PlayPage extends Component {
         if (!cc || (cc.count === 1 && deck.cards[card] > 1))
           formats.splice(formats.indexOf(f), 1);
       })
-    })
+    });
+    if (c.length > 30)
+      formats = formats.filter(f => f !== "standard");
 
     return formats[0] || "display";
   }
@@ -201,7 +204,7 @@ export default class PlayPage extends Component {
 
     let custom = false;
     if (this.state.deck)
-      if (isNaN(this.state.deck.hero) || !this.state.deck.body || this.state.deck.body.find(c => isNaN(c)))
+      if (isNaN(this.state.deck.hero) || !this.state.deck.body || this.state.deck.body.find(c => isNaN(c)) || this.state.deck.body.length > 30)
         custom = true;
 
     return (

@@ -280,6 +280,7 @@ export default class App extends Component {
 
     var formats = {
       standard: { name: "Standard", cardlist: /*core.concat(this.state.collection.map(el => Object.assign({count: el.number}, this.state.cards.find(card => card.idCardmodel === el.idCardmodel))).filter(el => !core.find(cc => cc.idCardmodel === el.idCardmodel)))*/this.state.cards },
+      highlander: { name: "Highlander", cardlist: this.state.cards.filter(card => card.idCardmodel !== 787) },
       display: { name: "Display", cardlist: this.state.cards },
       custom: { name: "Custom", cardlist: /*core.concat(this.state.collection.map(el => Object.assign({id: el.idCardmodel, count: el.number}, this.state.cards.find(card => card.idCardmodel === el.idCardmodel)))).filter(el => !core.find(cc => cc.idCardmodel === el.idCardmodel)).concat(this.state.customCards)*/this.state.cards.concat(this.state.customCards) }
     }
@@ -305,6 +306,8 @@ export default class App extends Component {
           formats.splice(formats.indexOf(f), 1);
       })
     })
+    if (c.length > 30)
+      formats = formats.filter(f => f !== "standard");
 
     return formats[0] || "display";
   }
@@ -339,6 +342,7 @@ export default class App extends Component {
               <Route exact path="/profile" component={({ match, history }) => ( (User.isConnected() ? <Profile history={history} api={this.props.options.api} theme={this.state.theme}/> : <Redirect to="/home"/>)  )}/>
               <Route exact path="/decks" component={({ match, history }) => (<Decks cards={this.state.cards} history={history} decks={this.state.decks} api={this.props.options.api}/>)}/>
               <Route exact path="/decks/builder" component={({ match, history }) => (<Deckbuilder cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateDecks={this.updateDecks.bind(this)} history={history} api={this.props.options.api} type="standard"/>)}/>
+              <Route exact path="/decks/highlander" component={({ match, history }) => (<Deckbuilder cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateDecks={this.updateDecks.bind(this)} history={history} api={this.props.options.api} type="highlander"/>)}/>
               <Route exact path="/decks/draft" component={({ match, history }) => (<Deckbuilder cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateDecks={this.updateDecks.bind(this)} history={history} api={this.props.options.api} type="draft"/>)}/>
               <Route exact path="/decks/custom" component={({ match, history }) => (<Deckbuilder cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateDecks={this.updateDecks.bind(this)} history={history} api={this.props.options.api} type="custom"/>)}/>
               <Route exact path="/decks/display" component={({ match, history }) => (<Deckbuilder cards={this.state.cards} customs={this.state.customCards} collection={null/*this.state.collection*/} updateDecks={this.updateDecks.bind(this)} history={history} api={this.props.options.api} type="display"/>)}/>

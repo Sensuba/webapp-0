@@ -11,6 +11,7 @@ export default class DeckbuilderPage extends Component {
 
   	formats = {
   		standard: { name: "Standard", cardlist: /*this.core.concat(this.props.collection.map(el => Object.assign({count: el.number}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel))).filter(el => !this.core.find(cc => cc.idCardmodel === el.idCardmodel)))*/this.props.cards },
+  		highlander: { name: "Highlander", cardlist: this.props.cards.filter(card => card.idCardmodel !== 787) },
   		display: { name: "Display", cardlist: this.props.cards },
   		custom: { name: "Custom", cardlist: /*this.core.concat(this.props.collection.map(el => Object.assign({id: el.idCardmodel, count: el.number}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel)))).filter(el => !this.core.find(cc => cc.idCardmodel === el.idCardmodel)).concat(this.props.customs)*/this.props.cards.concat(this.props.customs) }
   	}
@@ -28,6 +29,7 @@ export default class DeckbuilderPage extends Component {
 	  	var type, format;
 	  	switch (this.props.type) {
 	  	case "standard": type = "Deck Standard"; format = this.props.type; break;
+	  	case "highlander": type = "Deck Highlander"; format = this.props.type; break;
 	  	//case "display": type = "Deck Vitrine"; format = this.props.type; break;
 	  	case "draft": type = "Deck Draft"; format = "standard"; break;
 	  	case "custom": type = "Deck Personnalisé"; format = this.props.type; break;
@@ -72,8 +74,10 @@ export default class DeckbuilderPage extends Component {
   				formats.splice(formats.indexOf(f), 1);
   		})
   	})
+    if (c.length > 30)
+      formats = formats.filter(f => f !== "standard");
 
-  	return formats[0] || "standard";
+  	return formats[0] || "display";
   }
 
   updateFormat (format) {

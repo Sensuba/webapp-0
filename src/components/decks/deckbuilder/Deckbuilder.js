@@ -90,10 +90,10 @@ export default class Deckbuilder extends Component {
 
   addCard (id) {
 
-  	if (this.count >= 30)
+  	if (this.count >= (this.props.deck.format === "highlander" ? 60 : 30))
   		return;
   	var c = this.props.deck.cards;
-  	c[id] = Math.min(2, (c[id] || 0) + 1);
+  	c[id] = Math.min((this.props.deck.format === "highlander" ? 1 : 2), (c[id] || 0) + 1);
     var cc = this.props.cards.find(card => card.idCardmodel === id);
     if (cc && cc.count === 1)
       this.hideTooltip();
@@ -122,11 +122,16 @@ export default class Deckbuilder extends Component {
     this.setState({ suggestions: this.assistant.suggest(this.getColorList(), this.props.deck, 3) });
   }
 
-  showTooltip(e, card, left) {
+  showTooltip(e, card, left, bottom) {
 
   	var tooltip = document.getElementById("img-preview-tooltip");
-  	tooltip.setAttribute("style", `display: block; top: ${e.pageY}px; left: ${e.pageX}px; margin-left: ${left ? -18 : 0}em`);
-  	this.setState({preview: card});
+    if (e) {
+      if (e.pageX < 400)
+        left = false;
+      tooltip.setAttribute("style", `display: block; top: ${e.pageY > window.innerHeight * 0.74 - 60 + window.scrollY ? window.innerHeight * 0.74 - 60 + window.scrollY : (e.pageY < 140 + window.innerHeight * 0.2 ? 140 + window.innerHeight * 0.2 : e.pageY)}px; left: ${e.pageX}px; margin-left: ${left ? -18 : 4}em`);
+    }
+    else tooltip.setAttribute("style", `display: block`);
+    this.setState({preview: card});
   }
 
   hideTooltip() {
@@ -162,7 +167,7 @@ export default class Deckbuilder extends Component {
             }
           }
         })
-        if (deck.format !== "display" && Object.values(deck.cards).reduce((a, b) => a + b, 0) === 30)
+        if (deck.format !== "display" && Object.values(deck.cards).reduce((a, b) => a + b, 0) === (deck.format === "highlander" ? 60 : 30))
           User.updateDeck(res);
     //  }
     //}
@@ -287,6 +292,7 @@ export default class Deckbuilder extends Component {
                 <Label for="deck-format-form">Format</Label>
                 <Input type="select" id="deck-format-form" value={this.props.deck.format} onChange={e => this.props.updateFormat(e.target.value)}>
                   <option value="standard">Standard</option>
+                  <option value="highlander">Highlander</option>
                   <option value="custom">Personnalisé</option>
                   {/*<option value="display">Vitrine</option>*/}
                 </Input>
@@ -312,7 +318,7 @@ export default class Deckbuilder extends Component {
       							while (j++ < this.props.deck.cards[model.idCardmodel])
       								arr.push(j);
 
-      							return <div key={i} className="sensuba-deckbuilder-list-group" onClick={this.state.draft ? () => {} : () => this.removeCard(model.idCardmodel)}>{arr.map(i => <Card className={this.props.isGhost(model, i) ? "sensuba-deckbuilder-ghost-card" : ""} key={i} src={model}/>)}</div>;
+      							return <div key={i} className="sensuba-deckbuilder-list-group" onMouseMove={e => this.showTooltip(e, model, i >= 3)} onMouseLeave={e => this.hideTooltip()} onClick={this.state.draft ? () => {} : () => this.removeCard(model.idCardmodel)}>{arr.map(i => <Card className={this.props.isGhost(model, i) ? "sensuba-deckbuilder-ghost-card" : ""} key={i} src={model}/>)}</div>;
       						})
       					}
       				</div>
