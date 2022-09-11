@@ -62,7 +62,10 @@ export default class Figure extends Component {
 		}}
       	>
       	<div id={this.id + "-inner"} className="sensuba-card-inner">
-		<img id={this.id + "-img"} crossOrigin="Anonymous" className="sensuba-card-bg" src={src.imgLink} alt={src.nameCard}/>
+      	<div className="sensuba-card-placeholder">
+	    		<div className="sensuba-card-rune"/>
+      	</div>
+		<img id={this.id + "-img"} crossOrigin="Anonymous" className="sensuba-card-bg" src={src.imgLink} alt=""/>
 	    <div className="sensuba-card-header">
 	    	<div className={"sensuba-card-mana" + (src.mana < src.originalMana ? " sensuba-card-param-bonus" : (src.mana > src.originalMana ? " sensuba-card-param-malus" : ""))}>{src.mana}</div>
 	        <div className={"sensuba-card-title" +

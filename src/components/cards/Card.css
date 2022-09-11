@@ -65,6 +65,23 @@
     left: -2.5%;
 }
 
+.sensuba-card .sensuba-card-placeholder {
+
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: radial-gradient(#89939e, #404b53);
+}
+
+.sensuba-card.white-mana .sensuba-card-placeholder { background: radial-gradient(#baaf77, #5a5439) }
+.sensuba-card.red-mana .sensuba-card-placeholder { background: radial-gradient(#cf7778, #5b3233) }
+.sensuba-card.blue-mana .sensuba-card-placeholder { background: radial-gradient(#558299, #253e4a) }
+.sensuba-card.green-mana .sensuba-card-placeholder { background: radial-gradient(#87a772, #394730) }
+.sensuba-card.black-mana .sensuba-card-placeholder { background: radial-gradient(#6c475c, #412c38) }
+.sensuba-card.sensuba-hero .sensuba-card-placeholder { background: radial-gradient(#808080, #181818) }
+
 .sensuba-card .sensuba-card-header {
 
 	position: absolute;
@@ -877,6 +894,20 @@
     filter: drop-shadow(1px 2px 1px #202020A0);
 }
 
+.sensuba-card-placeholder .sensuba-card-hero-icon {
+
+    position: absolute;
+    height: 5em;
+    width: 5em;
+    top: calc(50% - 4.5em);
+    left: calc(50% - 2.5em);
+    background-size: 5em;
+    background-image: url("Images/hero.png");
+    background-repeat: no-repeat; 
+    filter: drop-shadow(1px 2px 1px #202020A0) brightness(0.2);
+}
+
+
 .sensuba-card-link {
 
     cursor: pointer;
@@ -945,6 +976,24 @@
     opacity: 0.95;
 }
 
+.sensuba-card .sensuba-card-placeholder .sensuba-card-rune {
+
+    position: absolute;
+    z-index: 0;
+    height: 10em;
+    width: 10em;
+    right: calc(50% - 7.5em);
+    top: calc(50% - 3.75em);
+    filter: drop-shadow(0 0 0.2em #00000080) brightness(0.5);
+    opacity: 0.95;
+}
+
+.sensuba-card.neutral-mana .sensuba-card-placeholder .sensuba-card-rune { background-size: 50%; background-repeat: no-repeat; background-image: url("/cards/neutralcolor.png"); }
+.sensuba-card.white-mana .sensuba-card-placeholder .sensuba-card-rune { background-size: 50%; background-repeat: no-repeat; background-image: url("/cards/whitecolor.png"); }
+.sensuba-card.red-mana .sensuba-card-placeholder .sensuba-card-rune { background-size: 50%; background-repeat: no-repeat; background-image: url("/cards/redcolor.png"); }
+.sensuba-card.blue-mana .sensuba-card-placeholder .sensuba-card-rune { background-size: 50%; background-repeat: no-repeat; background-image: url("/cards/bluecolor.png"); }
+.sensuba-card.green-mana .sensuba-card-placeholder .sensuba-card-rune { background-size: 50%; background-repeat: no-repeat; background-image: url("/cards/greencolor.png"); }
+.sensuba-card.black-mana .sensuba-card-placeholder .sensuba-card-rune { background-size: 50%; background-repeat: no-repeat; background-image: url("/cards/blackcolor.png"); }
 .sensuba-card.white-mana .sensuba-card-rune { background-size: 50%; background-repeat: no-repeat; background-image: url("/cards/white.png"); }
 .sensuba-card.red-mana .sensuba-card-rune { background-size: 50%; background-repeat: no-repeat; background-image: url("/cards/red.png"); }
 .sensuba-card.blue-mana .sensuba-card-rune { background-size: 50%; background-repeat: no-repeat; background-image: url("/cards/blue.png"); }
