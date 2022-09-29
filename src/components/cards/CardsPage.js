@@ -379,7 +379,8 @@ export default class CardsPage extends Component {
                 <option value="6">Académie Supermagique</option>
                 <option value="7">Nouvelle Destinée</option>
                 <option value="8">Seigneur des Galaxies</option>
-                { User.isConnected() && User.getData().authorization >= 4 ? <option value="9">A venir</option> : "" }
+                { User.isConnected() && User.getData().authorization >= 4 ? <option value="9">Fable Infinie</option> : "" }
+                { User.isConnected() && User.getData().authorization >= 4 ? <option value="10">A venir</option> : "" }
               </select>
               <div>
                 { (nocards > 0 ? <b>{ nocards }</b> : "Aucune")}{ " carte" + (nocards > 1 ? "s" : "") + " trouvée" + (nocards > 1 ? "s" : "") }
