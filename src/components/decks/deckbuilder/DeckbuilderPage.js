@@ -11,7 +11,7 @@ export default class DeckbuilderPage extends Component {
 
   	formats = {
   		standard: { name: "Standard", cardlist: /*this.core.concat(this.props.collection.map(el => Object.assign({count: el.number}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel))).filter(el => !this.core.find(cc => cc.idCardmodel === el.idCardmodel)))*/this.props.cards },
-  		highlander: { name: "Highlander", cardlist: this.props.cards.filter(card => card.idCardmodel !== 787) },
+  		highlander: { name: "Highlander", cardlist: this.props.cards.filter(card => card.idCardmodel !== 787 && card.idCardmodel !== 1346) },
   		display: { name: "Display", cardlist: this.props.cards },
   		custom: { name: "Custom", cardlist: /*this.core.concat(this.props.collection.map(el => Object.assign({id: el.idCardmodel, count: el.number}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel)))).filter(el => !this.core.find(cc => cc.idCardmodel === el.idCardmodel)).concat(this.props.customs)*/this.props.cards.concat(this.props.customs) }
   	}
