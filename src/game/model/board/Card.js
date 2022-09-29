@@ -1126,7 +1126,7 @@ export default class Card {
 
 		this.mutatedState = res;
 
-		if (!wasCovering && res.states["cover neighbors"] || !wasFlying && res.states["flying"])
+		if ((!wasCovering && res.states["cover neighbors"]) || (!wasFlying && res.states["flying"]))
 			this.gameboard.update();
 	}
 
