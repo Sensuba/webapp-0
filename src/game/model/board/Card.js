@@ -960,7 +960,7 @@ export default class Card {
 
 	mutate (effect, end) {
 
-		var mut = new Mutation(effect);
+		var mut = new Mutation(effect, 2);
 		mut.attach(this);
 		if (end)
 			var unsub = end.subscribe((t,s,d) => {
@@ -1112,7 +1112,7 @@ export default class Card {
 		if (!this.mutatedState)
 			this.mutatedState = res;
 		this.mutatedState.states = Object.assign({}, res.states);
-		res = this.mutations.reduce((card, mut) => mut.apply(card), res);
+		res = this.mutations.sort((a, b) => b.priority - a.priority).reduce((card, mut) => mut.apply(card), res);
 		if (this.finalMana !== undefined) res.mana = this.finalMana;
 		if (this.finalOverload !== undefined) res.ol = this.finalOverload;
 		updatephp();
