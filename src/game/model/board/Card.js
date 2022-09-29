@@ -1112,7 +1112,7 @@ export default class Card {
 		if (!this.mutatedState)
 			this.mutatedState = res;
 		this.mutatedState.states = Object.assign({}, res.states);
-		res = this.mutations.sort((a, b) => a.priority - b.priority).reduce((card, mut) => mut.apply(card), res);
+		res = this.mutations.sort((a, b) => a.priority - b.priority).reduce((card, mut) => { mut.apply(card); this.mutatedState.states = Object.assign({}, res.states); }, res);
 		if (this.finalMana !== undefined) res.mana = this.finalMana;
 		if (this.finalOverload !== undefined) res.ol = this.finalOverload;
 		updatephp();
