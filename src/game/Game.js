@@ -40,6 +40,7 @@ export default class Game extends Component {
     if (myDeck)
       myDeck = JSON.parse(myDeck);
     var d = myDeck ? myDeck : this.getDefaultDeck();
+
     var authorization = User.isConnected() ? (User.getData().authorization || 0) : 0;
 
     this.state = {
@@ -248,9 +249,10 @@ export default class Game extends Component {
         this.setState({ hero: ((this.prevHero.no > n.data[0].no) === (this.no > 0) ? this.prevHero : n.data[0]) });
       else this.prevHero = n.data[0];
     }
-    if (n.type === "newturn")
+    if (n.type === "newturn") {
       if (window.resetTimer)
-        window.resetTimer();
+        window.resetTimer(150 - 30 * Math.min(5, n.data[0]));
+    }
     if (this.syncstate === "async")
       this.dispatch(n);
     else this.sequencer.add(n);

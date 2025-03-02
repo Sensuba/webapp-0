@@ -23,9 +23,9 @@ import Library from '../services/Library';
 import io from 'socket.io-client';
 import sorter from '../utility/CollectionSorter';
 
-const serverURL = /*process.env.SERVER_URL || 'http://localhost:8080' ||*/ 'https://sensuba.herokuapp.com/';
+const serverURL = 'https://sensuba-server.francecentral.cloudapp.azure.com:8080'/* || 'https://sensuba.herokuapp.com/'*/;
 
-const nocards = 1150;
+const nocards = 1300;
 
 const version = 1
 
@@ -37,6 +37,7 @@ export default class App extends Component {
     this.state = { browser: this.checkBrowser() };
 
     this.socket = { connected: false, removeAllListeners: () => {}, emit: () => {}, on: () => {}, close: () => {} };
+    this.props.options.api.socket = this.socket;
 
     window.disconnect = () => { this.socket.close(); /*setTimeout(() => this.reconnect(), 500);*/}
     window.reconnect = () => { this.reconnect(); }
@@ -95,13 +96,13 @@ export default class App extends Component {
 
         if (User.isConnected()) {
 
-          /*Library.getCollection(list => {
+          Library.getCollection(list => {
 
             if (list && list.length)
               this.setState({collection: list});
             else
               this.updateCollection();
-          })*/
+          })
 
           Library.getCustomCardList(list => {
 
@@ -139,19 +140,19 @@ export default class App extends Component {
         localStorage.setItem("cardlist", JSON.stringify(c));
       });*/
 
-    /*if (User.isConnected()) {
+    if (User.isConnected()) {
       var decks = localStorage.getItem("decklist");
       if (decks)
         this.state.decks = JSON.parse(decks);
       else
         this.updateDecks();
 
-      var ccards = localStorage.getItem("customcardlist");
+      /*var ccards = localStorage.getItem("customcardlist");
       if (ccards !== null)
         this.state.customCards = JSON.parse(ccards);
       else
-        this.updateCustoms();
-    }*/
+        this.updateCustoms();*/
+    }
   }
 
   reconnect () {
@@ -160,6 +161,7 @@ export default class App extends Component {
       return;
 
     this.socket = io.connect(serverURL);
+    this.props.options.api.socket = this.socket;
 
     setTimeout(() => {
       if (this.socket.connected) {
@@ -178,7 +180,7 @@ export default class App extends Component {
     }, 500);
   }
 
-  /*updateDecks () {
+  updateDecks2 () {
 
     var sortDecks = (a, b) => a.name < b.name ? -1 : (a.name > b.name ? 1 : 0);
 
@@ -190,7 +192,7 @@ export default class App extends Component {
     }, err => this.setState({decks: []}));
   }
 
-  updateCustoms () {
+  /*updateCustoms () {
 
     this.setState({customCards: null});
     this.props.options.api.getCustomCards(cards => {
@@ -227,13 +229,16 @@ export default class App extends Component {
         sorter.sort(c, "type");
         this.setState({cards: c});
         Library.update(c);
+        let collection = c.map(k => ({"idCardmodel": k.idCardmodel, "number": 2}))
+        this.setState({collection});
+        Library.updateCollection(collection);
       } else this.updateCardlist();
     });
   }
 
   updateCommonDecks () {
 
-    this.props.options.api.getCommonDecks(decks => {
+    /*this.props.options.api.getCommonDecks(decks => {
       if (decks && decks.length > 0) {
         var d = decks.map(deck => this.readObject(deck));
         d.forEach(deck => deck.format = "common")
@@ -241,7 +246,12 @@ export default class App extends Component {
         this.setState({cdecks: d});
         Library.updateCommonDecks(d);
       } else this.updateCommonDecks();
-    });
+    });*/
+
+    this.setState({cdecks: [
+      {"name":"Starter - Holo","idDeck":100001,"format":"common","hero":3,"cards":{101:2,103:2,105:2,124:2,128:2,131:2,152:2,156:2,158:2,239:2,257:2,305:2,320:2,328:2,779:2},"background":"https://i.imgur.com/c6ID1Nu.png"},
+      {"name":"Starter - Shana","idDeck":100002,"format":"common","hero":2,"cards":{101:2,103:2,105:2,111:2,115:2,165:2,169:2,172:2,185:2,193:2,226:2,232:2,320:2,328:2,372:2},"background":"https://i.imgur.com/Z2IXKV6.jpeg"}
+    ]})
   }
 
   updateCustoms () {
@@ -253,13 +263,13 @@ export default class App extends Component {
     }, err => this.setState({customCards: []}));
   }
 
-  /*updateCollection () {
+  updateCollection () {
 
-    this.props.options.api.getCollection(cards => {
+    /*this.props.options.api.getCollection(cards => {
       this.setState({collection: cards});
       Library.updateCollection(cards);
-    }, err => this.setState({collection: []}));
-  }*/
+    }, err => this.setState({collection: []}));*/
+  }
 
   updateDecks () {
 
@@ -271,7 +281,7 @@ export default class App extends Component {
 
   tryUpdateDecks (d) {
 
-    if (!this.state.cards/* || !this.state.collection*/ || !this.state.customCards) {
+    if (!this.state.cards || !this.state.collection /*|| !this.state.customCards*/) {
       setTimeout(() => this.tryUpdateDecks(d), 500);
       return;
     }
@@ -280,7 +290,7 @@ export default class App extends Component {
 
     var formats = {
       standard: { name: "Standard", cardlist: /*core.concat(this.state.collection.map(el => Object.assign({count: el.number}, this.state.cards.find(card => card.idCardmodel === el.idCardmodel))).filter(el => !core.find(cc => cc.idCardmodel === el.idCardmodel)))*/this.state.cards },
-      highlander: { name: "Highlander", cardlist: this.state.cards.filter(card => card.idCardmodel !== 787) },
+      highlander: { name: "Highlander", cardlist: this.state.cards.filter(card => card.idCardmodel !== 787 && card.idCardmodel !== 1346) },
       display: { name: "Display", cardlist: this.state.cards },
       custom: { name: "Custom", cardlist: /*core.concat(this.state.collection.map(el => Object.assign({id: el.idCardmodel, count: el.number}, this.state.cards.find(card => card.idCardmodel === el.idCardmodel)))).filter(el => !core.find(cc => cc.idCardmodel === el.idCardmodel)).concat(this.state.customCards)*/this.state.cards.concat(this.state.customCards) }
     }
@@ -301,13 +311,13 @@ export default class App extends Component {
     c.push(deck.hero);
     c.forEach (card => {
       formats.slice().forEach(f => {
-        var cc = avformats[f].cardlist.find(l => l.idCardmodel && l.idCardmodel.toString() === card.toString());
+        var cc = avformats[f].cardlist.find(l => l && l.idCardmodel && l.idCardmodel.toString() === card.toString());
         if (!cc || (cc.count === 1 && deck.cards[card] > 1))
           formats.splice(formats.indexOf(f), 1);
       })
     })
-    if (c.length > 30)
-      formats = formats.filter(f => f !== "standard");
+    //if (c.length > 30)
+    //  formats = formats.filter(f => f !== "standard");
 
     return formats[0] || "display";
   }
@@ -319,7 +329,7 @@ export default class App extends Component {
 
   render() {
 
-    if (!this.state.cards || (User.isConnected() && (!this.state.decks || !this.state.customCards/* || !this.state.collection*/)))
+    if (!this.state.cards || (User.isConnected() && (!this.state.decks/* || !this.state.customCards*/ || !this.state.collection)))
       return <Loading className={(this.state.theme ? this.state.theme + "-theme" : "")}/>;
 
     return (
@@ -328,7 +338,7 @@ export default class App extends Component {
             <Switch>
               <Route exact path="/" component={({ match, history }) => (<Redirect to="/home"/>)}/>
               <Route exact path="/home" component={({ match, history }) => (<Home history={history} api={this.props.options.api}/>)}/>
-              <Route exact path="/cards" component={({ match, history }) => (<Cards cards={this.state.cards} customs={this.state.customCards} collection={null/*this.state.collection*/} updateCollection={null/*this.updateCollection.bind(this)*/} history={history} api={this.props.options.api}/>)}/>
+              <Route exact path="/cards" component={({ match, history }) => (<Cards cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateCollection={null/*this.updateCollection.bind(this)*/} history={history} api={this.props.options.api}/>)}/>
               <Route path="/cards/focus/:focus" component={({ match, history }) => (<Cards focus={match.params.focus} cards={this.state.cards} customs={this.state.customCards} collection={null/*this.state.collection*/} updateCollection={null/*this.updateCollection.bind(this)*/} history={history} api={this.props.options.api}/>)}/>
               { /*<Route path="/cards/shop" component={({ match, history }) => <Cards cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateCollection={this.updateCollection.bind(this)} shop={true} history={history} api={this.props.options.api}/>}/>*/ }
               <Route exact path="/cards/editor" component={({ match, history }) => <Editor history={history} updateCustoms={this.updateCustoms.bind(this)} api={this.props.options.api}/>}/>
