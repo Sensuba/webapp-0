@@ -1041,6 +1041,13 @@
   to { transform: rotateZ(15deg) }
 }
 
+.sensuba-card-view .sensuba-card-mark.sensuba-card-mark-atsukobewitch {
+
+    background: url('/game/images/extra/atsuko.png');
+    background-size: 100%;
+    /*animation: sakuramark-rotation 6s alternate infinite ease-in-out;*/
+}
+
 .sensuba-card-view .sensuba-card-mark.sensuba-card-mark-reipromote {
 
     background: url('/game/images/extra/rei.png');

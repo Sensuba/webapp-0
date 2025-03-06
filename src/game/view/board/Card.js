@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import View from '../../../components/cards/Card';
 
-const marks = ["sakuramark", "reipromote", "acceleratorvector", "chiseenchant"];
+const marks = ["sakuramark", "reipromote", "acceleratorvector", "chiseenchant", "atsukobewitch"];
 
 export default class Card extends Component {
 
