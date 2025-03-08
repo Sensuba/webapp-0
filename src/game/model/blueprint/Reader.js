@@ -377,6 +377,7 @@ class Reader {
 			case "opmin": bloc = new Min(card, ctx); break;
 
 			case "play-trigger": bloc = new Trigger(el.type, card, ctx, "playcard"); break;
+			case "playcleanup-trigger": bloc = new Trigger(el.type, card, ctx, "playcleanup"); break;
 			case "play-data": bloc = new Data(el.type, card, ctx, d => [d.src, d.data[d.data.length-1], d.data[d.data.length-2], d.data[0] !== null && d.data[0] !== undefined]); break;
 			case "cast-trigger": bloc = new Trigger(el.type, card, ctx, "playcard"); ctx[key].push(new Trigger(el.type, card, ctx, "trap")); break;
 			case "cast-data": bloc = new Data(el.type, card, ctx, d => [d.src, d.data[d.data.length-1], d.data[d.data.length-2], d.data[0] !== null && d.data[0] !== undefined]); break;
