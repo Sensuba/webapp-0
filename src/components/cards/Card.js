@@ -36,7 +36,7 @@ export default class Card extends Component {
 
       desc = desc.replace(/\n/g, '</div><div class="sensuba-card-effect-p">');
 
-      desc = desc.replace(/initiative|furie|hâte|exaltation|agilité|niveau supérieur|niveau inférieur|enrage(r)?(nt)?|enragé(e)?(s)?|létal|talent:?|camoufle(r)?(nt)?|camouflé(e)?(s)?|empoisonné(e)?(s)?|poison|insensible(s)?|frénésie:?|dernière volonté(:)?|dernières volontés(:)?|silence|bouclier(s)?|don du vol|(dé)?gèle(nt)?|(dé)?geler|gelé(e)?(s)?|volatile(s)|surcharge|condition:|auto:/gi, x => `<b>${x}</b>`);
+      desc = desc.replace(/initiative|furie|hâte|exaltation|agilité|niveau supérieur|niveau inférieur|enrage(r)?(nt)?|enragé(e)?(s)?|létal|talent:?|camoufle(r)?(nt)?|camouflé(e)?(s)?|empoisonné(e)?(s)?|poison|insensible(s)?|frénésie:?|dernière volonté(:)?|dernières volontés(:)?|silence|bouclier(s)?|don du vol|(dé)?gèle(nt)?|(dé)?geler|gelé(e)?(s)?|surcharge|condition:|auto:/gi, x => `<b>${x}</b>`);
 
       desc = desc.replace(/(\+|-)?(\d+|!|\*) ?:/g, x => {
         var emph = "";
