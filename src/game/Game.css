@@ -1045,6 +1045,21 @@
 
     background: url('/game/images/extra/atsuko.png');
     background-size: 100%;
+    top: -0.2em;
+    left: 13.3em;
+    width: 3em;
+    height: 3em;
+    /*animation: sakuramark-rotation 6s alternate infinite ease-in-out;*/
+}
+
+.sensuba-card-view .sensuba-card-mark.sensuba-card-mark-natsumemark {
+
+    background: url('/game/images/extra/natsume.png');
+    background-size: 100%;
+    top: -0.2em;
+    left: 13.3em;
+    width: 3em;
+    height: 3em;
     /*animation: sakuramark-rotation 6s alternate infinite ease-in-out;*/
 }
 
