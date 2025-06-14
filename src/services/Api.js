@@ -14,7 +14,7 @@ export default class Api {
   }
 
   getCards (callback, error) {
-    callback(cm.filter(c => !c.author))
+    callback(cm.filter(c => (User.isConnected() && User.getData().authorization >= 4 || c.idEdition < 10) && !c.author))
     /*let step = 0, data = [];
     if (User.isConnected())
       this.addAuthorizationHeader();
