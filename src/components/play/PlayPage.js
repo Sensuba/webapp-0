@@ -140,8 +140,8 @@ export default class PlayPage extends Component {
           formats.splice(formats.indexOf(f), 1);
       })
     });
-    if (c.length > 30)
-      formats = formats.filter(f => f !== "standard");
+    /*if (c.length > 30)
+      formats = formats.filter(f => f !== "standard");*/
 
     return formats[0] || "display";
   }

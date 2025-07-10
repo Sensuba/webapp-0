@@ -20,8 +20,8 @@ export default class Deckbuilder extends Component {
       choices = this.generateDraftChoice(this.draftColorList.cards);
     }
 
-    this.assistant = new Assistant(this.props.cards);
-		this.state = { filter: "", preview: null, draft: this.draft, skips: 5, suggestions: this.assistant.suggest(this.getColorList(), this.props.deck, 3), choices };
+    //this.assistant = new Assistant(this.props.cards);
+		this.state = { filter: "", preview: null, draft: this.draft, skips: 5/*, suggestions: this.assistant.suggest(this.getColorList(), this.props.deck, 3)*/, choices };
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
 	}

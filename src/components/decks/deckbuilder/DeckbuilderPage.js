@@ -162,7 +162,7 @@ export default class DeckbuilderPage extends Component {
 	      			)
 	      			:
 	      			<Selector onSelect={(hero, body) => {
-	      				this.setState({deck: Object.assign(this.state.deck, { hero: hero, cards: body ? Object.fromEntries(body.map(n => [n, 1])) : undefined, background: this.state.cardlist.find(c => c.idCardmodel === hero).imgLink })});
+	      				this.setState({deck: Object.assign(this.state.deck, { hero: hero, cards: body ? Object.fromEntries(body.map(n => [n, 1])) : {}, background: this.state.cardlist.find(c => c.idCardmodel === hero).imgLink })});
 	      			}} cards={this.state.cardlist} draft={this.draft}/>
 	      		}
 	      	</main>
