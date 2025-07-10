@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Deck from '../Deck.js';
-import { Input, Label } from 'reactstrap';
+import { Input, Label, Button } from 'reactstrap';
 import Card from '../../cards/Card';
 import sorter from '../../../utility/CollectionSorter';
 //import { Progress } from 'antd';
@@ -21,7 +21,7 @@ export default class Deckbuilder extends Component {
     }
 
     this.assistant = new Assistant(this.props.cards);
-		this.state = { filter: "", preview: null, draft: this.draft, suggestions: this.assistant.suggest(this.getColorList(), this.props.deck, 3), choices };
+		this.state = { filter: "", preview: null, draft: this.draft, skips: 5, suggestions: this.assistant.suggest(this.getColorList(), this.props.deck, 3), choices };
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
 	}
@@ -68,12 +68,14 @@ export default class Deckbuilder extends Component {
     var pickRandomCard = list => list[Math.floor(Math.random()*list.length)];
 
       var draftlist = [];
-      for (let i = 0; i < 3;) {
+      for (let i = 0; i < 5;) {
         let draftnew = pickRandomCard(cards);
 
         if (draftlist.some(card => card === draftnew))
           continue;
         if (draftnew.idColor === 0 && Math.random() < 0.5)
+          continue;
+        if (draftnew.idCardmodel === 787 || draftnew.idCardmodel === 1346)
           continue;
         if (this.props.deck.cards[draftnew.idCardmodel] && this.props.deck.cards[draftnew.idCardmodel] >= Math.min(2, draftnew.count || 2))
           continue;
@@ -104,11 +106,13 @@ export default class Deckbuilder extends Component {
 
   addDraftCard (id) {
 
-    var end = this.count >= 29;
-    var c = this.props.deck.cards;
-    c[id] = (c[id] || 0) + 1;
-    this.props.updateDeck();
-    this.setState({choices: this.generateDraftChoice(this.draftColorList.cards), draft: !end});
+    if (id > 0) {
+      var end = this.count >= 29;
+      var c = this.props.deck.cards;
+      c[id] = (c[id] || 0) + 1;
+      this.props.updateDeck();
+    }
+    this.setState({choices: this.generateDraftChoice(this.draftColorList.cards), draft: !end, skips: this.state.skips - (id > 0 ? 0 : 1)});
   }
 
   removeCard(id) {
@@ -267,13 +271,19 @@ export default class Deckbuilder extends Component {
           <div>
           <h1 className="big-text">Choisissez une carte</h1>
             <div className="hero-selector">
-              <div className="hero-list">
+              <div className="hero-list draft-body">
               {
                 this.state.choices.map((h, i) => <div key={i} className="select-hero-card main-hero-card" onClick={() => {
                   this.addDraftCard(h.idCardmodel);
                 }}><Card src={h}/></div>)
               }
               </div>
+              {
+                this.state.skips > 0 &&
+              <div className="search-hero-wrapper">
+                <Button onClick={() => this.addDraftCard(-1)}>Passer {"(" + this.state.skips + " restant)"}</Button>
+              </div>
+              }
             </div>
           </div>
           :
@@ -292,7 +302,7 @@ export default class Deckbuilder extends Component {
                 <Label for="deck-format-form">Format</Label>
                 <Input type="select" id="deck-format-form" value={this.props.deck.format} onChange={e => this.props.updateFormat(e.target.value)}>
                   <option value="standard">Standard</option>
-                  <option value="highlander">Highlander</option>
+                  {/*<option value="highlander">Highlander</option>*/}
                   <option value="custom">Personnalisé</option>
                   {/*<option value="display">Vitrine</option>*/}
                 </Input>

@@ -11,7 +11,7 @@ export default class DeckbuilderPage extends Component {
 
   	formats = {
   		standard: { name: "Standard", cardlist: /*this.core.concat(this.props.collection.map(el => Object.assign({count: el.number}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel))).filter(el => !this.core.find(cc => cc.idCardmodel === el.idCardmodel)))*/this.props.cards },
-  		highlander: { name: "Highlander", cardlist: this.props.cards.filter(card => card.idCardmodel !== 787 && card.idCardmodel !== 1346) },
+  		//highlander: { name: "Highlander", cardlist: this.props.cards.filter(card => card.idCardmodel !== 787 && card.idCardmodel !== 1346) },
   		display: { name: "Display", cardlist: this.props.cards },
   		custom: { name: "Custom", cardlist: /*this.core.concat(this.props.collection.map(el => Object.assign({id: el.idCardmodel, count: el.number}, this.props.cards.find(card => card.idCardmodel === el.idCardmodel)))).filter(el => !this.core.find(cc => cc.idCardmodel === el.idCardmodel)).concat(this.props.customs)*/this.props.cards.concat(this.props.customs) }
   	}
@@ -29,7 +29,7 @@ export default class DeckbuilderPage extends Component {
 	  	var type, format;
 	  	switch (this.props.type) {
 	  	case "standard": type = "Deck Standard"; format = this.props.type; break;
-	  	case "highlander": type = "Deck Highlander"; format = this.props.type; break;
+	  	//case "highlander": type = "Deck Highlander"; format = this.props.type; break;
 	  	//case "display": type = "Deck Vitrine"; format = this.props.type; break;
 	  	case "draft": type = "Deck Draft"; format = "standard"; break;
 	  	case "custom": type = "Deck Personnalisé"; format = this.props.type; break;
@@ -161,8 +161,8 @@ export default class DeckbuilderPage extends Component {
 		      			: <span/>
 	      			)
 	      			:
-	      			<Selector onSelect={hero => {
-	      				this.setState({deck: Object.assign(this.state.deck, { hero: hero, background: this.state.cardlist.find(c => c.idCardmodel === hero).imgLink })});
+	      			<Selector onSelect={(hero, body) => {
+	      				this.setState({deck: Object.assign(this.state.deck, { hero: hero, cards: body ? Object.fromEntries(body.map(n => [n, 1])) : undefined, background: this.state.cardlist.find(c => c.idCardmodel === hero).imgLink })});
 	      			}} cards={this.state.cardlist} draft={this.draft}/>
 	      		}
 	      	</main>

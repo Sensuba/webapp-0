@@ -245,6 +245,12 @@
 	box-shadow: 0px 0px 0px 0px rgba(255,255,255,1);
 }
 
+.hero-selector .draft-body .select-hero-card.main-hero-card {
+
+	margin: 1em 0.2em;
+	font-size: 1.1vw;
+}
+
 .hero-selector .select-hero-card .sensuba-card {
 
 	margin: 0;
@@ -254,6 +260,7 @@
 
 	font-size: 1.25vw;
 	opacity: 1;
+	z-index: 1;
 	filter: grayscale(0%);
 	cursor: pointer;
 }
@@ -275,6 +282,42 @@
 	font-size: 0.55vw;
 	opacity: 0.3;
 	filter: grayscale(80%);
+}
+
+.hero-selector.draft-hero {
+
+	margin-bottom: 13em;
+}
+
+.hero-selector.draft-hero .hero-list {
+
+	overflow: visible;
+}
+
+.hero-selector .draft-package {
+
+	position: absolute;
+	display: flex;
+	top: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+	font-size: 0.7em;
+}
+
+.hero-selector .draft-package .sensuba-card {
+
+	margin: 0.2em;
+}
+
+.hero-selector .select-hero-card .draft-package {
+
+	transition: opacity 0.4s ease-out;
+	opacity: 0;
+}
+
+.hero-selector .main-hero-card .draft-package {
+
+	opacity: 1;
 }
 
 .ant-progress .ant-progress-inner {
