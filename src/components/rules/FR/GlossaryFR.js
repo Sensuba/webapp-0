@@ -188,11 +188,11 @@ export default class GlossaryFR extends Component {
         </div>
         <div className="quarter-section">
           <div className="glossary-panel">
-              <img className="glossary-panel-background" src="https://i.ibb.co/ypL2XdD/71e3563f6ba3.png" alt="bg"/>
+              <img className="glossary-panel-background" src="https://i.ibb.co/Fx31xsD/alluka.png" alt="bg"/>
               <div className="glossary-panel-filter"/>
               <div className="glossary-panel-text">
-                <h3>Contact</h3>
-                <p>Effet déclenché après combat impliquant ce personnage.</p>
+                <h3>Volatile</h3>
+                <p>Est défaussé à la fin de votre tour.</p>
                 </div>
           </div>
         </div>
