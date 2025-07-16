@@ -391,6 +391,7 @@ export default class Game extends Component {
     case "cleave": return "Balayage";
     case "love": return "Amour";
     case "immortal": return "Immortel";
+    case "immortal while attacking": return "Immortel en attaquant";
     case "poisoned": return "Empoisonné";
     case "bonus": return "Transformiste";
     case "temporary": return "Volatile";
