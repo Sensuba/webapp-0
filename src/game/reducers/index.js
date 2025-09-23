@@ -1,6 +1,6 @@
 import GameBoard from '../model/board/GameBoard';
 
-export default (state = new GameBoard(), n) => {console.log(n)
+export default (state = new GameBoard(), n) => {
 
   if (n.state) {
     state = n.state;
