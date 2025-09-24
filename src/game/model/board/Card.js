@@ -757,7 +757,7 @@ export default class Card {
 
 		var eff = this.eff;
 
-		if (!this.isType("character") || !this.onBoard || !target.onBoard || this.area === target.area || this.frozen || target.isType("secret") || eff.atk <= 0 || eff.range <= 0 || target.concealed || this.hasState("static") || this.hasState("passive"))
+		if (!this.isType("character") || !this.onBoard || !target.onBoard || this.area === target.area || this.frozen || target.isType("secret") || eff.range <= 0 || target.concealed || this.hasState("static") || this.hasState("passive"))
 			return false;
 		if (eff.firstTurn && !this.hasState("rush") && !(this.hasState("agility") && !target.isType("hero")))
 			return false;
