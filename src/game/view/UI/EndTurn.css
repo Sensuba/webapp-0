@@ -38,6 +38,7 @@
     width: 120px;
     position: relative;
     margin: auto;
+    top: -80px;
 }
 
 .sensuba-end-turn.sensuba-end-turn-locked {
@@ -61,7 +62,7 @@
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    top: calc(50% - 60px);
+    top: 20px;
     left: 0;
     background-color: #A0000000;
     transition: background-color 0.3s;
@@ -88,7 +89,7 @@
 .sensuba-end-turn-timer {
 
     position: absolute;
-    top: 0;
+    top: calc(2.5em + 20px);
     left: 0;
     border: 0;
     line-height: 1.5;
@@ -116,7 +117,7 @@
     text-shadow: 1px 1px 1px #000;
     width: 120px;
     margin: auto;
-    margin-top: -1.5em;
+    margin-top: calc(20px + 2.25em);
     pointer-events: none;
 }
 

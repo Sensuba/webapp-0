@@ -77,6 +77,8 @@ export default class Deckbuilder extends Component {
           continue;
         if (draftnew.idCardmodel === 787 || draftnew.idCardmodel === 1346)
           continue;
+        if (!draftnew.idEdition || draftnew.idEdition > 9)
+          continue;
         if (this.props.deck.cards[draftnew.idCardmodel] && this.props.deck.cards[draftnew.idCardmodel] >= Math.min(2, draftnew.count || 2))
           continue;
         draftlist.push(draftnew);
