@@ -250,8 +250,8 @@
 
 .sensuba-hero .sensuba-card-body {
 
-    top: 12em;
-    height: 5.5em;
+    top: 11.8em;
+    height: 5.7em;
 }
 
 .sensuba-spell .sensuba-card-body, .sensuba-secret .sensuba-card-body, .sensuba-seal .sensuba-card-body, .sensuba-artifact .sensuba-card-body {
@@ -482,7 +482,7 @@
 
 .sensuba-spell .sensuba-card-flavour, .sensuba-secret .sensuba-card-flavour, .sensuba-seal .sensuba-card-flavour, .sensuba-world .sensuba-card-flavour, .sensuba-artifact .sensuba-card-flavour, .sensuba-hero .sensuba-card-flavour {
 
-    bottom: -10.7em;
+    bottom: -11.2em;
 }
 
 .sensuba-card .sensuba-card-edition {
@@ -501,7 +501,7 @@
 
 .sensuba-spell .sensuba-card-edition, .sensuba-secret .sensuba-card-edition, .sensuba-seal .sensuba-card-edition, .sensuba-world .sensuba-card-edition, .sensuba-artifact .sensuba-card-edition, .sensuba-hero .sensuba-card-edition {
 
-    bottom: -4.5em;
+    bottom: -4.7em;
 }
 
 .sensuba-card .sensuba-card-footer {
