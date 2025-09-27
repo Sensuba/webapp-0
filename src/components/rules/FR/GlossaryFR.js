@@ -182,7 +182,7 @@ export default class GlossaryFR extends Component {
               <div className="glossary-panel-filter"/>
               <div className="glossary-panel-text">
                 <h3>Insensible</h3>
-                <p>Ne peut pas être ciblé par des effets de carte de votre adversaire. Ne reçoit aucun dégât.</p>
+                <p>Ne peut pas être ciblé par des effets de carte de votre adversaire. Ne reçoit aucun dégât, aucun Poison, et ne peut pas être Gelé. Ne peut pas être détruit ou réduit au Silence par des effets adverses.</p>
                 </div>
           </div>
         </div>
