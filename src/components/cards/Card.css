@@ -480,9 +480,14 @@
     margin: 0 10%;
 }
 
-.sensuba-spell .sensuba-card-flavour, .sensuba-secret .sensuba-card-flavour, .sensuba-seal .sensuba-card-flavour, .sensuba-world .sensuba-card-flavour, .sensuba-artifact .sensuba-card-flavour, .sensuba-hero .sensuba-card-flavour {
+.sensuba-hero .sensuba-card-flavour {
 
     bottom: -11.2em;
+}
+
+.sensuba-spell .sensuba-card-flavour, .sensuba-secret .sensuba-card-flavour, .sensuba-seal .sensuba-card-flavour, .sensuba-world .sensuba-card-flavour, .sensuba-artifact .sensuba-card-flavour {
+
+    bottom: -10.8em;
 }
 
 .sensuba-card .sensuba-card-edition {
@@ -499,9 +504,14 @@
     background-image: url("Images/classic.png");
 }
 
-.sensuba-spell .sensuba-card-edition, .sensuba-secret .sensuba-card-edition, .sensuba-seal .sensuba-card-edition, .sensuba-world .sensuba-card-edition, .sensuba-artifact .sensuba-card-edition, .sensuba-hero .sensuba-card-edition {
+.sensuba-hero .sensuba-card-edition {
 
     bottom: -4.7em;
+}
+
+.sensuba-spell .sensuba-card-edition, .sensuba-secret .sensuba-card-edition, .sensuba-seal .sensuba-card-edition, .sensuba-world .sensuba-card-edition, .sensuba-artifact .sensuba-card-edition {
+
+    bottom: -4.5em;
 }
 
 .sensuba-card .sensuba-card-footer {
