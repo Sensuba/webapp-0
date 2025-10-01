@@ -14,7 +14,17 @@ export default class Api {
   }
 
   getCards (callback, error) {
-    callback(cm.filter(c => (User.isConnected() && User.getData().authorization >= 4 || c.idEdition < 10) && !c.author))
+    //callback(cm.filter(c => (User.isConnected() && User.getData().authorization >= 4 || c.idEdition < 10) && !c.author))
+
+    this.socket.emit("getcards");
+    this.socket.on("cards", data => {
+      if (data.error)
+        this.error(data.error);
+      else {
+        callback(data);
+      }
+      this.socket.removeAllListeners('cards');
+    })
     /*let step = 0, data = [];
     if (User.isConnected())
       this.addAuthorizationHeader();
