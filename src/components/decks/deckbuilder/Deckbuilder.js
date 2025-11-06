@@ -180,6 +180,7 @@ export default class Deckbuilder extends Component {
     
     var copycode = Object.assign({}, this.props.deck);
     delete copycode.idDeck;
+    delete copycode.supercode;
     var supercode = window.btoa(JSON.stringify(copycode).replace(/"[^\x00-\x7Fàéçâîôêûöïüëäè]"/g, ""));
 
     var params = { supercode };

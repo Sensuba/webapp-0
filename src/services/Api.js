@@ -17,13 +17,12 @@ export default class Api {
     //callback(cm.filter(c => (User.isConnected() && User.getData().authorization >= 4 || c.idEdition < 10) && !c.author))
 
     this.socket.emit("getcards");
-    this.socket.on("cards", data => {
+    this.socket.once("cards", data => {
       if (data.error)
         this.error(data.error);
       else {
         callback(data);
       }
-      this.socket.removeAllListeners('cards');
     })
     /*let step = 0, data = [];
     if (User.isConnected())
@@ -53,13 +52,12 @@ export default class Api {
     });*/
 
     this.socket.emit("savecustom", User.getData(), params);
-    this.socket.on("onsavecustom", data => {
+    this.socket.once("onsavecustom", data => {
       if (data.error)
         this.error(data.error);
       else {
         callback(data);
       }
-      this.socket.removeAllListeners('onsavecustom');
     })
   }
 
@@ -78,13 +76,12 @@ export default class Api {
     });*/
 
     this.socket.emit("deletecustom", User.getData(), id);
-    this.socket.on("ondeletecustom", data => {
+    this.socket.once("ondeletecustom", data => {
       if (data.error)
         this.error(data.error);
       else {
         callback(data);
       }
-      this.socket.removeAllListeners('ondeletecustom');
     })
   }
 
@@ -118,13 +115,12 @@ export default class Api {
     });*/
 
     this.socket.emit("getcustoms", User.getData());
-    this.socket.on("customs", data => {
+    this.socket.once("customs", data => {
       if (data.error)
         this.error(data.error);
       else {
         callback(data);
       }
-      this.socket.removeAllListeners('customs');
     })
   }
 
@@ -143,13 +139,12 @@ export default class Api {
     });*/
 
     this.socket.emit("getdecks", User.getData());
-    this.socket.on("decks", data => {
+    this.socket.once("decks", data => {
       if (data.error)
         this.error(data.error);
       else {
         callback(data);
       }
-      this.socket.removeAllListeners('decks');
     })
   }
 
@@ -177,13 +172,12 @@ export default class Api {
     });*/
 
     this.socket.emit("savedeck", User.getData(), params);
-    this.socket.on("onsave", data => {
+    this.socket.once("onsave", data => {
       if (data.error)
         this.error(data.error);
       else {
         callback(data);
       }
-      this.socket.removeAllListeners('onsave');
     })
   }
 
@@ -202,13 +196,12 @@ export default class Api {
     });*/
 
     this.socket.emit("deletedeck", User.getData(), id);
-    this.socket.on("ondelete", data => {
+    this.socket.once("ondelete", data => {
       if (data.error)
         this.error(data.error);
       else {
         callback(data);
       }
-      this.socket.removeAllListeners('ondelete');
     })
   }
 

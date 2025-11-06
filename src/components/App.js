@@ -180,7 +180,7 @@ export default class App extends Component {
     }, 500);
   }
 
-  updateDecks2 () {
+  /*updateDecks2 () {
 
     var sortDecks = (a, b) => a.name < b.name ? -1 : (a.name > b.name ? 1 : 0);
 
@@ -190,7 +190,7 @@ export default class App extends Component {
       localStorage.setItem("decklist", JSON.stringify(d));
       this.setState({decks: d})
     }, err => this.setState({decks: []}));
-  }
+  }*/
 
   /*updateCustoms () {
 
@@ -274,7 +274,7 @@ export default class App extends Component {
   updateDecks () {
 
     this.props.options.api.getMyDecks(decks => {
-      var d = decks.map(deck => this.readObject(deck));
+      var d = decks.map(deck => this.readObject(deck)).map(({ supercode, ...rest }) => rest);
       this.tryUpdateDecks(d);      
     }, err => this.setState({decks: []}));
   }
