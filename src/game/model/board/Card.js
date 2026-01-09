@@ -1113,6 +1113,8 @@ export default class Card {
 			this.mutatedState = res;
 		this.mutatedState.states = Object.assign({}, res.states);
 		res = this.mutations.sort((a, b) => a.priority - b.priority).reduce((card, mut) => { let r = mut.apply(card); this.mutatedState.states = Object.assign({}, r.states); return r; }, res);
+		if (this.hasState("invertgravity"))
+			res.states.flying = !this.hasState('flying');
 		if (this.finalMana !== undefined) res.mana = this.finalMana;
 		if (this.finalOverload !== undefined) res.ol = this.finalOverload;
 		updatephp();
@@ -1121,8 +1123,6 @@ export default class Card {
 		if (this.poisondmg && this.hasState("vaccinated"))
 			delete this.poisondmg
 		this.states = this.states || {};
-		if (this.hasState("invertgravity"))
-			this.states.flying = !(this.mutatedState.states && this.mutatedState.states.flying);
 		this.states.poisoned = this.poisoned;
 		this.computing = false;
 
