@@ -1120,6 +1120,8 @@ export default class Card {
 			this.states.frozen = false;
 		if (this.poisondmg && this.hasState("vaccinated"))
 			delete this.poisondmg;
+		if (this.hasState("invertgravity"))
+			this.states.flying = !this.states.flying;
 		this.states = this.states || {};
 		this.states.poisoned = this.poisoned;
 		this.computing = false;
