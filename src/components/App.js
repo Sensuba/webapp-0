@@ -22,6 +22,7 @@ import User from '../services/User';
 import Library from '../services/Library';
 import io from 'socket.io-client';
 import sorter from '../utility/CollectionSorter';
+import { decodeDeck } from '../services/DeckData';
 
 const serverURL = 'https://sensuba-server.francecentral.cloudapp.azure.com'/* || 'https://sensuba.herokuapp.com/'*/;
 
@@ -60,11 +61,10 @@ export default class App extends Component {
         this.state.theme = user.theme;
     }
 
-    this.readObject = obj => Object.assign(obj, JSON.parse(window.atob(obj.supercode)));
+    this.readObject = obj => Object.assign({}, JSON.parse(window.atob(obj.supercode)), obj);
     this.filterCardData = obj => {
       delete obj.supercode;
       delete obj.blueprint;
-      delete obj.author;
       if (obj.tokens)
         obj.tokens = obj.tokens.map(token => this.filterCardData(token));
       return obj;
@@ -76,7 +76,7 @@ export default class App extends Component {
 
         Library.getCardList(list => {
 
-          if (list && list.length && list.length >= nocards) {
+          if (list && list.length >= nocards && list.every(card => card.author === 0 || card.author === '0')) {
             sorter.sort(list, "type");
             this.setState({cards: list});
           }
@@ -112,15 +112,7 @@ export default class App extends Component {
               this.updateCustoms();
           })
 
-          Library.getDeckList(list => {
-
-            let sortDecks = (a, b) => a.name < b.name ? -1 : (a.name > b.name ? 1 : 0);
-
-            if (list && list.length)
-              this.setState({decks: list.sort(sortDecks)});
-            else
-              this.updateDecks();
-          })
+          this.updateDecks();
         }
       }
 
@@ -141,11 +133,8 @@ export default class App extends Component {
       });*/
 
     if (User.isConnected()) {
-      var decks = localStorage.getItem("decklist");
-      if (decks)
-        this.state.decks = JSON.parse(decks);
-      else
-        this.updateDecks();
+      // Saved decks are fetched once from the server after library initialization.
+      localStorage.removeItem("decklist");
 
       /*var ccards = localStorage.getItem("customcardlist");
       if (ccards !== null)
@@ -271,18 +260,31 @@ export default class App extends Component {
     }, err => this.setState({collection: []}));*/
   }
 
-  updateDecks () {
+  updateDecks (then, onError) {
 
+    const revision = this.deckRevision = (this.deckRevision || 0) + 1;
+    const failed = error => {
+      if (revision !== this.deckRevision) return;
+      this.setState({deckError: 'La liste des decks n’a pas pu être chargée.'});
+      if (onError) onError(error);
+    };
     this.props.options.api.getMyDecks(decks => {
-      var d = decks.map(deck => this.readObject(deck)).map(({ supercode, ...rest }) => rest);
-      this.tryUpdateDecks(d);      
-    }, err => this.setState({decks: []}));
+      if (revision !== this.deckRevision) return;
+      try {
+        this.tryUpdateDecks(decks.map(decodeDeck), revision, then);
+      } catch (error) {
+        failed(error);
+      }
+    }, error => {
+      failed(error);
+    });
   }
 
-  tryUpdateDecks (d) {
+  tryUpdateDecks (d, revision, then) {
 
-    if (!this.state.cards || !this.state.collection /*|| !this.state.customCards*/) {
-      setTimeout(() => this.tryUpdateDecks(d), 500);
+    if (revision !== this.deckRevision) return;
+    if (!this.state.cards) {
+      setTimeout(() => this.tryUpdateDecks(d, revision, then), 100);
       return;
     }
 
@@ -298,8 +300,7 @@ export default class App extends Component {
     d.forEach(deck => deck.format = this.findFormat(formats, deck))
 
     let sortDecks = (a, b) => a.name < b.name ? -1 : (a.name > b.name ? 1 : 0);
-    this.setState({decks: d.sort(sortDecks)});
-    Library.updateDecks(d);
+    this.setState({decks: d.sort(sortDecks), deckError: null}, then);
   }
 
   findFormat (avformats, deck) {
@@ -329,6 +330,8 @@ export default class App extends Component {
 
   render() {
 
+    if (this.state.deckError && !this.state.decks)
+      return <main><p role="alert">{this.state.deckError}</p><button onClick={() => this.updateDecks()}>Réessayer</button></main>;
     if (!this.state.cards || (User.isConnected() && (!this.state.decks/* || !this.state.customCards*/ || !this.state.collection)))
       return <Loading className={(this.state.theme ? this.state.theme + "-theme" : "")}/>;
 
@@ -356,7 +359,7 @@ export default class App extends Component {
               <Route exact path="/decks/draft" component={({ match, history }) => (<Deckbuilder cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateDecks={this.updateDecks.bind(this)} history={history} api={this.props.options.api} type="draft"/>)}/>
               <Route exact path="/decks/custom" component={({ match, history }) => (<Deckbuilder cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateDecks={this.updateDecks.bind(this)} history={history} api={this.props.options.api} type="custom"/>)}/>
               <Route exact path="/decks/display" component={({ match, history }) => (<Deckbuilder cards={this.state.cards} customs={this.state.customCards} collection={null/*this.state.collection*/} updateDecks={this.updateDecks.bind(this)} history={history} api={this.props.options.api} type="display"/>)}/>
-              <Route path="/decks/builder/:deck" component={({ match, history }) => (User.isConnected() ? <Deckbuilder cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateDecks={this.updateDecks.bind(this)} deck={this.state.decks.find(deck => deck.idDeck.toString() === match.params.deck)} history={history} api={this.props.options.api}/> : <Redirect to="/decks"/>)}/>
+              <Route path="/decks/builder/:deck" component={({ match, history }) => (User.isConnected() && this.state.decks.some(deck => String(deck.idDeck) === match.params.deck) ? <Deckbuilder cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateDecks={this.updateDecks.bind(this)} deck={this.state.decks.find(deck => String(deck.idDeck) === match.params.deck)} history={history} api={this.props.options.api}/> : <Redirect to="/decks"/>)}/>
               <Route exact path="/rules" component={({ match, history }) => (<Rules history={history} api={this.props.options.api}/>)}/>
               { /* <Route path="/rules/:lang" component={({ match, history }) => (<Rules lang={match.params.lang} history={history} api={this.props.options.api}/>)}/> */ }
             </Switch>

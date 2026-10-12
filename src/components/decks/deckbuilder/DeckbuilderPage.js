@@ -4,6 +4,7 @@ import Nav from '../../Nav';
 import Deckbuilder from './Deckbuilder';
 import Selector from './HeroSelector';
 import User from '../../../services/User';
+import { deckContent } from '../../../services/DeckData';
 
 export default class DeckbuilderPage extends Component {
 
@@ -25,7 +26,8 @@ export default class DeckbuilderPage extends Component {
     if (User.getData().authorization >= 4)
       this.formats.custom.cardlist = this.props.cards.concat(this.props.customs);
 
-	  	var deck = this.props.deck;
+      this.deckId = this.props.deck && this.props.deck.idDeck;
+	  	var deck = this.props.deck && Object.assign(deckContent(this.props.deck), {idDeck: this.deckId});
 	  	var type, format;
 	  	switch (this.props.type) {
 	  	case "standard": type = "Deck Standard"; format = this.props.type; break;
@@ -44,7 +46,7 @@ export default class DeckbuilderPage extends Component {
 		  		format: format
 		  	}
 
-	  	this.state = { deck, new: deck.hero === null || deck.hero === undefined };
+	  	this.state = { deck, new: this.deckId === undefined || this.deckId === null };
 	  	if (this.props.deck)
 	  		this.state.deck.format = this.findFormat();
 	  	this.state.cardlist = this.loadCardlist();
@@ -105,6 +107,8 @@ export default class DeckbuilderPage extends Component {
   updateDeck (deck, update=false) {
 
   	deck = deck || this.state.deck;
+    deck = deckContent(deck);
+    if (!this.state.new) deck.idDeck = this.deckId;
   	this.setState({cardlist: this.loadCardlist(deck.format), deck}, update ? () => this.updateFormat(this.findFormat()) : undefined);
   }
 
@@ -118,22 +122,46 @@ export default class DeckbuilderPage extends Component {
   	return this.formats[format].cardlist;
   }
 
-  onSave (params) {
-
-  	this.props.api.saveDeck(params, () => {
-
-      	this.props.history.push('/decks');
-  		this.props.updateDecks();
-    })
+  onSave (params, playable) {
+    if (this.saving) return;
+    this.saving = true;
+    this.setState({saving: true, error: null});
+    params = {supercode: params.supercode};
+    if (!this.state.new) params.id = this.deckId;
+    this.props.api.saveDeck(params, id => {
+      // Keep the assigned identity if refreshing fails and the user retries.
+      this.deckId = id;
+      this.setState({new: false});
+      if (playable) User.updateDeck(Object.assign({}, playable, {id}));
+      this.refreshDecks();
+    }, error => this.mutationFailed(error, 'Le deck n’a pas été enregistré. Réessayez.'));
   }
 
-  onDelete (id) {
+  failed (error) {
+    this.saving = false;
+    this.setState({saving: false, error});
+  }
 
-  	this.props.api.deleteDeck(id, () => {
+  mutationFailed (error, message) {
+    if (error && error.uncertain) {
+      this.setState({error: 'La réponse du serveur n’est pas arrivée. Rechargez la page pour vérifier le deck avant de réessayer.'});
+    } else this.failed(message);
+  }
 
-      	this.props.history.push('/decks');
-  		this.props.updateDecks();
-    })
+  refreshDecks () {
+    this.props.updateDecks(() => this.props.history.push('/decks'),
+      () => this.failed('Modification enregistrée, mais la liste n’a pas pu être actualisée. Rechargez la page.'));
+  }
+
+  onDelete () {
+    if (this.saving || this.state.new) return;
+    this.saving = true;
+    this.setState({saving: true, error: null});
+    this.props.api.deleteDeck(this.deckId, () => {
+      const selected = User.getDeck();
+      if (selected && String(JSON.parse(selected).id) === String(this.deckId)) User.updateDeck(null);
+      this.refreshDecks();
+    }, error => this.mutationFailed(error, 'Le deck n’a pas été supprimé. Réessayez.'));
   }
 
   isGhost (card, i) {
@@ -154,10 +182,11 @@ export default class DeckbuilderPage extends Component {
 		<div>
 	        <Nav api={this.props.api} history={this.props.history}/>
 	      	<main>
+            {this.state.error && <p role="alert">{this.state.error}</p>}
 	      		{
 	      			this.state.deck.hero ?
 	      			(this.props.cards && this.props.cards.length > 0 ?
-		      			<Deckbuilder ref={this.builder} isGhost={(c, i) => this.isGhost(c, i)} list={this.state.list} new={this.state.new} onSave={this.onSave.bind(this)} onDelete={this.onDelete.bind(this)} updateDeck={this.updateDeck.bind(this)} updateFormat={this.updateFormat.bind(this)} deck={this.state.deck} cards={this.state.cardlist} type={this.props.type}/>
+		      			<Deckbuilder ref={this.builder} isGhost={(c, i) => this.isGhost(c, i)} list={this.state.list} new={this.state.new} saving={this.state.saving} onSave={this.onSave.bind(this)} onDelete={this.onDelete.bind(this)} updateDeck={this.updateDeck.bind(this)} updateFormat={this.updateFormat.bind(this)} deck={this.state.deck} cards={this.state.cardlist} type={this.props.type}/>
 		      			: <span/>
 	      			)
 	      			:

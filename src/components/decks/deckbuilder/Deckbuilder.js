@@ -5,8 +5,8 @@ import Card from '../../cards/Card';
 import sorter from '../../../utility/CollectionSorter';
 //import { Progress } from 'antd';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import User from '../../../services/User';
 import Assistant from './AssistantBuilder';
+import { encodeDeck, importDeck } from '../../../services/DeckData';
 
 export default class Deckbuilder extends Component {
 
@@ -148,7 +148,7 @@ export default class Deckbuilder extends Component {
 
   saveDeck() {
 
-    if (this.state.saved)
+    if (this.props.saving)
       return;
 
     /*var currentDeck = User.getDeck();
@@ -173,41 +173,26 @@ export default class Deckbuilder extends Component {
             }
           }
         })
-        if (deck.format !== "display" && Object.values(deck.cards).reduce((a, b) => a + b, 0) === (deck.format === "highlander" ? 60 : 30))
-          User.updateDeck(res);
+        const playable = deck.format !== "display" && Object.values(deck.cards).reduce((a, b) => a + b, 0) === (deck.format === "highlander" ? 60 : 30);
     //  }
     //}
     
-    var copycode = Object.assign({}, this.props.deck);
-    delete copycode.idDeck;
-    delete copycode.supercode;
-    var supercode = window.btoa(JSON.stringify(copycode).replace(/"[^\x00-\x7Fàéçâîôêûöïüëäè]"/g, ""));
+    var supercode = encodeDeck(this.props.deck);
 
     var params = { supercode };
 
-    if (!this.state.new)
+    if (!this.props.new)
       params.id = this.props.deck.idDeck;
 
-    this.props.onSave(params);
-
-    this.setState({saved: true});
+    this.props.onSave(params, playable ? res : null);
   }
 
   deleteDeck() {
 
-    if (this.state.saved)
+    if (this.props.saving)
       return;
 
-    var currentDeck = User.getDeck();
-    if (currentDeck) {
-      currentDeck = JSON.parse(currentDeck);
-      if (currentDeck.id === this.props.deck.idDeck)
-        User.updateDeck(null);
-    }
-
     this.props.onDelete(this.props.deck.idDeck);
-
-    this.setState({saved: true});
   }
 
   getColorList () {
@@ -242,12 +227,7 @@ export default class Deckbuilder extends Component {
 	  		}
 	  	}
 
-      var copycode = Object.assign({}, this.props.deck);
-      delete copycode.idDeck;
-      delete copycode.author;
-      delete copycode.list;
-      delete copycode.supercode;
-      var superCode = window.btoa(JSON.stringify(copycode).replace(/"[^\x00-\x7Fàéçâîôêûöïüëäè]"/g, ""));
+      var superCode = encodeDeck(this.props.deck);
 
     	//var nbFigures = listCards.filter(c => c.cardType === "figure").map(c => this.props.deck.cards[c.idCardmodel]).reduce((acc, val) => acc + val, 0);
     	//var nbSpells = listCards.filter(c => c.cardType === "spell").map(c => this.props.deck.cards[c.idCardmodel]).reduce((acc, val) => acc + val, 0);
@@ -293,8 +273,8 @@ export default class Deckbuilder extends Component {
           <div>
         		<div className="half-section deck-image-preview">
         			<Deck src={{name: this.props.deck.name, background: this.props.deck.background, idColor: hero ? hero.idColor : 0, idColor2: hero ? hero.idColor : 0, format: this.props.deck.format }}/>
-        			<button className="menu-button" onClick={this.saveDeck.bind(this)}>{ !this.props.new ? "Modifier" : "Enregistrer" }</button>
-              { !this.props.new ? <button className="red menu-button" onClick={this.deleteDeck.bind(this)}>Supprimer</button> : <span/> }
+        			<button className="menu-button" disabled={this.props.saving} onClick={this.saveDeck.bind(this)}>{ !this.props.new ? "Modifier" : "Enregistrer" }</button>
+              { !this.props.new ? <button className="red menu-button" disabled={this.props.saving} onClick={this.deleteDeck.bind(this)}>Supprimer</button> : <span/> }
         		</div>
         		<div className="half-section">
         			<div className="editor-box">
@@ -312,7 +292,7 @@ export default class Deckbuilder extends Component {
                 <Label for="deck-supercode-form">Supercode</Label>
   	                <Input id="deck-supercode-form" type="textarea" rows="4" value={superCode} onChange={ e => {
   	                    try {
-  	                        var d = JSON.parse(window.atob(e.target.value));
+  	                        var d = importDeck(e.target.value, this.props.deck.idDeck);
   	                        this.props.updateDeck(d, true);
   	                    } catch (e) { }
   	                } }/>

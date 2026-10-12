@@ -50,8 +50,8 @@ test('read retains game rules for spells, artifacts, heroes, levels and mechas',
     .toBe('Sort\nSort bleu, 0 mana\nPiochez.\nSurcharge : 2');
   expect(formatCard({nameCard:'Objet',cardType:'artifact',idColor:4,mana:2,hp:500})).toContain('Durabilité : 500');
   const hero = {nameCard:'Héros',cardType:'hero',idColor:2,idColor2:3,atk:200,hp:6000,range:1,lv2:{atk:400,description:'Effet niveau 2.'}};
-  expect(formatCard(hero)).toContain('Héros rouge / bleu');
-  expect(formatCard(hero)).toContain('Niveau 2 :\n400/6000/1\nEffet niveau 2.');
+  expect(formatCard(hero)).toContain('Héros rouge et bleu\n6000 PV\n\nNv 1\n200/1');
+  expect(formatCard(hero)).toContain('Nv 2\n400/1\nEffet niveau 2.');
   expect(formatCard({nameCard:'Mecha',cardType:'artifact',mecha:true,activation:3,atk:500,hp:1000,range:1,mechactive:{atk:700}})).toContain('Mecha activé :\n700/1000/1');
 });
 

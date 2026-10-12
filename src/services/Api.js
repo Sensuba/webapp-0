@@ -138,14 +138,7 @@ export default class Api {
       User.disconnect();
     });*/
 
-    this.socket.emit("getdecks", User.getData());
-    this.socket.once("decks", data => {
-      if (data.error)
-        this.error(data.error);
-      else {
-        callback(data);
-      }
-    })
+    this.deckRequest('getdecks', [], callback, error);
   }
 
   getCommonDecks (callback, error) {
@@ -171,14 +164,7 @@ export default class Api {
       User.disconnect();
     });*/
 
-    this.socket.emit("savedeck", User.getData(), params);
-    this.socket.once("onsave", data => {
-      if (data.error)
-        this.error(data.error);
-      else {
-        callback(data);
-      }
-    })
+    this.deckRequest('savedeck', [params], callback, error);
   }
 
   deleteDeck (id, callback, error) {
@@ -195,14 +181,25 @@ export default class Api {
       User.disconnect();
     });*/
 
-    this.socket.emit("deletedeck", User.getData(), id);
-    this.socket.once("ondelete", data => {
-      if (data.error)
-        this.error(data.error);
-      else {
-        callback(data);
-      }
-    })
+    this.deckRequest('deletedeck', [id], callback, error);
+  }
+
+  deckRequest (event, args, callback, error) {
+    let completed = false;
+    const timer = setTimeout(() => {
+      if (completed) return;
+      completed = true;
+      if (error) error({error: 'timeout', uncertain: event !== 'getdecks'});
+    }, 15000);
+    // Socket acknowledgements correlate each reply with its own request.
+    this.socket.emit(event, User.getData(), ...args, data => {
+      if (completed) return;
+      completed = true;
+      clearTimeout(timer);
+      if (!data || data.error) {
+        if (error) error(data || {error: 'empty-response'});
+      } else callback(data);
+    });
   }
 
   getReplay (id, callback, error) {

@@ -206,7 +206,10 @@ Figure rouge, 1 mana
 
 L'extension, l'anime, le texte d'ambiance et les illustrations sont omis. Les
 statistiques, effets, types, couleurs, surcharge, niveaux de héros et règles de
-mecha sont conservés. Les rééditions aux règles identiques ne sont affichées
+mecha sont conservés. Les héros affichent leurs PV puis les sections `Nv 1`,
+`Nv 2` et `Nv MAX`, avec attaque, portée et effets à chaque niveau. Les jetons
+sont détaillés après la carte, y compris leurs propres jetons et les variantes
+de même nom aux effets différents. Les rééditions aux règles identiques ne sont affichées
 qu'une fois ; plusieurs versions officielles distinctes sont séparées par une
 ligne vide. Le nom partiel n'est pas utilisé pour choisir arbitrairement une carte.
 

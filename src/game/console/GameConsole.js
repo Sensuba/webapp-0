@@ -10,7 +10,7 @@ Dans un navigateur compatible WebMCP, les mêmes méthodes sont disponibles comm
 Utiliser les noms et schémas annoncés par le navigateur. follow écrit dans les logs console.
 sensuba.view() : affiche et retourne un instantané JSON. view(false) retourne sans afficher.
 sensuba.follow() / sensuba.follow(false) : active / coupe les phrases de suivi des événements de jeu.
-await sensuba.read('Koito Minase') : affiche et retourne le texte d’une carte officielle (author = 0), sans distinction de casse.
+await sensuba.read('Koito Minase') : affiche et retourne le texte d’une carte officielle (author = 0), sans distinction de casse, avec les niveaux du héros et les jetons.
 sensuba.actions() : liste les commandes disponibles et leurs arguments.
 sensuba.targets(carte, ciblesDéjàChoisies = []) : prochaines cibles pour jouer une carte.
 sensuba.play('hand:1', ['me:2', 'opponent:3']) : joue une carte ; [] si aucune cible.
