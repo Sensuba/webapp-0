@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './Game.css';
 import Manager from './Manager';
+import GameConsole from './console/GameConsole';
+import {sendCommand} from './controller/CommandRules';
 import Sequencer from './Sequencer';
 //import Model from './model/board/GameBoard';
 import View from './view/board/GameBoard';
@@ -32,7 +34,7 @@ export default class Game extends Component {
     super(props);
 
     this.store = createStore(reducers);
-    this.store.subscribe(() => {
+    this.unsubscribeStore = this.store.subscribe(() => {
       this.setState({model: this.store.getState()}, () => this.manager.control(this.isPlaying, this.state));
     });
 
@@ -57,6 +59,7 @@ export default class Game extends Component {
 
     this.manager = new Manager(this.state.model, this.command.bind(this), state => state ? this.setState(state) : this.forceUpdate());
     this.sequencer = new Sequencer(this, this.state.model, this.dispatch.bind(this));
+    this.consoleController = new GameConsole(this);
 
     this.volume = localStorage.getItem('sound.sfx') !== undefined ? localStorage.getItem('sound.sfx') : 1;
     var music = Math.random() < 0.33 ? "virgocluster" : (Math.random() < 0.5 ? "planemo" : "auroraborealis");
@@ -218,9 +221,19 @@ export default class Game extends Component {
     }
   }
 
+  componentDidMount () {
+    this.consoleController.mount(window);
+  }
+
+  componentDidUpdate () {
+    this.consoleController.observe();
+  }
+
   componentWillUnmount () {
 
     this.unmounted = true;
+    this.consoleController.dispose();
+    this.unsubscribeStore();
     this.socket.emit('quit');
     this.socket.removeAllListeners();
     this.audio.pause();
@@ -274,6 +287,7 @@ export default class Game extends Component {
     this.dispatching = true;
     compute(this.store.getState(), n, a => {
       this.store.dispatch(a);
+      this.consoleController.observe();
       if (this.nqueue && this.nqueue.length > 0) {
         this.sendToStore(this.nqueue.shift());
       }
@@ -284,7 +298,7 @@ export default class Game extends Component {
 
   command (command) {
 
-    this.socket.emit('command', command);
+    return sendCommand(this, command);
   }
 
   select (e) {

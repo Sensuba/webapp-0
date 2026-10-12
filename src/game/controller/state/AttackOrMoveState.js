@@ -23,7 +23,6 @@ export default class AttackOrMoveState {
 				if (faculty.no === this.card.faculties.length-1)
 					this.manager.command({ type: "param", id: this.card.id, option: "destroy" });
 				else {
-					this.card.secreteffect = target.id.no;
 					this.manager.command({ type: "param", id: this.card.id, option: "seteffect", value: faculty.no });
 				}
 				this.manager.controller = this.def;
@@ -40,7 +39,6 @@ export default class AttackOrMoveState {
 			}
 			return;
 		} else if (target.id.type === "parameter") {
-			this.card.secretcount = target.id.no;
 			this.manager.command({ type: "param", id: this.card.id, option: "setcount", value: target.id.no });
 			this.manager.controller = this.def;
           	this.manager.unselect();

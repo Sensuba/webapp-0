@@ -36,13 +36,17 @@ export default class Manager {
 
 	control (playing, state) {
 
+		this.model = state.model;
+		playing = playing && this.model.started && !this.model.gamestate;
+		this.playing = playing;
 		if (playing && state.model.currentArea.choosebox.opened) {
 			this.controller = new ChooseboxState(this, state.model.currentArea.choosebox);
 			return;
 		}
-		if (this.controller === this.states.waiting) {
+		if (this.controller === this.states.waiting || this.controller instanceof ChooseboxState) {
 			if (playing)
 				this.controller = new PlayingState(this);
+			else this.controller = this.states.waiting;
 		} else {
 			if (!playing)
 				this.controller = this.states.waiting;
@@ -51,6 +55,7 @@ export default class Manager {
 
 	select (target) {
 
+		this.control(this.playing, {model: this.model});
 		this.controller.select(target);
 	}
 
@@ -68,12 +73,12 @@ export default class Manager {
 
 	endTurn () {
 
-		if(this.isPlaying)
+		if(this.isPlaying && !this.model.currentArea.choosebox.opened)
 			this.command({ type: "endturn" });
 	}
 
 	get isPlaying () {
 
-		return !(this.controller === this.states.waiting);
+		return !!this.playing && !!this.model.currentArea && !this.model.gamestate;
 	}
 }

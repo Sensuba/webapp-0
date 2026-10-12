@@ -1,6 +1,6 @@
 import PlayingState from './PlayingState';
 
-export default class WaitForConfirmState {
+export default class ChooseboxState {
 
 	constructor (manager, choosebox) {
 
@@ -11,10 +11,10 @@ export default class WaitForConfirmState {
 
 	select (target) {
 
-		if (target.location && target.location.id.type === "choosebox") {
-			this.manager.command({ type: "choose", id: target.id });
+		if (this.choosebox.opened && target.location === this.choosebox && this.choosebox.hasCard(target)) {
+			const result = this.manager.command({ type: "choose", id: target.id });
+			if (!result || !result.ok) return;
 			this.manager.controller = new PlayingState(this.manager);
-			this.choosebox.close();
 			return;
 		}
 	}
