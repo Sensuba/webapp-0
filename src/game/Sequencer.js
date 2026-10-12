@@ -33,13 +33,14 @@ import Shenron from './view/animation/Shenron';
 
 export default class Sequencer {
 
-	constructor (master, model, dispatch) {
+	constructor (master, model, dispatch, waitForDispatch = false) {
 
 		this.master = master;
 		this.model = model;
 		this.queue = [];
 		this.current = null;
 		this.dispatch = dispatch;
+		this.waitForDispatch = waitForDispatch;
 		this.extraturns = [0, 0];
 		this.currentturn = -1;
 		this.state = 0;
@@ -48,49 +49,56 @@ export default class Sequencer {
 	setState (state) {
 
 		this.state = state;
-		this.next();
+		if (!this.current) this.next();
 	}
 
-	add (n) {
+	add (n, instant = false) {
 
-		if (this.current)
-			this.queue.push(n);
-		else
-			this.read(n);
+		if (this.disposed) return;
+		this.queue.push({notification: n, instant});
+		if (!this.current) this.next();
 	}
 
 	next () {
 
 		this.current = null;
-		if (this.queue.length > 0)
-			this.read(this.queue.shift());
+		if (!this.disposed && this.queue.length > 0) {
+			const entry = this.queue.shift();
+			this.read(entry.notification, entry.instant);
+		}
 	}
 
-	read (n) {
+	dispose () {
+		this.disposed = true;
+		this.queue = [];
+		this.current = null;
+	}
 
-		if (!this.state || this.state === 2) {
-			this.queue.push(n);
+	apply (n, done) {
+		if (this.disposed) return;
+		if (this.waitForDispatch) this.dispatch(n, done);
+		else { this.dispatch(n); done(); }
+	}
+
+	read (n, instant = false) {
+
+		if (!instant && (!this.state || this.state === 2)) {
+			this.queue.unshift({notification: n, instant});
 			return;
 		} 
-		if (this.state === 1 && n.type === "start") {
-			this.queue.unshift(n);
+		if (!instant && this.state === 1 && n.type === "start") {
+			this.queue.unshift({notification: n, instant});
 			this.state = 2;
 			return;
 		}
-		var anim = this.notifToAnim(n);
+		var anim = instant ? null : this.notifToAnim(n);
+		this.current = anim || {sync: true};
+		const next = () => { if (!this.disposed) this.next(); };
 		if (anim) {
-			if (anim.sync)
-				this.current = anim;
-			if (!anim.before)
-				this.dispatch(n);
-			anim.start(() => {
-				if (anim.before)
-					this.dispatch(n);
-				this.next();
-			});
+			if (anim.before) anim.start(() => this.apply(n, next));
+			else this.apply(n, () => { if (!this.disposed) anim.start(next); });
 		} else {
-			this.dispatch(n);
-			this.next();
+			this.apply(n, next);
 		}
 	}
 

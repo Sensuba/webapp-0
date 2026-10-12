@@ -76,6 +76,8 @@ export function boardView(game) {
     version: 1, role: viewer === undefined ? 'spectator' : 'player',
     started: !!model.started, result: model.gamestate,
     connected: !!game.socket && !!game.socket.connected && !game.state.pending,
+    revision: game.revision || 0, receivedRevision: game.receivedRevision || 0,
+    displayRevision: game.displayRevision || 0, updating: !!game.dispatching,
     turn: model.currentArea ? sideName(model.currentArea, viewer) : null,
     players
   }));

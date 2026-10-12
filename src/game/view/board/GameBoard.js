@@ -13,6 +13,7 @@ import Gauge from '../UI/Gauge';
 import EndTurn from '../UI/EndTurn';
 import TextBox from '../UI/TextBox';
 import Avatar from '../../../components/profile/Avatar';
+import {commandError} from '../../controller/CommandRules';
 
 export default class GameBoard extends Component {
 
@@ -73,7 +74,7 @@ export default class GameBoard extends Component {
 	    		<Gauge inverted color="#1e90ff80" value={model.areas[1-no].manapool.mana + model.areas[1-no].manapool.extramana} max={model.areas[1-no].manapool.maxMana}/>
 	    	</div>
 	    	<div className={"sensuba-end-turn-wrapper " + (master.manager ? "" : "hidden")}>
-            <EndTurn master={master} locked={!master.isPlaying || !!(model.currentArea && model.currentArea.choosebox.opened)} extra={model.areas[no].extraTurns} timer={master.state.timer} endTurn={() => master.manager.endTurn()}/>
+            <EndTurn master={master} locked={!master.isPlaying || !!(model.currentArea && model.currentArea.choosebox.opened) || !!commandError(master, {type: 'endturn'})} extra={model.areas[no].extraTurns} timer={master.state.timer} endTurn={() => master.manager.endTurn()}/>
 	    	</div>
 	    	<Area className="sensuba-area-bottom" model={model.areas[no]} master={master}>
 		    	{ model.areas[no].avatar ? <div className="sensuba-avatar-wrapper sensuba-avatar-wrapper-bottom" onClick={no !== undefined && master.role === "player" ? this.props.openConcedeWindow : () => {}}><Avatar src={model.areas[no].avatar}/></div> : <div className="sensuba-avatar-wrapper sensuba-avatar-wrapper-bottom sensuba-blank-avatar-wrapper" onClick={no !== undefined && master.role === "player" ? this.props.openConcedeWindow : () => {}}/> }

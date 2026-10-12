@@ -5,6 +5,12 @@ export default (state, n, callback) => {
   state.log.add({type:n.type, src:n.src, data:n.data});
   let waiter = undefined;
   switch(n.type) {
+    case "init":
+      state.areas[0].name = n.data[0].value;
+      state.areas[0].avatar = n.data[1].value;
+      state.areas[1].name = n.data[3].value;
+      state.areas[1].avatar = n.data[4].value;
+      break;
     case "start":
       state.start();
       break;

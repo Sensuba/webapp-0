@@ -102,6 +102,44 @@ l'envoi, conformément au protocole du client existant.
 
 ## Informations visibles et suivi
 
+### Modèle à jour et modèle d'affichage
+
+Le client maintient deux instances indépendantes du plateau. Le modèle à jour
+(`Game.store`) applique les notifications dans l'ordre de réception, sans attendre
+les animations. `view`, `actions`, `targets`, `follow` et les commandes console /
+WebMCP utilisent ce modèle. La validation finale des commandes souris l'utilise
+également, par identifiants de cartes et de cases.
+
+Le modèle d'affichage (`Game.displayStore`, exposé à React comme `state.model`)
+rejoue les mêmes notifications au rythme du séquenceur. Les animations, la main
+graphique, le plateau et l'historique visuel conservent leur chronologie. Ainsi,
+une carte encore visible pendant sa disparition peut déjà être absente de `view`
+et ne peut plus agir. Les objets des cartes et les données de notifications sont
+séparés entre les deux modèles.
+
+`view()` inclut les compteurs suivants, propres à la partie ouverte :
+
+- `receivedRevision` : nombre de notifications reçues ;
+- `revision` : dernière notification appliquée au modèle à jour ;
+- `displayRevision` : dernière notification appliquée au modèle d'affichage ;
+- `updating` : une notification est encore en cours de traitement. Dans ce cas,
+  attendre puis relire la vue ; les commandes de jeu sont temporairement refusées.
+
+Une différence entre `revision` et `displayRevision` n'empêche pas WebMCP de
+jouer. Une égalité ne garantit pas que tous les effets CSS sont terminés :
+certaines animations se déroulent après l'application de leur notification.
+Ces compteurs ne sont pas des accusés de réception du serveur.
+
+Les choix et paramètres de secrets, qui n'ont pas de notification de confirmation
+dans le protocole actuel, sont appliqués immédiatement au modèle à jour et rejoués
+au même endroit dans la file d'affichage. Un ancien choix ne peut ainsi pas être
+réouvert par le retard des animations. Le suivi n'est produit que par le modèle
+à jour, jamais une deuxième fois par l'affichage. Les replays conservent leur
+modèle unique et ne proposent pas de commandes WebMCP.
+
+« À jour » signifie ici la dernière notification reçue et traitée côté client :
+le délai réseau et la réponse du serveur à une commande restent à prendre en compte.
+
 La vue est une projection par liste de champs autorisés, indépendante du modèle.
 Elle expose les statistiques effectives, états, facultés, marques, progression
 des épreuves, terrains, mana, défausse/cimetière publics et cartes visibles.
@@ -137,8 +175,8 @@ sans en inventer une. Une identité cachée n'est jamais reprise du cache pour u
 pioche ou un secret joué. La révélation publique d'un secret déclenché ou d'une
 carte brûlée permet de nommer cette carte à ce moment-là.
 
-Le message est figé avant que le modèle ne déplace/détruise la carte, puis affiché
-après le traitement de la notification. Un déplacement produit une seule phrase,
+Le message est figé avant que le modèle à jour ne déplace/détruise la carte, puis affiché
+après le traitement de la notification, sans attendre les animations. Un déplacement produit une seule phrase,
 même si le serveur envoie aussi `charmove`. Une carte jouée et son invocation sont
 deux événements distincts de la liste demandée.
 

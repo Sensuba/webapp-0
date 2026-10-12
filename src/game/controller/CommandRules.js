@@ -1,4 +1,6 @@
-// Shared by mouse controls and the console. Never infer ownership from the turn.
+import applyLocalCommand from './LocalCommand';
+
+// Shared by mouse controls and the console. Always use the live board.
 export function commandError(game, command) {
   const board = game.store.getState();
   const area = board.areas[game.no];
@@ -8,6 +10,7 @@ export function commandError(game, command) {
     return 'La partie n’est pas active.';
   if (!game.socket || !game.socket.connected || game.state.pending)
     return 'Connexion au serveur indisponible.';
+  if (game.dispatching) return 'Mise à jour de la partie en cours. Relisez la vue avant de jouer.';
   if (!command || typeof command.type !== 'string') return 'Commande invalide.';
 
   const box = board.currentArea && board.currentArea.choosebox;
@@ -75,14 +78,11 @@ export function sendCommand(game, command) {
   const error = commandError(game, command);
   if (error) return {ok: false, error};
   game.socket.emit('command', command);
-  // The existing protocol has no notification for choice closure or secret settings.
-  if (command.type === 'choose') game.store.getState().currentArea.choosebox.close();
-  if (command.type === 'param') {
-    const card = game.store.getState().find(command.id);
-    if (command.option === 'seteffect') card.secreteffect = command.value;
-    if (command.option === 'setcount') card.secretcount = command.value;
-  }
-  game.manager.control(game.isPlaying, {model: game.store.getState()});
+  if (game.applyLocalCommand) game.applyLocalCommand(command);
+  else applyLocalCommand(game.store.getState(), command, game.no);
+  // Mouse selections refer to display objects. Their final command above is
+  // validated by ID against the live board, never by an outdated object.
+  game.manager.control(game.isPlaying, {model: game.displayStore ? game.displayStore.getState() : game.store.getState()});
   game.forceUpdate();
   return {ok: true, sent: true};
 }

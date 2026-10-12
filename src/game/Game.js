@@ -3,6 +3,7 @@ import './Game.css';
 import Manager from './Manager';
 import GameConsole from './console/GameConsole';
 import {sendCommand} from './controller/CommandRules';
+import applyLocalCommand from './controller/LocalCommand';
 import Sequencer from './Sequencer';
 //import Model from './model/board/GameBoard';
 import View from './view/board/GameBoard';
@@ -34,8 +35,12 @@ export default class Game extends Component {
     super(props);
 
     this.store = createStore(reducers);
-    this.unsubscribeStore = this.store.subscribe(() => {
-      this.setState({model: this.store.getState()}, () => this.manager.control(this.isPlaying, this.state));
+    this.displayStore = createStore(reducers);
+    this.receivedRevision = 0;
+    this.revision = 0;
+    this.displayRevision = 0;
+    this.unsubscribeStore = this.displayStore.subscribe(() => {
+      this.setState({model: this.displayStore.getState()}, () => this.manager.control(this.isPlaying, this.state));
     });
 
     var myDeck = User.getDeck();
@@ -47,7 +52,7 @@ export default class Game extends Component {
 
     this.state = {
 
-      model: this.store.getState(),
+      model: this.displayStore.getState(),
       messages: [],
       deck: d,
       timer: props.room !== undefined,
@@ -58,7 +63,7 @@ export default class Game extends Component {
     this.socket = this.props.getSocket();
 
     this.manager = new Manager(this.state.model, this.command.bind(this), state => state ? this.setState(state) : this.forceUpdate());
-    this.sequencer = new Sequencer(this, this.state.model, this.dispatch.bind(this));
+    this.sequencer = new Sequencer(this, this.state.model, this.dispatchDisplay.bind(this), true);
     this.consoleController = new GameConsole(this);
 
     this.volume = localStorage.getItem('sound.sfx') !== undefined ? localStorage.getItem('sound.sfx') : 1;
@@ -195,7 +200,7 @@ export default class Game extends Component {
       this.setState({credit: {gain: data.credit, total: credit}});
     }
     this.ended = true;
-    this.sequencer.add({type: "end", src: 0, data: [{type: "int", no: data.state}]});
+    this.analyse({type: "end", src: 0, data: [{type: "int", no: data.state}]});
   }
 
   onError (trigger) {
@@ -230,6 +235,8 @@ export default class Game extends Component {
     this.unmounted = true;
     this.consoleController.dispose();
     this.unsubscribeStore();
+    this.sequencer.dispose();
+    this.nqueue = [];
     this.socket.emit('quit');
     this.socket.removeAllListeners();
     this.audio.pause();
@@ -243,15 +250,12 @@ export default class Game extends Component {
 
   analyse (n) {
 
+    if (this.unmounted) return;
     if (n.type === "init") {
       this.props.updateHeroes(n.data[(this.no || 0)*3+2].no, n.data[(1-(this.no || 0))*3+2].no);
-      var model = this.state.model;
-      model.areas[0].name = n.data[0].value;
-      model.areas[0].avatar = n.data[1].value;
-      model.areas[1].name = n.data[3].value;
-      model.areas[1].avatar = n.data[4].value;
-      if (model.areas[this.no])
-        model.areas[this.no].player = true;
+      [this.store, this.displayStore].forEach(store => {
+        if (store.getState().areas[this.no]) store.getState().areas[this.no].player = true;
+      });
     }
     if (n.type === "identify" && this.no !== undefined && n.data[0].cardType === "hero" /*&& this.state.model.areas[this.no].field.tiles[6].occupied && this.state.model.areas[this.no].field.tiles[6].card.id.no === n.data[0].id.no*/) {
       if (this.prevHero)
@@ -264,9 +268,14 @@ export default class Game extends Component {
         window.resetTimer(150 - 30 * Math.min(5, n.data[0]));
     }
     if (n.type === "endturn") this.consoleController.endTurn();
-    if (this.syncstate === "async")
-      this.dispatch(n);
-    else this.sequencer.add(n);
+    // Socket notifications are JSON. Clone separately before either model can
+    // retain/mutate nested card data, blueprints, variables or level definitions.
+    this.dispatch({
+      notification: JSON.parse(JSON.stringify(n)),
+      display: JSON.parse(JSON.stringify(n)),
+      revision: ++this.receivedRevision,
+      instant: this.syncstate === 'async'
+    });
   }
 
   dispatch (n) {
@@ -280,19 +289,49 @@ export default class Game extends Component {
       this.sendToStore(n);
   }
 
-  sendToStore (n) {
+  sendToStore (entry) {
 
+    if (this.unmounted) return;
+    const n = entry.notification;
     this.dispatching = true;
     const followMessage = this.consoleController.capture(n);
     compute(this.store.getState(), n, a => {
+      if (this.unmounted) return;
+      this.revision = entry.revision;
       this.store.dispatch(a);
       this.consoleController.publish(followMessage);
+      this.sequencer.add(Object.assign(entry.display, {clientRevision: entry.revision}), entry.instant);
       if (this.nqueue && this.nqueue.length > 0) {
         this.sendToStore(this.nqueue.shift());
       }
-      else
+      else {
         this.dispatching = false;
+        this.forceUpdate();
+      }
     });
+  }
+
+  dispatchDisplay (n, done) {
+    if (this.unmounted) return;
+    if (n.localCommand) {
+      applyLocalCommand(this.displayStore.getState(), n.localCommand, n.player);
+      this.displayStore.dispatch({type: 'localcommand'});
+      done();
+      return;
+    }
+    compute(this.displayStore.getState(), n, a => {
+      if (this.unmounted) return;
+      this.displayRevision = n.clientRevision;
+      this.displayStore.dispatch(a);
+      done();
+    });
+  }
+
+  applyLocalCommand (command) {
+    if (command.type !== 'choose' && command.type !== 'param') return;
+    applyLocalCommand(this.store.getState(), command, this.no);
+    this.sequencer.add({type: 'localcommand', player: this.no,
+      localCommand: JSON.parse(JSON.stringify(command))}, this.syncstate === 'async');
   }
 
   command (command) {
