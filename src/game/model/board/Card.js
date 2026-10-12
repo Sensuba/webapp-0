@@ -181,6 +181,7 @@ export default class Card {
 		delete this.pilot;
 		delete this.php;
 		delete this.furyState;
+		delete this.furyFirstAttackWasHero;
 		delete this.idCardmodel;
 		delete this.ol;
 		delete this.overload;
@@ -763,7 +764,7 @@ export default class Card {
 			return false;
 		if (!eff.actionPt && (!this.hasState("fury") || eff.furyState !== 1))
 			return false;
-		if (eff.firstTurn && this.hasState("rush") && this.hasState("fury") && eff.furyState === 1 && target.isType("hero"))
+		if (eff.firstTurn && this.hasState("rush") && this.hasState("fury") && eff.furyState === 1 && eff.furyFirstAttackWasHero && target.isType("hero"))
 			return false;
 		if (target.isType("hero") && this.hasState("cannot attack heroes"))
 			return false;
@@ -814,14 +815,16 @@ export default class Card {
 		return this.location.isAdjacentTo(tile);
 	}
 
-	attack (auto) {
+	attack (auto, target) {
 
 		if (auto)
 			return;
 		if (!this.hasState("fury") || this.furyState !== 1) {
 			this.actionPt--;
-			if (this.furyState === 0)
-				this.furyState = 1; 
+			if (this.furyState === 0) {
+				this.furyFirstAttackWasHero = !!target && target.isType("hero");
+				this.furyState = 1;
+			}
 		} else if (!auto && this.hasState("fury") && this.furyState === 1) {
 			this.furyState = 2;
 		}
@@ -883,6 +886,7 @@ export default class Card {
 		this.motionPt = 0;
 		this.firstTurn = true;
 		this.furyState = 0;
+		this.furyFirstAttackWasHero = false;
 	}
 
 	setPoints (action, skill, motion) {
@@ -902,6 +906,7 @@ export default class Card {
 				this.motionPt = 1;
 				this.firstTurn = false;
 				this.furyState = 0;
+				this.furyFirstAttackWasHero = false;
 				delete this.outOfMecha;
 			}
 		}

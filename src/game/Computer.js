@@ -73,7 +73,7 @@ export default (state, n, callback) => {
     case "charattack": {
       let card = state.find(n.src);
       if (card)
-        card.attack(n.data[1].value);
+        card.attack(n.data[1].value, state.find(n.data[0]));
       break; }
     case "damagecard": {
       let card = state.find(n.src);
