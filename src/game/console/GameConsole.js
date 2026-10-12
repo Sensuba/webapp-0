@@ -1,9 +1,13 @@
 import {commandError} from '../controller/CommandRules';
-import {boardView, visibleCard, sideName, changesBetween} from './VisibleBoard';
+import {boardView, visibleCard, sideName} from './VisibleBoard';
+import describeEvent from './FollowEvents';
+import {readOfficial} from './ReadCard';
+import Library from '../../services/Library';
 
 const HELP = `Interface console Sensuba (pendant une partie)
 sensuba.view() : affiche et retourne un instantané JSON. view(false) retourne sans afficher.
-sensuba.follow() / sensuba.follow(false) : active / coupe les changements JSON en console.
+sensuba.follow() / sensuba.follow(false) : active / coupe les phrases de suivi des événements de jeu.
+await sensuba.read('Koito Minase') : affiche et retourne le texte d’une carte officielle (author = 0), sans distinction de casse.
 sensuba.actions() : liste les commandes disponibles et leurs arguments.
 sensuba.targets(carte, ciblesDéjàChoisies = []) : prochaines cibles pour jouer une carte.
 sensuba.play('hand:1', ['me:2', 'opponent:3']) : joue une carte ; [] si aucune cible.
@@ -21,7 +25,10 @@ Cases : avant = 1 2 3 4 ; arrière = 5 6 7 8 9, de gauche à droite à l’écra
 Facultés, cartes en main et choix sont numérotés à partir de 1. Relire view() après les changements.
 Une boîte de choix ouverte n’autorise que choose(). Les lectures restent disponibles.
 Les actions retournent {ok:true, sent:true} (envoi, pas confirmation serveur) ou {ok:false,error}.
-Attendre les changements de follow() / relire view() avant l’action suivante.
+follow() annonce seulement les pioches, déplacements, cartes jouées, invocations, destructions,
+secrets déclenchés, actions, compétences, attaques, tours, brûlures, malédictions et résultats.
+Il avertit à 60 et 30 secondes restantes de votre tour dans une partie chronométrée.
+Attendre les événements de follow() / relire view() avant l’action suivante.
 Les spectateurs n’ont que la lecture publique. Aucun contenu de deck ni de main/secret adverse n’est exposé.`;
 
 export default class GameConsole {
@@ -29,12 +36,14 @@ export default class GameConsole {
     this.game = game;
     this.output = output;
     this.following = false;
-    this.previous = null;
-    this.sequence = 0;
+    this.turnPlayer = null;
+    this.remaining = null;
+    this.timerWarnings = new Set();
     // Only bound operations escape: no game/model/socket handles on window.sensuba.
     this.api = Object.freeze({
       view: (print = true) => this.view(print),
       follow: (enabled = true) => this.follow(enabled),
+      read: name => this.read(name),
       help: () => { this.output.log(HELP); return HELP; },
       actions: () => this.attempt(() => this.actions()),
       targets: (card, selected = []) => this.attempt(() => this.targets(card, selected)),
@@ -86,7 +95,6 @@ export default class GameConsole {
   dispose() {
     this.disposed = true;
     this.following = false;
-    this.previous = null;
     if (this.host && this.host.sensuba === this.api) {
       if (this.former) Object.defineProperty(this.host, 'sensuba', this.former);
       else delete this.host.sensuba;
@@ -141,19 +149,61 @@ export default class GameConsole {
   follow(enabled) {
     return this.attempt(() => {
       if (typeof enabled !== 'boolean') throw new Error('follow attend true ou false.');
+      if (this.following !== enabled) this.output.log(enabled ? 'Suivi activé.' : 'Suivi désactivé.');
       this.following = enabled;
-      this.previous = enabled ? boardView(this.game) : null;
-      if (enabled) this.output.log(JSON.stringify({type: 'snapshot', state: this.previous}));
       return {ok: true, following: enabled};
     });
   }
 
-  observe() {
-    if (!this.following || this.disposed) return;
-    const next = boardView(this.game);
-    const changes = changesBetween(this.previous, next);
-    this.previous = next;
-    if (changes.length) this.output.log(JSON.stringify({type: 'change', sequence: ++this.sequence, changes}));
+  capture(event) {
+    return this.following && !this.disposed ? describeEvent(this.game, event) : null;
+  }
+
+  publish(message) {
+    if (message && this.following && !this.disposed) this.output.log(message);
+  }
+
+  startTurn(player, seconds) {
+    this.turnPlayer = player;
+    this.remaining = seconds + 1;
+    this.timerWarnings.clear();
+  }
+
+  endTurn() { this.turnPlayer = null; }
+
+  timer(seconds) {
+    if (!Number.isFinite(seconds)) return;
+    const previous = this.remaining;
+    this.remaining = seconds;
+    if (this.disposed || !this.following || !this.game.state.timer || this.game.ended || this.game.state.pending
+      || !this.game.socket.connected || this.viewer === undefined || this.turnPlayer !== this.viewer) return;
+    const crossed = [60, 30].filter(limit => !this.timerWarnings.has(limit) && previous > limit && seconds <= limit);
+    crossed.forEach(limit => this.timerWarnings.add(limit));
+    // A resync can skip a threshold: report the actual remaining time once.
+    if (crossed.length && seconds > 0) this.output.log('Il reste ' + Math.ceil(seconds) + ' secondes pour jouer.');
+  }
+
+  async read(query) {
+    try {
+      if (this.disposed || this.game.unmounted) throw new Error('Cette partie est fermée.');
+      if (typeof query !== 'string' || !query.trim()) throw new Error('Indiquez le nom exact d’une carte officielle.');
+      const supplied = this.game.props && this.game.props.cards;
+      const cards = Array.isArray(supplied) && supplied.length ? supplied : await new Promise((resolve, reject) => {
+        const timeout = setTimeout(() => reject(new Error('Catalogue indisponible. Réessayez dans quelques instants.')), 10000);
+        try {
+          Library.getCardList(list => { clearTimeout(timeout); resolve(list || []); });
+        } catch (error) {
+          clearTimeout(timeout);
+          reject(new Error('Catalogue indisponible.'));
+        }
+      });
+      if (this.disposed || this.game.unmounted) throw new Error('Cette partie est fermée.');
+      const text = readOfficial(cards, query);
+      this.output.log(text);
+      return text;
+    } catch (error) {
+      return {ok: false, error: error.message};
+    }
   }
 
   targets(ref, selected) {

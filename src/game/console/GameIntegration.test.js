@@ -28,7 +28,7 @@ function mountedGame() {
 
 afterEach(() => { delete window.sensuba; });
 
-test('real Game dispatch produces one follow record for each consecutive state update', () => {
+test('real Game dispatch follows semantic events and stays silent for bookkeeping', () => {
   const game = mountedGame();
   expect(window.sensuba).toBe(game.consoleController.api);
   window.sensuba.follow();
@@ -36,10 +36,11 @@ test('real Game dispatch produces one follow record for each consecutive state u
   const before = log.mock.calls.length;
   game.analyse({type: 'createmana', src: {type: 'area', no: 0}, data: [{value: true}]});
   game.analyse({type: 'createmana', src: {type: 'area', no: 0}, data: [{value: true}]});
-  game.componentDidUpdate();
-  expect(log.mock.calls.length - before).toBe(2);
+  expect(log.mock.calls.length - before).toBe(0);
   expect(window.sensuba.view(false).players.me.mana.maxMana).toBe(2);
-  expect(JSON.parse(log.mock.calls[before][0]).changes).toContainEqual({path: 'players.me.mana.maxMana', before: 0, after: 1});
+  game.analyse({type: 'endturn', src: {type: 'area', no: 0}, data: []});
+  game.analyse({type: 'newturn', src: {type: 'area', no: 1}, data: [0]});
+  expect(log.mock.calls.slice(before).map(call => call[0])).toEqual(['Votre tour se termine.', 'Le tour adverse commence.']);
   game.componentWillUnmount();
   expect(window.sensuba).toBeUndefined();
 });

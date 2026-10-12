@@ -256,40 +256,30 @@ test('actions discovers movement, attack, faculties, plays, secret options and t
   ['play','move','attack','faculty','secret','endTurn','concede'].forEach(method => expect(methods).toContain(method));
 });
 
-test('follow emits immutable filtered changes with 1-based positions, hides private changes, and stops', () => {
+test('follow uses frozen human sentences, masks hidden draws and stops', () => {
   const f = fixture();
-  const publicCard = f.card(f.opponent.field.tiles[8]);
   const privateCard = f.card(f.opponent.hand, {nameCard:'PRIVATE'});
   f.api.follow();
-  privateCard.nameCard = 'PRIVATE_CHANGED';
-  f.controller.observe();
-  expect(f.output.log).toHaveBeenCalledTimes(1);
-  publicCard.chp -= 100;
-  f.controller.observe();
-  expect(JSON.parse(f.output.log.mock.calls[1][0]).changes).toContainEqual({
-    path: 'players.opponent.board.9.card.chp', before: 500, after: 400
-  });
-  expect(JSON.stringify(f.output.log.mock.calls)).not.toMatch(/PRIVATE/);
-  const originalLog = f.output.log.mock.calls[1][0];
-  publicCard.chp = 10;
-  expect(f.output.log.mock.calls[1][0]).toBe(originalLog);
+  const draw = {type:'draw', src:f.opponent.id, data:[privateCard.id]};
+  const message = f.controller.capture(draw);
+  privateCard.nameCard = 'CHANGED';
+  f.controller.publish(message);
+  expect(f.output.log.mock.calls.map(call => call[0])).toEqual(['Suivi activé.', 'L’adversaire pioche une carte.']);
   f.api.follow(false);
-  f.controller.observe();
-  expect(f.output.log).toHaveBeenCalledTimes(2);
+  f.controller.publish(f.controller.capture(draw));
+  expect(f.output.log).toHaveBeenCalledTimes(3);
 });
 
-test('follow reports hidden draws as counts and tracks choice opening / closing and settings', () => {
+test('follow ignores bookkeeping, damage, choice UI and local secret settings', () => {
   const f = fixture();
   f.api.follow();
-  f.card(f.opponent.hand, {nameCard:'PRIVATE'});
-  f.controller.observe();
-  expect(JSON.parse(f.output.log.mock.calls[1][0]).changes).toContainEqual({path:'players.opponent.hand.count', before:0, after:1});
+  ['identify','setstate','damagecard','usemana','charattack-extra','openchoosebox','cleanup','charmove'].forEach(type => {
+    f.controller.publish(f.controller.capture({type,src:f.me.id,data:[]}));
+  });
   f.card(f.me.choosebox);
-  f.me.choosebox.open(); f.controller.observe();
+  f.me.choosebox.open();
   f.api.choose(1);
-  const changes = f.output.log.mock.calls.slice(1).map(call => JSON.parse(call[0]).changes).reduce((a,b) => a.concat(b), []);
-  expect(changes).toContainEqual({path:'players.me.choosebox.opened', before:false, after:true});
-  expect(changes).toContainEqual({path:'players.me.choosebox.opened', before:true, after:false});
+  expect(f.output.log).toHaveBeenCalledTimes(1);
 });
 
 test('mount and dispose restore previous global, stop follow and invalidate captured commands', () => {

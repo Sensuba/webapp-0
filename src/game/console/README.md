@@ -7,9 +7,10 @@ lecteur de replays. `sensuba.help()` affiche l'aide dans la console du navigateu
 ```js
 sensuba.view();                 // JSON affiché et copie retournée
 const board = sensuba.view(false); // copie sans affichage
-sensuba.follow();               // instantané puis différences JSON
+sensuba.follow();               // phrases lisibles pour les événements de jeu
 sensuba.follow(false);
 sensuba.actions();              // découvre les commandes actuellement autorisées
+await sensuba.read('koito minase'); // texte d'une carte officielle
 ```
 
 ## Références et numérotation
@@ -73,18 +74,61 @@ ne sont jamais sérialisés.
 Le spectateur obtient les camps `player1` et `player2`, uniquement en lecture
 publique. Il ne peut pas émettre de commande via cette interface.
 
-`follow()` affiche un instantané initial puis chaque différence de la projection
-après traitement d'une notification ou changement local. Les logs sont des
-chaînes JSON figées, pas des objets évalués plus tard par les outils développeur :
+`follow()` affiche uniquement les événements suivants : pioche, déplacement entre
+cases du terrain, carte jouée, invocation, entité détruite, secret déclenché,
+action, compétence, attaque, début/fin de tour, carte brûlée/détruite du deck,
+malédiction du deck, victoire/défaite (ou égalité). Les changements de mana,
+statistiques, états et d'interface ne génèrent pas de messages supplémentaires.
 
-```json
-{"type":"change","sequence":1,"changes":[{"path":"players.opponent.board.9.card.chp","before":500,"after":400}]}
+```text
+Votre tour commence.
+Vous piochez Koito Minase.
+Koito Minase (case 3 de votre camp) attaque Héros (case 9 du camp adverse).
+L’adversaire joue un secret en case 2 du camp adverse.
+Il reste 60 secondes pour jouer.
 ```
 
-Les indices des tableaux dans les chemins commencent à **1**. Les changements
-invisibles ne produisent aucun message ; une pioche adverse apparaît comme un
-changement de taille de main/deck. `follow(false)` arrête le suivi. La sortie de
-partie désactive aussi les anciennes références à l'interface.
+Les messages incluent les cibles transmises par les notifications, même si la
+case cible est vide. Pour les secrets déclenchés, le protocole actuel fournit
+le texte de l'effet mais ne transmet pas de cible : le suivi affiche cet effet
+sans en inventer une. Une identité cachée n'est jamais reprise du cache pour une
+pioche ou un secret joué. La révélation publique d'un secret déclenché ou d'une
+carte brûlée permet de nommer cette carte à ce moment-là.
+
+Le message est figé avant que le modèle ne déplace/détruise la carte, puis affiché
+après le traitement de la notification. Un déplacement produit une seule phrase,
+même si le serveur envoie aussi `charmove`. Une carte jouée et son invocation sont
+deux événements distincts de la liste demandée.
+
+Dans les parties chronométrées, des avertissements sont émis à **60 et 30 secondes**
+restantes de votre propre tour, une fois par seuil et par tour (y compris bonus).
+Ils utilisent le même compte à rebours que l'interface graphique. Si une
+resynchronisation saute un seuil, le message indique le temps réellement restant.
+Activer le suivi après un seuil ne rejoue pas l'avertissement passé. Les tours
+adverses, les spectateurs et les parties sans chronomètre n'ont pas ces alertes.
+`follow(false)` arrête le suivi. La sortie de partie désactive aussi les anciennes
+références à l'interface.
+
+## Lire une carte officielle
+
+`await sensuba.read(nom)` recherche le nom exact sans distinction de casse, en
+ignorant les espaces au début et à la fin, uniquement parmi les cartes dont
+`author` vaut `0` (nombre ou chaîne). Le catalogue chargé par le jeu est utilisé,
+jamais les identités cachées du plateau. Le résultat est affiché et retourné
+sous forme de texte ; en cas d'échec, `{ok: false, error}` est retourné.
+
+```text
+Koito Minase
+Figure rouge, 1 mana
+200/500/1
+! : Fait reculer un personnage adverse.
+```
+
+L'extension, l'anime, le texte d'ambiance et les illustrations sont omis. Les
+statistiques, effets, types, couleurs, surcharge, niveaux de héros et règles de
+mecha sont conservés. Les rééditions aux règles identiques ne sont affichées
+qu'une fois ; plusieurs versions officielles distinctes sont séparées par une
+ligne vide. Le nom partiel n'est pas utilisé pour choisir arbitrairement une carte.
 
 ## Contrôle et validation
 
@@ -92,7 +136,7 @@ La souris et la console passent par le même validateur avant l'émission Socket
 joueur connecté, partie active, propriété de la carte, tour, mana, points d'action,
 cibles, paramètres de secrets et règles du modèle (dont rush/fury).
 Une boîte de choix ouverte bloque toutes les autres commandes, y compris fin
-du tour et abandon. Les lectures `view`, `follow`, `help`, `actions` restent permises.
+du tour et abandon. Les lectures `view`, `follow`, `read`, `help`, `actions` restent permises.
 Le bouton graphique de fin du tour est également verrouillé.
 
 Ce changement porte sur le client. Il ne modifie pas la validation du serveur
@@ -102,7 +146,7 @@ pour des clients qui fabriqueraient leurs propres messages Socket.IO.
 
 ```powershell
 $env:CI='true'
-npm test -- --runInBand 'GameConsole|GameIntegration'
+npm test -- --runInBand 'GameConsole|GameIntegration|FollowRead'
 $env:NODE_OPTIONS='--openssl-legacy-provider'
 npm run build
 ```

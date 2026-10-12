@@ -12,6 +12,7 @@ export default class EndTurn extends Component {
 
   componentWillUnmount () {
 
+    if (this.interval) clearInterval(this.interval);
     delete window.resetTimer;
   }
 
@@ -20,6 +21,7 @@ export default class EndTurn extends Component {
     if (this.interval)
       clearInterval(this.interval);
     this.setState({timer});
+    if (this.props.master.consoleController) this.props.master.consoleController.timer(timer);
     this.interval = setInterval(() => this.decrement(), 1000);
   }
 
@@ -36,6 +38,7 @@ export default class EndTurn extends Component {
       return;
     }
     this.setState({timer: ctime-1});
+    if (this.props.master.consoleController) this.props.master.consoleController.timer(ctime-1);
   }
 
   render () {

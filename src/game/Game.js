@@ -225,10 +225,6 @@ export default class Game extends Component {
     this.consoleController.mount(window);
   }
 
-  componentDidUpdate () {
-    this.consoleController.observe();
-  }
-
   componentWillUnmount () {
 
     this.unmounted = true;
@@ -263,9 +259,11 @@ export default class Game extends Component {
       else this.prevHero = n.data[0];
     }
     if (n.type === "newturn") {
+      this.consoleController.startTurn(n.src.no, 150 - 30 * Math.min(5, n.data[0]));
       if (window.resetTimer)
         window.resetTimer(150 - 30 * Math.min(5, n.data[0]));
     }
+    if (n.type === "endturn") this.consoleController.endTurn();
     if (this.syncstate === "async")
       this.dispatch(n);
     else this.sequencer.add(n);
@@ -285,9 +283,10 @@ export default class Game extends Component {
   sendToStore (n) {
 
     this.dispatching = true;
+    const followMessage = this.consoleController.capture(n);
     compute(this.store.getState(), n, a => {
       this.store.dispatch(a);
-      this.consoleController.observe();
+      this.consoleController.publish(followMessage);
       if (this.nqueue && this.nqueue.length > 0) {
         this.sendToStore(this.nqueue.shift());
       }

@@ -83,7 +83,6 @@ export function sendCommand(game, command) {
     if (command.option === 'setcount') card.secretcount = command.value;
   }
   game.manager.control(game.isPlaying, {model: game.store.getState()});
-  game.consoleController.observe();
   game.forceUpdate();
   return {ok: true, sent: true};
 }
