@@ -61,6 +61,36 @@ test('view hides even previously identified private cards, both decks and oppone
   expect(f.game.socket.emit).not.toHaveBeenCalled();
 });
 
+test('WebMCP uses real visibility and choice/ownership guards, and unmount removes tools', async () => {
+  const f = fixture();
+  const tools = new Map();
+  const host = {navigator: {modelContext: {
+    registerTool: tool => tools.set(tool.name, tool),
+    unregisterTool: name => tools.delete(name)
+  }}};
+  f.card(f.opponent.hand, {nameCard: 'HIDDEN_HAND'});
+  f.card(f.opponent.field.tiles[1], {cardType: 'secret', nameCard: 'HIDDEN_SECRET'});
+  f.card(f.me.deck, {nameCard: 'HIDDEN_DECK'});
+  f.card(f.me.choosebox);
+  f.me.choosebox.open();
+  f.controller.mount(host);
+  await f.controller.webmcp.ready;
+  const call = async (method, input = {}) => JSON.parse((await tools.get('sensuba_' + method).execute(input)).content[0].text);
+  expect(JSON.stringify(await call('view'))).not.toMatch(/HIDDEN/);
+  expect((await call('endTurn')).ok).toBe(false);
+  expect((await call('concede')).ok).toBe(false);
+  expect(f.game.socket.emit).not.toHaveBeenCalled();
+  expect(await call('actions')).toEqual([{method: 'choose', args: [1]}]);
+  expect((await call('choose', {number: 1})).sent).toBe(true);
+  expect(f.me.choosebox.opened).toBe(false);
+  expect((await call('endTurn')).sent).toBe(true);
+  f.game.role = 'spectator';
+  expect((await call('concede')).ok).toBe(false);
+  f.controller.dispose();
+  expect(tools.size).toBe(0);
+  expect(host.sensuba).toBeUndefined();
+});
+
 test('view is detached JSON with no internal references, arbitrary fields or functions', () => {
   const f = fixture();
   const card = f.card(f.me.field.tiles[0], {variables: {password: 'PRIVATE', sakuramark: true}, blueprint: {data: 'PRIVATE'},

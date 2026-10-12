@@ -3,8 +3,11 @@ import {boardView, visibleCard, sideName} from './VisibleBoard';
 import describeEvent from './FollowEvents';
 import {readOfficial} from './ReadCard';
 import Library from '../../services/Library';
+import registerWebMCP from './WebMCP';
 
 const HELP = `Interface console Sensuba (pendant une partie)
+Dans un navigateur compatible WebMCP, les mêmes méthodes sont disponibles comme outils sensuba_<méthode>.
+Utiliser les noms et schémas annoncés par le navigateur. follow écrit dans les logs console.
 sensuba.view() : affiche et retourne un instantané JSON. view(false) retourne sans afficher.
 sensuba.follow() / sensuba.follow(false) : active / coupe les phrases de suivi des événements de jeu.
 await sensuba.read('Koito Minase') : affiche et retourne le texte d’une carte officielle (author = 0), sans distinction de casse.
@@ -89,12 +92,14 @@ export default class GameConsole {
     this.host = host;
     this.former = Object.getOwnPropertyDescriptor(host, 'sensuba');
     Object.defineProperty(host, 'sensuba', {configurable: true, value: this.api});
+    this.webmcp = registerWebMCP(host, this.api, this.output);
     this.output.log('Console Sensuba disponible : sensuba.help()');
   }
 
   dispose() {
     this.disposed = true;
     this.following = false;
+    if (this.webmcp) this.webmcp.dispose();
     if (this.host && this.host.sensuba === this.api) {
       if (this.former) Object.defineProperty(this.host, 'sensuba', this.former);
       else delete this.host.sensuba;

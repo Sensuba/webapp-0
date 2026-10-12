@@ -13,6 +13,48 @@ sensuba.actions();              // découvre les commandes actuellement autoris�
 await sensuba.read('koito minase'); // texte d'une carte officielle
 ```
 
+## Accès par les agents : WebMCP
+
+Pendant une partie, les mêmes opérations sont enregistrées comme outils WebMCP
+si le navigateur le prend en charge. Le navigateur intégré de Codex peut ainsi
+les découvrir et les appeler sans exécuter du JavaScript arbitraire dans la page.
+La console `sensuba.*` reste disponible pour les humains.
+
+| Outil | Arguments JSON |
+| --- | --- |
+| `sensuba_view` | `{}` |
+| `sensuba_help` | `{}` |
+| `sensuba_read` | `{"name":"Koito Minase"}` |
+| `sensuba_follow` | `{"enabled":true}` (true par défaut) |
+| `sensuba_actions` | `{}` |
+| `sensuba_targets` | `{"card":"hand:1","selected":[]}` |
+| `sensuba_play` | `{"card":"hand:1","targets":["me:3"]}` |
+| `sensuba_attack` | `{"card":"me:1","target":"opponent:7"}` |
+| `sensuba_move` | `{"card":"me:1","target":"me:2"}` |
+| `sensuba_faculty` | `{"card":"me:7","number":1,"target":"opponent:2"}` (target facultatif) |
+| `sensuba_secret` | `{"card":"me:1","setting":"count","value":0}` |
+| `sensuba_choose` | `{"number":1}` |
+| `sensuba_endTurn` | `{}` |
+| `sensuba_concede` | `{}` |
+
+Les agents doivent utiliser les noms annoncés par leur navigateur, qui peut
+ajouter un identifiant aux noms ci-dessus. `sensuba_actions` renvoie les noms
+de méthodes console (`choose`, `play`, etc.) : appeler l'outil correspondant.
+`follow` active les phrases dans les **logs console** ; il ne crée pas de flux
+de messages asynchrones dans les réponses WebMCP. Lire les logs pour le suivi,
+et relire `sensuba_view` avant de prendre la décision suivante.
+
+L'adaptateur appelle exclusivement l'API console : les restrictions de visibilité,
+de rôle et de choix restent les mêmes. Les réponses sont des blocs texte MCP
+(texte de carte/aide, ou JSON), avec `isError: true` en cas de refus. Les outils
+sont retirés à la fermeture de la partie et leurs anciennes références deviennent
+inactives. Hors partie et dans les replays, ils ne sont pas enregistrés.
+
+L'intégration utilise `document.modelContext.registerTool` et un signal
+d'annulation pour le nettoyage. Elle prend aussi en charge l'ancienne API
+`navigator.modelContext`/`unregisterTool`. Sans WebMCP, le jeu et la console
+continuent de fonctionner sans installer de polyfill ni de dépendance.
+
 ## Références et numérotation
 
 - `me:1` à `me:9` : cases du joueur ; `opponent:1` à `opponent:9` : adversaire.
@@ -146,7 +188,7 @@ pour des clients qui fabriqueraient leurs propres messages Socket.IO.
 
 ```powershell
 $env:CI='true'
-npm test -- --runInBand 'GameConsole|GameIntegration|FollowRead'
+npm test -- --runInBand 'GameConsole|GameIntegration|FollowRead|WebMCP'
 $env:NODE_OPTIONS='--openssl-legacy-provider'
 npm run build
 ```
