@@ -52,6 +52,15 @@ export default class DeckbuilderPage extends Component {
 	  	this.state.cardlist = this.loadCardlist();
 	}
 
+  componentDidMount() {
+    if (this.props.consoleTools) this.props.consoleTools.attachEditor(this);
+  }
+
+  componentWillUnmount() {
+    this.unmounted = true;
+    if (this.props.consoleTools) this.props.consoleTools.detachEditor(this);
+  }
+
   get draft () {
 
     return this.props.type === "draft";
@@ -104,12 +113,12 @@ export default class DeckbuilderPage extends Component {
   	this.setState({cardlist: cl, deck: d});
   }
 
-  updateDeck (deck, update=false) {
+  updateDeck (deck, update=false, done) {
 
   	deck = deck || this.state.deck;
     deck = deckContent(deck);
     if (!this.state.new) deck.idDeck = this.deckId;
-  	this.setState({cardlist: this.loadCardlist(deck.format), deck}, update ? () => this.updateFormat(this.findFormat()) : undefined);
+  	this.setState({cardlist: this.loadCardlist(deck.format), deck}, update ? () => { this.updateFormat(this.findFormat()); if (done) done(); } : done);
   }
 
   loadCardlist(format) {
@@ -122,7 +131,7 @@ export default class DeckbuilderPage extends Component {
   	return this.formats[format].cardlist;
   }
 
-  onSave (params, playable) {
+  onSave (params, playable, done) {
     if (this.saving) return;
     this.saving = true;
     this.setState({saving: true, error: null});
@@ -133,8 +142,12 @@ export default class DeckbuilderPage extends Component {
       this.deckId = id;
       this.setState({new: false});
       if (playable) User.updateDeck(Object.assign({}, playable, {id}));
-      this.refreshDecks();
-    }, error => this.mutationFailed(error, 'Le deck n’a pas été enregistré. Réessayez.'));
+      this.refreshDecks(done);
+    }, error => {
+      this.mutationFailed(error, 'Le deck n’a pas été enregistré. Réessayez.');
+      if (done) done({ok: false, uncertain: !!(error && error.uncertain), error: error && error.uncertain
+        ? 'Réponse incertaine. Rechargez pour vérifier le deck avant de réessayer.' : 'Le deck n’a pas été enregistré.'});
+    });
   }
 
   failed (error) {
@@ -148,9 +161,14 @@ export default class DeckbuilderPage extends Component {
     } else this.failed(message);
   }
 
-  refreshDecks () {
-    this.props.updateDecks(() => this.props.history.push('/decks'),
-      () => this.failed('Modification enregistrée, mais la liste n’a pas pu être actualisée. Rechargez la page.'));
+  refreshDecks (done) {
+    this.props.updateDecks(() => {
+      this.props.history.push('/decks');
+      if (done) done({ok: true, saved: true, id: Number(this.deckId)});
+    }, () => {
+      this.failed('Modification enregistrée, mais la liste n’a pas pu être actualisée. Rechargez la page.');
+      if (done) done({ok: true, saved: true, id: Number(this.deckId), warning: 'La liste n’a pas pu être actualisée. Rechargez la page.'});
+    });
   }
 
   onDelete () {
@@ -186,7 +204,7 @@ export default class DeckbuilderPage extends Component {
 	      		{
 	      			this.state.deck.hero ?
 	      			(this.props.cards && this.props.cards.length > 0 ?
-		      			<Deckbuilder ref={this.builder} isGhost={(c, i) => this.isGhost(c, i)} list={this.state.list} new={this.state.new} saving={this.state.saving} onSave={this.onSave.bind(this)} onDelete={this.onDelete.bind(this)} updateDeck={this.updateDeck.bind(this)} updateFormat={this.updateFormat.bind(this)} deck={this.state.deck} cards={this.state.cardlist} type={this.props.type}/>
+		      			<Deckbuilder ref={builder => { this.builder = builder; }} isGhost={(c, i) => this.isGhost(c, i)} list={this.state.list} new={this.state.new} saving={this.state.saving} onSave={this.onSave.bind(this)} onDelete={this.onDelete.bind(this)} updateDeck={this.updateDeck.bind(this)} updateFormat={this.updateFormat.bind(this)} deck={this.state.deck} cards={this.state.cardlist} type={this.props.type}/>
 		      			: <span/>
 	      			)
 	      			:

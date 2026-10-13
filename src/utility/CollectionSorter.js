@@ -86,13 +86,15 @@ export default (() => {
 
 	var opFilter = (attr, value, op) => {
 
+    const present = card => card[attr] !== undefined && card[attr] !== null && card[attr] !== '';
+
 		switch (op) {
-		case "1": return card => card[attr] && parseInt(card[attr], 10) > value;
-		case "2": return card => card[attr] && parseInt(card[attr], 10) >= value;
-		case "3": return card => card[attr] && parseInt(card[attr], 10) === value;
-		case "4": return card => !card[attr] || parseInt(card[attr], 10) !== value;
-		case "5": return card => card[attr] && parseInt(card[attr], 10) <= value;
-		case "6": return card => card[attr] && parseInt(card[attr], 10) < value;
+		case "1": return card => present(card) && parseInt(card[attr], 10) > value;
+		case "2": return card => present(card) && parseInt(card[attr], 10) >= value;
+		case "3": return card => present(card) && parseInt(card[attr], 10) === value;
+		case "4": return card => !present(card) || parseInt(card[attr], 10) !== value;
+		case "5": return card => present(card) && parseInt(card[attr], 10) <= value;
+		case "6": return card => present(card) && parseInt(card[attr], 10) < value;
 		default: return card => true;
 		}
 	}

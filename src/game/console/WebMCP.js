@@ -4,7 +4,7 @@ const tiles = {type: 'array', items: tile};
 const number = {type: 'integer', minimum: 1};
 
 // The adapter only receives the public console API, never the model or socket.
-const definitions = [
+export const definitions = [
   ['view', 'Lit le plateau en JSON, sans informations cachées. À relire après chaque action.', {}, [], () => [false], true],
   ['help', 'Explique les commandes Sensuba, les références et les règles de contrôle.', {}, [], () => [], true],
   ['read', 'Lit une carte officielle (author = 0) par son nom exact, sans distinction de casse.', {name: {type: 'string', minLength: 1}}, ['name'], a => [a.name], true],
@@ -22,9 +22,13 @@ const definitions = [
   ['concede', 'Abandonne immédiatement la partie. Interdit tant que votre boîte de choix est ouverte.', {}, [], () => []]
 ];
 
-function valid(value, schema) {
+export function valid(value, schema) {
+  if (schema.type === 'object') return !!value && typeof value === 'object' && !Array.isArray(value)
+    && (schema.required || []).every(key => Object.prototype.hasOwnProperty.call(value, key))
+    && Object.keys(value).every(key => Object.prototype.hasOwnProperty.call(schema.properties, key) && valid(value[key], schema.properties[key]));
   if (schema.type === 'array') return Array.isArray(value) && value.every(item => valid(item, schema.items));
-  if (schema.type === 'integer') return Number.isInteger(value) && value >= schema.minimum;
+  if (schema.type === 'integer') return Number.isSafeInteger(value) && (schema.minimum === undefined || value >= schema.minimum)
+    && (schema.maximum === undefined || value <= schema.maximum);
   if (typeof value !== schema.type) return false;
   if (schema.enum && schema.enum.indexOf(value) < 0) return false;
   if (schema.pattern && !new RegExp(schema.pattern).test(value)) return false;
@@ -36,14 +40,14 @@ function result(value) {
   return {content: [{type: 'text', text: typeof value === 'string' ? value : JSON.stringify(value)}], isError: !!(value && value.ok === false)};
 }
 
-function createTool(api, [method, description, properties, required, args, readOnly = false], isDisposed) {
+function createTool(api, [method, description, properties, required, args, readOnly = false], isDisposed, game) {
   return {
     name: 'sensuba_' + method,
-    description: description + (readOnly || method === 'follow' ? '' : ' Retour sent=true signifie envoi, pas confirmation serveur. Relire sensuba_view avant l’action suivante.'),
+    description: description + (!game || readOnly || method === 'follow' ? '' : ' Retour sent=true signifie envoi, pas confirmation serveur. Relire sensuba_view avant l’action suivante.'),
     inputSchema: {type: 'object', properties, required, additionalProperties: false},
     annotations: {readOnlyHint: readOnly},
     execute: async (input = {}) => {
-      if (isDisposed()) return result({ok: false, error: 'Cette partie est fermée.'});
+      if (isDisposed()) return result({ok: false, error: 'Cette interface est fermée.'});
       if (!input || typeof input !== 'object' || Array.isArray(input)
         || required.some(key => !Object.prototype.hasOwnProperty.call(input, key))
         || Object.keys(input).some(key => !Object.prototype.hasOwnProperty.call(properties, key) || !valid(input[key], properties[key])))
@@ -54,7 +58,7 @@ function createTool(api, [method, description, properties, required, args, readO
   };
 }
 
-export default function registerWebMCP(host, api, output) {
+export default function registerWebMCP(host, api, output, selected = definitions, game = true) {
   const modern = host.document && host.document.modelContext;
   const context = modern || (host.navigator && host.navigator.modelContext);
   if (!context || typeof context.registerTool !== 'function') return {ready: Promise.resolve(false), dispose() {}};
@@ -72,9 +76,9 @@ export default function registerWebMCP(host, api, output) {
   const dispose = () => { disposed = true; remove(); };
   const ready = (async () => {
     try {
-      for (const definition of definitions) {
+      for (const definition of selected) {
         if (disposed) return false;
-        const tool = createTool(api, definition, isDisposed);
+        const tool = createTool(api, definition, isDisposed, game);
         await context.registerTool(tool, abort ? {signal: abort.signal} : undefined);
         names.push(tool.name);
         if (disposed) { remove(); return false; }

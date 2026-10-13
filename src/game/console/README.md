@@ -1,8 +1,34 @@
 # Console de jeu Sensuba
 
-L'interface `window.sensuba` est installée à l'entrée dans une partie (salle,
-entraînement ou mission) et retirée à sa fermeture. Elle ne concerne pas le
-lecteur de replays. `sensuba.help()` affiche l'aide dans la console du navigateur.
+Les commandes globales `read`, `help`, `searchCards`, `readCards`, `decks`,
+`deckNew`, `deckOpen`, `deckView`, `deckUpdate` et `deckSave` sont disponibles sur
+toutes les pages. La recherche utilise les filtres de la page Cartes, sur le
+catalogue officiel uniquement, sans changer de page. `readCards` reprend les
+derniers filtres et retourne le texte complet, niveaux et jetons inclus.
+Chaque méthode est aussi un outil WebMCP `sensuba_<nom>` avec son schéma.
+
+```js
+await sensuba.searchCards({filters: {type: 'figure', colors: [0, 2], mana: 2, manaop: '5'}});
+await sensuba.readCards({page: 1, limit: 10});
+await sensuba.decks();
+await sensuba.deckNew(); // ou deckOpen(id), depuis la liste ci-dessus
+await sensuba.deckUpdate({hero: 3, name: 'Mon deck', cards: [{id: 775, count: 1}]});
+await sensuba.deckView();
+await sensuba.deckSave();
+```
+
+`deckUpdate` travaille sur l'éditeur visible, sans enregistrer. Les quantités sont
+absolues (0 retire la carte), `clearCards: true` vide d'abord la liste, et
+`supercode` seul importe un contenu sans changer l'identité ni le format ouvert.
+L'import ignore les anciens IDs intégrés au code. Un deck incomplet peut être
+enregistré. Les commandes vérifient connexion, composition et confirmation
+serveur ; après une réponse incertaine, recharger avant de réessayer.
+Les tests de création/édition utilisent des enregistrements simulés.
+
+Les commandes de partie complètent `window.sensuba` à l'entrée dans une partie (salle,
+entraînement ou mission) et sont retirées à sa fermeture. Les commandes globales
+restent disponibles, y compris dans le lecteur de replays. `sensuba.help()`
+affiche l'aide dans la console du navigateur.
 
 ```js
 sensuba.view();                 // JSON affiché et copie retournée

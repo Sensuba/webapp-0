@@ -146,7 +146,7 @@ export default class Deckbuilder extends Component {
   	tooltip.setAttribute("style", `display: none`);
   }
 
-  saveDeck() {
+  saveDeck(done) {
 
     if (this.props.saving)
       return;
@@ -184,7 +184,7 @@ export default class Deckbuilder extends Component {
     if (!this.props.new)
       params.id = this.props.deck.idDeck;
 
-    this.props.onSave(params, playable ? res : null);
+    this.props.onSave(params, playable ? res : null, typeof done === 'function' ? done : undefined);
   }
 
   deleteDeck() {

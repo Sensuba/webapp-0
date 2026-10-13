@@ -3,7 +3,8 @@ import {boardView, visibleCard, sideName} from './VisibleBoard';
 import describeEvent from './FollowEvents';
 import {readOfficial} from './ReadCard';
 import Library from '../../services/Library';
-import registerWebMCP from './WebMCP';
+import registerWebMCP, {definitions} from './WebMCP';
+import {appConsoleFor} from '../../services/AppConsole';
 import {chatMessage, sendChat} from '../Chat';
 
 const HELP = `Interface console Sensuba (pendant une partie)
@@ -94,13 +95,20 @@ export default class GameConsole {
   mount(host) {
     this.host = host;
     this.former = Object.getOwnPropertyDescriptor(host, 'sensuba');
+    this.globalConsole = appConsoleFor(host);
+    if (this.globalConsole) {
+      this.globalConsole.gameHelp = HELP;
+      this.api = Object.freeze(Object.assign({}, this.api, this.globalConsole.api));
+    }
     Object.defineProperty(host, 'sensuba', {configurable: true, value: this.api});
-    this.webmcp = registerWebMCP(host, this.api, this.output);
+    this.webmcp = registerWebMCP(host, this.api, this.output,
+      this.globalConsole ? definitions.filter(d => d[0] !== 'read' && d[0] !== 'help') : definitions);
     this.output.log('Console Sensuba disponible : sensuba.help()');
   }
 
   dispose() {
     this.disposed = true;
+    if (this.globalConsole) this.globalConsole.gameHelp = null;
     this.following = false;
     if (this.webmcp) this.webmcp.dispose();
     if (this.host && this.host.sensuba === this.api) {

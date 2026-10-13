@@ -23,6 +23,7 @@ import Library from '../services/Library';
 import io from 'socket.io-client';
 import sorter from '../utility/CollectionSorter';
 import { decodeDeck } from '../services/DeckData';
+import AppConsole from '../services/AppConsole';
 
 const serverURL = 'https://sensuba-server.francecentral.cloudapp.azure.com'/* || 'https://sensuba.herokuapp.com/'*/;
 
@@ -36,6 +37,8 @@ export default class App extends Component {
 
     super(props);
     this.state = { browser: this.checkBrowser() };
+    this.consoleTools = new AppConsole(this);
+    this.consoleTools.mount();
 
     this.socket = { connected: false, removeAllListeners: () => {}, emit: () => {}, on: () => {}, close: () => {} };
     this.props.options.api.socket = this.socket;
@@ -142,6 +145,10 @@ export default class App extends Component {
       else
         this.updateCustoms();*/
     }
+  }
+
+  componentWillUnmount() {
+    this.consoleTools.dispose();
   }
 
   reconnect () {
@@ -337,7 +344,7 @@ export default class App extends Component {
 
     return (
       <div className={"sensuba-app " + (this.state.theme ? this.state.theme + "-theme " : "") + (this.state.browser + "-browser")}>
-        <BrowserRouter>
+        <BrowserRouter ref={router => { this.router = router; }}>
             <Switch>
               <Route exact path="/" component={({ match, history }) => (<Redirect to="/home"/>)}/>
               <Route exact path="/home" component={({ match, history }) => (<Home history={history} api={this.props.options.api}/>)}/>
@@ -354,12 +361,12 @@ export default class App extends Component {
               <Route path="/training" component={({ match, history }) => (<Mission cards={this.state.cards} getSocket={() => this.getSocket()} training={1} history={history} api={this.props.options.api}/>)}/>
               <Route exact path="/profile" component={({ match, history }) => ( (User.isConnected() ? <Profile history={history} api={this.props.options.api} theme={this.state.theme}/> : <Redirect to="/home"/>)  )}/>
               <Route exact path="/decks" component={({ match, history }) => (<Decks cards={this.state.cards} history={history} decks={this.state.decks} api={this.props.options.api}/>)}/>
-              <Route exact path="/decks/builder" component={({ match, history }) => (<Deckbuilder cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateDecks={this.updateDecks.bind(this)} history={history} api={this.props.options.api} type="standard"/>)}/>
-              <Route exact path="/decks/highlander" component={({ match, history }) => (<Deckbuilder cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateDecks={this.updateDecks.bind(this)} history={history} api={this.props.options.api} type="highlander"/>)}/>
-              <Route exact path="/decks/draft" component={({ match, history }) => (<Deckbuilder cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateDecks={this.updateDecks.bind(this)} history={history} api={this.props.options.api} type="draft"/>)}/>
-              <Route exact path="/decks/custom" component={({ match, history }) => (<Deckbuilder cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateDecks={this.updateDecks.bind(this)} history={history} api={this.props.options.api} type="custom"/>)}/>
-              <Route exact path="/decks/display" component={({ match, history }) => (<Deckbuilder cards={this.state.cards} customs={this.state.customCards} collection={null/*this.state.collection*/} updateDecks={this.updateDecks.bind(this)} history={history} api={this.props.options.api} type="display"/>)}/>
-              <Route path="/decks/builder/:deck" component={({ match, history }) => (User.isConnected() && this.state.decks.some(deck => String(deck.idDeck) === match.params.deck) ? <Deckbuilder cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateDecks={this.updateDecks.bind(this)} deck={this.state.decks.find(deck => String(deck.idDeck) === match.params.deck)} history={history} api={this.props.options.api}/> : <Redirect to="/decks"/>)}/>
+              <Route exact path="/decks/builder" component={({ match, history }) => (<Deckbuilder consoleTools={this.consoleTools} cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateDecks={this.updateDecks.bind(this)} history={history} api={this.props.options.api} type="standard"/>)}/>
+              <Route exact path="/decks/highlander" component={({ match, history }) => (<Deckbuilder consoleTools={this.consoleTools} cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateDecks={this.updateDecks.bind(this)} history={history} api={this.props.options.api} type="highlander"/>)}/>
+              <Route exact path="/decks/draft" component={({ match, history }) => (<Deckbuilder consoleTools={this.consoleTools} cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateDecks={this.updateDecks.bind(this)} history={history} api={this.props.options.api} type="draft"/>)}/>
+              <Route exact path="/decks/custom" component={({ match, history }) => (<Deckbuilder consoleTools={this.consoleTools} cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateDecks={this.updateDecks.bind(this)} history={history} api={this.props.options.api} type="custom"/>)}/>
+              <Route exact path="/decks/display" component={({ match, history }) => (<Deckbuilder consoleTools={this.consoleTools} cards={this.state.cards} customs={this.state.customCards} collection={null/*this.state.collection*/} updateDecks={this.updateDecks.bind(this)} history={history} api={this.props.options.api} type="display"/>)}/>
+              <Route path="/decks/builder/:deck" component={({ match, history }) => (User.isConnected() && this.state.decks.some(deck => String(deck.idDeck) === match.params.deck) ? <Deckbuilder consoleTools={this.consoleTools} cards={this.state.cards} customs={this.state.customCards} collection={this.state.collection} updateDecks={this.updateDecks.bind(this)} deck={this.state.decks.find(deck => String(deck.idDeck) === match.params.deck)} history={history} api={this.props.options.api}/> : <Redirect to="/decks"/>)}/>
               <Route exact path="/rules" component={({ match, history }) => (<Rules history={history} api={this.props.options.api}/>)}/>
               { /* <Route path="/rules/:lang" component={({ match, history }) => (<Rules lang={match.params.lang} history={history} api={this.props.options.api}/>)}/> */ }
             </Switch>
