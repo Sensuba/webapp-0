@@ -79,6 +79,41 @@ test('real Game unmount stops its store subscription and captured console API', 
 });
 
 const notification = (game, type, src, data = []) => game.analyse({type, src, data});
+
+test('chat follows server echoes once and sends through console and WebMCP for room participants', async () => {
+  const game = mountedGame(); game.state.waiting = false;
+  const receive = game.socket.on.mock.calls.find(([event]) => event === 'chat')[1];
+  game.addMessage = jest.fn();
+  const log = game.consoleController.output.log;
+  receive({type:'text',from:1,text:'Avant follow'});
+  expect(log.mock.calls.some(([line])=>line.includes('Avant follow'))).toBe(false);
+  window.sensuba.follow(); log.mockClear(); game.socket.emit.mockClear();
+  game.store.getState().areas[0].choosebox.opened = true;
+  expect(window.sensuba.chat('Bonjour !')).toEqual({ok:true,sent:true});
+  expect(game.socket.emit).toHaveBeenLastCalledWith('chat','Bonjour !');
+  expect(log).not.toHaveBeenCalled();
+  receive({type:'text',from:0,text:'Bonjour !',private:'hidden'});
+  receive({type:'text',from:'Alice',text:'Salut'});
+  receive({type:'info',info:1});
+  expect(log.mock.calls.map(([line])=>line)).toEqual(['Chat — Vous : Bonjour !','Chat — Alice : Salut','Chat — Commande exécutée']);
+  expect(game.addMessage).toHaveBeenCalledTimes(4);
+  const tools = new Map();
+  const bridge = registerWebMCP({navigator:{modelContext:{registerTool:tool=>tools.set(tool.name,tool),unregisterTool:name=>tools.delete(name)}}},window.sensuba,console);
+  await bridge.ready;
+  game.role = 'spectator';
+  expect((await tools.get('sensuba_chat').execute({text:'Bien joué !'})).isError).toBe(false);
+  expect(game.socket.emit).toHaveBeenLastCalledWith('chat','Bien joué !');
+  window.sensuba.follow(false); log.mockClear();
+  receive({type:'text',from:4,text:'Silencieux'});
+  expect(log).not.toHaveBeenCalled();
+  window.sensuba.follow(); log.mockClear();
+  const api = window.sensuba;
+  game.componentWillUnmount();
+  receive({type:'text',from:1,text:'Après sortie'});
+  expect(api.chat('Trop tard').ok).toBe(false);
+  expect(log).not.toHaveBeenCalled();
+  bridge.dispose();
+});
 const area = no => ({type: 'area', no});
 const cardId = no => ({type: 'card', no});
 function addCard(game, no, location, props = {}) {

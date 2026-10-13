@@ -32,6 +32,7 @@ test('all commands are discoverable with explicit schemas and route through the 
   const cases = [
     ['view', {}, [false]], ['help', {}, []], ['read', {name: 'KOITO MINASE'}, ['KOITO MINASE']],
     ['follow', {}, [true]], ['follow', {enabled: false}, [false]], ['actions', {}, []],
+    ['chat', {text: 'Bonjour !'}, ['Bonjour !']],
     ['targets', {card: 'hand:1'}, ['hand:1', []]],
     ['targets', {card: 'hand:1', selected: ['me:3']}, ['hand:1', ['me:3']]],
     ['play', {card: 'hand:1', targets: ['me:3', 'opponent:2']}, ['hand:1', ['me:3', 'opponent:2']]],
@@ -41,7 +42,7 @@ test('all commands are discoverable with explicit schemas and route through the 
     ['secret', {card: 'me:1', setting: 'count', value: 0}, ['me:1', 'count', 0]],
     ['choose', {number: 1}, [1]], ['endTurn', {}, []], ['concede', {}, []]
   ];
-  expect(f.tools.size).toBe(14);
+  expect(f.tools.size).toBe(15);
   for (const [name, input, args] of cases) {
     f.api[name] = jest.fn(() => Promise.resolve({ok: true}));
     expect((await f.call(name, input)).value).toEqual({ok: true});
@@ -50,6 +51,7 @@ test('all commands are discoverable with explicit schemas and route through the 
   expect(f.tools.get('sensuba_view').annotations.readOnlyHint).toBe(true);
   expect(f.tools.get('sensuba_attack').annotations.readOnlyHint).toBe(false);
   expect(f.tools.get('sensuba_follow').annotations.readOnlyHint).toBe(false);
+  expect(f.tools.get('sensuba_chat').annotations.readOnlyHint).toBe(false);
 });
 
 test('invalid inputs never reach game commands; failures have an MCP error result', async () => {
@@ -57,6 +59,10 @@ test('invalid inputs never reach game commands; failures have an MCP error resul
   await f.bridge.ready;
   f.api.attack = jest.fn();
   f.api.choose = jest.fn();
+  f.api.chat = jest.fn();
+  for (const input of [{}, {text:123}, {text:''}, {text:'a'.repeat(121)}])
+    expect((await f.call('chat', input)).response.isError).toBe(true);
+  expect(f.api.chat).not.toHaveBeenCalled();
   for (const input of [null, [], {}, {card: 'me:0', target: 'opponent:1'}, {card: 'me:1', target: 'opponent:1', raw: true}])
     expect((await f.call('attack', input)).response.isError).toBe(true);
   expect((await f.call('choose', {number: 1.5})).response.isError).toBe(true);

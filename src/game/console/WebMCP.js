@@ -8,7 +8,8 @@ const definitions = [
   ['view', 'Lit le plateau en JSON, sans informations cachées. À relire après chaque action.', {}, [], () => [false], true],
   ['help', 'Explique les commandes Sensuba, les références et les règles de contrôle.', {}, [], () => [], true],
   ['read', 'Lit une carte officielle (author = 0) par son nom exact, sans distinction de casse.', {name: {type: 'string', minLength: 1}}, ['name'], a => [a.name], true],
-  ['follow', 'Active ou coupe le suivi en phrases dans les messages console du navigateur, dont les alertes de tour à 60/30 secondes. Lire ensuite les logs console.', {enabled: {type: 'boolean', default: true}}, [], a => [a.enabled === undefined ? true : a.enabled], false],
+  ['follow', 'Active ou coupe le suivi en phrases des événements de jeu et des messages de chatbox, dont les alertes de tour à 60/30 secondes. Lire ensuite les logs console.', {enabled: {type: 'boolean', default: true}}, [], a => [a.enabled === undefined ? true : a.enabled], false],
+  ['chat', 'Envoie un message dans la chatbox de la salle (joueurs et spectateurs), même hors de votre tour ou pendant un choix. Les commandes /… existantes sont interprétées par le serveur comme dans la chatbox.', {text: {type: 'string', minLength: 1, maxLength: 120}}, ['text'], a => [a.text]],
   ['actions', 'Liste les actions actuellement autorisées et leurs arguments. Avec une boîte de choix ouverte, seule choose est autorisée.', {}, [], () => [], true],
   ['targets', 'Donne les prochaines cases cibles pour jouer une carte. Compléter selected dans l’ordre jusqu’à complete=true.', {card, selected: tiles}, ['card'], a => [a.card, a.selected || []], true],
   ['play', 'Joue une carte de votre main avec toutes ses cibles dans l’ordre, placement inclus. Utiliser targets pour construire la sélection.', {card, targets: tiles}, ['card'], a => [a.card, a.targets || []]],
@@ -27,6 +28,7 @@ function valid(value, schema) {
   if (typeof value !== schema.type) return false;
   if (schema.enum && schema.enum.indexOf(value) < 0) return false;
   if (schema.pattern && !new RegExp(schema.pattern).test(value)) return false;
+  if (schema.maxLength !== undefined && value.length > schema.maxLength) return false;
   return !schema.minLength || value.length >= schema.minLength;
 }
 

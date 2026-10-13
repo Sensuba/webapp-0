@@ -25,6 +25,7 @@ La console `sensuba.*` reste disponible pour les humains.
 | `sensuba_view` | `{}` |
 | `sensuba_help` | `{}` |
 | `sensuba_read` | `{"name":"Koito Minase"}` |
+| `sensuba_chat` | `{"text":"Bonjour !"}` |
 | `sensuba_follow` | `{"enabled":true}` (true par défaut) |
 | `sensuba_actions` | `{}` |
 | `sensuba_targets` | `{"card":"hand:1","selected":[]}` |
@@ -152,12 +153,12 @@ ou si un accès supplémentaire a été accordé au spectateur. Les zones intern
 ne sont jamais sérialisés.
 
 Le spectateur obtient les camps `player1` et `player2`, uniquement en lecture
-publique. Il ne peut pas émettre de commande via cette interface.
+publique. Il peut utiliser la chatbox, mais ne peut pas effectuer d'action de jeu.
 
 `follow()` affiche uniquement les événements suivants : pioche, déplacement entre
 cases du terrain, carte jouée, invocation, entité détruite, secret déclenché,
 action, compétence, attaque, début/fin de tour, carte brûlée/détruite du deck,
-malédiction du deck, victoire/défaite (ou égalité). Les changements de mana,
+malédiction du deck, victoire/défaite (ou égalité), messages de chatbox. Les changements de mana,
 statistiques, états et d'interface ne génèrent pas de messages supplémentaires.
 
 ```text
@@ -166,6 +167,7 @@ Vous piochez Koito Minase.
 Koito Minase (case 3 de votre camp) attaque Héros (case 9 du camp adverse).
 L’adversaire joue un secret en case 2 du camp adverse.
 Il reste 60 secondes pour jouer.
+Chat — Adversaire : Bien joué !
 ```
 
 Les messages incluent les cibles transmises par les notifications, même si la
@@ -188,6 +190,20 @@ Activer le suivi après un seuil ne rejoue pas l'avertissement passé. Les tours
 adverses, les spectateurs et les parties sans chronomètre n'ont pas ces alertes.
 `follow(false)` arrête le suivi. La sortie de partie désactive aussi les anciennes
 références à l'interface.
+
+## Chatbox
+
+`sensuba.chat('Bonjour !')` envoie un message dans la salle, comme le champ de
+la chatbox. En WebMCP : `sensuba_chat({"text":"Bonjour !"})`. Le message doit
+être non vide et limité à 120 caractères. La salle doit être rejointe et connectée.
+La chatbox est disponible aux joueurs et spectateurs, hors de leur tour et pendant
+un choix. Les commandes `/…` existantes sont traitées par le serveur comme dans
+l'interface graphique. Les missions et entraînements n'ont pas de chatbox.
+
+Le retour `{ok:true,sent:true}` confirme seulement l'envoi. Avec `follow()` activé,
+le message est affiché à sa réception du serveur, avec son auteur, une seule fois
+(y compris vos propres messages et les réponses système). Aucun historique n'est
+rejoué lors de l'activation du suivi.
 
 ## Lire une carte officielle
 
@@ -218,8 +234,8 @@ ligne vide. Le nom partiel n'est pas utilisé pour choisir arbitrairement une ca
 La souris et la console passent par le même validateur avant l'émission Socket.IO :
 joueur connecté, partie active, propriété de la carte, tour, mana, points d'action,
 cibles, paramètres de secrets et règles du modèle (dont rush/fury).
-Une boîte de choix ouverte bloque toutes les autres commandes, y compris fin
-du tour et abandon. Les lectures `view`, `follow`, `read`, `help`, `actions` restent permises.
+Une boîte de choix ouverte bloque toutes les autres actions de jeu, y compris fin
+du tour et abandon. Les lectures `view`, `follow`, `read`, `help`, `actions` et la chatbox restent permises.
 Le bouton graphique de fin du tour est également verrouillé.
 
 Ce changement porte sur le client. Il ne modifie pas la validation du serveur

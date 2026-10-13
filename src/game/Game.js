@@ -150,7 +150,10 @@ export default class Game extends Component {
         setTimeout(() => this.tryToReconnect(), 500);
       }));
 
+      const chatSocket = this.socket;
       this.socket.on('chat', data => {
+        if (this.unmounted || this.socket !== chatSocket) return;
+        this.consoleController.receiveChat(data);
         if (this.addMessage)
           this.addMessage(data);
       });

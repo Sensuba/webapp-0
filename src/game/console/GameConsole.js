@@ -4,12 +4,14 @@ import describeEvent from './FollowEvents';
 import {readOfficial} from './ReadCard';
 import Library from '../../services/Library';
 import registerWebMCP from './WebMCP';
+import {chatMessage, sendChat} from '../Chat';
 
 const HELP = `Interface console Sensuba (pendant une partie)
 Dans un navigateur compatible WebMCP, les mêmes méthodes sont disponibles comme outils sensuba_<méthode>.
 Utiliser les noms et schémas annoncés par le navigateur. follow écrit dans les logs console.
 sensuba.view() : affiche et retourne un instantané JSON. view(false) retourne sans afficher.
 sensuba.follow() / sensuba.follow(false) : active / coupe les phrases de suivi des événements de jeu.
+sensuba.chat('Bonjour !') : envoie un message dans la chatbox (1 à 120 caractères), joueurs et spectateurs. Les commandes /… existantes passent par le même serveur.
 await sensuba.read('Koito Minase') : affiche et retourne le texte d’une carte officielle (author = 0), sans distinction de casse, avec les niveaux du héros et les jetons.
 sensuba.actions() : liste les commandes disponibles et leurs arguments.
 sensuba.targets(carte, ciblesDéjàChoisies = []) : prochaines cibles pour jouer une carte.
@@ -26,13 +28,13 @@ sensuba.help() : cette aide.
 Références : me:1…me:9 et opponent:1…opponent:9 ; hand:1… ; card:N tel que donné par view().
 Cases : avant = 1 2 3 4 ; arrière = 5 6 7 8 9, de gauche à droite à l’écran, pour chaque camp.
 Facultés, cartes en main et choix sont numérotés à partir de 1. Relire view() après les changements.
-Une boîte de choix ouverte n’autorise que choose(). Les lectures restent disponibles.
+Une boîte de choix ouverte n’autorise que choose() comme action de jeu. Les lectures et la chatbox restent disponibles.
 Les actions retournent {ok:true, sent:true} (envoi, pas confirmation serveur) ou {ok:false,error}.
 follow() annonce seulement les pioches, déplacements, cartes jouées, invocations, destructions,
-secrets déclenchés, actions, compétences, attaques, tours, brûlures, malédictions et résultats.
+secrets déclenchés, actions, compétences, attaques, tours, brûlures, malédictions, résultats et messages de chatbox.
 Il avertit à 60 et 30 secondes restantes de votre tour dans une partie chronométrée.
 Attendre les événements de follow() / relire view() avant l’action suivante.
-Les spectateurs n’ont que la lecture publique. Aucun contenu de deck ni de main/secret adverse n’est exposé.`;
+Les spectateurs ont la lecture publique et la chatbox. Aucun contenu de deck ni de main/secret adverse n’est exposé.`;
 
 export default class GameConsole {
   constructor(game, output = console) {
@@ -46,6 +48,7 @@ export default class GameConsole {
     this.api = Object.freeze({
       view: (print = true) => this.view(print),
       follow: (enabled = true) => this.follow(enabled),
+      chat: text => this.attempt(() => sendChat(this.game, text)),
       read: name => this.read(name),
       help: () => { this.output.log(HELP); return HELP; },
       actions: () => this.attempt(() => this.actions()),
@@ -166,6 +169,12 @@ export default class GameConsole {
 
   publish(message) {
     if (message && this.following && !this.disposed) this.output.log(message);
+  }
+
+  receiveChat(message) {
+    if (!this.following || this.disposed || this.game.unmounted) return;
+    const visible = chatMessage(message);
+    if (visible) this.publish('Chat — ' + (visible.from ? visible.from + ' : ' : '') + visible.text);
   }
 
   startTurn(player, seconds) {
