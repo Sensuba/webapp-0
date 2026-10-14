@@ -784,7 +784,7 @@ export default class Card {
 
 		if (other.isEff)
 			other = other.original;
-		if (!this.isType("character") || !this.onBoard || !other.onBoard || this.concealed)
+		if (!this.isType("character") || !this.onBoard || !other.onBoard || this.concealed || this.hasState("cannot cover"))
 			return false;
 		return (other.location.isBehind(this.location) || (this.hasState("cover neighbors") && other.location.isNeighborTo(this.location))) && flying === this.hasState("flying");
 	}
@@ -1082,6 +1082,7 @@ export default class Card {
 			return;
 		this.computing = true;
 		var wasCovering = this.hasState("cover neighbors");
+		var couldNotCover = this.hasState("cannot cover");
 		var wasFlying = this.hasState("flying");
 		var res;
 		res = Object.assign({}, this);
@@ -1133,7 +1134,7 @@ export default class Card {
 
 		this.mutatedState = res;
 
-		if ((!wasCovering && res.states["cover neighbors"]) || (!wasFlying && res.states["flying"]))
+		if ((!wasCovering && res.states["cover neighbors"]) || (!wasFlying && res.states["flying"]) || couldNotCover !== !!res.states["cannot cover"])
 			this.gameboard.update();
 	}
 

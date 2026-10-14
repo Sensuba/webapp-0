@@ -434,6 +434,7 @@ export default class Game extends Component {
     case "frozen": return "Gelé";
     case "concealed": return "Camouflé";
     case "cover neighbors": return "Défenseur";
+    case "cannot cover": return "Fantôme";
     case "immune": return "Insensible";
     case "passive": return "Passif";
     case "static": return "Statique";

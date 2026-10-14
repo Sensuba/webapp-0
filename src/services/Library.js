@@ -7,6 +7,7 @@ var Library = (() => {
 	var instantiated = false;
 
 	var version = 3;
+	const cardRevision = '2026-10-14-ghost-nanachi';
 
 	var instantiate = then => {
 
@@ -45,7 +46,7 @@ var Library = (() => {
 		var lastUpdate = localStorage.getItem("library.date");
 		if (!lastUpdate)
 			return false;
-		return lastUpdate === currentDate();
+		return lastUpdate === currentDate() && localStorage.getItem("library.cardRevision") === cardRevision;
 	}
 
 	var update = (data, then) => {
@@ -54,6 +55,7 @@ var Library = (() => {
 			db.clear('cards');
 			data.forEach(card => db.add('cards', card));
 			localStorage.setItem("library.date", currentDate());
+			localStorage.setItem("library.cardRevision", cardRevision);
 			if (then)
 				then();
 		});

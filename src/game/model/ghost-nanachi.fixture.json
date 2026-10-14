@@ -1,0 +1,629 @@
+{
+  "nanachi": {
+    "basis": [
+      {
+        "type": "triggers",
+        "index": 0,
+        "out": 0
+      },
+      {
+        "type": "triggers",
+        "index": 1,
+        "out": 0
+      },
+      {
+        "type": "triggers",
+        "index": 2,
+        "out": 0
+      },
+      {
+        "type": "triggers",
+        "index": 3,
+        "out": 0
+      },
+      {
+        "type": "triggers",
+        "index": 4,
+        "out": 0
+      }
+    ],
+    "triggers": [
+      {
+        "type": "skill",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 19,
+            "out": 0
+          },
+          "Remplit un réceptacle de mana vide.",
+          "0"
+        ],
+        "to": 0
+      },
+      {
+        "type": "skill",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 22,
+            "out": 0
+          },
+          "Invoque un germe 0/100.",
+          "1"
+        ],
+        "to": 1,
+        "target": true
+      },
+      {
+        "type": "skill",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 25,
+            "out": 0
+          },
+          "Vous donne une faveur.",
+          "1"
+        ],
+        "to": 3
+      },
+      {
+        "type": "listener",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 2,
+            "out": 0
+          },
+          "true"
+        ],
+        "to": 4
+      },
+      {
+        "type": "listener",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 3,
+            "out": 0
+          },
+          "true"
+        ],
+        "to": 8
+      }
+    ],
+    "actions": [
+      {
+        "type": "createmana",
+        "in": [
+          "self",
+          "1"
+        ],
+        "to": 9
+      },
+      {
+        "type": "generate",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 0,
+            "out": 0
+          },
+          "1",
+          "capsule"
+        ],
+        "to": 2
+      },
+      {
+        "type": "summon",
+        "in": [
+          {
+            "type": "actions",
+            "index": 1,
+            "out": 0
+          },
+          {
+            "type": "triggers",
+            "index": 1,
+            "out": 2
+          }
+        ],
+        "to": 12
+      },
+      {
+        "type": "generate",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 1,
+            "out": 0
+          },
+          "1",
+          "hand"
+        ],
+        "to": 15
+      },
+      {
+        "type": "addpoints",
+        "in": [
+          "this",
+          null,
+          "1",
+          null
+        ]
+      },
+      {
+        "type": "boost",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 4,
+            "out": 0
+          },
+          "100",
+          "100",
+          null
+        ],
+        "to": 7
+      },
+      {
+        "type": "writeintvar",
+        "in": [
+          "nanachiboost",
+          "1",
+          "this"
+        ],
+        "to": 5
+      },
+      {
+        "type": "clearvar",
+        "in": [
+          "nanachiboost",
+          "this"
+        ]
+      },
+      {
+        "type": "branch",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 12,
+            "out": 0
+          }
+        ],
+        "true": 6
+      },
+      {
+        "type": "writeintvar",
+        "in": [
+          "nanachiskillmana",
+          "1",
+          "this"
+        ],
+        "to": 10
+      },
+      {
+        "type": "timer",
+        "in": [
+          "cleanup"
+        ],
+        "callback": 11
+      },
+      {
+        "type": "clearvar",
+        "in": [
+          "nanachiskillmana",
+          "this"
+        ]
+      },
+      {
+        "type": "writeintvar",
+        "in": [
+          "nanachiskillsummon",
+          "1",
+          "this"
+        ],
+        "to": 13
+      },
+      {
+        "type": "timer",
+        "in": [
+          "cleanup"
+        ],
+        "callback": 14
+      },
+      {
+        "type": "clearvar",
+        "in": [
+          "nanachiskillsummon",
+          "this"
+        ]
+      },
+      {
+        "type": "writeintvar",
+        "in": [
+          "nanachiskillfavour",
+          "1",
+          "this"
+        ],
+        "to": 16
+      },
+      {
+        "type": "timer",
+        "in": [
+          "cleanup"
+        ],
+        "callback": 17
+      },
+      {
+        "type": "clearvar",
+        "in": [
+          "nanachiskillfavour",
+          "this"
+        ]
+      }
+    ],
+    "parameters": [
+      {
+        "type": "token",
+        "in": [
+          "0"
+        ]
+      },
+      {
+        "type": "token",
+        "in": [
+          "1"
+        ]
+      },
+      {
+        "type": "timestamp",
+        "in": [
+          "start of your turn"
+        ]
+      },
+      {
+        "type": "boost-trigger",
+        "in": []
+      },
+      {
+        "type": "boost-data",
+        "in": [
+          {
+            "type": "triggers",
+            "index": 4,
+            "out": 1
+          }
+        ]
+      },
+      {
+        "type": "intvar",
+        "in": [
+          "nanachiboost",
+          "this"
+        ]
+      },
+      {
+        "type": "opnot",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 5,
+            "out": 1
+          }
+        ]
+      },
+      {
+        "type": "opg",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 4,
+            "out": 1
+          },
+          "0"
+        ]
+      },
+      {
+        "type": "opg",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 4,
+            "out": 2
+          },
+          "0"
+        ]
+      },
+      {
+        "type": "opg",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 4,
+            "out": 3
+          },
+          "0"
+        ]
+      },
+      {
+        "type": "checkcard",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 4,
+            "out": 0
+          },
+          "figure"
+        ]
+      },
+      {
+        "type": "cmpcards",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 4,
+            "out": 0
+          },
+          "this"
+        ]
+      },
+      {
+        "type": "opand",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 6,
+            "out": 0
+          },
+          {
+            "type": "parameters",
+            "index": 13,
+            "out": 0
+          }
+        ]
+      },
+      {
+        "type": "opand",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 10,
+            "out": 0
+          },
+          {
+            "type": "parameters",
+            "index": 14,
+            "out": 0
+          }
+        ]
+      },
+      {
+        "type": "opand",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 11,
+            "out": 2
+          },
+          {
+            "type": "parameters",
+            "index": 15,
+            "out": 0
+          }
+        ]
+      },
+      {
+        "type": "opor",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 7,
+            "out": 0
+          },
+          {
+            "type": "parameters",
+            "index": 16,
+            "out": 0
+          }
+        ]
+      },
+      {
+        "type": "opor",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 8,
+            "out": 0
+          },
+          {
+            "type": "parameters",
+            "index": 9,
+            "out": 0
+          }
+        ]
+      },
+      {
+        "type": "intvar",
+        "in": [
+          "nanachiskillmana",
+          "this"
+        ]
+      },
+      {
+        "type": "opnot",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 17,
+            "out": 1
+          }
+        ]
+      },
+      {
+        "type": "conditiontarget",
+        "in": [
+          "tile",
+          {
+            "type": "parameters",
+            "index": 18,
+            "out": 0
+          }
+        ]
+      },
+      {
+        "type": "intvar",
+        "in": [
+          "nanachiskillsummon",
+          "this"
+        ]
+      },
+      {
+        "type": "opnot",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 20,
+            "out": 1
+          }
+        ]
+      },
+      {
+        "type": "conditiontarget",
+        "in": [
+          "friendly empty",
+          {
+            "type": "parameters",
+            "index": 21,
+            "out": 0
+          }
+        ]
+      },
+      {
+        "type": "intvar",
+        "in": [
+          "nanachiskillfavour",
+          "this"
+        ]
+      },
+      {
+        "type": "opnot",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 23,
+            "out": 1
+          }
+        ]
+      },
+      {
+        "type": "conditiontarget",
+        "in": [
+          "tile",
+          {
+            "type": "parameters",
+            "index": 24,
+            "out": 0
+          }
+        ]
+      }
+    ]
+  },
+  "illusion": {
+    "nameCard": "Joueur Fantôme",
+    "anime": "Kuroko no Basket",
+    "imgLink": "https://i.ibb.co/19DZHj0/148235a60fe0.png",
+    "idColor": 3,
+    "cardType": "figure",
+    "archetypes": [],
+    "mana": "1",
+    "description": "Meurt au début du second tour après avoir été invoqué. Ne peut pas défendre.",
+    "fontSize": 1.3,
+    "flavourText": "",
+    "illustrator": "",
+    "atk": "300",
+    "hp": "300",
+    "range": "2",
+    "overload": 0,
+    "blueprint": {
+      "basis": [
+        {
+          "type": "triggers",
+          "index": 0,
+          "out": 0
+        },
+        {
+          "type": "parameters",
+          "index": 2,
+          "out": 0
+        }
+      ],
+      "triggers": [
+        {
+          "type": "listener",
+          "in": [
+            {
+              "type": "parameters",
+              "index": 0,
+              "out": 0
+            },
+            "true"
+          ],
+          "to": 0
+        }
+      ],
+      "actions": [
+        {
+          "type": "branch",
+          "in": [
+            {
+              "type": "parameters",
+              "index": 1,
+              "out": 1
+            }
+          ],
+          "false": 1,
+          "true": 2
+        },
+        {
+          "type": "writeintvar",
+          "in": [
+            "tetsuyaillusion",
+            "1",
+            "this"
+          ]
+        },
+        {
+          "type": "destroy",
+          "in": [
+            "this"
+          ]
+        }
+      ],
+      "parameters": [
+        {
+          "type": "timestamp",
+          "in": [
+            "start of your turn"
+          ]
+        },
+        {
+          "type": "intvar",
+          "in": [
+            "tetsuyaillusion",
+            "this"
+          ]
+        },
+        {
+          "type": "state",
+          "in": [
+            "cannot cover",
+            "true"
+          ]
+        }
+      ]
+    },
+    "htmlDescription": "<div class=\"sensuba-card-effect-p\">Meurt au début du second tour après avoir été invoqué. Ne peut pas défendre. </div>"
+  }
+}
