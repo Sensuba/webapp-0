@@ -784,7 +784,7 @@ export default class Card {
 
 		if (other.isEff)
 			other = other.original;
-		if (!this.isType("character") || !this.onBoard || !other.onBoard || this.concealed || this.hasState("cannot cover"))
+		if (!this.isType("character") || !this.onBoard || !other.onBoard || this.concealed || (other.isType("hero") && this.hasState("cannot cover heroes")))
 			return false;
 		return (other.location.isBehind(this.location) || (this.hasState("cover neighbors") && other.location.isNeighborTo(this.location))) && flying === this.hasState("flying");
 	}

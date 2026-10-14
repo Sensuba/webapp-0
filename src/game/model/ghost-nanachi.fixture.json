@@ -538,7 +538,7 @@
     "cardType": "figure",
     "archetypes": [],
     "mana": "1",
-    "description": "Meurt au début du second tour après avoir été invoqué. Ne peut pas défendre.",
+    "description": "Meurt au début du second tour après avoir été invoqué. Ne peut pas défendre le héros.",
     "fontSize": 1.3,
     "flavourText": "",
     "illustrator": "",
@@ -618,12 +618,12 @@
         {
           "type": "state",
           "in": [
-            "cannot cover",
+            "cannot cover heroes",
             "true"
           ]
         }
       ]
     },
-    "htmlDescription": "<div class=\"sensuba-card-effect-p\">Meurt au début du second tour après avoir été invoqué. Ne peut pas défendre. </div>"
+    "htmlDescription": "<div class=\"sensuba-card-effect-p\">Meurt au début du second tour après avoir été invoqué. Ne peut pas défendre le héros. </div>"
   }
 }

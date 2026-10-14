@@ -111,7 +111,7 @@ export default class RulesFR extends Component {
           <div className="rule-title">Défendre ses alliés</div>
           <img className="img-exp" src="/rules/defendre-ses-allies.png" alt="img"/>
           <div className="explanation">
-            <p>Un personnage Fantôme ne peut pas défendre. Cet état ne l’empêche pas d’attaquer, de riposter ou d’être ciblé.</p>
+            <p>Un personnage Fantôme ne peut pas défendre le héros. Il peut défendre les autres personnages. Cet état ne l’empêche pas d’attaquer, de riposter ou d’être ciblé.</p>
             <p>Si un personnage est situé juste derrière un allié, il est défendu. Un personnage au front peut donc normalement défendre jusqu'à 2 personnages en retrait.</p>
             <p>Il est important de défendre ses alliés les plus vulnérables afin qu'ils soient plus durs à cibler. Défendre son héros est également une stratégie fréquemment utilisée afin de protéger au mieux ses PV.</p>
             <p>Deux personnages ne peuvent pas se défendre mutuellement. Si c'est le cas, aucun ne défend l'autre. Les personnages volants peuvent également passer à travers les défenses au sol, mais c'est réciproque.</p>

@@ -103,7 +103,7 @@
         "type": "skill",
         "in": [
           null,
-          "Invoque des illusions 300/300 avec 2 de portée sur les cases voisines. Elles disparaissent dans 2 tours et ne peuvent pas défendre.",
+          "Invoque des illusions 300/300 avec 2 de portée sur les cases voisines. Elles disparaissent dans 2 tours.",
           "1"
         ],
         "to": 6

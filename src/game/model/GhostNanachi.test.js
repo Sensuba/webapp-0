@@ -17,21 +17,26 @@ function setup() {
   return {board,card};
 }
 
-test('cannot cover removes rear and neighbor protection without concealment or loss of attack',()=>{
+test('cannot cover heroes blocks only hero protection, behind or adjacent',()=>{
   const {board,card}=setup(),area=board.areas[0];
   const hero=card(area.field.tiles[6],{cardType:'hero'});
   const front=area.field.tiles.find(t=>t.isEmpty&&hero.location.isBehind(t));
   const ghost=card(front,fixture.illusion);
   ghost.firstTurn=false;ghost.actionPt=1;board.update();
-  expect(ghost.hasState('cannot cover')).toBe(true);
+  expect(ghost.hasState('cannot cover heroes')).toBe(true);
   expect(ghost.cover(hero)).toBe(false);expect(hero.covered).toBe(false);expect(ghost.concealed).toBe(false);
+  const ally=card(front.tilesBehind.find(t=>t.isEmpty));
+  expect(ghost.cover(ally)).toBe(true);expect(ally.covered).toBe(true);
   ghost.setState('cover neighbors',true);expect(ghost.cover(hero)).toBe(false);
-  ghost.setState('cannot cover',false);expect(ghost.cover(hero)).toBe(true);
-  ghost.setState('cannot cover',true);expect(ghost.cover(hero)).toBe(false);
+  const neighbor=card(front.neighbors.find(t=>t.isEmpty));
+  expect(ghost.cover(neighbor)).toBe(true);
+  neighbor.cardType='hero';board.update();expect(ghost.cover(neighbor)).toBe(false);
+  ghost.setState('cannot cover heroes',false);expect(ghost.cover(hero)).toBe(true);
+  ghost.setState('cannot cover heroes',true);expect(ghost.cover(hero)).toBe(false);
   const enemy=card(board.areas[1].field.tiles[0]);
   expect(ghost.canAttack(enemy)).toBe(true);expect(ghost.targetableBy(enemy)).toBe(true);
-  expect(cardView(ghost,0).states).toContain('cannot cover');
-  ghost.silence();expect(ghost.hasState('cannot cover')).toBe(false);expect(ghost.cover(hero)).toBe(true);
+  expect(cardView(ghost,0).states).toContain('cannot cover heroes');
+  ghost.silence();expect(ghost.hasState('cannot cover heroes')).toBe(false);expect(ghost.cover(hero)).toBe(true);
 });
 
 test('Nanachi untargeted and targeted skills track separate flags in mouse/console command validation',()=>{
