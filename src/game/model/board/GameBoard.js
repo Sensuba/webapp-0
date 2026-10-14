@@ -80,21 +80,24 @@ export default class GameBoard {
 
 	update () {
 
-		if (!this.updateState) {
-			this.updateState = 1;
-			if (this.items && this.items.card)
-				[3, 2, 1, 0].forEach(prio => Object.keys(this.items.card).forEach(k => {
-					if (this.updateState === 2)
-						return;
-					if (this.items.card[k].location && this.items.card[k].location.locationOrder === prio)
-						this.items.card[k].update()
-					}))
-			if (this.updateState === 2) {
-				delete this.updateState;
-				this.update();
-			} else delete this.updateState;
-		} else
+		if (this.updateState) {
 			this.updateState = 2;
+			return;
+		}
+		try {
+			let passes = 0;
+			// State-dependent auras must settle before the view or controller reads them.
+			do {
+				this.updateState = 1;
+				const cards = Object.values((this.items && this.items.card) || {});
+				[3, 2, 1, 0].forEach(prio => cards.filter(card => card.location && card.location.locationOrder === prio)
+					.forEach(card => card.update()));
+				// Invalid, mutually negating auras must not hang the game.
+				if (++passes >= Math.max(32, cards.length * 4)) break;
+			} while (this.updateState === 2);
+		} finally {
+			delete this.updateState;
+		}
 	}
 
 	find (id) {

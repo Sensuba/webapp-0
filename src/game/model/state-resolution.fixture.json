@@ -1,0 +1,630 @@
+{
+  "ein": {
+    "basis": [
+      {
+        "type": "parameters",
+        "index": 2,
+        "out": 0
+      }
+    ],
+    "triggers": [],
+    "actions": [],
+    "parameters": [
+      {
+        "type": "state",
+        "in": [
+          "immune"
+        ]
+      },
+      {
+        "type": "state",
+        "in": [
+          "concealed"
+        ]
+      },
+      {
+        "type": "aura",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 0,
+            "out": 1
+          },
+          "field",
+          {
+            "type": "parameters",
+            "index": 1,
+            "out": 2
+          }
+        ]
+      }
+    ]
+  },
+  "kuroko": {
+    "basis": [
+      {
+        "type": "triggers",
+        "index": 0,
+        "out": 0
+      },
+      {
+        "type": "parameters",
+        "index": 10,
+        "out": 0
+      },
+      {
+        "type": "triggers",
+        "index": 1,
+        "out": 0
+      },
+      {
+        "type": "triggers",
+        "index": 2,
+        "out": 0
+      },
+      {
+        "type": "triggers",
+        "index": 3,
+        "out": 0
+      },
+      {
+        "type": "triggers",
+        "index": 4,
+        "out": 0
+      },
+      {
+        "type": "triggers",
+        "index": 5,
+        "out": 0
+      }
+    ],
+    "triggers": [
+      {
+        "type": "listener",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 3,
+            "out": 0
+          },
+          "true"
+        ],
+        "to": 2
+      },
+      {
+        "type": "action",
+        "in": [
+          null,
+          "Lorsqu'un personnage allié se déplace durant ce tour, inflige 200 dégâts à l'entité d'en face."
+        ],
+        "to": 3
+      },
+      {
+        "type": "skill",
+        "in": [
+          null,
+          "Invoque des illusions 300/300 avec 2 de portée sur les cases voisines. Elles disparaissent dans 2 tours et ne peuvent pas défendre.",
+          "1"
+        ],
+        "to": 6
+      },
+      {
+        "type": "play",
+        "in": [
+          null
+        ],
+        "to": 11
+      },
+      {
+        "type": "listener",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 24,
+            "out": 0
+          },
+          "true"
+        ],
+        "to": 11
+      },
+      {
+        "type": "listener",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 25,
+            "out": 0
+          },
+          "true"
+        ],
+        "to": 14
+      }
+    ],
+    "actions": [
+      {
+        "type": "generate",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 2,
+            "out": 0
+          },
+          "1",
+          "capsule"
+        ],
+        "to": 1
+      },
+      {
+        "type": "summon",
+        "in": [
+          {
+            "type": "actions",
+            "index": 0,
+            "out": 0
+          },
+          {
+            "type": "actions",
+            "index": 6,
+            "out": 0
+          }
+        ]
+      },
+      {
+        "type": "branch",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 8,
+            "out": 0
+          }
+        ],
+        "true": 7
+      },
+      {
+        "type": "writeintvar",
+        "in": [
+          "kurokodamage",
+          "1",
+          "this"
+        ],
+        "to": 4
+      },
+      {
+        "type": "timer",
+        "in": [
+          "cleanup"
+        ],
+        "callback": 5
+      },
+      {
+        "type": "clearvar",
+        "in": [
+          "kurokodamage",
+          "this"
+        ]
+      },
+      {
+        "type": "fortile",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 16,
+            "out": 5
+          },
+          "empty"
+        ],
+        "for each": 0
+      },
+      {
+        "type": "branch",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 20,
+            "out": 0
+          }
+        ],
+        "true": 8
+      },
+      {
+        "type": "blink",
+        "in": [
+          "this"
+        ],
+        "to": 9
+      },
+      {
+        "type": "damage",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 23,
+            "out": 4
+          },
+          "this",
+          "200"
+        ],
+        "to": 10
+      },
+      {
+        "type": "wait",
+        "in": [
+          "300"
+        ]
+      },
+      {
+        "type": "aoe",
+        "in": [
+          "field",
+          "character"
+        ],
+        "for each": 12
+      },
+      {
+        "type": "addpoints",
+        "in": [
+          {
+            "type": "actions",
+            "index": 11,
+            "out": 0
+          },
+          null,
+          null,
+          "1"
+        ]
+      },
+      {
+        "type": "addpoints",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 26,
+            "out": 0
+          },
+          null,
+          null,
+          "1"
+        ]
+      },
+      {
+        "type": "branch",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 30,
+            "out": 0
+          }
+        ],
+        "true": 13
+      }
+    ],
+    "parameters": [
+      {
+        "type": "state",
+        "in": [
+          "concealed",
+          "true"
+        ]
+      },
+      {
+        "type": "conditionmut",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 0,
+            "out": 1
+          },
+          {
+            "type": "parameters",
+            "index": 12,
+            "out": 0
+          }
+        ]
+      },
+      {
+        "type": "token",
+        "in": [
+          "0"
+        ]
+      },
+      {
+        "type": "move-trigger",
+        "in": []
+      },
+      {
+        "type": "move-data",
+        "in": [
+          {
+            "type": "triggers",
+            "index": 0,
+            "out": 1
+          }
+        ]
+      },
+      {
+        "type": "checkloc",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 4,
+            "out": 1
+          },
+          "field"
+        ]
+      },
+      {
+        "type": "checkloc",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 4,
+            "out": 2
+          },
+          "field"
+        ]
+      },
+      {
+        "type": "checkcard",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 4,
+            "out": 0
+          },
+          "character"
+        ]
+      },
+      {
+        "type": "opand",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 7,
+            "out": 0
+          },
+          {
+            "type": "parameters",
+            "index": 9,
+            "out": 0
+          }
+        ]
+      },
+      {
+        "type": "opand",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 5,
+            "out": 0
+          },
+          {
+            "type": "parameters",
+            "index": 6,
+            "out": 0
+          }
+        ]
+      },
+      {
+        "type": "aura",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 1,
+            "out": 0
+          },
+          "field",
+          "character"
+        ]
+      },
+      {
+        "type": "filtercovering",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 15,
+            "out": 0
+          }
+        ]
+      },
+      {
+        "type": "opge",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 13,
+            "out": 0
+          },
+          "1"
+        ]
+      },
+      {
+        "type": "countcards",
+        "in": [
+          "field",
+          {
+            "type": "parameters",
+            "index": 14,
+            "out": 1
+          }
+        ]
+      },
+      {
+        "type": "mergecfilters",
+        "in": [
+          "figure",
+          {
+            "type": "parameters",
+            "index": 11,
+            "out": 1
+          }
+        ]
+      },
+      {
+        "type": "innerdata",
+        "in": []
+      },
+      {
+        "type": "brktile",
+        "in": [
+          "this"
+        ]
+      },
+      {
+        "type": "intvar",
+        "in": [
+          "kurokodamage",
+          "this"
+        ]
+      },
+      {
+        "type": "opnot",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 23,
+            "out": 3
+          }
+        ]
+      },
+      {
+        "type": "checkcard",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 23,
+            "out": 4
+          },
+          "entity"
+        ]
+      },
+      {
+        "type": "opand",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 17,
+            "out": 1
+          },
+          {
+            "type": "parameters",
+            "index": 21,
+            "out": 0
+          }
+        ]
+      },
+      {
+        "type": "opand",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 18,
+            "out": 0
+          },
+          {
+            "type": "parameters",
+            "index": 19,
+            "out": 0
+          }
+        ]
+      },
+      {
+        "type": "brktile",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 4,
+            "out": 2
+          }
+        ]
+      },
+      {
+        "type": "brktile",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 22,
+            "out": 12
+          }
+        ]
+      },
+      {
+        "type": "timestamp",
+        "in": [
+          "start of your turn"
+        ]
+      },
+      {
+        "type": "summon-trigger",
+        "in": []
+      },
+      {
+        "type": "summon-data",
+        "in": [
+          {
+            "type": "triggers",
+            "index": 5,
+            "out": 1
+          }
+        ]
+      },
+      {
+        "type": "brkplayer",
+        "in": [
+          "self"
+        ]
+      },
+      {
+        "type": "cmpcards",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 26,
+            "out": 0
+          },
+          "this"
+        ]
+      },
+      {
+        "type": "checkcard",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 26,
+            "out": 0
+          },
+          "figure"
+        ]
+      },
+      {
+        "type": "opand",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 28,
+            "out": 2
+          },
+          {
+            "type": "parameters",
+            "index": 31,
+            "out": 0
+          }
+        ]
+      },
+      {
+        "type": "opand",
+        "in": [
+          {
+            "type": "parameters",
+            "index": 29,
+            "out": 0
+          },
+          {
+            "type": "parameters",
+            "index": 27,
+            "out": 4
+          }
+        ]
+      }
+    ]
+  }
+}

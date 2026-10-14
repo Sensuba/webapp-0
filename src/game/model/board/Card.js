@@ -1081,9 +1081,8 @@ export default class Card {
 		if (this.computing)
 			return;
 		this.computing = true;
-		var wasCovering = this.hasState("cover neighbors");
-		var couldNotCover = this.hasState("cannot cover");
-		var wasFlying = this.hasState("flying");
+		// Aura filters can depend on any state, including states granted by another aura.
+		var previousStates = Object.assign({}, (this.mutatedState || this).states);
 		var res;
 		res = Object.assign({}, this);
 		res.isEff = true;
@@ -1094,7 +1093,7 @@ export default class Card {
 			if (this.isType("character") && this.onBoard && !isNaN(this.chp)) {
 				this.php = this.php || { hp: this.hp, chp: this.chp };
 				var plushp = Math.max (res.negativehpmodifier || 0, res.hp - this.php.hp);
-				this.chp = Math.min(res.hp, (this.chp || this.hp) + plushp);
+				this.chp = Math.min(res.hp, (this.chp === null || this.chp === undefined ? this.hp : this.chp) + plushp);
 				res.chp = this.chp;
 				this.php = { hp: res.hp, chp: res.chp };
 			}
@@ -1134,7 +1133,7 @@ export default class Card {
 
 		this.mutatedState = res;
 
-		if ((!wasCovering && res.states["cover neighbors"]) || (!wasFlying && res.states["flying"]) || couldNotCover !== !!res.states["cannot cover"])
+		if (Object.keys(Object.assign({}, previousStates, res.states)).some(state => !!previousStates[state] !== !!res.states[state]))
 			this.gameboard.update();
 	}
 
