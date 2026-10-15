@@ -93,6 +93,8 @@ export default class Game extends Component {
       avatar = user.avatarUrl;
     }
 
+    this.setupSocketListeners();
+
     if (props.room) {
       this.socket.emit("join", this.userID, name, avatar, props.room, authorization > 0);
     } else if (props.training) {
@@ -109,8 +111,6 @@ export default class Game extends Component {
       this.no = 0;
     }
 
-    this.setupSocketListeners();
-
     //Library.getCard(d.hero, hero => this.setState({hero}));
 
     this.createParticle = () => {};
@@ -118,36 +118,54 @@ export default class Game extends Component {
 
   tryToReconnect () {
 
-    var newsocket = this.props.getSocket();
-    if (this.socket === newsocket) {
-      if (this.state.pending > 5000)
-        this.onError('disconnect');
-      else {
-        this.setState({pending: (this.state.pending || 0) + 500});
-        setTimeout(() => this.tryToReconnect(), 500);
-      }
-    } else {
+    if (this.unmounted || this.ended) return;
+    if (Date.now() - this.reconnectStarted >= 125000) {
+      this.onEndgame({state: 5, credit: 0});
+      return;
+    }
+    const newsocket = this.props.getSocket();
+    if (newsocket.connected) {
       this.socket = newsocket;
-      this.setState({pending: 0});
       this.setupSocketListeners();
-      this.socket.emit("reconnectuser", this.userID);
+      this.reconnectTimer = setTimeout(() => this.tryToReconnect(), 5000);
+      this.socket.emit("reconnectuser", this.userID, this.props.room || null, result => {
+        if (this.unmounted || this.socket !== newsocket) return;
+        clearTimeout(this.reconnectTimer);
+        if (result && result.ok) {
+          this.setState({pending: 0});
+          this.reconnectStarted = null;
+          this.syncstate = 'sync';
+          if (this.props.setSync) this.props.setSync('sync');
+        } else this.onEndgame({state: 5, credit: 0});
+      });
+    } else {
+      this.reconnectTimer = setTimeout(() => this.tryToReconnect(), 500);
     }
   }
 
   setupSocketListeners () {
 
-      if (this.props.training || this.props.mission || this.role)
-        this.socket.on('notification',  this.analyse.bind(this));
-      else if (this.props.room)
-        this.socket.on('joined', role => this.onJoined(role));
-      this.socket.on('endgame', data => this.onEndgame(data));
-      this.socket.on('info', data => this.onInfo(data));
-      ['disconnect', 'error', 'connect_failed', 'reconnect_failed', 'connect_error', 'reconnect_error'].forEach(trigger => this.socket.on(trigger, () => {
-
-        if (this.state.pending > 0)
-          return;
+      if (this.listeningSocket === this.socket) return;
+      this.listeningSocket = this.socket;
+      const socket = this.socket;
+      const listen = (event, handler) => socket.on(event, (...args) => {
+        if (!this.unmounted && this.socket === socket) handler(...args);
+      });
+      listen('notification', n => this.analyse(n));
+      listen('joined', role => this.onJoined(role));
+      listen('endgame', data => this.onEndgame(data));
+      listen('info', data => this.onInfo(data));
+      listen('state', state => {
+        this.syncstate = state;
+        if (this.props.setSync) this.props.setSync(state);
+      });
+      listen('time', time => this.setTimer = time);
+      ['disconnect', 'error', 'connect_failed', 'reconnect_failed', 'connect_error', 'reconnect_error'].forEach(trigger => listen(trigger, () => {
+        if (this.reconnectStarted || this.ended) return;
+        this.reconnectStarted = Date.now();
         this.setState({pending: 1});
-        setTimeout(() => this.tryToReconnect(), 500);
+        if (this.props.setSync) this.props.setSync('async');
+        this.reconnectTimer = setTimeout(() => this.tryToReconnect(), 500);
       }));
 
       const chatSocket = this.socket;
@@ -190,19 +208,22 @@ export default class Game extends Component {
         this.socket.emit('prepare', User.isConnected() ? User.getData().token : "Anonymous", this.state.deck);
       }
 
-      this.socket.on('state', state => { this.syncstate = state; this.props.setSync(state); });
-      this.socket.on('time', time => this.setTimer = time );
-      this.socket.on('notification',  this.analyse.bind(this));
   }
 
   onEndgame (data) {
 
+    if (this.ended) return;
+    clearTimeout(this.reconnectTimer);
+    this.reconnectStarted = null;
+    this.setState({pending: 0});
+    if (this.props.setSync) this.props.setSync('sync');
     if (User.isConnected() && data.credit) {
       var credit = User.getData().credit + data.credit;
       User.updateCredit(credit);
       this.setState({credit: {gain: data.credit, total: credit}});
     }
     this.ended = true;
+    if (!this.state.model.started) this.sequencer.setState(3);
     this.analyse({type: "end", src: 0, data: [{type: "int", no: data.state}]});
   }
 
@@ -236,6 +257,7 @@ export default class Game extends Component {
   componentWillUnmount () {
 
     this.unmounted = true;
+    clearTimeout(this.reconnectTimer);
     this.consoleController.dispose();
     this.unsubscribeStore();
     this.sequencer.dispose();

@@ -156,24 +156,10 @@ export default class App extends Component {
     if (this.socket.connected)
       return;
 
-    this.socket = io.connect(serverURL);
+    // Let Socket.IO retry the same transport, including on slow connections.
+    if (this.socket.io) this.socket.connect();
+    else this.socket = io.connect(serverURL, {reconnection: true});
     this.props.options.api.socket = this.socket;
-
-    setTimeout(() => {
-      if (this.socket.connected) {
-        console.log("Connected to server");
-        ['disconnect', 'error', 'connect_failed', 'reconnect_failed', 'connect_error', 'reconnect_error'].forEach(trigger => this.socket.io.on(trigger, () => {
-
-          console.log("Disconnected from server");
-          this.socket.close();
-          this.reconnect();
-        }));
-      } else {
-        if (this.socket.close)
-          this.socket.close();
-        this.socket = { connected: false, removeAllListeners: () => {}, emit: () => {}, on: () => {}, close: () => {} };
-      }
-    }, 500);
   }
 
   /*updateDecks2 () {
