@@ -61,6 +61,25 @@ test('view hides even previously identified private cards, both decks and oppone
   expect(f.game.socket.emit).not.toHaveBeenCalled();
 });
 
+test('/watch exposes both hands for a player or spectator, without decks, secrets or control', () => {
+  const f=fixture();
+  f.card(f.me.hand,{nameCard:'My hand'});
+  const enemy=f.card(f.opponent.hand,{nameCard:'Other hand'});
+  f.card(f.opponent.field.tiles[2],{cardType:'secret',nameCard:'PRIVATE_SECRET'});
+  f.card(f.opponent.deck,{nameCard:'PRIVATE_DECK'});
+  f.card(f.opponent.choosebox,{nameCard:'PRIVATE_CHOICE'});
+  f.opponent.choosebox.open();f.game.watchHands=true;
+  const view=f.api.view(false);
+  expect(view.players.opponent.hand.cards[0].nameCard).toBe('Other hand');
+  expect(JSON.stringify(view)).not.toMatch(/PRIVATE/);
+  expect(f.api.play('card:'+enemy.id.no,'me:1').ok).toBe(false);
+  f.game.role='spectator';f.game.no=undefined;
+  const watched=f.api.view(false);
+  expect(watched.players.player1.hand.cards[0].nameCard).toBe('My hand');
+  expect(watched.players.player2.hand.cards[0].nameCard).toBe('Other hand');
+  expect(f.api.endTurn().ok).toBe(false);
+});
+
 test('WebMCP uses real visibility and choice/ownership guards, and unmount removes tools', async () => {
   const f = fixture();
   const tools = new Map();

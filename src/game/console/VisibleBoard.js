@@ -1,9 +1,10 @@
 // Explicit projection: never serialize a model, notification, blueprint or log.
-export function visibleCard(card, viewer) {
+export function visibleCard(card, viewer, watchHands = false) {
   if (!card || !card.location) return false;
   const location = card.location;
   const own = location.area.id.no === viewer;
   if (location.id.type === 'deck') return false;
+  if (location.id.type === 'hand' && watchHands) return !!card.nameCard;
   if (['hand', 'choosebox'].includes(location.id.type) && !own) return false;
   if (card.isType('secret') && !own) return false;
   if (card.invisible && (viewer === undefined || card.invisible.for === viewer)) return false;
@@ -17,9 +18,9 @@ function pick(source, fields) {
   return result;
 }
 
-export function cardView(card, viewer) {
+export function cardView(card, viewer, watchHands = false) {
   if (!card) return null;
-  if (!visibleCard(card, viewer)) return {hidden: true};
+  if (!visibleCard(card, viewer, watchHands)) return {hidden: true};
   const eff = card.eff;
   const result = Object.assign({ref: 'card:' + card.id.no}, pick(eff, [
     'nameCard', 'description', 'cardType', 'level', 'mana', 'atk', 'hp', 'chp', 'range',
@@ -54,13 +55,13 @@ export function boardView(game) {
   model.areas.forEach(area => {
     const side = sideName(area, viewer);
     const own = area.id.no === viewer;
-    const list = location => location.cards.map(card => cardView(card, viewer));
+    const list = location => location.cards.map(card => cardView(card, viewer, game.watchHands));
     players[side] = {
       name: area.name || '',
       mana: pick(area.manapool, ['mana', 'maxMana', 'gems', 'extramana', 'usableMana']),
       extraTurns: area.extraTurns || 0,
       deck: {count: area.deck.count, fatigue: area.deck.curse, increment: area.deck.curseInc},
-      hand: own ? {count: area.hand.count, cards: list(area.hand)} : {count: area.hand.count},
+      hand: own || game.watchHands ? {count: area.hand.count, cards: list(area.hand)} : {count: area.hand.count},
       board: area.field.tiles.map((tile, i) => ({
         ref: side + ':' + (i + 1), number: i + 1, row: i < 4 ? 'front' : 'back',
         hazards: tile.hazards.filter(h => typeof h === 'string'),

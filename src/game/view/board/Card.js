@@ -37,7 +37,11 @@ export default class Card extends Component {
     var model = this.props.model;
     var master = this.props.master;
 
-    var visible = model.nameCard && (!model.invisible || model.invisible.for !== master.no) && (model.location.public || model.area === master.state.model.areas[master.no] || (master.access && master.access.some(no => no === model.area.id.no)) || model.location.id.type === "deck");
+    var watchingHand = master.watchHands && model.location.id.type === "hand";
+    var own = model.area === master.state.model.areas[master.no];
+    var shared = master.access && master.access.some(no => no === model.area.id.no);
+    var hiddenSecret = model.onBoard && model.isType("secret") && !own && !shared;
+    var visible = model.nameCard && !hiddenSecret && (watchingHand || !model.invisible || model.invisible.for !== master.no) && (watchingHand || model.location.public || own || shared || model.location.id.type === "deck");
 
     return (
       <div
@@ -48,7 +52,7 @@ export default class Card extends Component {
         className={(this.props.className || "") + " sensuba-card-view" + (model.hasState("flying") ? " flying" : "") + (visible && model.hasState("glazed") ? " glazed" : "") + (model.concealed ? " concealed" : "") + (visible && model.hasState("temporary") ? " temporary" : "") /*+ (model.firstTurn && !model.hasState("rush") && model.area.isPlaying ? " firstturn" : "")*/ + (this.props.hidden ? " invisible" : "")}
         onTouchEnd={e => this.touched = !this.show || !this.props.master.state.preview || this.props.master.state.preview.id !== this.props.model.id }
         onClick={e => {
-          if (this.touched) {
+          if (visible && this.touched) {
             this.showTooltip(null, model, true);
             this.touched = false;
           }

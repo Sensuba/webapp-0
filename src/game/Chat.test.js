@@ -1,7 +1,22 @@
 import {chatMessage, sendChat} from './Chat';
 import Chatbox from './view/UI/Chatbox';
+import User from '../services/User';
+jest.mock('../services/User', () => ({isConnected:jest.fn(()=>false),getData:jest.fn()}));
 
 const fixture = () => ({props:{room:'test'},state:{waiting:false,pending:0},role:'player',socket:{connected:true,emit:jest.fn()}});
+
+test('/watch sends account proof only with the private command, never with ordinary messages', () => {
+  const game=fixture();
+  User.isConnected.mockReturnValue(true);
+  User.getData.mockReturnValue({idMember:6,token:'test-token',authorization:5,password:'not-to-be-sent'});
+  expect(sendChat(game,'/watch').ok).toBe(true);
+  expect(game.socket.emit).toHaveBeenLastCalledWith('chat','/watch',{idMember:6,token:'test-token'});
+  sendChat(game,'Bonjour');expect(game.socket.emit).toHaveBeenLastCalledWith('chat','Bonjour');
+  User.isConnected.mockReturnValue(false);
+  sendChat(game,'/watch');expect(game.socket.emit).toHaveBeenLastCalledWith('chat','/watch',null);
+  expect(chatMessage({type:'info',info:3}).text).toContain('niveau 5');
+  expect(chatMessage({type:'info',info:4}).text).toContain('deux mains');
+});
 
 test('public chat names and system messages are rendered consistently, unknown payloads ignored', () => {
   ['Vous','Adversaire','Joueur 1','Joueur 2','Spectateur'].forEach((name,from)=>

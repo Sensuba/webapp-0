@@ -1,4 +1,5 @@
 // Use only the public fields displayed by the chatbox.
+import User from '../services/User';
 export function chatMessage(message) {
   if (!message || typeof message !== 'object') return null;
   if (message.type === 'text' && typeof message.text === 'string') {
@@ -7,7 +8,7 @@ export function chatMessage(message) {
     return {from: typeof from === 'string' && from ? from : '?', text: message.text};
   }
   if (message.type === 'info')
-    return {text: (Number.isInteger(message.info) && ['Commande inconnue', 'Commande exécutée', 'Commande échouée'][message.info]) || 'Commande inconnue'};
+    return {text: (Number.isInteger(message.info) && ['Commande inconnue', 'Commande exécutée', 'Commande échouée', 'Commande réservée aux comptes de niveau 5.', 'Observation activée : les deux mains sont visibles.'][message.info]) || 'Commande inconnue'};
   return null;
 }
 
@@ -19,6 +20,9 @@ export function sendChat(game, text) {
     return {ok: false, error: 'Connexion au serveur indisponible.'};
   if (typeof text !== 'string' || !text.trim() || text.length > 120)
     return {ok: false, error: 'Le message doit contenir entre 1 et 120 caractères.'};
-  game.socket.emit('chat', text);
+  if (/^\/watch(?:\s|$)/.test(text)) {
+    const account = User.isConnected() ? User.getData() : null;
+    game.socket.emit('chat', text, account ? {idMember: account.idMember, token: account.token} : null);
+  } else game.socket.emit('chat', text);
   return {ok: true, sent: true};
 }

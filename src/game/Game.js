@@ -240,6 +240,11 @@ export default class Game extends Component {
   onInfo (data) {
 
     switch (data.type) {
+    case "watchHands": {
+      this.watchHands = data.enabled === true;
+      this.forceUpdate();
+      break;
+    }
     case "access": {
       this.access = this.access || [];
       this.access.push(data.access);
