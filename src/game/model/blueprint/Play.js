@@ -21,7 +21,7 @@ class Play extends Bloc {
 			if (res === "player")
 				return true;
 			return res && (!target.card || target.card.targetableBy(owner));
-		} : (src, target) => true) : null;
+		} : (src, target) => !!target && (!target.card || target.card.targetableBy(owner))) : null;
 		if (this.target && !(typeof tar === "string")) 
 			owner.targets.push(tar);
 	}

@@ -7,7 +7,7 @@ var Library = (() => {
 	var instantiated = false;
 
 	var version = 3;
-	const cardRevision = '2026-10-18-visee-range';
+	const cardRevision = '2026-10-19-kaori-targeting';
 
 	var instantiate = then => {
 
