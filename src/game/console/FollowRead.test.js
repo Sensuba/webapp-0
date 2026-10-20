@@ -47,7 +47,7 @@ test('read only accepts author zero and deduplicates official reprints', () => {
 
 test('read retains game rules for spells, artifacts, heroes, levels and mechas', () => {
   expect(formatCard({nameCard:'Sort',cardType:'spell',idColor:3,mana:0,description:'Piochez.',overload:2}))
-    .toBe('Sort\nSort bleu, 0 mana\nPiochez.\nSurcharge : 2');
+    .toBe('Sort\nSort bleu, 0 mana (limite 2)\nPiochez.');
   expect(formatCard({nameCard:'Objet',cardType:'artifact',idColor:4,mana:2,hp:500})).toContain('Durabilité : 500');
   const hero = {nameCard:'Héros',cardType:'hero',idColor:2,idColor2:3,atk:200,hp:6000,range:1,lv2:{atk:400,description:'Effet niveau 2.'}};
   expect(formatCard(hero)).toContain('Héros rouge et bleu\n6000 PV\n\nNv 1\n200/1');

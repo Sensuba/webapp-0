@@ -12,7 +12,7 @@ function body(card) {
   else if (card.cardType === 'artifact' && filled(card.hp)) lines.push('Durabilité : ' + card.hp);
   if (Array.isArray(card.archetypes) && card.archetypes.length) lines.push(card.archetypes.join(', '));
   if (card.description) lines.push(card.description.trim());
-  if (Number(card.overload) > 0) lines.push('Surcharge : ' + card.overload);
+  if (card.cardType !== 'spell' && Number(card.overload) > 0) lines.push('Surcharge : ' + card.overload);
   if (card.mecha && filled(card.activation)) lines.push('Activation : ' + card.activation);
   return lines;
 }
@@ -22,7 +22,8 @@ function formatSection(card, token) {
   const color = [card.idColor, card.idColor2].filter((id, i, ids) => filled(id) && (i === 0 || Number(id) !== 0) && ids.indexOf(id) === i)
     .map(id => palette[Number(id)]).filter(Boolean).join(' et ');
   const heading = (types[card.cardType] || 'Carte') + (color ? ' ' + color : '')
-    + (card.cardType !== 'hero' && filled(card.mana) ? ', ' + card.mana + ' mana' : '');
+    + (card.cardType !== 'hero' && filled(card.mana) ? ', ' + card.mana + ' mana' : '')
+    + (card.cardType === 'spell' && Number(card.overload) > 0 ? ' (limite ' + card.overload + ')' : '');
   const lines = [card.nameCard + (token ? ' (jeton)' : ''), heading];
   if (card.cardType === 'hero') {
     if (filled(card.hp)) lines.push(card.hp + ' PV');
